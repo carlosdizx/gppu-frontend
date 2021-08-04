@@ -17,3 +17,18 @@ export const REGISTRO_USUARIO = async (usuario: {
       }),
     })
   ).json();
+
+export const LOGUEAR_USUARIO = async (usuario: {
+  email: string;
+  password: string;
+}) =>
+  await (
+    await fetch(URL_SING_IN, {
+      method: "POST",
+      body: JSON.stringify({
+        email: usuario.email,
+        password: usuario.password,
+        returnSecureToken: true,
+      }),
+    })
+  ).json();

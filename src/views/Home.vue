@@ -11,14 +11,15 @@ export default Vue.extend({
 
   components: {},
   methods: {
-    ...mapActions(["registroUsuario"]),
+    ...mapActions(["registroUsuario", "loguearUsuario"]),
   },
   mounted() {
     const usuario = {
       email: "carlodiaz@umariana.edu.co",
       password: "123456789",
     };
-    this.registroUsuario(usuario);
+    //this.registroUsuario(usuario);
+    this.loguearUsuario(usuario);
   },
 });
 </script>
