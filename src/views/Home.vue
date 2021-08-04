@@ -11,7 +11,7 @@ export default Vue.extend({
 
   components: {},
   methods: {
-    ...mapActions(["registroUsuario", "loguearUsuario"]),
+    ...mapActions(["registroUsuario", "loguearUsuario", "loguearUsuarioToken"]),
   },
   mounted() {
     const usuario = {
@@ -19,7 +19,8 @@ export default Vue.extend({
       password: "123456789",
     };
     //this.registroUsuario(usuario);
-    this.loguearUsuario(usuario);
+    //this.loguearUsuario(usuario);
+    this.loguearUsuarioToken(usuario);
   },
 });
 </script>

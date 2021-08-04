@@ -1,6 +1,6 @@
 const API_KEY = "AIzaSyDO8hVE9rxb9oP38kTH4qRhqxUcHNtAi3w";
 const URL_SING_IN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
-const URL_SING_IN_TOKEN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${API_KEY}`;
+const URL_SING_IN_TOKEN = `https://securetoken.googleapis.com/v1/token?key=${API_KEY}`;
 const URL_SING_UP = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
 
 export const REGISTRO_USUARIO = async (usuario: {
@@ -29,6 +29,16 @@ export const LOGUEAR_USUARIO = async (usuario: {
         email: usuario.email,
         password: usuario.password,
         returnSecureToken: true,
+      }),
+    })
+  ).json();
+export const LOGUEAR_USUARIO_TOKEN = async (refreshToken: any) =>
+  await (
+    await fetch(URL_SING_IN_TOKEN, {
+      method: "POST",
+      body: JSON.stringify({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
       }),
     })
   ).json();
