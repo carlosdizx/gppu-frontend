@@ -13,14 +13,14 @@ export default Vue.extend({
   methods: {
     ...mapActions(["registroUsuario", "loguearUsuario", "loguearUsuarioToken"]),
   },
-  mounted() {
+  async mounted() {
     const usuario = {
       email: "carlodiaz@umariana.edu.co",
       password: "123456789",
     };
     //this.registroUsuario(usuario);
-    //this.loguearUsuario(usuario);
-    this.loguearUsuarioToken(usuario);
+    await this.loguearUsuario(usuario);
+    await this.loguearUsuarioToken(usuario);
   },
 });
 </script>

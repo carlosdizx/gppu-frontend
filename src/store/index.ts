@@ -26,9 +26,12 @@ export default new Vuex.Store({
     },
     loguearUsuarioToken: async ({ commit }) => {
       const token = JSON.parse(<string>localStorage.getItem("token"));
-      console.log(token);
-      await LOGUEAR_USUARIO_TOKEN(token.refreshToken).then((result) => {
-        localStorage.setItem("token", JSON.stringify(result));
+      console.log("Token del localStorage");
+      await console.log(token);
+      await LOGUEAR_USUARIO_TOKEN(token.refreshToken).then(async (result) => {
+        console.log("Token del firebase");
+        console.log(result);
+        await localStorage.setItem("token", JSON.stringify(result));
       });
     },
   },
