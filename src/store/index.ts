@@ -24,7 +24,7 @@ export default new Vuex.Store({
   },
   actions: {
     registrarError: async ({ commit }, error: any) => {
-      commit("asignarError");
+      commit("asignarError", error);
     },
     registroUsuario: async ({ commit }, usuario: any) => {
       await REGISTRO_USUARIO(usuario).then(async (result) => {
