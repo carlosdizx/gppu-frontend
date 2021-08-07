@@ -15,11 +15,11 @@ export default Vue.extend({
   },
   async mounted() {
     const usuario = {
-      email: "carlodiaz@umariana.edu.co",
+      email: "carlosbiche98@gmail.com",
       password: "123456789",
     };
-    //this.registroUsuario(usuario);
-    await this.loguearUsuario(usuario);
+    //await this.registroUsuario(usuario);
+    //await this.loguearUsuario(usuario);
     await this.loguearUsuarioToken(usuario);
   },
 });
