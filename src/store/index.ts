@@ -12,24 +12,31 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
+    error: null,
   },
   mutations: {
-    aseginarToken(state, payload) {
+    asignarToken(state, payload) {
       state.token = payload;
+    },
+    asignarError(state, payload) {
+      state.error = payload;
     },
   },
   actions: {
+    registrarError: async ({ commit }, error: any) => {
+      commit("asignarError");
+    },
     registroUsuario: async ({ commit }, usuario: any) => {
       await REGISTRO_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
-        commit("aseginarToken", result);
+        commit("asignarToken", result);
         localStorage.setItem("token", JSON.stringify(result));
       });
     },
     loguearUsuario: async ({ commit }, usuario: any) => {
       await LOGUEAR_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
-        commit("aseginarToken", result);
+        commit("asignarToken", result);
         localStorage.setItem("token", JSON.stringify(result));
       });
     },
@@ -41,6 +48,7 @@ export default new Vuex.Store({
           token.idToken = await result.access_token;
           token.refreshToken = await result.refresh_token;
           await localStorage.setItem("token", JSON.stringify(token));
+          commit("asignarToken", token);
         });
       } else {
         await Swal.fire(
