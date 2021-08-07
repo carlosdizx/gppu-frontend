@@ -19,8 +19,8 @@ export default Vue.extend({
       password: "123456789",
     };
     //await this.registroUsuario(usuario);
-    //await this.loguearUsuario(usuario);
-    await this.loguearUsuarioToken(usuario);
+    await this.loguearUsuario(usuario);
+    //await this.loguearUsuarioToken(usuario);
   },
 });
 </script>
