@@ -26,34 +26,42 @@ export default new Vuex.Store({
     registrarError: async ({ commit }, error: any) => {
       commit("asignarError", error);
     },
-    registroUsuario: async ({ commit }, usuario: any) => {
+    registroUsuario: async ({ commit, state }, usuario: any) => {
       await REGISTRO_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
-        commit("asignarToken", result);
-        localStorage.setItem("token", JSON.stringify(result));
+        if (state.error === null) {
+          commit("asignarToken", result);
+          localStorage.setItem("token", JSON.stringify(result));
+        }
       });
     },
-    loguearUsuario: async ({ commit }, usuario: any) => {
+    loguearUsuario: async ({ commit, state }, usuario: any) => {
       await LOGUEAR_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
-        commit("asignarToken", result);
-        localStorage.setItem("token", JSON.stringify(result));
+        if (state.error === null) {
+          commit("asignarToken", result);
+          localStorage.setItem("token", JSON.stringify(result));
+        }
       });
     },
-    loguearUsuarioToken: async ({ commit }) => {
-      const token = JSON.parse(<string>localStorage.getItem("token"));
-      if (token !== null) {
-        await LOGUEAR_USUARIO_TOKEN(token.refreshToken).then(async (result) => {
-          await CONTIENE_ERROR(result);
-          token.idToken = await result.access_token;
-          token.refreshToken = await result.refresh_token;
-          await localStorage.setItem("token", JSON.stringify(token));
-          commit("asignarToken", token);
-        });
+    loguearUsuarioToken: async ({ commit, state }) => {
+      const tokenLocal = JSON.parse(<string>localStorage.getItem("token"));
+      if (tokenLocal !== null) {
+        await LOGUEAR_USUARIO_TOKEN(tokenLocal.refreshToken).then(
+          async (result) => {
+            await CONTIENE_ERROR(result);
+            if (state.error === null) {
+              tokenLocal.idToken = await result.access_token;
+              tokenLocal.refreshToken = await result.refresh_token;
+              await localStorage.setItem("token", JSON.stringify(tokenLocal));
+              commit("asignarToken", tokenLocal);
+            }
+          }
+        );
       } else {
         await Swal.fire(
-          "Vuelve a iniciar sesion",
-          "Por motivos de seguridad vuelve a ingresar tus credenciales",
+          "",
+          "Por motivos de seguridad debes ingresar tus credenciales",
           "warning"
         );
       }
