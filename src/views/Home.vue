@@ -26,7 +26,7 @@ export default Vue.extend({
     };
     //await this.registroUsuario(usuario);
     //await this.loguearUsuario(usuario);
-    await this.loguearUsuarioToken(usuario);
+    //await this.loguearUsuarioToken(usuario);
   },
 });
 </script>

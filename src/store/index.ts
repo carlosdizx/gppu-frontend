@@ -41,6 +41,11 @@ export default new Vuex.Store({
         if (state.error === null) {
           commit("asignarToken", result);
           localStorage.setItem("token", JSON.stringify(result));
+          return await Swal.fire({
+            title: "Login exitoso",
+            icon: "success",
+            timer: 1000,
+          });
         }
       });
     },

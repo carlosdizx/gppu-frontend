@@ -5,8 +5,9 @@
         <v-img src="@/assets/GPPU.png" max-width="200" max-height="200" />
       </v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form @submit.prevent="">
           <v-text-field
+            v-model="email"
             color="indigo"
             label="Correo electronico"
             prepend-icon="mdi-account-circle"
@@ -24,7 +25,9 @@
       </v-card-text>
       <v-card-text>
         <v-form>
-          <v-btn block dark color="primary">Iniciar sesion</v-btn>
+          <v-btn @click="iniciarSesion" block dark color="primary">
+            Iniciar sesion
+          </v-btn>
           <br />
           <v-btn block dark color="success">No tengo cuenta</v-btn>
         </v-form>
@@ -34,6 +37,9 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+import { mapActions } from "vuex";
+
 export default {
   name: "InicioSesion",
   data: () => ({
@@ -41,6 +47,16 @@ export default {
     email: "",
     password: "",
   }),
+  methods: {
+    ...mapActions(["loguearUsuario", "loguearUsuarioToken"]),
+    async iniciarSesion() {
+      const usuario = {
+        email: this.email,
+        password: this.password,
+      };
+      await this.loguearUsuario(usuario);
+    },
+  },
 };
 </script>
 
