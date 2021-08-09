@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <v-alert v-if="error" dark dense color="red">
-      {{ error }}
-    </v-alert>
-  </div>
+  <v-app>
+    <InicioSesion />
+  </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapActions, mapState } from "vuex";
+import InicioSesion from "@/components/autenticacion/InicioSesion.vue";
 
 export default Vue.extend({
   name: "Home",
 
-  components: {},
+  components: { InicioSesion },
   methods: {
     ...mapActions(["registroUsuario", "loguearUsuario", "loguearUsuarioToken"]),
   },
