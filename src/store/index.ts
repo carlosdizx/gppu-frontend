@@ -7,6 +7,7 @@ import {
 } from "@/services/auth";
 import Swal from "sweetalert2";
 import { CONTIENE_ERROR } from "@/services/validaciones";
+import { REGISTRO_EMPRESA } from "@/services/recursos";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -35,6 +36,9 @@ export default new Vuex.Store({
         }
       });
     },
+    //--------------------------------------------------------------------------
+    //-------------------------------- AUTH ------------------------------------
+    //--------------------------------------------------------------------------
     loguearUsuario: async ({ commit, state }, usuario: any) => {
       await LOGUEAR_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
@@ -70,6 +74,13 @@ export default new Vuex.Store({
           "warning"
         );
       }
+    },
+    //--------------------------------------------------------------------------
+    //------------------------------ EMPRESA -----------------------------------
+    //--------------------------------------------------------------------------
+    registrarEmpresa: async ({ commit, state }, datos: any) => {
+      const token: any = JSON.parse(<string>localStorage.getItem("token"));
+      return await REGISTRO_EMPRESA(token.access_token, datos);
     },
   },
   modules: {},
