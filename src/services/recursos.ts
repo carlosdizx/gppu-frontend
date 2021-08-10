@@ -15,9 +15,12 @@ export const REGISTRO_DATOS_EMPRESA_PENDIENTE = async (datos: any) =>
 
 export const REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE = async (
   nit: any,
-  archivo: any
+  archivo: any,
+  nombre: any
 ) => {
-  const refDoc = STORAGE.ref().child(`${universidad}/${nit}/${archivo.name}`);
-  const metadata = { contentType: "img/jpeg" };
+  const refDoc = STORAGE.ref().child(
+    `${universidad}/empresas/${nit}/${nombre}`
+  );
+  const metadata = { contentType: "application/pdf" };
   return refDoc.put(archivo, metadata);
 };

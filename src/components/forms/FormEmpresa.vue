@@ -26,19 +26,19 @@
         />
         <v-file-input
           color="indigo"
-          accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+          accept="application/pdf"
           label="Archivo del documento del representante"
           v-model="archivoDocumento"
         />
         <v-file-input
           color="indigo"
-          accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+          accept="application/pdf"
           label="RUT"
           v-model="archivoRut"
         />
         <v-file-input
           color="indigo"
-          accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+          accept="application/pdf"
           label="Camara de comercio (opcional)"
           v-model="archivoCamara"
         />
@@ -131,7 +131,8 @@ export default {
 
       await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
         datos.nit,
-        this.archivoDocumento
+        this.archivoDocumento,
+        "documento_" + datos.nit
       )
         .then((result) => console.log(result))
         .catch((error) =>
@@ -142,14 +143,22 @@ export default {
           )
         );
 
-      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(datos.nit, this.archivoRut)
+      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
+        datos.nit,
+        this.archivoRut,
+        "rut_" + datos.nit
+      )
         .then((result) => console.log(result))
         .catch((error) =>
           Swal.fire("Error al subir el RUT", `${error},`, "error")
         );
 
       if (this.archivoCamara !== null) {
-        await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(datos.nit, this.archivoCamara)
+        await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
+          datos.nit,
+          this.archivoCamara,
+          "camara_comercio_" + datos.nit
+        )
           .then((result) => console.log(result))
           .catch((error) =>
             Swal.fire(
