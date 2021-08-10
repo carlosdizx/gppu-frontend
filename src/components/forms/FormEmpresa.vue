@@ -92,6 +92,8 @@
 <script>
 import { STORAGE } from "@/main";
 import { mapActions } from "vuex";
+import { REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE } from "@/services/recursos";
+import Swal from "sweetalert2";
 const ref = STORAGE.ref();
 export default {
   name: "FormEmpresa",
@@ -110,10 +112,7 @@ export default {
     archivoCamara: null,
   }),
   methods: {
-    ...mapActions([
-      "registrarDatosEmpresaPendiente",
-      "registrarArchivosEmpresaPendiente",
-    ]),
+    ...mapActions(["registrarDatosEmpresaPendiente", ""]),
     async registrar() {
       const datos = {
         nit: this.nit,
@@ -130,17 +129,27 @@ export default {
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
 
-      await this.registrarArchivosEmpresaPendiente(this.archivoDocumento)
+      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
+        datos.nit,
+        this.archivoDocumento
+      )
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
-      await this.registrarArchivosEmpresaPendiente(this.archivoRut)
+
+      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(datos.nit, this.archivoRut)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
+
       if (this.archivoCamara !== null) {
-        await this.registrarArchivosEmpresaPendiente(this.archivoCamara)
+        await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(datos.nit, this.archivoCamara)
           .then((result) => console.log(result))
           .catch((error) => console.log(error));
       }
+      await Swal.fire({
+        title: "Registro exitoso",
+        icon: "success",
+        timer: 2500,
+      });
     },
   },
 };

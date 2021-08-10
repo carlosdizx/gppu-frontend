@@ -84,9 +84,6 @@ export default new Vuex.Store({
     registrarDatosEmpresaPendiente: async ({ commit }, datos: any) => {
       return await REGISTRO_DATOS_EMPRESA_PENDIENTE(datos);
     },
-    registrarArchivosEmpresaPendiente: async ({ commit }, archivo: any) => {
-      return await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(archivo);
-    },
   },
   modules: {},
 });
