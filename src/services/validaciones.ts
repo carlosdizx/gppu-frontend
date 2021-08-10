@@ -43,8 +43,8 @@ export const CONTIENE_ERROR = async (result: any) => {
         "warning"
       );
       await store.dispatch("registrarError", "Sesion expirada");
-    } else {
-      await store.dispatch("registrarError", null);
     }
+  } else {
+    await store.dispatch("registrarError", null);
   }
 };

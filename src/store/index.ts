@@ -36,7 +36,7 @@ export default new Vuex.Store({
     loguearUsuario: async ({ commit, state }, usuario: any) => {
       await LOGUEAR_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
-        if (!result.error) {
+        if (state.error === null) {
           commit("asignarToken", result);
           localStorage.setItem("token", JSON.stringify(result));
           return await Swal.fire({
@@ -53,7 +53,7 @@ export default new Vuex.Store({
         await LOGUEAR_USUARIO_TOKEN(tokenLocal.refreshToken).then(
           async (result) => {
             await CONTIENE_ERROR(result);
-            if (!result.error) {
+            if (state.error === null) {
               tokenLocal.idToken = await result.access_token;
               tokenLocal.refreshToken = await result.refresh_token;
               await localStorage.setItem("token", JSON.stringify(tokenLocal));
