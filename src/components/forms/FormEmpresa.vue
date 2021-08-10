@@ -99,7 +99,15 @@ export default {
     departamento: "",
     ciudad: "",
     codigo: null,
+    archivoDocumento: null,
+    archivoRut: null,
+    archivoCamara: null,
   }),
+  methods: {
+    cargarImagen(e) {
+      console.log(e.target.files[0]);
+    },
+  },
 };
 </script>
 

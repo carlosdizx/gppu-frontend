@@ -8,6 +8,7 @@ import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 
 import firebase from "firebase/app";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDO8hVE9rxb9oP38kTH4qRhqxUcHNtAi3w",
@@ -21,7 +22,6 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 Vue.config.productionTip = false;
 
