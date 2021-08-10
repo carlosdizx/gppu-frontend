@@ -5,9 +5,9 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: "/registro",
+    name: "Registro",
+    component: () => import("../views/Registro.vue"),
   },
   {
     path: "/",

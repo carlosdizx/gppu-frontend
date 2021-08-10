@@ -1,5 +1,5 @@
 <template>
-  <Toolbar titulo="Formularios de registro" icono="mdi-home" />
+  <Toolbar titulo="Formularios de registro" icono="mdi-account-multiple-plus" />
 </template>
 
 <script lang="ts">
