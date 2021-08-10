@@ -181,13 +181,7 @@
           <v-alert block dense dark color="red" v-show="invalid">
             Complete todos los campos
           </v-alert>
-          <v-btn
-            @click="registrar"
-            color="success"
-            block
-            type="submit"
-            :disabled="invalid"
-          >
+          <v-btn @click="registrar" color="success" block :disabled="invalid">
             Registrar
           </v-btn>
         </v-form>
@@ -300,26 +294,26 @@ export default {
           Swal.fire("Error al subir el RUT", `${error},`, "error")
         );
 
-      if (this.archivoCamara !== null) {
-        await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
-          datos.nit,
-          this.archivoCamara,
-          "camara_comercio_" + datos.nit
-        )
-          .then((result) => console.log(result))
-          .catch((error) =>
-            Swal.fire(
-              "Error al subir la Camara de Comercio",
-              `${error},`,
-              "error"
-            )
-          );
-      }
-      await Swal.fire({
-        title: "Registro exitoso",
-        icon: "success",
-        timer: 2500,
-      });
+      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
+        datos.nit,
+        this.archivoCamara,
+        "camara_comercio_" + datos.nit
+      )
+        .then((result) => console.log(result))
+        .catch((error) =>
+          Swal.fire(
+            "Error al subir la Camara de Comercio",
+            `${error},`,
+            "error"
+          )
+        );
+      await Swal.fire(
+        "Registro exitoso",
+        "Sus datos y documentos fueron subidos en plataforma <br>" +
+          "En las proximas 48 horas puede recibir una llamada de el/la" +
+          " coordinador@ de practicas para continuar con su proceso de vinculacion",
+        "success"
+      );
     },
   },
 };
