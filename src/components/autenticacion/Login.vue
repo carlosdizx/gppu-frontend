@@ -70,7 +70,6 @@ import {
   setInteractionMode,
 } from "vee-validate";
 import { mapActions } from "vuex";
-import Swal from "sweetalert2";
 
 setInteractionMode("eager");
 
