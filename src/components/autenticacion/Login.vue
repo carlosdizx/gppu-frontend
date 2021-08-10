@@ -41,7 +41,7 @@ import Swal from "sweetalert2";
 import { mapActions } from "vuex";
 
 export default {
-  name: "InicioSesion",
+  name: "Login",
   data: () => ({
     mostrarPassword: false,
     email: "",
