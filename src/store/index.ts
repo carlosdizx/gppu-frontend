@@ -58,14 +58,15 @@ export default new Vuex.Store({
               tokenLocal.refreshToken = await result.refresh_token;
               await localStorage.setItem("token", JSON.stringify(tokenLocal));
               commit("asignarToken", tokenLocal);
+              await Swal.fire({
+                title: "Cargando sesion",
+                html: "No es necesario que vuelvas a ingresar tus credenciales",
+                icon: "info",
+                timer: 1900,
+                showConfirmButton: false,
+              });
             }
           }
-        );
-      } else {
-        await Swal.fire(
-          "",
-          "Por motivos de seguridad debes ingresar tus credenciales",
-          "warning"
         );
       }
     },

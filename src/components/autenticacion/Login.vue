@@ -123,6 +123,9 @@ export default {
       await this.loguearUsuario(usuario);
     },
   },
+  async mounted() {
+    await this.loguearUsuarioToken();
+  },
 };
 </script>
 
