@@ -97,7 +97,7 @@ export default {
   name: "FormEmpresa",
   data: () => ({
     nit: "87570236",
-    nombre: "87570236",
+    nombre: "Arena Center",
     documento: "1082749257",
     celular: 3163930876,
     correo: "carlodiaz@arenacenter.com",
@@ -123,7 +123,10 @@ export default {
         ciudad: this.ciudad,
         codigo: this.codigo,
       };
-      await this.registrarEmpresa(datos);
+      console.log(datos);
+      await this.registrarEmpresa(datos)
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error));
     },
   },
 };
