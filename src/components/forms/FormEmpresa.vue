@@ -6,13 +6,20 @@
     </v-card-subtitle>
     <v-card-text>
       <v-form autocomplete="off">
-        <v-text-field color="indigo" label="NIT" prepend-icon="mdi-domain" />
         <v-text-field
+          v-model="nit"
+          color="indigo"
+          label="NIT"
+          prepend-icon="mdi-domain"
+        />
+        <v-text-field
+          v-model="nombre"
           color="indigo"
           label="Nombre"
           prepend-icon="mdi-rename-box"
         />
         <v-text-field
+          v-model="documento"
           color="indigo"
           label="Numero de documento del representante"
           prepend-icon="mdi-card-account-details"
@@ -33,25 +40,39 @@
           label="Camara de comercio (opcional)"
         />
         <v-text-field
+          v-model="celular"
           color="indigo"
           label="Numero de celular"
           type="number"
           prepend-icon="mdi-card-account-details"
         />
         <v-text-field
+          v-model="correo"
           color="indigo"
           label="Correo electronico"
           prepend-icon="mdi-email"
         />
         <v-divider />
-        <v-text-field color="indigo" label="Pais" prepend-icon="mdi-earth" />
         <v-text-field
+          v-model="pais"
+          color="indigo"
+          label="Pais"
+          prepend-icon="mdi-earth"
+        />
+        <v-text-field
+          v-model="departamento"
           color="indigo"
           label="Departamento/estado/provincia"
           prepend-icon="mdi-sign-real-estate"
         />
-        <v-text-field color="indigo" label="Ciudad" prepend-icon="mdi-city" />
         <v-text-field
+          v-model="ciudad"
+          color="indigo"
+          label="Ciudad"
+          prepend-icon="mdi-city"
+        />
+        <v-text-field
+          v-model="codigo"
           type="number"
           color="indigo"
           label="Codigo postal"
@@ -59,12 +80,26 @@
         />
       </v-form>
     </v-card-text>
+    <v-card-actions>
+      <v-btn color="success" block dark>Registrar</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
   name: "FormEmpresa",
+  data: () => ({
+    nit: "",
+    nombre: "",
+    documento: "",
+    celular: null,
+    correo: "",
+    pais: "",
+    departamento: "",
+    ciudad: "",
+    codigo: null,
+  }),
 };
 </script>
 
