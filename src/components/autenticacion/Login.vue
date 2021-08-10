@@ -5,7 +5,7 @@
         <v-img src="@/assets/GPPU.png" max-width="200" max-height="200" />
       </v-card-title>
       <v-card-text>
-        <v-form @submit.prevent="">
+        <v-form @submit.prevent="iniciarSesion">
           <v-text-field
             v-model="email"
             color="indigo"
@@ -25,7 +25,14 @@
       </v-card-text>
       <v-card-text>
         <v-form>
-          <v-btn @click="iniciarSesion" block dark color="primary">
+          <v-btn
+            @click="iniciarSesion"
+            block
+            dark
+            color="primary"
+            type="submit"
+            :disabled="bloquear"
+          >
             Iniciar sesion
           </v-btn>
           <br />
@@ -41,7 +48,6 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
 import { mapActions } from "vuex";
 
 export default {
@@ -51,6 +57,11 @@ export default {
     email: "",
     password: "",
   }),
+  computed: {
+    bloquear() {
+      return this.email.trim() === "" || this.password.trim() === "";
+    },
+  },
   methods: {
     ...mapActions(["loguearUsuario", "loguearUsuarioToken"]),
     async iniciarSesion() {
