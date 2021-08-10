@@ -28,16 +28,19 @@
           color="indigo"
           accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
           label="Archivo del documento del representante"
+          v-model="archivoDocumento"
         />
         <v-file-input
           color="indigo"
           accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
           label="RUT"
+          v-model="archivoRut"
         />
         <v-file-input
           color="indigo"
           accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
           label="Camara de comercio (opcional)"
+          v-model="archivoCamara"
         />
         <v-text-field
           v-model="celular"
@@ -87,6 +90,8 @@
 </template>
 
 <script>
+import { STORAGE } from "@/main";
+const ref = STORAGE.ref();
 export default {
   name: "FormEmpresa",
   data: () => ({
@@ -104,8 +109,15 @@ export default {
     archivoCamara: null,
   }),
   methods: {
-    cargarImagen(e) {
-      console.log(e.target.files[0]);
+    subirArchivos() {
+      const refDocs = ref.child("documentos/" + this.archivoDocumento.name);
+      const metadata = {
+        contentType:
+          "image/jpeg,image/gif,image/png,application/pdf,image/x-eps",
+      };
+      refDocs
+        .put(this.archivoDocumento, metadata)
+        .then((result) => console.log(result));
     },
   },
 };

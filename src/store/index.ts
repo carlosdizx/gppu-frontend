@@ -11,6 +11,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    universidad: "UNIVERSIDAD_MARIANA",
+    clave: "umariana",
     token: null,
     error: null,
   },
