@@ -134,16 +134,30 @@ export default {
         this.archivoDocumento
       )
         .then((result) => console.log(result))
-        .catch((error) => console.log(error));
+        .catch((error) =>
+          Swal.fire(
+            "Error al subir el documento del representante",
+            `${error},`,
+            "error"
+          )
+        );
 
       await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(datos.nit, this.archivoRut)
         .then((result) => console.log(result))
-        .catch((error) => console.log(error));
+        .catch((error) =>
+          Swal.fire("Error al subir el RUT", `${error},`, "error")
+        );
 
       if (this.archivoCamara !== null) {
         await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(datos.nit, this.archivoCamara)
           .then((result) => console.log(result))
-          .catch((error) => console.log(error));
+          .catch((error) =>
+            Swal.fire(
+              "Error al subir la Camara de Comercio",
+              `${error},`,
+              "error"
+            )
+          );
       }
       await Swal.fire({
         title: "Registro exitoso",

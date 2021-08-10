@@ -30,22 +30,13 @@ export default new Vuex.Store({
     registrarError: async ({ commit }, error: any) => {
       commit("asignarError", error);
     },
-    registroUsuario: async ({ commit, state }, usuario: any) => {
-      await REGISTRO_USUARIO(usuario).then(async (result) => {
-        await CONTIENE_ERROR(result);
-        if (state.error === null) {
-          commit("asignarToken", result);
-          localStorage.setItem("token", JSON.stringify(result));
-        }
-      });
-    },
     //--------------------------------------------------------------------------
     //-------------------------------- AUTH ------------------------------------
     //--------------------------------------------------------------------------
     loguearUsuario: async ({ commit, state }, usuario: any) => {
       await LOGUEAR_USUARIO(usuario).then(async (result) => {
         await CONTIENE_ERROR(result);
-        if (state.error === null) {
+        if (!result.error) {
           commit("asignarToken", result);
           localStorage.setItem("token", JSON.stringify(result));
           return await Swal.fire({
@@ -62,7 +53,7 @@ export default new Vuex.Store({
         await LOGUEAR_USUARIO_TOKEN(tokenLocal.refreshToken).then(
           async (result) => {
             await CONTIENE_ERROR(result);
-            if (state.error === null) {
+            if (!result.error) {
               tokenLocal.idToken = await result.access_token;
               tokenLocal.refreshToken = await result.refresh_token;
               await localStorage.setItem("token", JSON.stringify(tokenLocal));

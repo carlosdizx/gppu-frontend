@@ -29,7 +29,11 @@
             Iniciar sesion
           </v-btn>
           <br />
-          <v-btn block dark color="success">No tengo cuenta</v-btn>
+          <router-link to="registro" v-slot="{ navigate }" custom>
+            <v-btn @click="navigate" block dark color="success" role="link">
+              No tengo cuenta
+            </v-btn>
+          </router-link>
         </v-form>
       </v-card-text>
     </v-card>
