@@ -81,7 +81,7 @@
           >
             <v-file-input
               color="indigo"
-              accept="application/pdf"
+              accept="application/"
               label="Camara de comercio"
               v-model="archivoCamara"
               :error-messages="errors"
@@ -255,6 +255,27 @@ export default {
   methods: {
     ...mapActions(["registrarDatosEmpresaPendiente", ""]),
     async registrar() {
+      if (this.archivoDocumento.type !== "application/pdf") {
+        return Swal.fire(
+          "El documento del representante errado",
+          "No tiene el formato correcto",
+          "error"
+        );
+      }
+      if (this.archivoRut.type !== "application/pdf") {
+        return Swal.fire(
+          "El documento RUT errado",
+          "No tiene el formato correcto",
+          "error"
+        );
+      }
+      if (this.archivoCamara.type !== "application/pdf") {
+        return Swal.fire(
+          "El documento de Camara de comercio errado",
+          "No tiene el formato correcto",
+          "error"
+        );
+      }
       const datos = {
         nit: this.nit,
         nombre: this.nombre,

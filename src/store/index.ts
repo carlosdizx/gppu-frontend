@@ -1,16 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {
-  LOGUEAR_USUARIO,
-  LOGUEAR_USUARIO_TOKEN,
-  REGISTRO_USUARIO,
-} from "@/services/auth";
+import { LOGUEAR_USUARIO, LOGUEAR_USUARIO_TOKEN } from "@/services/auth";
 import Swal from "sweetalert2";
 import { CONTIENE_ERROR } from "@/services/validaciones";
-import {
-  REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE,
-  REGISTRO_DATOS_EMPRESA_PENDIENTE,
-} from "@/services/recursos";
+import { REGISTRO_DATOS_EMPRESA_PENDIENTE } from "@/services/recursos";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
