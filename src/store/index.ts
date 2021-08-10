@@ -80,7 +80,8 @@ export default new Vuex.Store({
     //--------------------------------------------------------------------------
     registrarEmpresa: async ({ commit, state }, datos: any) => {
       const token: any = JSON.parse(<string>localStorage.getItem("token"));
-      return await REGISTRO_EMPRESA(token.access_token, datos);
+      console.log(token);
+      return await REGISTRO_EMPRESA(token, datos);
     },
   },
   modules: {},

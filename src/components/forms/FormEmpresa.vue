@@ -84,40 +84,46 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="success" block dark>Registrar</v-btn>
+      <v-btn @click="registrar" color="success" block dark>Registrar</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import { STORAGE } from "@/main";
+import { mapActions } from "vuex";
 const ref = STORAGE.ref();
 export default {
   name: "FormEmpresa",
   data: () => ({
-    nit: "",
-    nombre: "",
-    documento: "",
-    celular: null,
-    correo: "",
-    pais: "",
-    departamento: "",
-    ciudad: "",
-    codigo: null,
+    nit: "87570236",
+    nombre: "87570236",
+    documento: "1082749257",
+    celular: 3163930876,
+    correo: "carlodiaz@arenacenter.com",
+    pais: "Colombia",
+    departamento: "Nariño",
+    ciudad: "Pasto",
+    codigo: 520002,
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
   }),
   methods: {
-    subirArchivos() {
-      const refDocs = ref.child("documentos/" + this.archivoDocumento.name);
-      const metadata = {
-        contentType:
-          "image/jpeg,image/gif,image/png,application/pdf,image/x-eps",
+    ...mapActions(["registrarEmpresa"]),
+    async registrar() {
+      const datos = {
+        nit: this.nit,
+        nombre: this.nombre,
+        documento: this.documento,
+        celular: this.celular,
+        correo: this.correo,
+        pais: this.pais,
+        departamento: this.departamento,
+        ciudad: this.ciudad,
+        codigo: this.codigo,
       };
-      refDocs
-        .put(this.archivoDocumento, metadata)
-        .then((result) => console.log(result));
+      await this.registrarEmpresa(datos);
     },
   },
 };
