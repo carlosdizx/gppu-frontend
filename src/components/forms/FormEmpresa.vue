@@ -110,7 +110,10 @@ export default {
     archivoCamara: null,
   }),
   methods: {
-    ...mapActions(["registrarEmpresa"]),
+    ...mapActions([
+      "registrarDatosEmpresaPendiente",
+      "registrarArchivosEmpresaPendiente",
+    ]),
     async registrar() {
       const datos = {
         nit: this.nit,
@@ -123,10 +126,21 @@ export default {
         ciudad: this.ciudad,
         codigo: this.codigo,
       };
-      console.log(datos);
-      await this.registrarEmpresa(datos)
+      await this.registrarDatosEmpresaPendiente(datos)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
+
+      await this.registrarArchivosEmpresaPendiente(this.archivoDocumento)
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error));
+      await this.registrarArchivosEmpresaPendiente(this.archivoRut)
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error));
+      if (this.archivoCamara !== null) {
+        await this.registrarArchivosEmpresaPendiente(this.archivoCamara)
+          .then((result) => console.log(result))
+          .catch((error) => console.log(error));
+      }
     },
   },
 };

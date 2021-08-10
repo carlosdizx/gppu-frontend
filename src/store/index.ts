@@ -7,7 +7,10 @@ import {
 } from "@/services/auth";
 import Swal from "sweetalert2";
 import { CONTIENE_ERROR } from "@/services/validaciones";
-import { REGISTRO_EMPRESA } from "@/services/recursos";
+import {
+  REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE,
+  REGISTRO_DATOS_EMPRESA_PENDIENTE,
+} from "@/services/recursos";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -78,10 +81,11 @@ export default new Vuex.Store({
     //--------------------------------------------------------------------------
     //------------------------------ EMPRESA -----------------------------------
     //--------------------------------------------------------------------------
-    registrarEmpresa: async ({ commit, state }, datos: any) => {
-      const token: any = JSON.parse(<string>localStorage.getItem("token"));
-      console.log(token);
-      return await REGISTRO_EMPRESA(token, datos);
+    registrarDatosEmpresaPendiente: async ({ commit }, datos: any) => {
+      return await REGISTRO_DATOS_EMPRESA_PENDIENTE(datos);
+    },
+    registrarArchivosEmpresaPendiente: async ({ commit }, archivo: any) => {
+      return await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(archivo);
     },
   },
   modules: {},
