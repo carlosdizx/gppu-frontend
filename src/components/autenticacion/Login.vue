@@ -1,67 +1,118 @@
 <template>
-  <v-app>
-    <v-card class="mx-auto my-auto">
-      <v-card-title class="mx-auto my-auto">
-        <v-img src="@/assets/GPPU.png" max-width="200" max-height="200" />
-      </v-card-title>
-      <v-card-text>
-        <v-form @submit.prevent="iniciarSesion">
-          <v-text-field
-            v-model="email"
-            color="indigo"
-            label="Correo electronico"
-            prepend-icon="mdi-account-circle"
-          />
-          <v-text-field
-            v-model="password"
-            color="indigo"
-            :type="mostrarPassword ? 'text' : 'password'"
-            label="Contraseña"
-            prepend-icon="mdi-lock"
-            :append-icon="mostrarPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="mostrarPassword = !mostrarPassword"
-          />
-        </v-form>
-      </v-card-text>
-      <v-card-text>
-        <v-form>
+  <validation-observer ref="observer" v-slot="{ invalid }">
+    <v-app>
+      <v-card class="mx-auto my-auto">
+        <v-card-title class="mx-auto my-auto">
+          <v-img src="@/assets/GPPU.png" max-width="200" max-height="200" />
+        </v-card-title>
+        <v-card-text>
+          <v-form @submit.prevent="iniciarSesion">
+            <validation-provider
+              v-slot="{ errors }"
+              name="email"
+              rules="required|email"
+            >
+              <v-text-field
+                v-model="email"
+                :error-messages="errors"
+                color="indigo"
+                label="Correo electronico"
+                prepend-icon="mdi-account-circle"
+                @keypress.enter="iniciarSesion"
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Contraseña"
+              rules="required|min:8|max:60"
+            >
+              <v-text-field
+                v-model="password"
+                color="indigo"
+                :type="mostrarPassword ? 'text' : 'password'"
+                label="Contraseña"
+                prepend-icon="mdi-lock"
+                :append-icon="mostrarPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="mostrarPassword = !mostrarPassword"
+                @keypress.enter="iniciarSesion"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+          </v-form>
           <v-btn
             @click="iniciarSesion"
             block
-            dark
-            color="primary"
+            color="info"
             type="submit"
-            :disabled="bloquear"
+            :disabled="invalid"
           >
             Iniciar sesion
           </v-btn>
           <br />
           <router-link to="registro" v-slot="{ navigate }" custom>
-            <v-btn @click="navigate" block dark color="success" role="link">
+            <v-btn @click="navigate" block color="success" role="link">
               No tengo cuenta
             </v-btn>
           </router-link>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </v-app>
+        </v-card-text>
+      </v-card>
+    </v-app>
+  </validation-observer>
 </template>
 
 <script>
+import { required, digits, email, max, min } from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationObserver,
+  ValidationProvider,
+  setInteractionMode,
+} from "vee-validate";
 import { mapActions } from "vuex";
+import Swal from "sweetalert2";
+
+setInteractionMode("eager");
+
+{
+  extend("digits", {
+    ...digits,
+    message: "{_field_} Se necesita {length} digitos. ({_value_})",
+  });
+
+  extend("required", {
+    ...required,
+    message: "{_field_} no puede estar vacio",
+  });
+
+  extend("max", {
+    ...max,
+    message: "{_field_} {length} maximo de caracteres",
+  });
+
+  extend("min", {
+    ...min,
+    message: "{_field_} Ingrese mas caracteres ",
+  });
+
+  extend("email", {
+    ...email,
+    message: "Correo con formato incorrecto",
+  });
+}
 
 export default {
   name: "Login",
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+  },
   data: () => ({
     mostrarPassword: false,
     email: "",
     password: "",
   }),
-  computed: {
-    bloquear() {
-      return this.email.trim() === "" || this.password.trim() === "";
-    },
-  },
+  computed: {},
   methods: {
     ...mapActions(["loguearUsuario", "loguearUsuarioToken"]),
     async iniciarSesion() {
