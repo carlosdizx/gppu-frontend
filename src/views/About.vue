@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-card>
+    <ToolbarRegistro />
+  </v-card>
 </template>
+
+<script>
+import ToolbarRegistro from "@/components/toolbars/ToolbarRegistro.vue";
+export default {
+  name: "Registro",
+  components: { ToolbarRegistro },
+};
+</script>

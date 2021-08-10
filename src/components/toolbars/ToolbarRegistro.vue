@@ -1,12 +1,12 @@
 <template>
-  <v-toolbar color="orange" flat prominent>
-    <v-toolbar-title>Formularios de registro</v-toolbar-title>
-  </v-toolbar>
+  <Toolbar titulo="Formularios de registro" icono="mdi-home" />
 </template>
 
-<script>
+<script lang="ts">
+import Toolbar from "@/components/general/Toolbar.vue";
 export default {
   name: "ToolbarRegistro",
+  components: { Toolbar },
 };
 </script>
 
