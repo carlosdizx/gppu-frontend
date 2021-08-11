@@ -3,7 +3,8 @@
     <v-card max-width="800" class="mx-auto my-auto">
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
-        Tenga preparado los documentos y datos necesarios
+        Tenga preparado los documentos y datos necesarios, solo se aceptan
+        archivos en formato PDF
       </v-card-subtitle>
       <v-card-text>
         <v-form autocomplete="off">
@@ -58,6 +59,7 @@
               accept="application/pdf"
               label="Archivo del documento del representante"
               v-model="archivoDocumento"
+              append-icon="mdi-pdf-box"
               :error-messages="errors"
             />
           </validation-provider>
@@ -71,6 +73,7 @@
               accept="application/pdf"
               label="RUT"
               v-model="archivoRut"
+              append-icon="mdi-pdf-box"
               :error-messages="errors"
             />
           </validation-provider>
@@ -81,9 +84,10 @@
           >
             <v-file-input
               color="indigo"
-              accept="application/"
+              accept="application/pdf"
               label="Camara de comercio"
               v-model="archivoCamara"
+              append-icon="mdi-pdf-box"
               :error-messages="errors"
             />
           </validation-provider>
@@ -258,21 +262,21 @@ export default {
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
           "El documento del representante errado",
-          "No tiene el formato correcto",
+          "Solo seleccionar archivos pdf",
           "error"
         );
       }
       if (this.archivoRut.type !== "application/pdf") {
         return Swal.fire(
           "El documento RUT errado",
-          "No tiene el formato correcto",
+          "Solo seleccionar archivos pdf",
           "error"
         );
       }
       if (this.archivoCamara.type !== "application/pdf") {
         return Swal.fire(
           "El documento de Camara de comercio errado",
-          "No tiene el formato correcto",
+          "Solo seleccionar archivos pdf",
           "error"
         );
       }
