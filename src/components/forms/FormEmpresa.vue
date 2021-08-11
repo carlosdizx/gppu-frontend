@@ -7,7 +7,7 @@
         archivos en formato PDF
       </v-card-subtitle>
       <v-card-text>
-        <v-form autocomplete="off">
+        <v-form autocomplete="off" :disabled="carga">
           <validation-provider
             v-slot="{ errors }"
             name="Nit"
@@ -185,9 +185,27 @@
           <v-alert block dense dark color="red" v-show="invalid">
             Complete todos los campos
           </v-alert>
-          <v-btn @click="registrar" color="success" block :disabled="invalid">
-            Registrar
-          </v-btn>
+          <div class="text-center">
+            <v-btn
+              :disabled="carga"
+              :loading="carga"
+              class="white--text"
+              color="success darken-2"
+              @click="registrar"
+              block
+            >
+              Registrar
+            </v-btn>
+            <v-dialog v-model="carga" hide-overlay persistent width="300">
+              <v-card color="primary" dark>
+                <v-card-text>
+                  Espere un momento
+                  <v-progress-linear indeterminate color="white" class="mb-0">
+                  </v-progress-linear>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
+          </div>
         </v-form>
       </v-card-text>
     </v-card>
@@ -255,6 +273,7 @@ export default {
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
+    carga: false,
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresaPendiente", ""]),
@@ -291,6 +310,7 @@ export default {
         ciudad: this.ciudad,
         codigo: this.codigo,
       };
+      this.carga = true;
       await this.registrarDatosEmpresaPendiente(datos)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
@@ -339,6 +359,7 @@ export default {
           " coordinador@ de practicas para continuar con su proceso de vinculacion",
         "success"
       );
+      this.carga = false;
     },
   },
 };
