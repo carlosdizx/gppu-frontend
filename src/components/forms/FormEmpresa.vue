@@ -15,7 +15,6 @@
           >
             <v-text-field
               v-model="nit"
-              color="indigo"
               label="NIT"
               prepend-icon="mdi-domain"
               :error-messages="errors"
@@ -29,7 +28,6 @@
           >
             <v-text-field
               v-model="nombre"
-              color="indigo"
               label="Nombre de la empresa"
               prepend-icon="mdi-rename-box"
               :error-messages="errors"
@@ -42,7 +40,6 @@
           >
             <v-text-field
               v-model="documento"
-              color="indigo"
               label="Numero de documento del representante"
               prepend-icon="mdi-card-account-details"
               :error-messages="errors"
@@ -55,7 +52,6 @@
             rules="required"
           >
             <v-file-input
-              color="indigo"
               accept="application/pdf"
               label="Archivo del documento del representante"
               v-model="archivoDocumento"
@@ -69,7 +65,6 @@
             rules="required"
           >
             <v-file-input
-              color="indigo"
               accept="application/pdf"
               label="RUT"
               v-model="archivoRut"
@@ -83,7 +78,6 @@
             rules="required"
           >
             <v-file-input
-              color="indigo"
               accept="application/pdf"
               label="Camara de comercio"
               v-model="archivoCamara"
@@ -98,7 +92,6 @@
           >
             <v-text-field
               v-model="celular"
-              color="indigo"
               label="Numero de celular"
               type="number"
               prepend-icon="mdi-card-account-details"
@@ -113,7 +106,6 @@
           >
             <v-text-field
               v-model="correo"
-              color="indigo"
               label="Correo electronico"
               prepend-icon="mdi-email"
               :error-messages="errors"
@@ -128,7 +120,6 @@
           >
             <v-text-field
               v-model="pais"
-              color="indigo"
               label="Pais"
               prepend-icon="mdi-earth"
               :error-messages="errors"
@@ -142,7 +133,6 @@
           >
             <v-text-field
               v-model="departamento"
-              color="indigo"
               label="Departamento/estado/provincia"
               prepend-icon="mdi-sign-real-estate"
               :error-messages="errors"
@@ -156,7 +146,6 @@
           >
             <v-text-field
               v-model="ciudad"
-              color="indigo"
               label="Ciudad"
               prepend-icon="mdi-city"
               :error-messages="errors"
@@ -171,7 +160,6 @@
             <v-text-field
               v-model="codigo"
               type="number"
-              color="indigo"
               label="Codigo postal"
               prepend-icon="mdi-postage-stamp"
               :error-messages="errors"
@@ -187,7 +175,7 @@
           </v-alert>
           <div class="text-center">
             <v-btn
-              :disabled="carga"
+              :disabled="invalid || carga"
               :loading="carga"
               class="white--text"
               color="success darken-2"
