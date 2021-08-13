@@ -6,18 +6,24 @@
       :tabs="tabs"
       @indice="indice = $event"
     />
-    <FormEmpresa v-if="indice === 1" :indice="1" />
+    <FormEmpresa v-if="indice === 1" />
+    <FormEstudiante v-if="indice === 2" />
   </div>
 </template>
 
 <script lang="ts">
 import Toolbar from "@/components/general/Toolbar.vue";
 import FormEmpresa from "@/components/forms/FormEmpresa.vue";
+import FormEstudiante from "@/components/forms/FormEstudiante.vue";
 export default {
   name: "ToolbarRegistro",
-  components: { Toolbar, FormEmpresa },
+  components: { Toolbar, FormEmpresa, FormEstudiante },
   data: () => ({
-    tabs: ["mdi-domain", "mdi-lock"],
+    tabs: [
+      "mdi-office-building-marker-outline",
+      "mdi-account-details",
+      "mdi-school",
+    ],
     indice: 1,
   }),
   methods: {},
