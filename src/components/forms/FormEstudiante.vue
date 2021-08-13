@@ -8,6 +8,22 @@
     <v-card-text>
       <v-form autocomplete="off" :disabled="carga">
         <v-text-field label="Nombres completas" prepend-icon="mdi-account" />
+        <v-text-field label="Correo electronico" prepend-icon="mdi-email" />
+        <v-row>
+          <v-col cols="6">
+            <v-select
+              label="Tipo de documentos"
+              :items="tiposDoc"
+              prepend-icon="mdi-format-list-bulleted-type"
+            />
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              append-icon="mdi-card-account-details"
+              label="Numero de documento"
+            />
+          </v-col>
+        </v-row>
       </v-form>
     </v-card-text>
   </v-card>
@@ -18,6 +34,7 @@ export default {
   name: "FormEstudiante",
   data: () => ({
     carga: false,
+    tiposDoc: ["Cedula de ciudadania", "Tarjeta de identidad", "Otro"],
   }),
   methods: {},
 };
