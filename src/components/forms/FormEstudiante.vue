@@ -24,14 +24,17 @@
             />
           </v-col>
         </v-row>
+        <Calendario />
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script lang="ts">
+import Calendario from "../general/Calendario.vue";
 export default {
   name: "FormEstudiante",
+  components: { Calendario },
   data: () => ({
     carga: false,
     tiposDoc: ["Cedula de ciudadania", "Tarjeta de identidad", "Otro"],
