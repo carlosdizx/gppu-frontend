@@ -3,7 +3,6 @@
     <v-toolbar dark color="cyan darken-4" flat>
       <v-toolbar-title>{{ titulo }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      {{ indice }}
       <v-icon>{{ icono }}</v-icon>
     </v-toolbar>
     <v-tabs background-color="cyan darken-4" center-active dark>

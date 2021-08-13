@@ -7,6 +7,7 @@
     </v-card-subtitle>
     <v-card-text>
       <v-form autocomplete="off" :disabled="carga">
+        <v-alert dense color="secondary" dark>Datos personales</v-alert>
         <v-text-field label="Nombres completas" prepend-icon="mdi-account" />
         <v-row>
           <v-col cols="6">
@@ -39,7 +40,6 @@
           prepend-icon="mdi-gender-male-female"
         />
         <v-text-field label="EPS" prepend-icon="mdi-hospital-building" />
-        <v-divider />
         <v-text-field label="Pais" prepend-icon="mdi-earth" />
         <v-text-field
           label="Departamento/Estado/Provincia"
@@ -54,7 +54,7 @@
           prepend-icon="mdi-map-legend"
         />
         <v-text-field label="Telefono" prepend-icon="mdi-phone" type="number" />
-        <v-divider />
+        <v-alert dense color="secondary" dark>Datos academicos</v-alert>
         <v-text-field
           label="Promedio de calificaciones (aprox)"
           prepend-icon="mdi-counter"
@@ -65,7 +65,9 @@
           label="Semestre"
           prepend-icon="mdi-circle-half-full"
         />
-        <v-divider />
+        <v-alert dense color="secondary" dark>
+          Datos de preferencia de practica
+        </v-alert>
         <v-select
           label="Primera opcion"
           :items="opcinesCargo"
@@ -95,7 +97,9 @@
           label="Expectativas de trabajo"
           prepend-icon="mdi-order-bool-ascending-variant"
         />
-        <v-divider />
+        <v-alert dense color="secondary" dark>
+          Competencias Tecnicas y profesionales
+        </v-alert>
         <v-select
           label="¿Cuenta con experiencia laboral?"
           :items="['Si', 'No']"
