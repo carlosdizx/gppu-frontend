@@ -11,7 +11,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
           v-model="date"
-          label="Fecha de nacimiento"
+          :label="texto"
           prepend-icon="mdi-calendar"
           readonly
           v-bind="attrs"
@@ -38,6 +38,9 @@
 <script>
 export default {
   name: "Calendario",
+  props: {
+    texto: String,
+  },
   data: () => ({
     activePicker: null,
     date: null,
