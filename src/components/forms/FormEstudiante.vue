@@ -8,12 +8,11 @@
     <v-card-text>
       <v-form autocomplete="off" :disabled="carga">
         <v-text-field label="Nombres completas" prepend-icon="mdi-account" />
-        <v-text-field label="Correo electronico" prepend-icon="mdi-email" />
         <v-row>
           <v-col cols="6">
             <v-select
-              label="Tipo de documentos"
-              :items="tiposDoc"
+              label="Tipo de documento"
+              :items="['Cedula de ciudadania', 'Tarjeta de identidad', 'Otro']"
               prepend-icon="mdi-format-list-bulleted-type"
             />
           </v-col>
@@ -24,7 +23,14 @@
             />
           </v-col>
         </v-row>
-        <Calendario />
+        <Calendario @fecha="fechaNacimiento = $event" />
+        <v-text-field label="Direcciones" prepend-icon="mdi-home" />
+        <v-text-field label="Correo electronico" prepend-icon="mdi-email" />
+        <v-select
+          label="Genero"
+          :items="['Masculino', 'Femenino', 'Otro']"
+          prepend-icon="mdi-gender-male-female"
+        />
       </v-form>
     </v-card-text>
   </v-card>
@@ -37,7 +43,8 @@ export default {
   components: { Calendario },
   data: () => ({
     carga: false,
-    tiposDoc: ["Cedula de ciudadania", "Tarjeta de identidad", "Otro"],
+    tiposDoc: [],
+    fechaNacimiento: null,
   }),
   methods: {},
 };
