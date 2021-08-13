@@ -91,7 +91,7 @@
           :items="['Privada', 'Publica']"
           prepend-icon="mdi-domain"
         />
-        <v-text-field
+        <v-textarea
           label="Expectativas de trabajo"
           prepend-icon="mdi-order-bool-ascending-variant"
         />
@@ -103,6 +103,15 @@
         <v-select
           label="¿Experiencia en Ing. de Sistemas?"
           :items="['Si', 'No']"
+        />
+        <v-textarea label="Competencias técnicas que posee" />
+        <v-textarea
+          label="Competencias técnicas en las cuales se considera fuerte"
+        />
+        <v-textarea label="¿Qué aspectos destaca de su perfil profesional?" />
+        <v-textarea label="¿Qué aspectos destaca de su perfil personal?" />
+        <v-textarea
+          label="¿Qué aspectos son susceptibles de mejora por su parte?"
         />
       </v-form>
     </v-card-text>
