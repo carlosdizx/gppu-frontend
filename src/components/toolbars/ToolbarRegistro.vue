@@ -4,8 +4,9 @@
       titulo="Formularios de registro"
       icono="mdi-account-multiple"
       :tabs="tabs"
+      @indice="indice = $event"
     />
-    <FormEmpresa :indice="1" />
+    <FormEmpresa v-if="indice === 1" :indice="1" />
   </div>
 </template>
 
@@ -16,8 +17,9 @@ export default {
   name: "ToolbarRegistro",
   components: { Toolbar, FormEmpresa },
   data: () => ({
-    tabs: ["mdi-domain", "mdi-home"],
+    tabs: ["mdi-domain", "mdi-lock"],
     indice: 1,
   }),
+  methods: {},
 };
 </script>

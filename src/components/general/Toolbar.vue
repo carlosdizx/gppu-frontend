@@ -8,7 +8,7 @@
     </v-toolbar>
     <v-tabs background-color="cyan darken-4" center-active dark>
       <v-tab v-for="(tab, i) in tabs" :key="i" @click="cambiarIndex(i + 1)">
-        <v-icon @>{{ tab }}</v-icon>
+        <v-icon>{{ tab }}</v-icon>
       </v-tab>
     </v-tabs>
   </div>
