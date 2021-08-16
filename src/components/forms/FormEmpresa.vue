@@ -203,7 +203,10 @@
 <script>
 import { STORAGE } from "@/main";
 import { mapActions } from "vuex";
-import { REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE } from "@/services/recursos";
+import {
+  EMPRESA_YA_REGISTRADA,
+  REGISTRO_ARCHIVOS_EMPRESA,
+} from "@/services/recursos";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
@@ -264,7 +267,7 @@ export default {
     carga: false,
   }),
   methods: {
-    ...mapActions(["registrarDatosEmpresaPendiente", ""]),
+    ...mapActions(["registrarDatosEmpresa", ""]),
     async registrar() {
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
@@ -298,56 +301,66 @@ export default {
         ciudad: this.ciudad,
         codigo: this.codigo,
       };
-      this.carga = true;
-      await this.registrarDatosEmpresaPendiente(datos)
-        .then((result) => console.log(result))
-        .catch((error) => console.log(error));
+      let pass = await EMPRESA_YA_REGISTRADA(datos.nit);
 
-      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
-        datos.nit,
-        this.archivoDocumento,
-        "documento_" + datos.nit
-      )
-        .then((result) => console.log(result))
-        .catch((error) =>
-          Swal.fire(
-            "Error al subir el documento del representante",
-            `${error},`,
-            "error"
-          )
-        );
+      if (!pass) {
+        this.carga = true;
+        await this.registrarDatosEmpresa(datos)
+          .then((result) => console.log(result))
+          .catch((error) => console.log(error));
 
-      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
-        datos.nit,
-        this.archivoRut,
-        "rut_" + datos.nit
-      )
-        .then((result) => console.log(result))
-        .catch((error) =>
-          Swal.fire("Error al subir el RUT", `${error},`, "error")
-        );
+        await REGISTRO_ARCHIVOS_EMPRESA(
+          datos.nit,
+          this.archivoDocumento,
+          "documento_" + datos.nit
+        )
+          .then((result) => console.log(result))
+          .catch((error) =>
+            Swal.fire(
+              "Error al subir el documento del representante",
+              `${error},`,
+              "error"
+            )
+          );
 
-      await REGISTRO_ARCHIVOS_EMPRESA_PENDIENTE(
-        datos.nit,
-        this.archivoCamara,
-        "camara_comercio_" + datos.nit
-      )
-        .then((result) => console.log(result))
-        .catch((error) =>
-          Swal.fire(
-            "Error al subir la Camara de Comercio",
-            `${error},`,
-            "error"
-          )
+        await REGISTRO_ARCHIVOS_EMPRESA(
+          datos.nit,
+          this.archivoRut,
+          "rut_" + datos.nit
+        )
+          .then((result) => console.log(result))
+          .catch((error) =>
+            Swal.fire("Error al subir el RUT", `${error},`, "error")
+          );
+
+        await REGISTRO_ARCHIVOS_EMPRESA(
+          datos.nit,
+          this.archivoCamara,
+          "camara_comercio_" + datos.nit
+        )
+          .then((result) => console.log(result))
+          .catch((error) =>
+            Swal.fire(
+              "Error al subir la Camara de Comercio",
+              `${error},`,
+              "error"
+            )
+          );
+        await Swal.fire(
+          "Registro exitoso",
+          "Sus datos y documentos fueron subidos en plataforma <br>" +
+            "En los proximos 2(dos) dias habiles puede recibir una llamada de el/la" +
+            " coordinador@ de practicas para continuar con su proceso de vinculacion",
+          "success"
         );
-      await Swal.fire(
-        "Registro exitoso",
-        "Sus datos y documentos fueron subidos en plataforma <br>" +
-          "En los proximos 2(dos) dias habiles puede recibir una llamada de el/la" +
-          " coordinador@ de practicas para continuar con su proceso de vinculacion",
-        "success"
-      );
-      this.carga = false;
+        this.carga = false;
+      } else {
+        await Swal.fire(
+          "Empresa ya registrada",
+          "La empresa ya se encuentra registrada en plataforma",
+          "warning"
+        );
+      }
     },
   },
 };

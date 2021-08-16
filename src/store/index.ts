@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { LOGUEAR_USUARIO, LOGUEAR_USUARIO_TOKEN } from "@/services/auth";
 import Swal from "sweetalert2";
 import { CONTIENE_ERROR } from "@/services/validaciones";
-import { REGISTRO_DATOS_EMPRESA_PENDIENTE } from "@/services/recursos";
+import { REGISTRO_DATOS_EMPRESA } from "@/services/recursos";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -66,8 +66,8 @@ export default new Vuex.Store({
     //--------------------------------------------------------------------------
     //------------------------------ EMPRESA -----------------------------------
     //--------------------------------------------------------------------------
-    registrarDatosEmpresaPendiente: async ({ commit }, datos: any) => {
-      return await REGISTRO_DATOS_EMPRESA_PENDIENTE(datos);
+    registrarDatosEmpresa: async ({ commit }, datos: any) => {
+      return await REGISTRO_DATOS_EMPRESA(datos);
     },
   },
   modules: {},
