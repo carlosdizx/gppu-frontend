@@ -14,6 +14,11 @@ const routes: Array<RouteConfig> = [
     name: "InicioSesion",
     component: () => import("../views/InicioSesion.vue"),
   },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("../views/Dashboard.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -343,7 +343,7 @@ export default {
       await Swal.fire(
         "Registro exitoso",
         "Sus datos y documentos fueron subidos en plataforma <br>" +
-          "En las proximas 48 horas puede recibir una llamada de el/la" +
+          "En los proximos 2(dos) dias habiles puede recibir una llamada de el/la" +
           " coordinador@ de practicas para continuar con su proceso de vinculacion",
         "success"
       );
