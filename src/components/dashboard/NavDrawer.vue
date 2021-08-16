@@ -1,7 +1,5 @@
 <template>
   <v-navigation-drawer v-model="nav" app>
-    <!--ITEMS DE NAVEGACION -->
-
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title>Empresa</v-list-item-title>
