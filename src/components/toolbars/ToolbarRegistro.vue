@@ -19,11 +19,7 @@ export default {
   name: "ToolbarRegistro",
   components: { Toolbar, FormEmpresa, FormEstudiante },
   data: () => ({
-    tabs: [
-      "mdi-office-building-marker-outline",
-      "mdi-account-details",
-      "mdi-school",
-    ],
+    tabs: ["mdi-office-building-marker-outline", "mdi-school"],
     indice: 1,
   }),
   methods: {},

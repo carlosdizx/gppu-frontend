@@ -2,13 +2,12 @@
   <v-card max-width="800" class="mx-auto my-auto">
     <v-card-title>Formulario estuidante</v-card-title>
     <v-card-subtitle>
-      Tenga preparado los documentos y datos necesarios, solo se aceptan
-      archivos en formato PDF
+      Complete los datos que le sean requeridos
     </v-card-subtitle>
     <v-card-text>
       <v-form autocomplete="off" :disabled="carga">
         <v-alert dense color="secondary" dark>Datos personales</v-alert>
-        <v-text-field label="Nombres completas" prepend-icon="mdi-account" />
+        <v-text-field label="Nombres completos" prepend-icon="mdi-account" />
         <v-row>
           <v-col cols="6">
             <v-select
@@ -47,12 +46,12 @@
         />
         <v-text-field label="Ciudad" prepend-icon="mdi-city" />
         <v-text-field label="Direccion" prepend-icon="mdi-home" />
-        <v-text-field label="Correo electronico" prepend-icon="mdi-email" />
         <v-select
           label="Zona"
           :items="['Rural', 'Urbana']"
           prepend-icon="mdi-map-legend"
         />
+        <v-text-field label="Correo electronico" prepend-icon="mdi-email" />
         <v-text-field label="Telefono" prepend-icon="mdi-phone" type="number" />
         <v-alert dense color="secondary" dark>Datos academicos</v-alert>
         <v-text-field
@@ -119,6 +118,33 @@
         />
       </v-form>
     </v-card-text>
+    <v-card-text>
+      <v-form>
+        <v-alert block dense dark color="red">
+          Complete todos los campos
+        </v-alert>
+        <div class="text-center">
+          <v-btn
+            :disabled="carga"
+            :loading="carga"
+            class="white--text"
+            color="success darken-2"
+            block
+          >
+            Registrar
+          </v-btn>
+          <v-dialog v-model="carga" hide-overlay persistent width="300">
+            <v-card color="primary" dark>
+              <v-card-text>
+                Espere un momento
+                <v-progress-linear indeterminate color="white" class="mb-0">
+                </v-progress-linear>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+        </div>
+      </v-form>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -130,9 +156,38 @@ export default {
   name: "FormEstudiante",
   components: { Calendario },
   data: () => ({
-    carga: false,
     opcinesCargo: OPCIONES_CAMPO,
     fechaNacimiento: null,
+    nombres: "",
+    tipoDoc: null,
+    documento: null,
+    fechaExp: null,
+    fechaNaci: null,
+    genero: null,
+    eps: null,
+    pais: null,
+    departamento: null,
+    ciudad: null,
+    direccion: null,
+    zona: null,
+    correo: null,
+    telefono: null,
+    promedio: null,
+    semestre: null,
+    opcion1: null,
+    opcion2: null,
+    opcion3: null,
+    modalidad: null,
+    tipoEmp: null,
+    espectativas: null,
+    experiencia: null,
+    exp_ingenieria: null,
+    competencias: null,
+    comp_fuerte: null,
+    aspectos_pro: null,
+    aspectos_per: null,
+    mejoras: null,
+    carga: false,
   }),
   methods: {},
 };
