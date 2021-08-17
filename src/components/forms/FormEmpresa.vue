@@ -1,11 +1,48 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <BotonFlotante
-        color="pink lighten-1"
-        icon="mdi-email-edit-outline"
-        :dark="true"
-      />
+      <v-row justify="center">
+        <v-dialog v-model="dialog" persistent max-width="600px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="pink"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              absolute
+              top
+              right
+              fab
+            >
+              <v-icon>mdi-email-edit-outline</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">Formulario express para empresas</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-form autocomplete="off">
+                  <v-text-field label="Nombre de la empresa" />
+                  <v-text-field label="Telefono o celular" />
+                  <v-text-field label="Correo electronico" />
+                </v-form>
+              </v-container>
+              <small>** Texto que da miedo</small>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialog = !dialog">
+                Cerrar
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="dialog = !dialog">
+                Registrar
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
         Si necesita consultar más información antes de subir sus datos e
@@ -230,7 +267,6 @@
 </template>
 
 <script>
-import BotonFlotante from "@/components/general/BotonFlotante";
 import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
@@ -278,7 +314,6 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
-    BotonFlotante,
   },
   data: () => ({
     nit: "87570236-50",
@@ -300,6 +335,7 @@ export default {
       "o/uarena%2Fdocumentos%2FSOLICITUD%20PRACTICANTE%20ING." +
       "%20SISTEMAS%20UMARIANA.pdf?alt=media&token=ed42a169" +
       "-0d5c-466f-aa3d-ac81fa423928",
+    dialog: false,
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresa", ""]),

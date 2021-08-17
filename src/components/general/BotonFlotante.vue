@@ -1,5 +1,5 @@
 <template>
-  <v-btn :color="color" :dark="dark" absolute top right fab>
+  <v-btn :color="color" :dark="dark" absolute top right fab @click="press">
     <v-icon>{{ icon }}</v-icon>
   </v-btn>
 </template>
@@ -11,6 +11,11 @@ export default {
     icon: String,
     color: String,
     dark: Boolean,
+  },
+  methods: {
+    press() {
+      this.$emit("press", true);
+    },
   },
 };
 </script>
