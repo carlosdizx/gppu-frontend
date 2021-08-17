@@ -8,8 +8,8 @@
       />
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
-        Si necesita consultar mas informacion antes de subrir sus datos e
-        informacion envianos un email, haga click en el icono rosa de la derecha
+        Si necesita consultar más información antes de subir sus datos e
+        información envíanos un email, haga clic, en el icono rosa de la derecha
         de arriba.
       </v-card-subtitle>
       <v-card-text>
@@ -134,8 +134,25 @@
             />
           </validation-provider>
           <v-alert dense color="secondary" dark>
-            Tenga preparado los archivos solicitados en formato PDF
+            Tenga preparado los siguientes archivos solicitados en formato PDF.
           </v-alert>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Carta de intencion"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Carta de intencion"
+              v-model="archivoCarta"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <v-btn color="pink" dark :href="formatoCarta" target="_blank">
+            Formato de carta
+            <v-icon>mdi-file-document-edit</v-icon>
+          </v-btn>
           <validation-provider
             v-slot="{ errors }"
             name="Documento representante"
@@ -175,23 +192,6 @@
               :error-messages="errors"
             />
           </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Carta de intencion"
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="Carta de intencion"
-              v-model="archivoCarta"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <v-btn color="pink" dark>
-            Formato de carta
-            <v-icon>mdi-file-document-edit</v-icon>
-          </v-btn>
         </v-form>
       </v-card-text>
       <v-card-text>
@@ -292,6 +292,11 @@ export default {
     archivoCamara: null,
     archivoCarta: null,
     carga: false,
+    formatoCarta:
+      "https://firebasestorage.googleapis.com/v0/b/gppu-backend.appspot.com/" +
+      "o/uarena%2Fdocumentos%2FSOLICITUD%20PRACTICANTE%20ING." +
+      "%20SISTEMAS%20UMARIANA.pdf?alt=media&token=ed42a169" +
+      "-0d5c-466f-aa3d-ac81fa423928",
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresa", ""]),
