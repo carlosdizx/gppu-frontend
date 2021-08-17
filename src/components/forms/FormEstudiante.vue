@@ -387,10 +387,13 @@
 
           <v-alert block dense dark color="info darken-3"> Opcionales </v-alert>
 
-          <v-text-field label="Portafolio digital" prepend-icon="mdi-web" />
+          <v-text-field
+            label="URL Portafolio digital (opcional)"
+            prepend-icon="mdi-web"
+          />
           <v-file-input
             accept="application/pdf"
-            label="Hoja de vida"
+            label="Hoja de vida  (opcional)"
             prepend-icon="mdi-file-account"
           />
         </v-form>
@@ -398,7 +401,7 @@
       <v-card-text>
         <v-form>
           <v-alert block dense dark color="red">
-            Complete todos los campos
+            Complete los campos requeridos
           </v-alert>
           <div class="text-center">
             <v-btn
