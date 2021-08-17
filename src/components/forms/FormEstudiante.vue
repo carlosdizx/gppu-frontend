@@ -179,69 +179,211 @@
               counter
             />
           </validation-provider>
+
           <v-alert dense color="secondary" dark>Datos academicos</v-alert>
-          <v-text-field
-            label="Promedio de calificaciones (aprox)"
-            prepend-icon="mdi-counter"
-            type="number"
-          />
-          <v-select
-            :items="['Decimo', 'Noveno', 'Octavo', 'Otro']"
-            label="Semestre"
-            prepend-icon="mdi-circle-half-full"
-          />
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="Promedio"
+            rules="required|number"
+          >
+            <v-text-field
+              v-model="promedio"
+              label="Promedio de calificaciones (aprox)"
+              prepend-icon="mdi-counter"
+              type="number"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Semestre"
+            rules="required"
+          >
+            <v-select
+              v-model="semestre"
+              :items="['Decimo', 'Noveno', 'Octavo', 'Otro']"
+              label="Semestre"
+              prepend-icon="mdi-circle-half-full"
+              :error-messages="errors"
+            />
+          </validation-provider>
+
+          <!-- --------------------------------- Preferencias --------------------------------- -->
+
           <v-alert dense color="secondary" dark>
             Datos de preferencia de practica
           </v-alert>
-          <v-select
-            label="Primera opcion"
-            :items="opcinesCargo"
-            prepend-icon="mdi-briefcase"
-          />
-          <v-select
-            label="Segunda opcion"
-            :items="opcinesCargo"
-            prepend-icon="mdi-briefcase-outline"
-          />
-          <v-select
-            label="Tercera opcion"
-            :items="opcinesCargo"
-            prepend-icon="mdi-briefcase-outline"
-          />
-          <v-select
-            label="Modalidad de trabajo"
-            :items="['Presencial', 'Virtual', 'Mixta', 'No importa']"
-            prepend-icon="mdi-home-plus"
-          />
-          <v-select
-            label="Tipo de empresa"
-            :items="['Privada', 'Publica']"
-            prepend-icon="mdi-domain"
-          />
-          <v-textarea
-            label="Expectativas de trabajo"
-            prepend-icon="mdi-order-bool-ascending-variant"
-          />
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="Opcion 1"
+            rules="required"
+          >
+            <v-select
+              v-model="opcion1"
+              label="Primera opcion"
+              :items="opcinesCargo"
+              prepend-icon="mdi-briefcase"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Opcion 2"
+            rules="required"
+          >
+            <v-select
+              v-model="opcion2"
+              label="Segunda opcion"
+              :items="opcinesCargo"
+              prepend-icon="mdi-briefcase-outline"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Opcion 3"
+            rules="required"
+          >
+            <v-select
+              v-model="opcion3"
+              label="Tercera opcion"
+              :items="opcinesCargo"
+              prepend-icon="mdi-briefcase-outline"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Modalidad"
+            rules="required"
+          >
+            <v-select
+              v-model="modalidad"
+              label="Modalidad de trabajo"
+              :items="['Presencial', 'Virtual', 'Mixta', 'No importa']"
+              prepend-icon="mdi-home-plus"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Tipo empresa"
+            rules="required"
+          >
+            <v-select
+              v-model="tipoEmp"
+              label="Tipo de empresa"
+              :items="['Privada', 'Publica']"
+              prepend-icon="mdi-domain"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Expectativas"
+            rules="required|min:20|max:500"
+          >
+            <v-textarea
+              v-model="expectativas"
+              label="Expectativas de trabajo"
+              prepend-icon="mdi-order-bool-ascending-variant"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+
+          <!-- --------------------------------- Competencias --------------------------------- -->
+
           <v-alert dense color="secondary" dark>
             Competencias Tecnicas y profesionales
           </v-alert>
-          <v-select
-            label="¿Cuenta con experiencia laboral?"
-            :items="['Si', 'No']"
-          />
-          <v-select
-            label="¿Experiencia en Ing. de Sistemas?"
-            :items="['Si', 'No']"
-          />
-          <v-textarea label="Competencias técnicas que posee" />
-          <v-textarea
-            label="Competencias técnicas en las cuales se considera fuerte"
-          />
-          <v-textarea label="¿Qué aspectos destaca de su perfil profesional?" />
-          <v-textarea label="¿Qué aspectos destaca de su perfil personal?" />
-          <v-textarea
-            label="¿Qué aspectos son susceptibles de mejora por su parte?"
-          />
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="Experiencia"
+            rules="required"
+          >
+            <v-select
+              v-model="experiencia"
+              label="¿Cuenta con experiencia laboral?"
+              :items="['Si', 'No']"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Experiencia ing"
+            rules="required"
+          >
+            <v-select
+              v-model="exp_ingenieria"
+              label="¿Experiencia en Ing. de Sistemas?"
+              :items="['Si', 'No']"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Competencias"
+            rules="required|min:20|max:100"
+          >
+            <v-textarea
+              v-model="competencias"
+              label="Competencias técnicas que posee"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Competencias fuertes"
+            rules="required|min:20|max:100"
+          >
+            <v-textarea
+              v-model="comp_fuerte"
+              label="Competencias técnicas en las cuales se considera fuerte"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Aspectos profecionales"
+            rules="required|min:20|max:200"
+          >
+            <v-textarea
+              v-model="aspectos_pro"
+              label="¿Qué aspectos destaca de su perfil profesional?"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Aspectos personales"
+            rules="required|min:20|max:200"
+          >
+            <v-textarea
+              v-model="aspectos_per"
+              label="¿Qué aspectos destaca de su perfil personal?"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Aspectos a mejorar"
+            rules="required|min:10|max:200"
+          >
+            <v-textarea
+              v-model="mejoras"
+              label="¿Qué aspectos son susceptibles de mejora por su parte?"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
         </v-form>
       </v-card-text>
       <v-card-text>
@@ -291,22 +433,22 @@ setInteractionMode("eager");
 {
   extend("digits", {
     ...digits,
-    message: "{_field_} Se necesita {length} digitos. ({_value_})",
+    message: "{_field_}: Se necesita {length} digitos. ({_value_})",
   });
 
   extend("required", {
     ...required,
-    message: "{_field_} no puede estar vacio",
+    message: "{_field_}: no puede estar vacio",
   });
 
   extend("max", {
     ...max,
-    message: "{_field_} {length} maximo de caracteres",
+    message: "{_field_}: maximo de caracteres {length}",
   });
 
   extend("min", {
     ...min,
-    message: "{_field_} Ingrese mas caracteres ",
+    message: "{_field_}: Ingrese mas caracteres, minimo {length}",
   });
 
   extend("email", {
@@ -342,7 +484,7 @@ export default {
     opcion3: null,
     modalidad: null,
     tipoEmp: null,
-    espectativas: null,
+    expectativas: null,
     experiencia: null,
     exp_ingenieria: null,
     competencias: null,
