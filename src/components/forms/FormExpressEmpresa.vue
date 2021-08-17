@@ -32,7 +32,6 @@
                     v-model="nit"
                     label="NIT"
                     prepend-icon="mdi-domain"
-                    type="number"
                     :error-messages="errors"
                     counter
                   />
@@ -97,6 +96,8 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import Swal from "sweetalert2";
+import router from "@/router";
 
 setInteractionMode("eager");
 
@@ -134,9 +135,9 @@ export default {
   },
   data: () => ({
     dialog: false,
-    nit: "",
-    telefono: "",
-    correo: "",
+    nit: "87656565-ak",
+    telefono: 313221632,
+    correo: "carlodiaz@umariana.edu.co",
   }),
   methods: {
     async registrarExpress() {
@@ -145,9 +146,17 @@ export default {
         telefono: this.telefono,
         correo: this.correo,
       };
-      await REGISTRO_DATOS_EXPRESS_EMPRESA(datos).then((result) =>
-        console.log(result)
-      );
+      await REGISTRO_DATOS_EXPRESS_EMPRESA(datos).then(async (result) => {
+        if (result.status === 200) {
+          await Swal.fire(
+            "Datos registrados exitosamente",
+            "En un plazo de 2 (dos) dias habiles recibira informacion " +
+              "por llamada o correo respecto al proceso de convenio empresa universidad",
+            "success"
+          );
+          await router.push("/");
+        }
+      });
     },
   },
 };
