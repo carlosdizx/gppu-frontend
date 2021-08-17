@@ -25,13 +25,14 @@
               <v-form autocomplete="off">
                 <validation-provider
                   v-slot="{ errors }"
-                  name="Nombre empresa"
+                  name="Nit empresa"
                   rules="required|min:5|max:80"
                 >
                   <v-text-field
-                    v-model="nombre"
-                    label="Nombre de la empresa"
+                    v-model="nit"
+                    label="NIT"
                     prepend-icon="mdi-domain"
+                    type="number"
                     :error-messages="errors"
                     counter
                   />
@@ -76,7 +77,7 @@
             <v-btn
               color="info darken-1"
               :disabled="invalid"
-              @click="dialog = !dialog"
+              @click="registrarExpress"
             >
               Registrar
             </v-btn>
@@ -88,6 +89,7 @@
 </template>
 
 <script>
+import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -132,10 +134,22 @@ export default {
   },
   data: () => ({
     dialog: false,
-    nombre: "",
+    nit: "",
     telefono: "",
     correo: "",
   }),
+  methods: {
+    async registrarExpress() {
+      const datos = {
+        nit: this.nit,
+        telefono: this.telefono,
+        correo: this.correo,
+      };
+      await REGISTRO_DATOS_EXPRESS_EMPRESA(datos).then((result) =>
+        console.log(result)
+      );
+    },
+  },
 };
 </script>
 

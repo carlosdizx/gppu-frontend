@@ -13,6 +13,17 @@ export const REGISTRO_DATOS_EMPRESA = async (datos: any) =>
     }
   );
 
+export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (datos: any) =>
+  await INSTACIA.put(
+    `empresas/express/${datos.nit}.json`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
 export const EMPRESA_YA_REGISTRADA = async (nit: any) => {
   const resultado = await INSTACIA.get(`empresas/pendientes/${nit}.json`, {
     headers: {
