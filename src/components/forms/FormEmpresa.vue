@@ -1,11 +1,16 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <BotonFlotante />
+      <BotonFlotante
+        color="pink lighten-1"
+        icon="mdi-email-edit-outline"
+        :dark="true"
+      />
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
-        Tenga preparado los documentos y datos necesarios, solo se aceptan
-        archivos en formato PDF
+        Si necesita consultar mas informacion antes de subrir sus datos e
+        informacion envianos un email, haga click en el icono rosa de la derecha
+        de arriba.
       </v-card-subtitle>
       <v-card-text>
         <v-form autocomplete="off" :disabled="carga">
