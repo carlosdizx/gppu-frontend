@@ -215,7 +215,6 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
-const ref = STORAGE.ref();
 
 setInteractionMode("eager");
 
