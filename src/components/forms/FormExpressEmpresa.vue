@@ -66,7 +66,7 @@
                 </validation-provider>
               </v-form>
             </v-container>
-            <small>** Texto que da miedo</small>
+            <small>** Medidas legales van aqui, texto que da miedo</small>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
