@@ -54,45 +54,6 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Documento representante"
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="Archivo del documento del representante"
-              v-model="archivoDocumento"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Documento RUT"
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="RUT"
-              v-model="archivoRut"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Documento Camara C..."
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="Camara de comercio"
-              v-model="archivoCamara"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
             name="Celular"
             rules="required|min:5|max:25"
           >
@@ -172,6 +133,65 @@
               counter
             />
           </validation-provider>
+          <v-alert dense color="secondary" dark>
+            Tenga preparado los archivos solicitados en formato PDF
+          </v-alert>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Documento representante"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Archivo del documento del representante"
+              v-model="archivoDocumento"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Documento RUT"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="RUT"
+              v-model="archivoRut"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Documento Camara C..."
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Camara de comercio"
+              v-model="archivoCamara"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Carta de intencion"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Carta de intencion"
+              v-model="archivoCarta"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <v-btn color="pink" dark>
+            Formato de carta
+            <v-icon>mdi-file-document-edit</v-icon>
+          </v-btn>
         </v-form>
       </v-card-text>
       <v-card-text>
@@ -270,6 +290,7 @@ export default {
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
+    archivoCarta: null,
     carga: false,
   }),
   methods: {
@@ -348,6 +369,20 @@ export default {
           .catch((error) =>
             Swal.fire(
               "Error al subir la Camara de Comercio",
+              `${error},`,
+              "error"
+            )
+          );
+
+        await REGISTRO_ARCHIVOS_EMPRESA(
+          datos.nit,
+          this.archivoCarta,
+          "carta_intencion_" + datos.nit
+        )
+          .then((result) => console.log(result))
+          .catch((error) =>
+            Swal.fire(
+              "Error al subir la carta de intencion",
               `${error},`,
               "error"
             )
