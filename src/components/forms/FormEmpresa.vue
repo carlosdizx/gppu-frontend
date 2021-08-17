@@ -61,14 +61,14 @@
               v-model="celular"
               label="Numero de celular"
               type="number"
-              prepend-icon="mdi-card-account-details"
+              prepend-icon="mdi-phone"
               :error-messages="errors"
               counter
             />
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Celular"
+            name="Correo"
             rules="required|email"
           >
             <v-text-field
@@ -78,8 +78,6 @@
               :error-messages="errors"
             />
           </validation-provider>
-          <v-divider />
-          <v-divider />
           <validation-provider
             v-slot="{ errors }"
             name="Pais"
@@ -121,14 +119,13 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Codigo postal"
-            rules="required|min:5|max:20"
+            name="Direccion"
+            rules="required|min:5|max:50"
           >
             <v-text-field
-              v-model="codigo"
-              type="number"
-              label="Codigo postal"
-              prepend-icon="mdi-postage-stamp"
+              v-model="direccion"
+              label="Direccion"
+              prepend-icon="mdi-home"
               :error-messages="errors"
               counter
             />
@@ -136,6 +133,16 @@
           <v-alert dense color="secondary" dark>
             Tenga preparado los siguientes archivos solicitados en formato PDF.
           </v-alert>
+          <v-btn
+            v-show="!archivoCarta"
+            color="blue darken-4"
+            dark
+            fab
+            :href="formatoCarta"
+            target="_blank"
+          >
+            <v-icon>mdi-file-document-edit</v-icon>
+          </v-btn>
           <validation-provider
             v-slot="{ errors }"
             name="Carta de intencion"
@@ -149,10 +156,6 @@
               :error-messages="errors"
             />
           </validation-provider>
-          <v-btn color="pink" dark :href="formatoCarta" target="_blank">
-            Formato de carta
-            <v-icon>mdi-file-document-edit</v-icon>
-          </v-btn>
           <validation-provider
             v-slot="{ errors }"
             name="Documento representante"
@@ -286,7 +289,7 @@ export default {
     pais: "Colombia",
     departamento: "Nariño",
     ciudad: "Pasto",
-    codigo: 520002,
+    direccion: "Cl 18 # 35 - 06, Palermo",
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
@@ -331,7 +334,7 @@ export default {
         pais: this.pais,
         departamento: this.departamento,
         ciudad: this.ciudad,
-        codigo: this.codigo,
+        codigo: this.direccion,
       };
       let pass = await EMPRESA_YA_REGISTRADA(datos.nit);
 
