@@ -1,53 +1,140 @@
 <template>
-  <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="pink"
-          dark
-          v-bind="attrs"
-          v-on="on"
-          absolute
-          top
-          right
-          fab
-        >
-          <v-icon>mdi-email-edit-outline</v-icon>
-        </v-btn>
-      </template>
-      <v-card>
-        <v-card-title>
-          <span class="text-h5">Formulario express para empresas</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-form autocomplete="off">
-              <v-text-field label="Nombre de la empresa" />
-              <v-text-field label="Telefono o celular" />
-              <v-text-field label="Correo electronico" />
-            </v-form>
-          </v-container>
-          <small>** Texto que da miedo</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = !dialog">
-            Cerrar
+  <validation-observer ref="observer" v-slot="{ invalid }">
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="pink"
+            dark
+            v-bind="attrs"
+            v-on="on"
+            absolute
+            top
+            right
+            fab
+          >
+            <v-icon>mdi-email-edit-outline</v-icon>
           </v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = !dialog">
-            Registrar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-row>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Formulario express para empresas</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-form autocomplete="off">
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Nombre empresa"
+                  rules="required|min:5|max:80"
+                >
+                  <v-text-field
+                    v-model="nombre"
+                    label="Nombre de la empresa"
+                    prepend-icon="mdi-domain"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Celular"
+                  rules="required|min:5|max:25"
+                >
+                  <v-text-field
+                    v-model="telefono"
+                    label="Telefono o celular"
+                    prepend-icon="mdi-phone"
+                    type="number"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Correo"
+                  rules="required|email"
+                >
+                  <v-text-field
+                    v-model="correo"
+                    label="Correo electronico"
+                    prepend-icon="mdi-email"
+                    type="email"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+              </v-form>
+            </v-container>
+            <small>** Texto que da miedo</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red darken-1" dark @click="dialog = !dialog">
+              Cerrar
+            </v-btn>
+            <v-btn
+              color="info darken-1"
+              :disabled="invalid"
+              @click="dialog = !dialog"
+            >
+              Registrar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+  </validation-observer>
 </template>
 
 <script>
+import { digits, email, max, min, required } from "vee-validate/dist/rules";
+import {
+  extend,
+  setInteractionMode,
+  ValidationObserver,
+  ValidationProvider,
+} from "vee-validate";
+
+setInteractionMode("eager");
+
+{
+  extend("digits", {
+    ...digits,
+    message: "{_field_} Se necesita {length} digitos. ({_value_})",
+  });
+
+  extend("required", {
+    ...required,
+    message: "{_field_} no puede estar vacio",
+  });
+
+  extend("max", {
+    ...max,
+    message: "{_field_} {length} maximo de caracteres",
+  });
+
+  extend("min", {
+    ...min,
+    message: "{_field_} Ingrese mas caracteres ",
+  });
+
+  extend("email", {
+    ...email,
+    message: "Correo con formato incorrecto",
+  });
+}
 export default {
   name: "FormExpressEmpresa",
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+  },
   data: () => ({
     dialog: false,
+    nombre: "",
+    telefono: "",
+    correo: "",
   }),
 };
 </script>
