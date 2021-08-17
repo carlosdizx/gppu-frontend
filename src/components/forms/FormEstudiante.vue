@@ -384,6 +384,15 @@
               counter
             />
           </validation-provider>
+
+          <v-alert block dense dark color="info darken-3"> Opcionales </v-alert>
+
+          <v-text-field label="Portafolio digital" prepend-icon="mdi-web" />
+          <v-file-input
+            accept="application/pdf"
+            label="Hoja de vida"
+            prepend-icon="mdi-file-account"
+          />
         </v-form>
       </v-card-text>
       <v-card-text>
