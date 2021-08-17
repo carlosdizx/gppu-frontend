@@ -1,10 +1,16 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
+      <BotonFlotante
+        color="pink lighten-1"
+        icon="mdi-email-edit-outline"
+        :dark="true"
+      />
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
-        Tenga preparado los documentos y datos necesarios, solo se aceptan
-        archivos en formato PDF
+        Si necesita consultar más información antes de subir sus datos e
+        información envíanos un email, haga clic, en el icono rosa de la derecha
+        de arriba.
       </v-card-subtitle>
       <v-card-text>
         <v-form autocomplete="off" :disabled="carga">
@@ -48,45 +54,6 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Documento representante"
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="Archivo del documento del representante"
-              v-model="archivoDocumento"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Documento RUT"
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="RUT"
-              v-model="archivoRut"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Documento Camara C..."
-            rules="required"
-          >
-            <v-file-input
-              accept="application/pdf"
-              label="Camara de comercio"
-              v-model="archivoCamara"
-              append-icon="mdi-pdf-box"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
             name="Celular"
             rules="required|min:5|max:25"
           >
@@ -94,14 +61,14 @@
               v-model="celular"
               label="Numero de celular"
               type="number"
-              prepend-icon="mdi-card-account-details"
+              prepend-icon="mdi-phone"
               :error-messages="errors"
               counter
             />
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Celular"
+            name="Correo"
             rules="required|email"
           >
             <v-text-field
@@ -111,8 +78,6 @@
               :error-messages="errors"
             />
           </validation-provider>
-          <v-divider />
-          <v-divider />
           <validation-provider
             v-slot="{ errors }"
             name="Pais"
@@ -154,16 +119,80 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Codigo postal"
-            rules="required|min:5|max:20"
+            name="Direccion"
+            rules="required|min:5|max:50"
           >
             <v-text-field
-              v-model="codigo"
-              type="number"
-              label="Codigo postal"
-              prepend-icon="mdi-postage-stamp"
+              v-model="direccion"
+              label="Direccion"
+              prepend-icon="mdi-home"
               :error-messages="errors"
               counter
+            />
+          </validation-provider>
+          <v-alert dense color="secondary" dark>
+            Tenga preparado los siguientes archivos solicitados en formato PDF.
+          </v-alert>
+          <v-btn
+            v-show="!archivoCarta"
+            color="blue darken-4"
+            dark
+            fab
+            :href="formatoCarta"
+            target="_blank"
+          >
+            <v-icon>mdi-file-document-edit</v-icon>
+          </v-btn>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Carta de intencion"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Carta de intencion"
+              v-model="archivoCarta"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Documento representante"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Archivo del documento del representante"
+              v-model="archivoDocumento"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Documento RUT"
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="RUT"
+              v-model="archivoRut"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Documento Camara C..."
+            rules="required"
+          >
+            <v-file-input
+              accept="application/pdf"
+              label="Camara de comercio"
+              v-model="archivoCamara"
+              append-icon="mdi-pdf-box"
+              :error-messages="errors"
             />
           </validation-provider>
         </v-form>
@@ -201,7 +230,7 @@
 </template>
 
 <script>
-import { STORAGE } from "@/main";
+import BotonFlotante from "@/components/general/BotonFlotante";
 import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
@@ -215,7 +244,6 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
-const ref = STORAGE.ref();
 
 setInteractionMode("eager");
 
@@ -250,6 +278,7 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
+    BotonFlotante,
   },
   data: () => ({
     nit: "87570236-50",
@@ -260,11 +289,17 @@ export default {
     pais: "Colombia",
     departamento: "Nariño",
     ciudad: "Pasto",
-    codigo: 520002,
+    direccion: "Cl 18 # 35 - 06, Palermo",
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
+    archivoCarta: null,
     carga: false,
+    formatoCarta:
+      "https://firebasestorage.googleapis.com/v0/b/gppu-backend.appspot.com/" +
+      "o/uarena%2Fdocumentos%2FSOLICITUD%20PRACTICANTE%20ING." +
+      "%20SISTEMAS%20UMARIANA.pdf?alt=media&token=ed42a169" +
+      "-0d5c-466f-aa3d-ac81fa423928",
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresa", ""]),
@@ -299,7 +334,7 @@ export default {
         pais: this.pais,
         departamento: this.departamento,
         ciudad: this.ciudad,
-        codigo: this.codigo,
+        codigo: this.direccion,
       };
       let pass = await EMPRESA_YA_REGISTRADA(datos.nit);
 
@@ -342,6 +377,20 @@ export default {
           .catch((error) =>
             Swal.fire(
               "Error al subir la Camara de Comercio",
+              `${error},`,
+              "error"
+            )
+          );
+
+        await REGISTRO_ARCHIVOS_EMPRESA(
+          datos.nit,
+          this.archivoCarta,
+          "carta_intencion_" + datos.nit
+        )
+          .then((result) => console.log(result))
+          .catch((error) =>
+            Swal.fire(
+              "Error al subir la carta de intencion",
               `${error},`,
               "error"
             )
