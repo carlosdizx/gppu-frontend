@@ -1,6 +1,7 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
+      <BotonFlotante />
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
         Tenga preparado los documentos y datos necesarios, solo se aceptan
@@ -201,7 +202,7 @@
 </template>
 
 <script>
-import { STORAGE } from "@/main";
+import BotonFlotante from "@/components/general/BotonFlotante";
 import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
@@ -249,6 +250,7 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
+    BotonFlotante,
   },
   data: () => ({
     nit: "87570236-50",
