@@ -46,7 +46,7 @@ export default {
     changeElement(idItem) {
       this.$emit("changeDrawer", idItem);
     },
-    changeState() {
+    change() {
       this.nav = !this.nav;
     },
   },

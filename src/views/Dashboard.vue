@@ -6,7 +6,15 @@
       @changeDrawer="itemSelector"
       ref="NavDrawer"
     />
-    <h1 v-if="item === 1">componente Empresas</h1>
+    <TablaSimple
+      v-if="item === 1"
+      titulo="Empresa"
+      :columnas="[
+        { text: 'Nit', value: 'nit' },
+        { text: 'Nombre', value: 'nombre' },
+        { text: 'Estado', value: 'estado' },
+      ]"
+    />
     <h1 v-if="item === 2">componente Supervisores</h1>
     <h1 v-if="item === 3">componente Estudiantes</h1>
   </div>
@@ -15,12 +23,14 @@
 <script>
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
+import TablaSimple from "@/components/general/TablaSimple";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     ToolbarNav,
     NavDrawer,
+    TablaSimple,
   },
   data: () => ({
     item: 1,
@@ -33,7 +43,7 @@ export default Vue.extend({
     },
     changeStateBar() {
       this.navigation = !this.navigation;
-      this.$refs.NavDrawer.changeState();
+      this.$refs.NavDrawer.change();
     },
   },
 });
