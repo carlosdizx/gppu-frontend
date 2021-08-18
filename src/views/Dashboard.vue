@@ -6,7 +6,7 @@
       @changeDrawer="itemSelector"
       ref="NavDrawer"
     />
-    <TablaSimple
+    <TablaCompuesta
       v-if="item === 1"
       titulo="Empresa"
       :columnas="[
@@ -23,14 +23,14 @@
 <script>
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
-import TablaSimple from "@/components/general/TablaSimple";
+import TablaCompuesta from "@/components/general/TablaCompuesta.vue";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     ToolbarNav,
     NavDrawer,
-    TablaSimple,
+    TablaCompuesta,
   },
   data: () => ({
     item: 1,

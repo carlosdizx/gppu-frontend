@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "TablaSimple",
+  name: "TablaCompuesta",
   props: {
     titulo: String,
     columnas: Array,
@@ -20,5 +20,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
