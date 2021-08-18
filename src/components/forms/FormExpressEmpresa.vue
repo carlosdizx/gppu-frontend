@@ -1,0 +1,165 @@
+<template>
+  <validation-observer ref="observer" v-slot="{ invalid }">
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="pink"
+            dark
+            v-bind="attrs"
+            v-on="on"
+            absolute
+            top
+            right
+            fab
+          >
+            <v-icon>mdi-email-edit-outline</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Formulario express para empresas</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-form autocomplete="off">
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Nit empresa"
+                  rules="required|min:5|max:80"
+                >
+                  <v-text-field
+                    v-model="nit"
+                    label="NIT"
+                    prepend-icon="mdi-domain"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Celular"
+                  rules="required|min:5|max:25"
+                >
+                  <v-text-field
+                    v-model="telefono"
+                    label="Telefono o celular"
+                    prepend-icon="mdi-phone"
+                    type="number"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Correo"
+                  rules="required|email"
+                >
+                  <v-text-field
+                    v-model="correo"
+                    label="Correo electronico"
+                    prepend-icon="mdi-email"
+                    type="email"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+              </v-form>
+            </v-container>
+            <small>** Medidas legales van aqui, texto que da miedo</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red darken-1" dark @click="dialog = !dialog">
+              Cerrar
+            </v-btn>
+            <v-btn
+              color="info darken-1"
+              :disabled="invalid"
+              @click="registrarExpress"
+            >
+              Registrar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+  </validation-observer>
+</template>
+
+<script>
+import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos";
+import { digits, email, max, min, required } from "vee-validate/dist/rules";
+import {
+  extend,
+  setInteractionMode,
+  ValidationObserver,
+  ValidationProvider,
+} from "vee-validate";
+import Swal from "sweetalert2";
+import router from "@/router";
+
+setInteractionMode("eager");
+
+{
+  extend("digits", {
+    ...digits,
+    message: "{_field_} Se necesita {length} digitos. ({_value_})",
+  });
+
+  extend("required", {
+    ...required,
+    message: "{_field_} no puede estar vacio",
+  });
+
+  extend("max", {
+    ...max,
+    message: "{_field_} {length} maximo de caracteres",
+  });
+
+  extend("min", {
+    ...min,
+    message: "{_field_} Ingrese mas caracteres ",
+  });
+
+  extend("email", {
+    ...email,
+    message: "Correo con formato incorrecto",
+  });
+}
+export default {
+  name: "FormExpressEmpresa",
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+  },
+  data: () => ({
+    dialog: false,
+    nit: "87656565-ak",
+    telefono: 313221632,
+    correo: "carlodiaz@umariana.edu.co",
+  }),
+  methods: {
+    async registrarExpress() {
+      const datos = {
+        nit: this.nit,
+        telefono: this.telefono,
+        correo: this.correo,
+      };
+      await REGISTRO_DATOS_EXPRESS_EMPRESA(datos).then(async (result) => {
+        if (result.status === 200) {
+          await Swal.fire(
+            "Datos registrados exitosamente",
+            "En un plazo de 2 (dos) dias habiles recibira informacion " +
+              "por llamada o correo respecto al proceso de convenio empresa universidad",
+            "success"
+          );
+          await router.push("/");
+        }
+      });
+    },
+  },
+};
+</script>
+
+<style scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="isActive" app>
+  <v-navigation-drawer v-model="nav" app>
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title>Empresa</v-list-item-title>
@@ -38,13 +38,16 @@
 <script>
 export default {
   name: "NavDrawer",
-  props: ["isActive"],
   data: () => ({
     element: null,
+    nav: false,
   }),
   methods: {
     changeElement(idItem) {
       this.$emit("changeDrawer", idItem);
+    },
+    changeState() {
+      this.nav = !this.nav;
     },
   },
 };

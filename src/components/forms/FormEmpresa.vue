@@ -1,11 +1,7 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <BotonFlotante
-        color="pink lighten-1"
-        icon="mdi-email-edit-outline"
-        :dark="true"
-      />
+      <FormExpressEmpresa />
       <v-card-title>Formulario empresa</v-card-title>
       <v-card-subtitle>
         Si necesita consultar más información antes de subir sus datos e
@@ -230,7 +226,7 @@
 </template>
 
 <script>
-import BotonFlotante from "@/components/general/BotonFlotante";
+import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
 import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
@@ -278,7 +274,7 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
-    BotonFlotante,
+    FormExpressEmpresa,
   },
   data: () => ({
     nit: "87570236-50",
@@ -300,6 +296,7 @@ export default {
       "o/uarena%2Fdocumentos%2FSOLICITUD%20PRACTICANTE%20ING." +
       "%20SISTEMAS%20UMARIANA.pdf?alt=media&token=ed42a169" +
       "-0d5c-466f-aa3d-ac81fa423928",
+    dialog: false,
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresa", ""]),

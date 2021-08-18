@@ -22,6 +22,7 @@ export default {
     },
     redirectToHome() {
       this.$router.push("/");
+      localStorage.removeItem("token");
     },
   },
 };
