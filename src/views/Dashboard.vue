@@ -6,15 +6,7 @@
       @changeDrawer="itemSelector"
       ref="NavDrawer"
     />
-    <TablaCompuesta
-      v-if="item === 10000"
-      titulo="Empresa"
-      :columnas="[
-        { text: 'Nit', value: 'nit' },
-        { text: 'Nombre', value: 'nombre' },
-        { text: 'Estado', value: 'estado' },
-      ]"
-    />
+    <ListadoEmpresa />
     <TablaSimple
       v-show="item === 1"
       titulo="Empresas CRUD"
@@ -29,16 +21,16 @@
 <script>
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
-import TablaCompuesta from "@/components/general/TablaCompuesta.vue";
 import TablaSimple from "@/components/general/TablaSimple.vue";
+import ListadoEmpresa from "../components/cruds/ListadoEmpresa";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     ToolbarNav,
     NavDrawer,
-    TablaCompuesta,
     TablaSimple,
+    ListadoEmpresa,
   },
   data: () => ({
     item: 1,

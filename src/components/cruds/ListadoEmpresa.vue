@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="800" class="mx-auto my-auto">
+  <v-card max-width="1200" class="mx-auto my-auto">
     <v-card-title>Listado de empresas</v-card-title>
     <v-simple-table>
       <thead>
@@ -17,6 +17,7 @@
           <th>Doc Representane</th>
           <th>Rut</th>
           <th>Camara de comercio</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +32,17 @@
           <td>1</td>
           <td>1</td>
           <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>
+            <v-btn fab dark small color="yellow darken-2">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red darken-3">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </td>
         </tr>
       </tbody>
     </v-simple-table>
