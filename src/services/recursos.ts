@@ -44,3 +44,10 @@ export const REGISTRO_ARCHIVOS_EMPRESA = async (
   const metadata = { contentType: "application/pdf" };
   return refDoc.put(archivo, metadata);
 };
+
+export const LISTAR_EMPRESAS = async () =>
+  await INSTACIA.get(`empresas/pendientes.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });

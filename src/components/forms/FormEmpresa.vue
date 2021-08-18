@@ -331,7 +331,7 @@ export default {
         pais: this.pais,
         departamento: this.departamento,
         ciudad: this.ciudad,
-        codigo: this.direccion,
+        direccion: this.direccion,
       };
       let pass = await EMPRESA_YA_REGISTRADA(datos.nit);
 

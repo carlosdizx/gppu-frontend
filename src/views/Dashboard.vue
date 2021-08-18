@@ -6,13 +6,7 @@
       @changeDrawer="itemSelector"
       ref="NavDrawer"
     />
-    <ListadoEmpresa />
-    <TablaSimple
-      v-show="item === 1"
-      titulo="Empresas CRUD"
-      :filas="filas"
-      :columnas="Object.keys(filas[0])"
-    />
+    <ListadoEmpresa v-show="item === 1" />
     <h1 v-show="item === 2">componente Supervisores</h1>
     <h1 v-show="item === 3">componente Estudiantes</h1>
   </div>
@@ -21,7 +15,6 @@
 <script>
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
-import TablaSimple from "@/components/general/TablaSimple.vue";
 import ListadoEmpresa from "../components/cruds/ListadoEmpresa";
 import Vue from "vue";
 export default Vue.extend({
@@ -29,7 +22,6 @@ export default Vue.extend({
   components: {
     ToolbarNav,
     NavDrawer,
-    TablaSimple,
     ListadoEmpresa,
   },
   data: () => ({
