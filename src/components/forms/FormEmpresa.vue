@@ -1,8 +1,8 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <FormExpressEmpresa />
       <v-card-title>Formulario empresa</v-card-title>
+      <FormExpressEmpresa />
       <v-card-subtitle>
         Si necesita consultar más información antes de subir sus datos e
         información envíanos un email, haga clic, en el icono rosa de la derecha
