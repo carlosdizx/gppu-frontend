@@ -46,7 +46,7 @@
 <script>
 import { LISTAR_EMPRESAS } from "../../services/recursos";
 export default {
-  name: "ListadoEmpresa",
+  name: "ListadoEmpresaPendientes",
   data: () => ({
     empresas: [],
   }),

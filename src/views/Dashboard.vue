@@ -15,7 +15,7 @@
 <script>
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
-import ListadoEmpresa from "../components/cruds/ListadoEmpresa";
+import ListadoEmpresa from "../components/cruds/ListadoEmpresaPendientes";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",

@@ -12,26 +12,33 @@
     <v-list nav dense>
       <v-list-item link @click="changeElement(1)">
         <v-list-item-icon>
+          <v-icon>mdi-domain-plus</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Empresas pendientes</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link @click="changeElement(2)">
+        <v-list-item-icon>
           <v-icon>mdi-domain</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Empresas</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link @click="changeElement(2)">
+      <v-list-item link @click="changeElement(3)">
         <v-list-item-icon>
           <v-icon>mdi-account-multiple</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Supervisores</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link @click="changeElement(3)">
+      <v-list-item link @click="changeElement(4)">
         <v-list-item-icon>
           <v-icon>mdi-school-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Estudiantes</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link @click="changeElement(4)">
+      <v-list-item link @click="changeElement(5)">
         <v-list-item-icon>
           <v-icon>mdi-handshake-outline</v-icon>
         </v-list-item-icon>
