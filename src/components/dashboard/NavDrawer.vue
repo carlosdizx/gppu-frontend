@@ -2,8 +2,8 @@
   <v-navigation-drawer v-model="nav" app>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title>Empresa</v-list-item-title>
-        <v-list-item-subtitle>Proinsalud</v-list-item-subtitle>
+        <v-list-item-title>Admin</v-list-item-title>
+        <v-list-item-subtitle>Martha Nubia Carrillo</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -12,7 +12,7 @@
     <v-list nav dense>
       <v-list-item link @click="changeElement(1)">
         <v-list-item-icon>
-          <v-icon>mdi-city</v-icon>
+          <v-icon>mdi-domain</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Empresas</v-list-item-title>
       </v-list-item>
@@ -26,9 +26,16 @@
 
       <v-list-item link @click="changeElement(3)">
         <v-list-item-icon>
-          <v-icon>mdi-account</v-icon>
+          <v-icon>mdi-school-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Estudiantes</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link @click="changeElement(4)">
+        <v-list-item-icon>
+          <v-icon>mdi-handshake-outline</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Convenio</v-list-item-title>
       </v-list-item>
     </v-list>
     {{ element }}
