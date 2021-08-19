@@ -1,7 +1,6 @@
 <template>
   <v-card max-width="1200" class="mx-auto my-auto">
     <v-card-title>Listado de empresas pendientes</v-card-title>
-    <DocumentosEmpresaPendiente />
     <v-simple-table>
       <thead>
         <tr>
@@ -20,7 +19,7 @@
       <tbody>
         <tr v-for="(empresa, index) in empresas" :key="index">
           <td>
-            <v-btn text>{{ empresa.nit }}</v-btn>
+            <DocumentosEmpresaPendiente :nit="empresa.nit" />
           </td>
           <td>{{ empresa.nombre }}</td>
           <td>{{ empresa.documento }}</td>
