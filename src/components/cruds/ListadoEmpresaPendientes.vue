@@ -30,10 +30,16 @@
           <td>{{ empresa.ciudad }}</td>
           <td>{{ empresa.direccion }}</td>
           <td>
-            <v-btn fab dark small color="yellow darken-2">
-              <v-icon>mdi-pencil</v-icon>
+            <v-btn fab dark small color="info darken-2">
+              <v-icon>mdi-text-box-check</v-icon>
             </v-btn>
-            <v-btn fab dark small color="red darken-3">
+            <v-btn
+              fab
+              dark
+              small
+              color="red darken-2"
+              @click="eliminar(empresa.nit)"
+            >
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </td>
@@ -44,17 +50,52 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS } from "../../services/recursos";
-export default {
+import {
+  ELIMINAR_EMPRESAS,
+  LISTAR_EMPRESAS_PENDIENTES,
+} from "../../services/recursos";
+import Swal from "sweetalert2";
+import Vue from "vue";
+export default Vue.extend({
   name: "ListadoEmpresaPendientes",
   data: () => ({
     empresas: [],
   }),
-  async mounted() {
-    await LISTAR_EMPRESAS().then((result) => (this.empresas = result.data));
-    console.log(this.empresas);
+  methods: {
+    async cargarDatos() {
+      await LISTAR_EMPRESAS_PENDIENTES().then((result) => {
+        this.empresas = result.data;
+      });
+    },
+    async eliminar(nit) {
+      await Swal.fire({
+        title: "¿Desea eliminar este registro?",
+        text:
+          "Si borra a esta empresa no podra recuperar esta info," +
+          " antes tiene que notificarle a la empresa que realize" +
+          " el registro nuevamente con las correcciones correspondientes",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#42b03d",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await ELIMINAR_EMPRESAS(nit).then((result) => console.log(result));
+          await this.cargarDatos();
+          await Swal.fire(
+            "Eliminada!",
+            "La empresa pendiente se elimino con exito",
+            "success"
+          );
+        }
+      });
+    },
   },
-};
+  async mounted() {
+    await this.cargarDatos();
+  },
+});
 </script>
 
 <style scoped></style>
