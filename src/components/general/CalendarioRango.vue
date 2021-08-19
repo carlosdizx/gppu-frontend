@@ -24,6 +24,7 @@ export default {
   }),
   computed: {
     dateRangeText() {
+      this.$emit("fecha", this.dates);
       return this.dates.join(" ~ ");
     },
   },

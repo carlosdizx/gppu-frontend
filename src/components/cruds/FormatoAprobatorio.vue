@@ -35,13 +35,21 @@
             <v-alert class="text-center" dense dark color="secondary">
               Periodo de valides del convenio
             </v-alert>
-            <CalendarioRango />
+            <CalendarioRango @fecha="fechas = $event" />
+            {{ fechas }}
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn color="red darken-4" dark @click="dialog = !dialog">
             Cerrar
+          </v-btn>
+          <v-btn
+            :disabled="this.fechas.length !== 2"
+            color="info"
+            @click="aprobar"
+          >
+            Aprobar
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -51,14 +59,57 @@
 
 <script>
 import CalendarioRango from "../general/CalendarioRango";
+import {
+  APROBAR_CONVENIO_EMPRESA,
+  ELIMINAR_EMPRESA,
+} from "../../services/recursos";
+import Swal from "sweetalert2";
 export default {
   name: "FormatoAprobatorio",
   components: { CalendarioRango },
   data: () => ({
     dialog: false,
+    fechas: [],
   }),
   props: {
     datos: Object,
+  },
+  methods: {
+    async aprobar() {
+      if (this.fechas.length === 2) {
+        const fecha_inicio = this.fechas[0];
+        const fecha_fin = this.fechas[1];
+        console.log(fecha_inicio);
+        console.log(fecha_fin);
+        this.datos.inicio = fecha_inicio;
+        this.datos.fin = fecha_fin;
+        await Swal.fire({
+          title: "¿Aprobar convenio con esta empresa?",
+          text:
+            "Soy conciente de que la informacion es correcta" +
+            `Nit: ${this.datos.nit}
+           Nombre: ${this.datos.nombre}`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#0f76b7",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, cumple con las validaciones!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await APROBAR_CONVENIO_EMPRESA(this.datos);
+            await ELIMINAR_EMPRESA(this.datos.nit).then((result) =>
+              console.log(result)
+            );
+            await Swal.fire(
+              "Aprobada!",
+              "Felicitaciones por el nuevo convenio 🤝",
+              "success"
+            );
+            this.dialog = !this.dialog;
+          }
+        });
+      }
+    },
   },
 };
 </script>
