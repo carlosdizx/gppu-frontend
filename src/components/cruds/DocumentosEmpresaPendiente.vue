@@ -13,87 +13,55 @@
         <v-card-text>
           <v-container>
             <v-form>
-              <v-row>
-                <v-col cols="2">
-                  <v-btn
-                    color="indigo"
-                    dark
-                    class="my-2"
-                    fab
-                    :href="carta"
-                    target="_blank"
-                  >
-                    <v-icon>mdi-file</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field text v-text="'Carta de intencion'" disabled />
-                </v-col>
-              </v-row>
+              <v-btn
+                block
+                color="indigo"
+                dark
+                class="my-2"
+                :href="carta"
+                target="_blank"
+              >
+                <v-icon>mdi-file</v-icon>Carta
+              </v-btn>
 
-              <v-row>
-                <v-col cols="2">
-                  <v-btn
-                    color="indigo"
-                    dark
-                    class="my-2"
-                    fab
-                    :href="documento"
-                    target="_blank"
-                  >
-                    <v-icon>mdi-file</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    text
-                    v-text="'Documento del representante'"
-                    disabled
-                  />
-                </v-col>
-              </v-row>
+              <v-btn
+                block
+                color="indigo"
+                dark
+                class="my-2"
+                :href="documento"
+                target="_blank"
+              >
+                <v-icon>mdi-file</v-icon>Representante
+              </v-btn>
 
-              <v-row>
-                <v-col cols="2">
-                  <v-btn
-                    color="indigo"
-                    dark
-                    class="my-2"
-                    fab
-                    :href="rut"
-                    target="_blank"
-                  >
-                    <v-icon>mdi-file</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field text v-text="'Rut'" disabled />
-                </v-col>
-              </v-row>
+              <v-btn
+                block
+                color="indigo"
+                dark
+                class="my-2"
+                :href="rut"
+                target="_blank"
+              >
+                <v-icon>mdi-file</v-icon>Rut
+              </v-btn>
 
-              <v-row>
-                <v-col cols="2">
-                  <v-btn
-                    color="indigo"
-                    dark
-                    class="my-2"
-                    fab
-                    :href="camara"
-                    target="_blank"
-                  >
-                    <v-icon>mdi-file</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field text v-text="'Camara de comercio'" disabled />
-                </v-col>
-              </v-row>
+              <v-btn
+                block
+                color="indigo"
+                dark
+                class="my-2"
+                :href="camara"
+                target="_blank"
+              >
+                <v-icon>mdi-file</v-icon>Camara de comercio
+              </v-btn>
             </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="red darken-1" dark @click="dialog = !dialog">
+          <v-btn color="red darken-4" dark @click="dialog = !dialog">
             Cerrar
           </v-btn>
         </v-card-actions>
