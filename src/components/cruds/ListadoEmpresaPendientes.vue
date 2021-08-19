@@ -1,6 +1,7 @@
 <template>
   <v-card max-width="1200" class="mx-auto my-auto">
     <v-card-title>Listado de empresas pendientes</v-card-title>
+    <DocumentosEmpresaPendiente />
     <v-simple-table>
       <thead>
         <tr>
@@ -56,8 +57,10 @@ import {
 } from "../../services/recursos";
 import Swal from "sweetalert2";
 import Vue from "vue";
+import DocumentosEmpresaPendiente from "./DocumentosEmpresaPendiente";
 export default Vue.extend({
   name: "ListadoEmpresaPendientes",
+  components: { DocumentosEmpresaPendiente },
   data: () => ({
     empresas: [],
   }),
