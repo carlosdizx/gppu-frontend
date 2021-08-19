@@ -52,7 +52,7 @@ export const LISTAR_EMPRESAS_PENDIENTES = async () =>
     },
   });
 
-export const ELIMINAR_EMPRESAS = async (nit: any) =>
+export const ELIMINAR_EMPRESA = async (nit: any) =>
   await INSTACIA.delete(`empresas/pendientes/${nit}.json`, {
     headers: {
       "Content-Type": "application/json",
@@ -63,3 +63,14 @@ export const LISTAR_ARCHIVOS_EMPRESA = async (nit: any, nombre: any) =>
   await STORAGE.ref()
     .child(`${universidad}/empresas/${nit}/${nombre}_${nit}`)
     .getDownloadURL();
+
+export const APROBAR_CONVENIO_EMPRESA = async (datos: any) =>
+  await INSTACIA.put(
+    `empresas/aprobadas/${datos.nit}.json`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );

@@ -30,7 +30,13 @@
           <td>{{ empresa.ciudad }}</td>
           <td>{{ empresa.direccion }}</td>
           <td>
-            <v-btn fab dark small color="info darken-2">
+            <v-btn
+              fab
+              dark
+              small
+              color="info darken-2"
+              @click="aprobar(empresa.nit)"
+            >
               <v-icon>mdi-text-box-check</v-icon>
             </v-btn>
             <v-btn
@@ -51,7 +57,9 @@
 
 <script>
 import {
-  ELIMINAR_EMPRESAS,
+  APROBAR_CONVENIO_EMPRESA,
+  ELIMINAR_EMPRESA,
+  EMPRESA_YA_REGISTRADA,
   LISTAR_EMPRESAS_PENDIENTES,
 } from "../../services/recursos";
 import Swal from "sweetalert2";
@@ -83,11 +91,40 @@ export default Vue.extend({
         confirmButtonText: "Si, eliminar!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await ELIMINAR_EMPRESAS(nit).then((result) => console.log(result));
+          await ELIMINAR_EMPRESA(nit).then((result) => console.log(result));
           await this.cargarDatos();
           await Swal.fire(
             "Eliminada!",
             "La empresa pendiente se elimino con exito",
+            "success"
+          );
+        }
+      });
+    },
+    async aprobar(nit) {
+      let datos = null;
+      await EMPRESA_YA_REGISTRADA(nit).then((result) => (datos = result));
+      datos.fecha = new Date();
+      await Swal.fire({
+        title: "¿Aprobar convenio con esta empresa?",
+        text:
+          "Se borra esta empresa de pendientes para " +
+          "registrarla como aprobada." +
+          `Nit: ${datos.nit}
+           Nombre: ${datos.nombre}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0f76b7",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, cumple con las validaciones!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await APROBAR_CONVENIO_EMPRESA(datos);
+          await ELIMINAR_EMPRESA(nit).then((result) => console.log(result));
+          await this.cargarDatos();
+          await Swal.fire(
+            "Aprobada!",
+            "Felicitaciones por el nuevo convenio 🤝",
             "success"
           );
         }

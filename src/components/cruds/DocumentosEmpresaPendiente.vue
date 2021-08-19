@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="600">
+    <v-dialog v-model="dialog" persistent max-width="400">
       <template v-slot:activator="{ on, attrs }">
         <v-btn text v-bind="attrs" v-on="on">
           {{ nit }}
@@ -8,7 +8,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Documentos de empresa {{ nit }}</span>
+          <span class="text-h5">Empresa {{ nit }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -21,7 +21,7 @@
                 :href="carta"
                 target="_blank"
               >
-                <v-icon>mdi-file</v-icon>Carta
+                <v-icon>mdi-file-export</v-icon>Carta
               </v-btn>
 
               <v-btn
@@ -32,7 +32,7 @@
                 :href="documento"
                 target="_blank"
               >
-                <v-icon>mdi-file</v-icon>Representante
+                <v-icon>mdi-file-export</v-icon>Representante
               </v-btn>
 
               <v-btn
@@ -43,7 +43,7 @@
                 :href="rut"
                 target="_blank"
               >
-                <v-icon>mdi-file</v-icon>Rut
+                <v-icon>mdi-file-export</v-icon>Rut
               </v-btn>
 
               <v-btn
@@ -54,7 +54,7 @@
                 :href="camara"
                 target="_blank"
               >
-                <v-icon>mdi-file</v-icon>Camara de comercio
+                <v-icon>mdi-file-export</v-icon>Camara de comercio
               </v-btn>
             </v-form>
           </v-container>
