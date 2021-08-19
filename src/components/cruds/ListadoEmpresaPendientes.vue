@@ -31,15 +31,7 @@
           <td>{{ empresa.direccion }}</td>
           <td>
             <v-btn
-              fab
-              dark
-              small
-              color="info darken-2"
-              @click="aprobar(empresa.nit)"
-            >
-              <v-icon>mdi-text-box-check</v-icon>
-            </v-btn>
-            <v-btn
+              class="px-5"
               fab
               dark
               small
@@ -48,6 +40,7 @@
             >
               <v-icon>mdi-delete</v-icon>
             </v-btn>
+            <FormatoAprobatorio :datos="empresa" />
           </td>
         </tr>
       </tbody>
@@ -65,9 +58,10 @@ import {
 import Swal from "sweetalert2";
 import Vue from "vue";
 import DocumentosEmpresaPendiente from "./DocumentosEmpresaPendiente";
+import FormatoAprobatorio from "./FormatoAprobatorio";
 export default Vue.extend({
   name: "ListadoEmpresaPendientes",
-  components: { DocumentosEmpresaPendiente },
+  components: { DocumentosEmpresaPendiente, FormatoAprobatorio },
   data: () => ({
     empresas: [],
   }),
