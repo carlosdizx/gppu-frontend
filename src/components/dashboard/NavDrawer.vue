@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="nav" app>
+  <v-navigation-drawer v-model="nav" absolute>
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title>Admin</v-list-item-title>
