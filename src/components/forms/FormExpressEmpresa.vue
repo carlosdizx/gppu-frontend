@@ -38,6 +38,19 @@
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
+                  name="Nombre empresa"
+                  rules="required|min:2|max:100"
+                >
+                  <v-text-field
+                    v-model="nombre"
+                    label="Nombre"
+                    prepend-icon="mdi-domain"
+                    :error-messages="errors"
+                    counter
+                  />
+                </validation-provider>
+                <validation-provider
+                  v-slot="{ errors }"
                   name="Celular"
                   rules="required|min:5|max:25"
                 >
@@ -136,6 +149,7 @@ export default {
   data: () => ({
     dialog: false,
     nit: "87656565-ak",
+    nombre: "Arenilla Gamer",
     telefono: 313221632,
     correo: "carlodiaz@umariana.edu.co",
   }),
@@ -143,6 +157,7 @@ export default {
     async registrarExpress() {
       const datos = {
         nit: this.nit,
+        nombre: this.nombre,
         telefono: this.telefono,
         correo: this.correo,
       };
