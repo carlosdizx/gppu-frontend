@@ -100,6 +100,7 @@ export default {
             await ELIMINAR_EMPRESA(this.datos.nit).then((result) =>
               console.log(result)
             );
+            this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",
               "Felicitaciones por el nuevo convenio 🤝",

@@ -40,7 +40,7 @@
             >
               <v-icon>mdi-delete</v-icon>
             </v-btn>
-            <FormatoAprobatorio :datos="empresa" />
+            <FormatoAprobatorio :datos="empresa" @aprobado="cargarDatos" />
           </td>
         </tr>
       </tbody>
