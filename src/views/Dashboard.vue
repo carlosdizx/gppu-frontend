@@ -6,9 +6,9 @@
       @changeDrawer="itemSelector"
       ref="NavDrawer"
     />
-    <ListadoEmpresa v-show="item === 1" />
-    <ListadoEmpresaAprobadas v-show="item == 2" />
-    <h1 v-show="item === 3">componente Estudiantes</h1>
+    <ListadoEmpresa v-if="item === 1" />
+    <ListadoEmpresaAprobadas v-if="item == 2" />
+    <h1 v-if="item === 3">componente Estudiantes</h1>
   </div>
 </template>
 
