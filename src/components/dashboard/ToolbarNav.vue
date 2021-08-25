@@ -13,16 +13,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "ToolbarNav",
   props: ["nav"],
   methods: {
+    ...mapActions(["removeUserToken"]),
     changeState() {
       this.$emit("changeDrawer");
     },
     redirectToHome() {
       this.$router.push("/");
       localStorage.removeItem("token");
+      this.removeUserToken();
     },
   },
 };

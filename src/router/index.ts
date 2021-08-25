@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,7 @@ const routes: Array<RouteConfig> = [
     path: "/dashboard",
     name: "Dashboard",
     component: () => import("../views/Dashboard.vue"),
+    meta: { requiresAuth: true },
   },
 ];
 
@@ -25,6 +27,18 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((route) => route.meta.requiresAuth)) {
+    if (!store.state.token) {
+      next("/");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
