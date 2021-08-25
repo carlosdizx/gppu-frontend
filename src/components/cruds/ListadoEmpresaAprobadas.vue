@@ -1,6 +1,6 @@
 <template>
   <v-card max-width="1200" class="mx-auto my-auto">
-    <v-card-title>Listado de empresas pendientes</v-card-title>
+    <v-card-title>Listado de todas las Empresas Aprobadas</v-card-title>
     <v-simple-table>
       <thead>
         <tr>
