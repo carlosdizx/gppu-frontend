@@ -18,9 +18,7 @@
       </thead>
       <tbody>
         <tr v-for="(empresa, index) in empresas" :key="index">
-          <td>
-            <DocumentosEmpresaPendiente :nit="empresa.nit" />
-          </td>
+          <td>{{ empresa.nit }}</td>
           <td>{{ empresa.nombre }}</td>
           <td>{{ empresa.documento }}</td>
           <td>{{ empresa.celular }}</td>
@@ -40,7 +38,6 @@
             >
               <v-icon>mdi-delete</v-icon>
             </v-btn>
-            <FormatoAprobatorio :datos="empresa" @aprobado="cargarDatos" />
           </td>
         </tr>
       </tbody>
@@ -49,12 +46,55 @@
 </template>
 
 <script>
-export default {
+import {
+  LISTAR_EMPRESAS_APROBADAS,
+  ELIMINAR_EMPRESA_APROBADA,
+} from "../../services/recursos";
+import Vue from "vue";
+import Swal from "sweetalert2";
+
+export default Vue.extend({
   name: "ListadoEmpresaAprobadas",
-  data() {
-    return {
-      empresas: [],
-    };
+  data: () => ({
+    empresas: [],
+  }),
+  methods: {
+    async cargarEmpresas() {
+      try {
+        const result = await LISTAR_EMPRESAS_APROBADAS();
+        this.empresas = result.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async eliminar(nit) {
+      await Swal.fire({
+        title: "¿Desea eliminar este registro?",
+        text: "Si borra a esta empresa no podra recuperar esta info,",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#42b03d",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await ELIMINAR_EMPRESA_APROBADA(nit).then((result) =>
+            console.log(result)
+          );
+          await this.cargarEmpresas();
+          await Swal.fire(
+            "Eliminada!",
+            "La empresa se elimino con exito",
+            "success"
+          );
+        }
+      });
+    },
   },
-};
+  mounted() {
+    this.cargarEmpresas();
+  },
+});
 </script>
+
+<style scoped></style>

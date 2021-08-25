@@ -74,3 +74,17 @@ export const APROBAR_CONVENIO_EMPRESA = async (datos: any) =>
       },
     }
   );
+
+export const LISTAR_EMPRESAS_APROBADAS = async () =>
+  await INSTACIA.get(`empresas/aprobadas.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+export const ELIMINAR_EMPRESA_APROBADA = async (nit: any) =>
+  await INSTACIA.delete(`empresas/aprobadas/${nit}.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
