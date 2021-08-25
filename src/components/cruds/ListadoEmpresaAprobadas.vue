@@ -70,7 +70,7 @@ export default Vue.extend({
     async eliminar(nit) {
       await Swal.fire({
         title: "¿Desea eliminar este registro?",
-        text: "Si borra a esta empresa no podra recuperar esta info,",
+        text: "Si borra a esta empresa no podra recuperar esta info",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#42b03d",
