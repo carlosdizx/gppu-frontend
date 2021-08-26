@@ -89,8 +89,15 @@ export const ELIMINAR_EMPRESA_APROBADA = async (nit: any) =>
     },
   });
 
-export const LISTAR_EMPRESAS_PENDIENTES_EXPRESS = async () =>
+export const LISTAR_EMPRESAS_EXPRESS = async () =>
   await INSTACIA.get(`empresas/express.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+export const ELIMINAR_EMPRESA_EXPRESS = async (nit: any) =>
+  await INSTACIA.delete(`empresas/express/${nit}.json`, {
     headers: {
       "Content-Type": "application/json",
     },

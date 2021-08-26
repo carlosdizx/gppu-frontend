@@ -16,7 +16,7 @@
           <td>{{ empresa.nit }}</td>
           <td>{{ empresa.nombre }}</td>
           <td>{{ empresa.correo }}</td>
-          <td>{{ empresa.celular }}</td>
+          <td>{{ empresa.telefono }}</td>
           <td>
             <v-btn
               class="px-5"
@@ -38,7 +38,9 @@
 <script>
 import {
   LISTAR_EMPRESAS_APROBADAS,
-  ELIMINAR_EMPRESA_APROBADA, LISTAR_EMPRESAS_PENDIENTES_EXPRESS
+  ELIMINAR_EMPRESA_APROBADA,
+  LISTAR_EMPRESAS_EXPRESS,
+  ELIMINAR_EMPRESA_EXPRESS,
 } from "../../services/recursos";
 import Vue from "vue";
 import Swal from "sweetalert2";
@@ -52,7 +54,7 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
-        const result = await LISTAR_EMPRESAS_PENDIENTES_EXPRESS();
+        const result = await LISTAR_EMPRESAS_EXPRESS();
         this.empresas = await result.data;
         this.empresas = Object.values(this.empresas);
         this.empresas.forEach((empresa) => {
@@ -77,7 +79,7 @@ export default Vue.extend({
         confirmButtonText: "Si, eliminar!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await ELIMINAR_EMPRESA_APROBADA(nit).then((result) =>
+          await ELIMINAR_EMPRESA_EXPRESS(nit).then((result) =>
             console.log(result)
           );
           await this.cargarEmpresas();

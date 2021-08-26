@@ -21,7 +21,7 @@
         <v-list-item-icon>
           <v-icon>mdi-clock-fast</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Empresas</v-list-item-title>
+        <v-list-item-title>Empresas express</v-list-item-title>
       </v-list-item>
 
       <v-list-item link @click="changeElement(3)">
