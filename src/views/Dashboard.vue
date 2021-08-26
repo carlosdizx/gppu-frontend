@@ -7,8 +7,9 @@
       ref="NavDrawer"
     />
     <ListadoEmpresa v-if="item === 1" />
-    <ListadoEmpresaAprobadas v-if="item == 2" />
-    <h1 v-if="item === 3">componente Estudiantes</h1>
+    <ListadoEmpresaPendientesExpress v-if="item === 2" />
+    <ListadoEmpresaAprobadas v-if="item === 3" />
+    <h1 v-if="item === 4">componente Estudiantes</h1>
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
 import ListadoEmpresa from "../components/cruds/ListadoEmpresaPendientes";
+import ListadoEmpresaPendientesExpress from "../components/cruds/ListadoEmpresaPendientesExpress";
 import ListadoEmpresaAprobadas from "../components/cruds/ListadoEmpresaAprobadas.vue";
 import Vue from "vue";
 export default Vue.extend({
@@ -24,6 +26,7 @@ export default Vue.extend({
     ToolbarNav,
     NavDrawer,
     ListadoEmpresa,
+    ListadoEmpresaPendientesExpress,
     ListadoEmpresaAprobadas,
   },
   data: () => ({
