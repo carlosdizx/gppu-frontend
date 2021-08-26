@@ -37,8 +37,6 @@
 
 <script>
 import {
-  LISTAR_EMPRESAS_APROBADAS,
-  ELIMINAR_EMPRESA_APROBADA,
   LISTAR_EMPRESAS_EXPRESS,
   ELIMINAR_EMPRESA_EXPRESS,
 } from "../../services/recursos";
