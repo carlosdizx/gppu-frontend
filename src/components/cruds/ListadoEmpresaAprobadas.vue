@@ -13,6 +13,10 @@
           <th>Departamento</th>
           <th>Ciudad</th>
           <th>Dirreccion</th>
+          <th>Fecha de aprobación</th>
+          <th>Fecha de caducidad</th>
+          <th>Dias de vigencia</th>
+          <th>Dias de validez</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -27,6 +31,24 @@
           <td>{{ empresa.departamento }}</td>
           <td>{{ empresa.ciudad }}</td>
           <td>{{ empresa.direccion }}</td>
+          <td>{{ empresa.inicio }}</td>
+          <td>{{ empresa.fin }}</td>
+          <td>{{ empresa.periodo }}</td>
+          <td>
+            <v-btn v-show="empresa.dias >= 60" text color="success">
+              {{ empresa.dias }}
+            </v-btn>
+            <v-btn
+              v-show="empresa.dias < 60 && empresa.dias > 0"
+              text
+              color="warning"
+            >
+              {{ empresa.dias }}
+            </v-btn>
+            <v-btn v-show="empresa.dias < 0" text color="red">
+              {{ empresa.dias }}
+            </v-btn>
+          </td>
           <td>
             <v-btn
               class="px-5"
@@ -52,6 +74,7 @@ import {
 } from "../../services/recursos";
 import Vue from "vue";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 export default Vue.extend({
   name: "ListadoEmpresaAprobadas",
@@ -62,7 +85,15 @@ export default Vue.extend({
     async cargarEmpresas() {
       try {
         const result = await LISTAR_EMPRESAS_APROBADAS();
-        this.empresas = result.data;
+        this.empresas = await result.data;
+        this.empresas = Object.values(this.empresas);
+        this.empresas.forEach((empresa) => {
+          const fecha1 = moment(new Date().toString());
+          const fecha2 = moment(empresa.fin);
+          const fecha3 = moment(empresa.inicio);
+          empresa.dias = fecha2.diff(fecha1, "days");
+          empresa.periodo = fecha2.diff(fecha3, "days");
+        });
       } catch (error) {
         console.log(error);
       }
