@@ -17,7 +17,6 @@
           <th>Fecha de caducidad</th>
           <th>Dias de vigencia</th>
           <th>Dias de validez</th>
-          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -49,18 +48,6 @@
               {{ empresa.dias }}
             </v-btn>
           </td>
-          <td>
-            <v-btn
-              class="px-5"
-              fab
-              dark
-              small
-              color="red darken-2"
-              @click="eliminar(empresa.nit)"
-            >
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </td>
         </tr>
       </tbody>
     </v-simple-table>
@@ -68,12 +55,8 @@
 </template>
 
 <script>
-import {
-  LISTAR_EMPRESAS_APROBADAS,
-  ELIMINAR_EMPRESA_APROBADA,
-} from "../../services/recursos";
+import { LISTAR_EMPRESAS_APROBADAS } from "../../services/recursos";
 import Vue from "vue";
-import Swal from "sweetalert2";
 import moment from "moment";
 
 export default Vue.extend({
@@ -97,29 +80,6 @@ export default Vue.extend({
       } catch (error) {
         console.log(error);
       }
-    },
-    async eliminar(nit) {
-      await Swal.fire({
-        title: "¿Desea eliminar este registro?",
-        text: "Si borra a esta empresa no podra recuperar esta info",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#42b03d",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar!",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await ELIMINAR_EMPRESA_APROBADA(nit).then((result) =>
-            console.log(result)
-          );
-          await this.cargarEmpresas();
-          await Swal.fire(
-            "Eliminada!",
-            "La empresa se elimino con exito",
-            "success"
-          );
-        }
-      });
     },
   },
   mounted() {
