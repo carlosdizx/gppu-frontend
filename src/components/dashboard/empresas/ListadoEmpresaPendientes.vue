@@ -19,7 +19,7 @@
       <tbody>
         <tr v-for="(empresa, index) in empresas" :key="index">
           <td>
-            <DocumentosEmpresaPendiente :nit="empresa.nit" />
+            <DocumentosEmpresa :nit="empresa.nit" />
           </td>
           <td>{{ empresa.nombre }}</td>
           <td>{{ empresa.documento }}</td>
@@ -52,14 +52,14 @@
 import {
   ELIMINAR_EMPRESA,
   LISTAR_EMPRESAS_PENDIENTES,
-} from "../../services/recursos";
+} from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import Vue from "vue";
-import DocumentosEmpresaPendiente from "./DocumentosEmpresaPendiente";
+import DocumentosEmpresa from "./DocumentosEmpresa";
 import FormatoAprobatorio from "./FormatoAprobatorio";
 export default Vue.extend({
   name: "ListadoEmpresaPendientes",
-  components: { DocumentosEmpresaPendiente, FormatoAprobatorio },
+  components: { DocumentosEmpresa, FormatoAprobatorio },
   data: () => ({
     empresas: [],
   }),

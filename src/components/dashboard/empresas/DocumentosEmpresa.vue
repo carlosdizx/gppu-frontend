@@ -71,10 +71,10 @@
 </template>
 
 <script>
-import { LISTAR_ARCHIVOS_EMPRESA } from "../../services/recursos";
+import { LISTAR_ARCHIVOS_EMPRESA } from "../../../services/recursos/empresaRS";
 
 export default {
-  name: "DocumentosEmpresaPendiente",
+  name: "DocumentosEmpresa",
   data: () => ({
     dialog: false,
     carta: "",

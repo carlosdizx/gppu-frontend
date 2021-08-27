@@ -231,7 +231,7 @@ import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
   REGISTRO_ARCHIVOS_EMPRESA,
-} from "@/services/recursos";
+} from "@/services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {

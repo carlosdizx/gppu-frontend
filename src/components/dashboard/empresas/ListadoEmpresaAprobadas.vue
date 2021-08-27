@@ -21,7 +21,9 @@
       </thead>
       <tbody>
         <tr v-for="(empresa, index) in empresas" :key="index">
-          <td>{{ empresa.nit }}</td>
+          <td>
+            <DocumentosEmpresa :nit="empresa.nit" />
+          </td>
           <td>{{ empresa.nombre }}</td>
           <td>{{ empresa.documento }}</td>
           <td>{{ empresa.celular }}</td>
@@ -55,12 +57,14 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../services/recursos";
+import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+import DocumentosEmpresa from "./DocumentosEmpresa";
 import Vue from "vue";
 import moment from "moment";
 
 export default Vue.extend({
   name: "ListadoEmpresaAprobadas",
+  components: { DocumentosEmpresa },
   data: () => ({
     empresas: [],
   }),

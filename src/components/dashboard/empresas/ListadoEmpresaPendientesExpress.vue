@@ -39,7 +39,7 @@
 import {
   LISTAR_EMPRESAS_EXPRESS,
   ELIMINAR_EMPRESA_EXPRESS,
-} from "../../services/recursos";
+} from "../../../services/recursos/empresaRS";
 import Vue from "vue";
 import Swal from "sweetalert2";
 import moment from "moment";
