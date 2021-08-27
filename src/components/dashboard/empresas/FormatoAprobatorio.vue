@@ -58,11 +58,11 @@
 </template>
 
 <script>
-import CalendarioRango from "../general/CalendarioRango";
+import CalendarioRango from "../../general/CalendarioRango";
 import {
   APROBAR_CONVENIO_EMPRESA,
   ELIMINAR_EMPRESA,
-} from "../../services/recursos";
+} from "../../../services/recursos";
 import Swal from "sweetalert2";
 export default {
   name: "FormatoAprobatorio",

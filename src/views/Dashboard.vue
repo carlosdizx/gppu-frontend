@@ -16,9 +16,9 @@
 <script>
 import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
-import ListadoEmpresa from "../components/cruds/ListadoEmpresaPendientes";
-import ListadoEmpresaPendientesExpress from "../components/cruds/ListadoEmpresaPendientesExpress";
-import ListadoEmpresaAprobadas from "../components/cruds/ListadoEmpresaAprobadas.vue";
+import ListadoEmpresa from "../components/dashboard/empresas/ListadoEmpresaPendientes";
+import ListadoEmpresaPendientesExpress from "../components/dashboard/empresas/ListadoEmpresaPendientesExpress";
+import ListadoEmpresaAprobadas from "../components/dashboard/empresas/ListadoEmpresaAprobadas.vue";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",

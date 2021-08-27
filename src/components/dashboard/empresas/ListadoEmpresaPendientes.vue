@@ -52,7 +52,7 @@
 import {
   ELIMINAR_EMPRESA,
   LISTAR_EMPRESAS_PENDIENTES,
-} from "../../services/recursos";
+} from "../../../services/recursos";
 import Swal from "sweetalert2";
 import Vue from "vue";
 import DocumentosEmpresa from "./DocumentosEmpresa";

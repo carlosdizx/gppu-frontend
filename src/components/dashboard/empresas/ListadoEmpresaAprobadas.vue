@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../services/recursos";
+import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos";
 import DocumentosEmpresa from "./DocumentosEmpresa";
 import Vue from "vue";
 import moment from "moment";
