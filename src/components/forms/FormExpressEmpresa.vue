@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos";
+import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresaRS";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,

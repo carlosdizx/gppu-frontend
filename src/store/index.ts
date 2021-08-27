@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { LOGUEAR_USUARIO, LOGUEAR_USUARIO_TOKEN } from "@/services/auth";
 import Swal from "sweetalert2";
 import { CONTIENE_ERROR } from "@/services/validaciones";
-import { REGISTRO_DATOS_EMPRESA } from "@/services/recursos";
+import { REGISTRO_DATOS_EMPRESA } from "@/services/recursos/empresaRS";
 import router from "@/router";
 Vue.use(Vuex);
 

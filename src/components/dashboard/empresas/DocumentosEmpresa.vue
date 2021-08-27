@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { LISTAR_ARCHIVOS_EMPRESA } from "../../../services/recursos";
+import { LISTAR_ARCHIVOS_EMPRESA } from "../../../services/recursos/empresaRS";
 
 export default {
   name: "DocumentosEmpresa",
