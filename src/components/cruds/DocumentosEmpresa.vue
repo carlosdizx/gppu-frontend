@@ -74,7 +74,7 @@
 import { LISTAR_ARCHIVOS_EMPRESA } from "../../services/recursos";
 
 export default {
-  name: "DocumentosEmpresaPendiente",
+  name: "DocumentosEmpresa",
   data: () => ({
     dialog: false,
     carta: "",
