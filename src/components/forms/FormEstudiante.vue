@@ -456,6 +456,7 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import {
+  ESTUDIANTE_YA_REGISTRADO,
   REGISTRO_ARCHIVO_ESTUDIANTE,
   REGISTRO_DATOS_ESTUDIANTE_PENDIENTE,
   REGISTRO_ESTUDIANTE_PENDIENTE,
@@ -539,7 +540,6 @@ export default {
           "Fecha de nacimiento y fecha de expedicion de documento de identidad son necesarios",
           "error"
         );
-        return;
       }
       const estudiante = {
         nombres: this.nombres,
@@ -575,6 +575,13 @@ export default {
         aspectos_per: this.aspectos_per,
         mejoras: this.mejoras,
       };
+      if (await ESTUDIANTE_YA_REGISTRADO(estudiante.documento)) {
+        return await Swal.fire(
+          "Estudiante ya registrado",
+          "sus datos ya fueron subidos a plataforma",
+          "error"
+        );
+      }
       let facha = false;
       if (this.hoja !== null) {
         if (this.hoja.type === "application/pdf") {

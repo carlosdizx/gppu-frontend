@@ -13,6 +13,18 @@ export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
     }
   );
 
+export const ESTUDIANTE_YA_REGISTRADO = async (documento: any) => {
+  const resultado = await INSTACIA.get(
+    `estudiantes/pendientes/${documento}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return resultado.data;
+};
+
 export const REGISTRO_DATOS_ESTUDIANTE_PENDIENTE = async (
   datos: any,
   documento: any
