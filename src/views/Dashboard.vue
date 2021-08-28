@@ -9,7 +9,6 @@
     <ListadoEmpresa v-if="item === 1" />
     <ListadoEmpresaPendientesExpress v-if="item === 2" />
     <ListadoEmpresaAprobadas v-if="item === 3" />
-    <h1 v-if="item === 4">componente Estudiantes</h1>
   </div>
 </template>
 
@@ -32,12 +31,6 @@ export default Vue.extend({
   data: () => ({
     item: 1,
     navigation: false,
-    filas: [
-      { nit: 1, nombre: "Arena 1", estado: "estado 1" },
-      { nit: 2, nombre: "Arena 2", estado: "estado 2" },
-      { nit: 3, nombre: "Arena 3", estado: "estado 2" },
-      { nit: 4, nombre: "Arena 4", estado: "estado 3" },
-    ],
   }),
   methods: {
     itemSelector(idItem) {
