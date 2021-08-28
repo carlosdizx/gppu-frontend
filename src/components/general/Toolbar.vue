@@ -1,6 +1,11 @@
 <template>
   <div>
     <v-toolbar dark color="cyan darken-4" flat>
+      <router-link to="/" v-slot="{ navigate }" custom>
+        <v-btn icon role="link" @click="navigate">
+          <v-icon>mdi-arrow-left-bold</v-icon>
+        </v-btn>
+      </router-link>
       <v-toolbar-title>{{ titulo }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon>{{ icono }}</v-icon>
