@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ToolbarNav from "@/components/dashboard/ToolbarNav.vue";
+import ToolbarNav from "../components/toolbars/ToolbarNav";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
 import ListadoEmpresa from "../components/dashboard/empresas/ListadoEmpresaPendientes";
 import ListadoEmpresaPendientesExpress from "../components/dashboard/empresas/ListadoEmpresaPendientesExpress";
