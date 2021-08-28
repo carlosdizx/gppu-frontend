@@ -77,7 +77,7 @@
             />
             <Calendario
               texto="Fecha de nacimiento"
-              @fecha="fechaNacimiento = $event"
+              @fecha="fechaNaci = $event"
             />
           </v-row>
           <validation-provider
@@ -198,7 +198,7 @@
           <validation-provider
             v-slot="{ errors }"
             name="Promedio"
-            rules="required|number"
+            rules="required"
           >
             <v-text-field
               v-model="promedio"
@@ -488,41 +488,41 @@ export default {
   components: { Calendario, ValidationObserver, ValidationProvider },
   data: () => ({
     opcinesCargo: OPCIONES_CAMPO,
-    fechaNacimiento: null,
-    nombres: null,
-    apellidos: null,
-    tipoDoc: null,
-    documento: null,
+    nombres: "Carlos Ernesto",
+    apellidos: "Díaz Basante",
+    tipoDoc: "Cedula de ciudadania",
+    documento: "1082749257",
     fechaExp: null,
     fechaNaci: null,
-    genero: null,
-    eps: null,
-    pais: null,
-    departamento: null,
-    ciudad: null,
-    direccion: null,
-    zona: null,
-    correo: null,
-    telefono: null,
-    promedio: null,
-    semestre: null,
-    opcion1: null,
-    opcion2: null,
-    opcion3: null,
-    modalidad: null,
-    tipoEmp: null,
-    expectativas: null,
-    experiencia: null,
-    exp_ingenieria: null,
-    competencias: null,
-    comp_fuerte: null,
-    aspectos_pro: null,
-    aspectos_per: null,
-    mejoras: null,
+    genero: "Masculino",
+    eps: "ProInSalud",
+    pais: "Colombia",
+    departamento: "Nariño",
+    ciudad: "Pasto",
+    direccion: "Cl 18 # 36 - 05",
+    zona: "Urbana",
+    correo: "carlodiaz@umariana.edu.co",
+    telefono: 3163930876,
+    promedio: 4.1,
+    semestre: "Decimo",
+    opcion1: "Otra",
+    opcion2: "Otra",
+    opcion3: "Otra",
+    modalidad: "Mixta",
+    tipoEmp: "Privada",
+    expectativas: "Quiero aprender a desarrollarme como persona profesional",
+    experiencia: "Si",
+    exp_ingenieria: "Si",
+    competencias: "Programador, hacker 😈",
+    comp_fuerte:
+      "Programacion, programacion orientada a objetos, programacion web",
+    aspectos_pro: "Arquitectura de software, desarrollo agil",
+    aspectos_per: "Administrar mejor tiempo",
+    mejoras: "Ser mas guapo 🤑✌",
     carga: false,
   }),
   methods: {
-    registrar: () => {
+    registrar() {
       const estduainte = {
         nombres: this.nombres,
         apellidos: this.apellidos,
@@ -556,8 +556,8 @@ export default {
         aspectos_per: this.aspectos_per,
         mejoras: this.mejoras,
       };
-      console.log(estduainte);
-      console.log(datos);
+      console.log(this.fechaExp);
+      console.log(this.fechaNaci);
     },
   },
 };
