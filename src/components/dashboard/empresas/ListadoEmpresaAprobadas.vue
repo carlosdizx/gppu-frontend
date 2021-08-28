@@ -5,6 +5,7 @@
       <v-simple-table>
         <thead>
           <tr>
+            <th>Pasantes</th>
             <th>Nit</th>
             <th>Nombre</th>
             <th>Representante</th>
@@ -22,6 +23,11 @@
         </thead>
         <tbody>
           <tr v-for="(empresa, index) in empresas" :key="index">
+            <td>
+              <v-btn color="indigo" dark small fab>
+                <v-icon>mdi-account-group</v-icon>
+              </v-btn>
+            </td>
             <td>
               <DocumentosEmpresa :nit="empresa.nit" />
             </td>
