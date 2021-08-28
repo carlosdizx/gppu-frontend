@@ -3,6 +3,7 @@
     <Toolbar
       titulo="Formularios de registro"
       icono="mdi-account-multiple"
+      back
       :tabs="tabs"
       @indice="indice = $event"
     />
