@@ -13,9 +13,12 @@ export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
     }
   );
 
-export const REGISTRO_DATOS_ESTUDIANTE_PENDIENTE = async (datos: any) =>
+export const REGISTRO_DATOS_ESTUDIANTE_PENDIENTE = async (
+  datos: any,
+  documento: any
+) =>
   await INSTACIA.put(
-    `estudiantes/pendientes/${datos.documento}.json`,
+    `estudiantes/pendientes/${documento}/datos.json`,
     JSON.stringify(datos),
     {
       headers: {

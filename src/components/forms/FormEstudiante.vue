@@ -453,6 +453,10 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import {
+  REGISTRO_DATOS_ESTUDIANTE_PENDIENTE,
+  REGISTRO_ESTUDIANTE_PENDIENTE,
+} from "@/services/recursos/estudianteRS";
 
 setInteractionMode("eager");
 
@@ -522,7 +526,7 @@ export default {
     carga: false,
   }),
   methods: {
-    registrar() {
+    async registrar() {
       const estduainte = {
         nombres: this.nombres,
         apellidos: this.apellidos,
@@ -556,8 +560,8 @@ export default {
         aspectos_per: this.aspectos_per,
         mejoras: this.mejoras,
       };
-      console.log(this.fechaExp);
-      console.log(this.fechaNaci);
+      await REGISTRO_ESTUDIANTE_PENDIENTE(estduainte);
+      await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estduainte.documento);
     },
   },
 };
