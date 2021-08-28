@@ -21,6 +21,19 @@
               counter
             />
           </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Apellidos"
+            rules="required|min:5|max:60"
+          >
+            <v-text-field
+              v-model="apellidos"
+              label="Apellidos completos"
+              prepend-icon="mdi-account"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
           <v-row>
             <v-col cols="6">
               <validation-provider
@@ -410,6 +423,7 @@
               class="white--text"
               color="success darken-2"
               block
+              @click="registrar"
             >
               Registrar
             </v-btn>
@@ -429,7 +443,7 @@
   </validation-observer>
 </template>
 
-<script lang="ts">
+<script>
 import Calendario from "../general/Calendario.vue";
 import { OPCIONES_CAMPO } from "@/assets/textos";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -475,7 +489,8 @@ export default {
   data: () => ({
     opcinesCargo: OPCIONES_CAMPO,
     fechaNacimiento: null,
-    nombres: "",
+    nombres: null,
+    apellidos: null,
     tipoDoc: null,
     documento: null,
     fechaExp: null,
@@ -506,6 +521,44 @@ export default {
     mejoras: null,
     carga: false,
   }),
-  methods: {},
+  methods: {
+    registrar: () => {
+      const estduainte = {
+        nombres: this.nombres,
+        apellidos: this.apellidos,
+        tipoDoc: this.tipoDoc,
+        documento: this.documento,
+        fechaExp: this.fechaExp,
+        fechaNaci: this.fechaNaci,
+        genero: this.genero,
+        eps: this.eps,
+        pais: this.pais,
+        departamento: this.departamento,
+        ciudad: this.ciudad,
+        direccion: this.direccion,
+        zona: this.zona,
+        correo: this.correo,
+        telefono: this.telefono,
+      };
+      const datos = {
+        promedio: this.promedio,
+        semestre: this.semestre,
+        opcion1: this.opcion1,
+        opcion2: this.opcion2,
+        opcion3: this.opcion3,
+        modalidad: this.modalidad,
+        tipoEmp: this.tipoEmp,
+        expectativas: this.expectativas,
+        experiencia: this.experiencia,
+        exp_ingenieria: this.exp_ingenieria,
+        comp_fuerte: this.comp_fuerte,
+        aspectos_pro: this.aspectos_pro,
+        aspectos_per: this.aspectos_per,
+        mejoras: this.mejoras,
+      };
+      console.log(estduainte);
+      console.log(datos);
+    },
+  },
 };
 </script>
