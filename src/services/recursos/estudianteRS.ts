@@ -50,3 +50,10 @@ export const REGISTRO_ARCHIVO_ESTUDIANTE = async (
   const metadata = { contentType: "application/pdf" };
   return refDoc.put(archivo, metadata);
 };
+
+export const LISTAR_ESTUDIANTES_PENDIENTES = async () =>
+  await INSTACIA.get(`estudiantes/pendientes.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
