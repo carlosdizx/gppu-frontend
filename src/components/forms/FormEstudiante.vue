@@ -6,7 +6,11 @@
         Complete los datos que le sean requeridos
       </v-card-subtitle>
       <v-card-text>
-        <v-form autocomplete="off" :disabled="carga">
+        <v-form
+          @submit.prevent="registrar"
+          autocomplete="off"
+          :disabled="carga"
+        >
           <v-alert dense color="secondary" dark>Datos personales</v-alert>
           <validation-provider
             v-slot="{ errors }"
@@ -535,7 +539,7 @@ export default {
   methods: {
     async registrar() {
       if (this.fechaNaci === null || this.fechaExp === null) {
-        await Swal.fire(
+        return await Swal.fire(
           "Complete todos los campos",
           "Fecha de nacimiento y fecha de expedicion de documento de identidad son necesarios",
           "error"

@@ -1,59 +1,61 @@
 <template>
-  <v-card max-width="1200" class="mx-auto my-auto">
-    <v-card-title>Listado de todas las Empresas Aprobadas</v-card-title>
-    <v-simple-table>
-      <thead>
-        <tr>
-          <th>Nit</th>
-          <th>Nombre</th>
-          <th>Representante</th>
-          <th>Celular</th>
-          <th>Correo electronico</th>
-          <th>Pais</th>
-          <th>Departamento</th>
-          <th>Ciudad</th>
-          <th>Dirreccion</th>
-          <th>Fecha de aprobación</th>
-          <th>Fecha de caducidad</th>
-          <th>Dias de vigencia</th>
-          <th>Dias de validez</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(empresa, index) in empresas" :key="index">
-          <td>
-            <DocumentosEmpresa :nit="empresa.nit" />
-          </td>
-          <td>{{ empresa.nombre }}</td>
-          <td>{{ empresa.documento }}</td>
-          <td>{{ empresa.celular }}</td>
-          <td>{{ empresa.correo }}</td>
-          <td>{{ empresa.pais }}</td>
-          <td>{{ empresa.departamento }}</td>
-          <td>{{ empresa.ciudad }}</td>
-          <td>{{ empresa.direccion }}</td>
-          <td>{{ empresa.inicio }}</td>
-          <td>{{ empresa.fin }}</td>
-          <td>{{ empresa.periodo }}</td>
-          <td>
-            <v-btn v-show="empresa.dias >= 60" text color="success">
-              {{ empresa.dias }}
-            </v-btn>
-            <v-btn
-              v-show="empresa.dias < 60 && empresa.dias > 0"
-              text
-              color="warning"
-            >
-              {{ empresa.dias }}
-            </v-btn>
-            <v-btn v-show="empresa.dias < 0" text color="red">
-              {{ empresa.dias }}
-            </v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </v-simple-table>
-  </v-card>
+  <v-container>
+    <v-card class="mx-auto my-auto">
+      <v-card-title>Listado de todas las Empresas Aprobadas</v-card-title>
+      <v-simple-table>
+        <thead>
+          <tr>
+            <th>Nit</th>
+            <th>Nombre</th>
+            <th>Representante</th>
+            <th>Celular</th>
+            <th>Correo electronico</th>
+            <th>Pais</th>
+            <th>Departamento</th>
+            <th>Ciudad</th>
+            <th>Dirreccion</th>
+            <th>Fecha de aprobación</th>
+            <th>Fecha de caducidad</th>
+            <th>Dias de vigencia</th>
+            <th>Dias de validez</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(empresa, index) in empresas" :key="index">
+            <td>
+              <DocumentosEmpresa :nit="empresa.nit" />
+            </td>
+            <td>{{ empresa.nombre }}</td>
+            <td>{{ empresa.documento }}</td>
+            <td>{{ empresa.celular }}</td>
+            <td>{{ empresa.correo }}</td>
+            <td>{{ empresa.pais }}</td>
+            <td>{{ empresa.departamento }}</td>
+            <td>{{ empresa.ciudad }}</td>
+            <td>{{ empresa.direccion }}</td>
+            <td>{{ empresa.inicio }}</td>
+            <td>{{ empresa.fin }}</td>
+            <td>{{ empresa.periodo }}</td>
+            <td>
+              <v-btn v-show="empresa.dias >= 60" text color="success">
+                {{ empresa.dias }}
+              </v-btn>
+              <v-btn
+                v-show="empresa.dias < 60 && empresa.dias > 0"
+                text
+                color="warning"
+              >
+                {{ empresa.dias }}
+              </v-btn>
+              <v-btn v-show="empresa.dias < 0" text color="red">
+                {{ empresa.dias }}
+              </v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

@@ -9,6 +9,7 @@
     <ListadoEmpresa v-if="item === 1" />
     <ListadoEmpresaPendientesExpress v-if="item === 2" />
     <ListadoEmpresaAprobadas v-if="item === 3" />
+    <TablaCRUD v-if="item === 4" />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import NavDrawer from "@/components/dashboard/NavDrawer.vue";
 import ListadoEmpresa from "../components/dashboard/empresas/ListadoEmpresaPendientes";
 import ListadoEmpresaPendientesExpress from "../components/dashboard/empresas/ListadoEmpresaPendientesExpress";
 import ListadoEmpresaAprobadas from "../components/dashboard/empresas/ListadoEmpresaAprobadas.vue";
+import TablaCRUD from "../components/general/TablaCRUD";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",
@@ -27,6 +29,7 @@ export default Vue.extend({
     ListadoEmpresa,
     ListadoEmpresaPendientesExpress,
     ListadoEmpresaAprobadas,
+    TablaCRUD,
   },
   data: () => ({
     item: 1,
