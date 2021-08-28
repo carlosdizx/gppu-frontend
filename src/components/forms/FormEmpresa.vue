@@ -240,6 +240,7 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import router from "@/router";
 
 setInteractionMode("eager");
 
@@ -392,6 +393,7 @@ export default {
               "error"
             )
           );
+        this.carga = false;
         await Swal.fire(
           "Registro exitoso",
           "Sus datos y documentos fueron subidos en plataforma <br>" +
@@ -400,6 +402,7 @@ export default {
           "success"
         );
         this.carga = false;
+        await router.push("/about");
       } else {
         await Swal.fire(
           "Empresa ya registrada",

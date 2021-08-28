@@ -169,7 +169,7 @@ export default {
               "por llamada o correo respecto al proceso de convenio empresa universidad",
             "success"
           );
-          await router.push("/");
+          await router.push("/about");
         }
       });
     },
