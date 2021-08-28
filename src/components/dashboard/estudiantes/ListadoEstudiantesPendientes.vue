@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card class="mx-auto my-auto">
-      <v-card-title>Listado de empresas pendientes</v-card-title>
+      <v-card-title>Listado de estudiantes pendientes</v-card-title>
       <v-simple-table>
         <thead>
           <tr>
@@ -26,6 +26,9 @@
               </v-btn>
               <v-btn class="px-5" fab dark small color="blue darken-2">
                 <v-icon>mdi-check</v-icon>
+              </v-btn>
+              <v-btn class="px-5" fab dark small color="blue darken-2">
+                <v-icon>mdi-eye</v-icon>
               </v-btn>
             </td>
           </tr>
