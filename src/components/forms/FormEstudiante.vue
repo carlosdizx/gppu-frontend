@@ -401,10 +401,12 @@
           <v-alert block dense dark color="info darken-3"> Opcionales </v-alert>
 
           <v-text-field
+            v-model="url"
             label="URL Portafolio digital (opcional)"
             prepend-icon="mdi-web"
           />
           <v-file-input
+            v-model="hoja"
             accept="application/pdf"
             label="Hoja de vida  (opcional)"
             prepend-icon="mdi-file-account"
@@ -454,9 +456,11 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import {
+  REGISTRO_ARCHIVO_ESTUDIANTE,
   REGISTRO_DATOS_ESTUDIANTE_PENDIENTE,
   REGISTRO_ESTUDIANTE_PENDIENTE,
 } from "@/services/recursos/estudianteRS";
+import Swal from "sweetalert2";
 
 setInteractionMode("eager");
 
@@ -523,11 +527,21 @@ export default {
     aspectos_pro: "Arquitectura de software, desarrollo agil",
     aspectos_per: "Administrar mejor tiempo",
     mejoras: "Ser mas guapo 🤑✌",
+    url: "https://portafolio-carlos-diaz.netlify.app/",
+    hoja: null,
     carga: false,
   }),
   methods: {
     async registrar() {
-      const estduainte = {
+      if (this.fechaNaci === null || this.fechaExp === null) {
+        await Swal.fire(
+          "Complete todos los campos",
+          "Fecha de nacimiento y fecha de expedicion de documento de identidad son necesarios",
+          "error"
+        );
+        return;
+      }
+      const estudiante = {
         nombres: this.nombres,
         apellidos: this.apellidos,
         tipoDoc: this.tipoDoc,
@@ -543,6 +557,7 @@ export default {
         zona: this.zona,
         correo: this.correo,
         telefono: this.telefono,
+        url: this.url,
       };
       const datos = {
         promedio: this.promedio,
@@ -560,8 +575,37 @@ export default {
         aspectos_per: this.aspectos_per,
         mejoras: this.mejoras,
       };
-      await REGISTRO_ESTUDIANTE_PENDIENTE(estduainte);
-      await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estduainte.documento);
+      let facha = false;
+      if (this.hoja !== null) {
+        if (this.hoja.type === "application/pdf") {
+          this.carga = true;
+          await REGISTRO_ARCHIVO_ESTUDIANTE(
+            estudiante.documento,
+            this.hoja,
+            `hoja_de_vida_${estudiante.documento}`
+          );
+          facha = true;
+        } else {
+          await Swal.fire(
+            "El documento hoja de vida errado",
+            "Solo seleccionar archivos pdf",
+            "error"
+          );
+        }
+      } else {
+        facha = true;
+      }
+      if (facha) {
+        this.carga = true;
+        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante);
+        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estudiante.documento);
+        await Swal.fire(
+          "Registro exitoso",
+          "Sus datos seran validados en los proximos dias",
+          "success"
+        );
+        this.carga = false;
+      }
     },
   },
 };

@@ -26,3 +26,15 @@ export const REGISTRO_DATOS_ESTUDIANTE_PENDIENTE = async (
       },
     }
   );
+
+export const REGISTRO_ARCHIVO_ESTUDIANTE = async (
+  documento: any,
+  archivo: any,
+  nombre: any
+) => {
+  const refDoc = STORAGE.ref().child(
+    `${universidad}/estudiantes/pendientes/${documento}/${nombre}`
+  );
+  const metadata = { contentType: "application/pdf" };
+  return refDoc.put(archivo, metadata);
+};
