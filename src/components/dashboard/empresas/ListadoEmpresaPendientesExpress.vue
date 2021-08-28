@@ -1,38 +1,40 @@
 <template>
-  <v-card max-width="1200" class="mx-auto my-auto">
-    <v-card-title>Listado de todas las Empresas express</v-card-title>
-    <v-simple-table>
-      <thead>
-        <tr>
-          <th>Nit</th>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Telefono</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(empresa, index) in empresas" :key="index">
-          <td>{{ empresa.nit }}</td>
-          <td>{{ empresa.nombre }}</td>
-          <td>{{ empresa.correo }}</td>
-          <td>{{ empresa.telefono }}</td>
-          <td>
-            <v-btn
-              class="px-5"
-              fab
-              dark
-              small
-              color="red darken-2"
-              @click="eliminar(empresa.nit)"
-            >
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </v-simple-table>
-  </v-card>
+  <v-container>
+    <v-card class="mx-auto my-auto">
+      <v-card-title>Listado de todas las Empresas express</v-card-title>
+      <v-simple-table>
+        <thead>
+          <tr>
+            <th>Nit</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(empresa, index) in empresas" :key="index">
+            <td>{{ empresa.nit }}</td>
+            <td>{{ empresa.nombre }}</td>
+            <td>{{ empresa.correo }}</td>
+            <td>{{ empresa.telefono }}</td>
+            <td>
+              <v-btn
+                class="px-5"
+                fab
+                dark
+                small
+                color="red darken-2"
+                @click="eliminar(empresa.nit)"
+              >
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

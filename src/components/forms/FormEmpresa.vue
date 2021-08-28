@@ -230,7 +230,7 @@ import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
 import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
-  REGISTRO_ARCHIVOS_EMPRESA,
+  REGISTRO_ARCHIVO_EMPRESA,
 } from "@/services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -342,7 +342,7 @@ export default {
           .then((result) => console.log(result))
           .catch((error) => console.log(error));
 
-        await REGISTRO_ARCHIVOS_EMPRESA(
+        await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoDocumento,
           "documento_" + datos.nit
@@ -356,7 +356,7 @@ export default {
             )
           );
 
-        await REGISTRO_ARCHIVOS_EMPRESA(
+        await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoRut,
           "rut_" + datos.nit
@@ -366,7 +366,7 @@ export default {
             Swal.fire("Error al subir el RUT", `${error},`, "error")
           );
 
-        await REGISTRO_ARCHIVOS_EMPRESA(
+        await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoCamara,
           "camara_comercio_" + datos.nit
@@ -380,7 +380,7 @@ export default {
             )
           );
 
-        await REGISTRO_ARCHIVOS_EMPRESA(
+        await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoCarta,
           "carta_intencion_" + datos.nit

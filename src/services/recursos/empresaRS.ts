@@ -33,7 +33,7 @@ export const EMPRESA_YA_REGISTRADA = async (nit: any) => {
   return resultado.data;
 };
 
-export const REGISTRO_ARCHIVOS_EMPRESA = async (
+export const REGISTRO_ARCHIVO_EMPRESA = async (
   nit: any,
   archivo: any,
   nombre: any

@@ -6,7 +6,11 @@
         Complete los datos que le sean requeridos
       </v-card-subtitle>
       <v-card-text>
-        <v-form autocomplete="off" :disabled="carga">
+        <v-form
+          @submit.prevent="registrar"
+          autocomplete="off"
+          :disabled="carga"
+        >
           <v-alert dense color="secondary" dark>Datos personales</v-alert>
           <validation-provider
             v-slot="{ errors }"
@@ -16,6 +20,19 @@
             <v-text-field
               v-model="nombres"
               label="Nombres completos"
+              prepend-icon="mdi-account"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Apellidos"
+            rules="required|min:5|max:60"
+          >
+            <v-text-field
+              v-model="apellidos"
+              label="Apellidos completos"
               prepend-icon="mdi-account"
               :error-messages="errors"
               counter
@@ -64,7 +81,7 @@
             />
             <Calendario
               texto="Fecha de nacimiento"
-              @fecha="fechaNacimiento = $event"
+              @fecha="fechaNaci = $event"
             />
           </v-row>
           <validation-provider
@@ -185,7 +202,7 @@
           <validation-provider
             v-slot="{ errors }"
             name="Promedio"
-            rules="required|number"
+            rules="required"
           >
             <v-text-field
               v-model="promedio"
@@ -388,10 +405,12 @@
           <v-alert block dense dark color="info darken-3"> Opcionales </v-alert>
 
           <v-text-field
+            v-model="url"
             label="URL Portafolio digital (opcional)"
             prepend-icon="mdi-web"
           />
           <v-file-input
+            v-model="hoja"
             accept="application/pdf"
             label="Hoja de vida  (opcional)"
             prepend-icon="mdi-file-account"
@@ -410,6 +429,7 @@
               class="white--text"
               color="success darken-2"
               block
+              @click="registrar"
             >
               Registrar
             </v-btn>
@@ -429,7 +449,7 @@
   </validation-observer>
 </template>
 
-<script lang="ts">
+<script>
 import Calendario from "../general/Calendario.vue";
 import { OPCIONES_CAMPO } from "@/assets/textos";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -439,6 +459,13 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import {
+  ESTUDIANTE_YA_REGISTRADO,
+  REGISTRO_ARCHIVO_ESTUDIANTE,
+  REGISTRO_DATOS_ESTUDIANTE_PENDIENTE,
+  REGISTRO_ESTUDIANTE_PENDIENTE,
+} from "@/services/recursos/estudianteRS";
+import Swal from "sweetalert2";
 
 setInteractionMode("eager");
 
@@ -474,38 +501,123 @@ export default {
   components: { Calendario, ValidationObserver, ValidationProvider },
   data: () => ({
     opcinesCargo: OPCIONES_CAMPO,
-    fechaNacimiento: null,
-    nombres: "",
-    tipoDoc: null,
-    documento: null,
+    nombres: "Carlos Ernesto",
+    apellidos: "Díaz Basante",
+    tipoDoc: "Cedula de ciudadania",
+    documento: "1082749257",
     fechaExp: null,
     fechaNaci: null,
-    genero: null,
-    eps: null,
-    pais: null,
-    departamento: null,
-    ciudad: null,
-    direccion: null,
-    zona: null,
-    correo: null,
-    telefono: null,
-    promedio: null,
-    semestre: null,
-    opcion1: null,
-    opcion2: null,
-    opcion3: null,
-    modalidad: null,
-    tipoEmp: null,
-    expectativas: null,
-    experiencia: null,
-    exp_ingenieria: null,
-    competencias: null,
-    comp_fuerte: null,
-    aspectos_pro: null,
-    aspectos_per: null,
-    mejoras: null,
+    genero: "Masculino",
+    eps: "ProInSalud",
+    pais: "Colombia",
+    departamento: "Nariño",
+    ciudad: "Pasto",
+    direccion: "Cl 18 # 36 - 05",
+    zona: "Urbana",
+    correo: "carlodiaz@umariana.edu.co",
+    telefono: 3163930876,
+    promedio: 4.1,
+    semestre: "Decimo",
+    opcion1: "Otra",
+    opcion2: "Otra",
+    opcion3: "Otra",
+    modalidad: "Mixta",
+    tipoEmp: "Privada",
+    expectativas: "Quiero aprender a desarrollarme como persona profesional",
+    experiencia: "Si",
+    exp_ingenieria: "Si",
+    competencias: "Programador, hacker 😈",
+    comp_fuerte:
+      "Programacion, programacion orientada a objetos, programacion web",
+    aspectos_pro: "Arquitectura de software, desarrollo agil",
+    aspectos_per: "Administrar mejor tiempo",
+    mejoras: "Ser mas guapo 🤑✌",
+    url: "https://portafolio-carlos-diaz.netlify.app/",
+    hoja: null,
     carga: false,
   }),
-  methods: {},
+  methods: {
+    async registrar() {
+      if (this.fechaNaci === null || this.fechaExp === null) {
+        return await Swal.fire(
+          "Complete todos los campos",
+          "Fecha de nacimiento y fecha de expedicion de documento de identidad son necesarios",
+          "error"
+        );
+      }
+      const estudiante = {
+        nombres: this.nombres,
+        apellidos: this.apellidos,
+        tipoDoc: this.tipoDoc,
+        documento: this.documento,
+        fechaExp: this.fechaExp,
+        fechaNaci: this.fechaNaci,
+        genero: this.genero,
+        eps: this.eps,
+        pais: this.pais,
+        departamento: this.departamento,
+        ciudad: this.ciudad,
+        direccion: this.direccion,
+        zona: this.zona,
+        correo: this.correo,
+        telefono: this.telefono,
+        url: this.url,
+      };
+      const datos = {
+        promedio: this.promedio,
+        semestre: this.semestre,
+        opcion1: this.opcion1,
+        opcion2: this.opcion2,
+        opcion3: this.opcion3,
+        modalidad: this.modalidad,
+        tipoEmp: this.tipoEmp,
+        expectativas: this.expectativas,
+        experiencia: this.experiencia,
+        exp_ingenieria: this.exp_ingenieria,
+        comp_fuerte: this.comp_fuerte,
+        aspectos_pro: this.aspectos_pro,
+        aspectos_per: this.aspectos_per,
+        mejoras: this.mejoras,
+      };
+      if (await ESTUDIANTE_YA_REGISTRADO(estudiante.documento)) {
+        return await Swal.fire(
+          "Estudiante ya registrado",
+          "sus datos ya fueron subidos a plataforma",
+          "error"
+        );
+      }
+      let facha = false;
+      if (this.hoja !== null) {
+        if (this.hoja.type === "application/pdf") {
+          this.carga = true;
+          await REGISTRO_ARCHIVO_ESTUDIANTE(
+            estudiante.documento,
+            this.hoja,
+            `hoja_de_vida_${estudiante.documento}`
+          );
+          facha = true;
+        } else {
+          await Swal.fire(
+            "El documento hoja de vida errado",
+            "Solo seleccionar archivos pdf",
+            "error"
+          );
+        }
+      } else {
+        facha = true;
+      }
+      if (facha) {
+        this.carga = true;
+        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante);
+        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estudiante.documento);
+        await Swal.fire(
+          "Registro exitoso",
+          "Sus datos seran validados en los proximos dias",
+          "success"
+        );
+        this.carga = false;
+      }
+    },
+  },
 };
 </script>
