@@ -18,7 +18,7 @@
                 <v-icon>mdi-file-download</v-icon>
               </v-btn>
             </v-alert>
-            <v-text-field label="Nit" :value="datos.documento" disabled />
+            <v-text-field label="Documento" :value="datos.documento" disabled />
             <v-text-field label="Nombre" :value="datos.nombres" disabled />
             <v-text-field label="Nombre" :value="datos.apellidos" disabled />
             <v-text-field label="Tipo Doc." :value="datos.tipoDoc" disabled />
