@@ -34,13 +34,6 @@
 
       <v-alert color="deep-purple darken-1" dark dense>Estudiantes</v-alert>
 
-      <v-list-item link @click="changeElement(4)">
-        <v-list-item-icon>
-          <v-icon>mdi-account-multiple</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Supervisores</v-list-item-title>
-      </v-list-item>
-
       <v-list-item link @click="changeElement(5)">
         <v-list-item-icon>
           <v-icon>mdi-school-outline</v-icon>
@@ -55,6 +48,13 @@
           <v-icon>mdi-clipboard-check</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Asignar practicantes</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link @click="changeElement(4)">
+        <v-list-item-icon>
+          <v-icon>mdi-account-multiple</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Supervisores</v-list-item-title>
       </v-list-item>
     </v-list>
     {{ element }}

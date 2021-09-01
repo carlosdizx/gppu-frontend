@@ -40,7 +40,7 @@
                 :items="empresas"
                 item-text="nit"
                 v-model="nit"
-                v-on="actualizarEmpresa(nit)"
+                v-on="actualizarEmpresa(empresa)"
               />
             </v-form>
           </v-col>
@@ -80,7 +80,7 @@ export default {
         console.log(error);
       }
     },
-    actualizarEmpresa(empresa) {
+    actualizarEmpresa() {
       this.empresas.forEach((empresa) => {
         if (empresa.nit === this.nit) {
           return (this.empresa = empresa);
