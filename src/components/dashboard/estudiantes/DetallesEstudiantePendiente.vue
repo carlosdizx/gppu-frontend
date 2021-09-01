@@ -2,7 +2,14 @@
   <v-row justify="center" class="my-2 px-1">
     <v-dialog v-model="dialog" persistent max-width="600">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="info darken-3" v-bind="attrs" v-on="on" fab small>
+        <v-btn
+          color="info darken-3"
+          v-bind="attrs"
+          v-on="on"
+          fab
+          small
+          relative
+        >
           <v-icon>mdi-check</v-icon>
         </v-btn>
       </template>

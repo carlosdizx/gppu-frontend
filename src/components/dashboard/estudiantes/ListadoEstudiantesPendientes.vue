@@ -21,10 +21,16 @@
             <td>{{ estudiante.correo }}</td>
             <td>{{ estudiante.telefono }}</td>
             <td>
-              <v-btn class="px-5" fab dark small color="red darken-2">
+              <DetallesEstudiantePendiente :datos="estudiante" />
+              <v-btn
+                fab
+                dark
+                small
+                color="red darken-2"
+                @click="eliminar(estudiante.documento)"
+              >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
-              <DetallesEstudiantePendiente :datos="estudiante" />
             </td>
           </tr>
         </tbody>
@@ -37,7 +43,11 @@
 import Swal from "sweetalert2";
 import DetallesEstudiantePendiente from "./DetallesEstudiantePendiente";
 import Vue from "vue";
-import { LISTAR_ESTUDIANTES_PENDIENTES } from "../../../services/recursos/estudianteRS";
+import {
+  ELIMINAR_ESTUDIANTE,
+  LISTAR_ESTUDIANTES_PENDIENTES,
+} from "../../../services/recursos/estudianteRS";
+import { ELIMINAR_EMPRESA } from "../../../services/recursos/empresaRS";
 export default Vue.extend({
   name: "ListadoEstudiantesPendientes",
   components: { DetallesEstudiantePendiente },
@@ -48,6 +58,29 @@ export default Vue.extend({
     async cargarDatos() {
       await LISTAR_ESTUDIANTES_PENDIENTES().then((result) => {
         this.estudiantes = result.data;
+      });
+    },
+    async eliminar(documento) {
+      await Swal.fire({
+        title: "¿Desea eliminar este registro?",
+        text: "Se borrara la informacion del 'estudiante'",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#42b03d",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await ELIMINAR_ESTUDIANTE(documento).then((result) =>
+            console.log(result)
+          );
+          await this.cargarDatos();
+          await Swal.fire(
+            "Eliminado!",
+            "El estudiante se elimino con exito",
+            "success"
+          );
+        }
       });
     },
   },

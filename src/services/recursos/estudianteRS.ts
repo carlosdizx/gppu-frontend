@@ -57,3 +57,10 @@ export const LISTAR_ESTUDIANTES_PENDIENTES = async () =>
       "Content-Type": "application/json",
     },
   });
+
+export const ELIMINAR_ESTUDIANTE = async (documento: any) =>
+  await INSTACIA.delete(`estudiantes/pendientes/${documento}.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
