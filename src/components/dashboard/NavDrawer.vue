@@ -48,13 +48,14 @@
         <v-list-item-title>Estudiantes</v-list-item-title>
       </v-list-item>
 
+      <v-alert color="pink darken-1" dark dense>Puestos de practica</v-alert>
+
       <v-list-item link @click="changeElement(6)">
         <v-list-item-icon>
-          <v-icon>mdi-handshake-outline</v-icon>
+          <v-icon>mdi-clipboard-check</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Convenio</v-list-item-title>
+        <v-list-item-title>Asignar practicantes</v-list-item-title>
       </v-list-item>
-      <v-alert color="pink darken-1" dark dense> Puestos de practica </v-alert>
     </v-list>
     {{ element }}
   </v-navigation-drawer>
