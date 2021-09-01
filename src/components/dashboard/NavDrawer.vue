@@ -34,11 +34,17 @@
 
       <v-alert color="deep-purple darken-1" dark dense>Estudiantes</v-alert>
 
-      <v-list-item link @click="changeElement(5)">
+      <v-list-item link @click="changeElement(4)">
         <v-list-item-icon>
           <v-icon>mdi-school-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Estudiantes pendientes</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="changeElement(5)">
+        <v-list-item-icon>
+          <v-icon>mdi-school</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Estudiantes aprobados</v-list-item-title>
       </v-list-item>
 
       <v-alert color="pink darken-1" dark dense>Puestos de practica</v-alert>
@@ -50,7 +56,7 @@
         <v-list-item-title>Asignar practicantes</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link @click="changeElement(4)">
+      <v-list-item link @click="changeElement(7)">
         <v-list-item-icon>
           <v-icon>mdi-account-multiple</v-icon>
         </v-list-item-icon>
