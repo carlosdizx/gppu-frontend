@@ -2,16 +2,52 @@
   <v-container>
     <v-card>
       <v-card-title>Asignar practicantes a puestos de trabajo</v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="6">
+            <v-form>
+              <v-select
+                label="Seleccione la empresa"
+                :items="empresas"
+                item-text="nit"
+                v-model="nit"
+                v-on="actualizarEmpresa(nit)"
+              />
+              <v-text-field label="Nit" :value="empresa.nit" disabled />
+              <v-text-field label="Nombre" :value="empresa.nombre" disabled />
+              <v-text-field
+                label="Departamento"
+                :value="empresa.departamento"
+                disabled
+              />
+              <v-text-field label="Ciudad" :value="empresa.ciudad" disabled />
+              <v-text-field
+                label="Direccion"
+                :value="empresa.direccion"
+                disabled
+              />
+              <v-text-field
+                label="Dias de validez"
+                :value="empresa.dias"
+                disabled
+              />
+            </v-form>
+          </v-col>
+          <v-col cols="6">
+            <v-form>
+              <v-select
+                label="Seleccione la estudiante"
+                :items="empresas"
+                item-text="nit"
+                v-model="nit"
+                v-on="actualizarEmpresa(nit)"
+              />
+            </v-form>
+          </v-col>
+        </v-row>
+        <v-btn block color="success">Asignar</v-btn>
+      </v-card-text>
     </v-card>
-    <v-card-text>
-      <v-row>
-        <v-col cols="6">
-          <v-form>
-            <v-select label="Seleccione la empresa" :items="['e1', 'e2']" />
-          </v-form>
-        </v-col>
-      </v-row>
-    </v-card-text>
   </v-container>
 </template>
 
@@ -23,6 +59,8 @@ export default {
   name: "Asignacion",
   data: () => ({
     empresas: [],
+    nit: null,
+    empresa: {},
   }),
   methods: {
     async cargarEmpresas() {
@@ -37,9 +75,17 @@ export default {
           empresa.dias = fecha2.diff(fecha1, "days");
           empresa.periodo = fecha2.diff(fecha3, "days");
         });
+        this.empresas = this.empresas.filter((empresa) => empresa.dias >= 60);
       } catch (error) {
         console.log(error);
       }
+    },
+    actualizarEmpresa(empresa) {
+      this.empresas.forEach((empresa) => {
+        if (empresa.nit === this.nit) {
+          return (this.empresa = empresa);
+        }
+      });
     },
   },
   mounted() {

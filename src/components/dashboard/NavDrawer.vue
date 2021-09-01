@@ -29,7 +29,7 @@
         <v-list-item-icon>
           <v-icon>mdi-domain</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Empresas</v-list-item-title>
+        <v-list-item-title>Empresas aprobadas</v-list-item-title>
       </v-list-item>
 
       <v-alert color="deep-purple darken-1" dark dense>Estudiantes</v-alert>
