@@ -24,9 +24,6 @@
               <v-btn class="px-5" fab dark small color="red darken-2">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
-              <v-btn class="px-5" fab dark small color="blue darken-2">
-                <v-icon>mdi-check</v-icon>
-              </v-btn>
               <DetallesEstudiantePendiente :datos="estudiante" />
             </td>
           </tr>

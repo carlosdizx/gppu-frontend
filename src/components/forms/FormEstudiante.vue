@@ -574,6 +574,7 @@ export default {
         expectativas: this.expectativas,
         experiencia: this.experiencia,
         exp_ingenieria: this.exp_ingenieria,
+        competencias: this.competencias,
         comp_fuerte: this.comp_fuerte,
         aspectos_pro: this.aspectos_pro,
         aspectos_per: this.aspectos_per,
