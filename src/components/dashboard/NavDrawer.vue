@@ -10,6 +10,7 @@
     <v-divider></v-divider>
 
     <v-list nav dense>
+      <v-alert color="info darken-2" dark dense>Empresas</v-alert>
       <v-list-item link @click="changeElement(1)">
         <v-list-item-icon>
           <v-icon>mdi-domain-plus</v-icon>
@@ -31,6 +32,8 @@
         <v-list-item-title>Empresas</v-list-item-title>
       </v-list-item>
 
+      <v-alert color="deep-purple darken-1" dark dense>Estudiantes</v-alert>
+
       <v-list-item link @click="changeElement(4)">
         <v-list-item-icon>
           <v-icon>mdi-account-multiple</v-icon>
@@ -51,6 +54,7 @@
         </v-list-item-icon>
         <v-list-item-title>Convenio</v-list-item-title>
       </v-list-item>
+      <v-alert color="pink darken-1" dark dense> Puestos de practica </v-alert>
     </v-list>
     {{ element }}
   </v-navigation-drawer>
