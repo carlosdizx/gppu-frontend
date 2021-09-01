@@ -27,9 +27,7 @@
               <v-btn class="px-5" fab dark small color="blue darken-2">
                 <v-icon>mdi-check</v-icon>
               </v-btn>
-              <v-btn class="px-5" fab dark small color="blue darken-2">
-                <v-icon>mdi-eye</v-icon>
-              </v-btn>
+              <DetallesEstudiantePendiente :datos="estudiante" />
             </td>
           </tr>
         </tbody>
@@ -40,11 +38,12 @@
 
 <script>
 import Swal from "sweetalert2";
+import DetallesEstudiantePendiente from "./DetallesEstudiantePendiente";
 import Vue from "vue";
 import { LISTAR_ESTUDIANTES_PENDIENTES } from "../../../services/recursos/estudianteRS";
 export default Vue.extend({
   name: "ListadoEstudiantesPendientes",
-  components: {},
+  components: { DetallesEstudiantePendiente },
   data: () => ({
     estudiantes: [],
   }),
