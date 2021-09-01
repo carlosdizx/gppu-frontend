@@ -45,7 +45,7 @@
         <v-list-item-icon>
           <v-icon>mdi-school-outline</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Estudiantes</v-list-item-title>
+        <v-list-item-title>Estudiantes pendientes</v-list-item-title>
       </v-list-item>
 
       <v-alert color="pink darken-1" dark dense>Puestos de practica</v-alert>
