@@ -41,7 +41,10 @@
               >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
-              <FormatoAprobatorio :datos="empresa" @aprobado="cargarDatos" />
+              <DocumentoAprobatorioEmpresa
+                :datos="empresa"
+                @aprobado="cargarDatos"
+              />
             </td>
           </tr>
         </tbody>
@@ -58,10 +61,10 @@ import {
 import Swal from "sweetalert2";
 import Vue from "vue";
 import DocumentosEmpresa from "./DocumentosEmpresa";
-import FormatoAprobatorio from "./FormatoAprobatorio";
+import DocumentoAprobatorioEmpresa from "./DocumentoAprobatorioEmpresa";
 export default Vue.extend({
   name: "ListadoEmpresaPendientes",
-  components: { DocumentosEmpresa, FormatoAprobatorio },
+  components: { DocumentosEmpresa, DocumentoAprobatorioEmpresa },
   data: () => ({
     empresas: [],
   }),

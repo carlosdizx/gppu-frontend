@@ -171,7 +171,7 @@ import {
 } from "../../../services/recursos/empresaRS";
 
 export default {
-  name: "DetallesEstudiantePendiente",
+  name: "DocumentoAprobatorioEstudiante",
   data: () => ({ dialog: false }),
   props: {
     datos: Object,

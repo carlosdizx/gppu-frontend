@@ -21,7 +21,7 @@
             <td>{{ estudiante.correo }}</td>
             <td>{{ estudiante.telefono }}</td>
             <td>
-              <DetallesEstudiantePendiente
+              <DocumentoAprobatorioEstudiante
                 :datos="estudiante"
                 @aprobado="cargarDatos"
               />
@@ -44,7 +44,7 @@
 
 <script>
 import Swal from "sweetalert2";
-import DetallesEstudiantePendiente from "./DetallesEstudiantePendiente";
+import DocumentoAprobatorioEstudiante from "./DocumentoAprobatorioEstudiante";
 import Vue from "vue";
 import {
   ELIMINAR_ESTUDIANTE,
@@ -53,7 +53,7 @@ import {
 import { ELIMINAR_EMPRESA } from "../../../services/recursos/empresaRS";
 export default Vue.extend({
   name: "ListadoEstudiantesPendientes",
-  components: { DetallesEstudiantePendiente },
+  components: { DocumentoAprobatorioEstudiante },
   data: () => ({
     estudiantes: [],
   }),

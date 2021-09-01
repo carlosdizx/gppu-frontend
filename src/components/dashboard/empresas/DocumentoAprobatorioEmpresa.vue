@@ -65,7 +65,7 @@ import {
 } from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
 export default {
-  name: "FormatoAprobatorio",
+  name: "DocumentoAprobatorioEmpresa",
   components: { CalendarioRango },
   data: () => ({
     dialog: false,
