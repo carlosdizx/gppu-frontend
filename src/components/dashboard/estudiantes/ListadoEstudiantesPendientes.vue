@@ -21,7 +21,10 @@
             <td>{{ estudiante.correo }}</td>
             <td>{{ estudiante.telefono }}</td>
             <td>
-              <DetallesEstudiantePendiente :datos="estudiante" />
+              <DetallesEstudiantePendiente
+                :datos="estudiante"
+                @aprobado="cargarDatos"
+              />
               <v-btn
                 fab
                 dark
