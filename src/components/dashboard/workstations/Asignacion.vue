@@ -40,27 +40,36 @@
                 :items="estudiantes"
                 item-text="documento"
                 v-model="documento"
+                v-on="actualizarEstudiante(documento)"
               />
               <v-text-field
                 label="Nombres"
                 :value="estudiante.nombres"
                 disabled
               />
-              <v-text-field label="Nombre" :value="empresa.nombre" disabled />
+              <v-text-field
+                label="Apellidos"
+                :value="estudiante.apellidos"
+                disabled
+              />
               <v-text-field
                 label="Departamento"
-                :value="empresa.departamento"
+                :value="estudiante.departamento"
                 disabled
               />
-              <v-text-field label="Ciudad" :value="empresa.ciudad" disabled />
+              <v-text-field
+                label="Ciudad"
+                :value="estudiante.ciudad"
+                disabled
+              />
               <v-text-field
                 label="Direccion"
-                :value="empresa.direccion"
+                :value="estudiante.direccion"
                 disabled
               />
               <v-text-field
-                label="Dias de validez"
-                :value="empresa.dias"
+                label="Celular"
+                :value="estudiante.telefono"
                 disabled
               />
             </v-form>
@@ -116,6 +125,7 @@ export default {
       try {
         const result = await LISTAR_ESTUDIANTES_APROBADOS();
         this.estudiantes = Object.values(result.data);
+        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
