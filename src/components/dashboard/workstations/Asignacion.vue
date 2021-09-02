@@ -37,10 +37,9 @@
             <v-form>
               <v-select
                 label="Seleccione la estudiante"
-                :items="empresas"
-                item-text="nit"
-                v-model="nit"
-                v-on="actualizarEmpresa(empresa)"
+                :items="estudiantesAprobados"
+                item-text="documento"
+                v-model="documento"
               />
             </v-form>
           </v-col>
@@ -53,13 +52,17 @@
 
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+// import { REGISTRO_WORKSTATION } from "../../../services/recursos/workStationRS";
+import { LISTAR_ESTUDIANTES_APROBADOS } from "../../../services/recursos/estudianteRS";
 import moment from "moment";
 
 export default {
   name: "Asignacion",
   data: () => ({
     empresas: [],
+    estudiantesAprobados: [],
     nit: null,
+    documento: null,
     empresa: {},
   }),
   methods: {
@@ -80,6 +83,15 @@ export default {
         console.log(error);
       }
     },
+    async cargarEstudiantes() {
+      try {
+        const result = await LISTAR_ESTUDIANTES_APROBADOS();
+        this.estudiantesAprobados = Object.values(result.data);
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     actualizarEmpresa() {
       this.empresas.forEach((empresa) => {
         if (empresa.nit === this.nit) {
@@ -87,9 +99,13 @@ export default {
         }
       });
     },
+    // registrarworkstation() {
+    //   REGISTRO_WORKSTATION
+    // },
   },
   mounted() {
     this.cargarEmpresas();
+    this.cargarEstudiantes();
   },
 };
 </script>

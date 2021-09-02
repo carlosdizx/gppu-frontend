@@ -82,3 +82,10 @@ export const LISTAR_EMPRESAS_APROBADAS = async () =>
       "Content-Type": "application/json",
     },
   });
+
+export const LISTAR_ESTUDIANTES_APROBADOS = async () =>
+  await INSTACIA.get(`estudiantes/aprobados.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
