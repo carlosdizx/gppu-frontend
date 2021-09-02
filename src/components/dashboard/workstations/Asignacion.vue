@@ -37,14 +37,42 @@
             <v-form>
               <v-select
                 label="Seleccione la estudiante"
-                :items="estudiantesAprobados"
+                :items="estudiantes"
                 item-text="documento"
                 v-model="documento"
+              />
+              <v-text-field
+                label="Nombres"
+                :value="estudiante.nombres"
+                disabled
+              />
+              <v-text-field label="Nombre" :value="empresa.nombre" disabled />
+              <v-text-field
+                label="Departamento"
+                :value="empresa.departamento"
+                disabled
+              />
+              <v-text-field label="Ciudad" :value="empresa.ciudad" disabled />
+              <v-text-field
+                label="Direccion"
+                :value="empresa.direccion"
+                disabled
+              />
+              <v-text-field
+                label="Dias de validez"
+                :value="empresa.dias"
+                disabled
               />
             </v-form>
           </v-col>
         </v-row>
-        <v-btn block color="success">Asignar</v-btn>
+        <v-btn
+          block
+          :disabled="!nit || !documento"
+          color="success"
+          @click="registrarworkstation"
+          >Asignar</v-btn
+        >
       </v-card-text>
     </v-card>
   </v-container>
@@ -60,10 +88,11 @@ export default {
   name: "Asignacion",
   data: () => ({
     empresas: [],
-    estudiantesAprobados: [],
+    estudiantes: [],
     nit: null,
     documento: null,
     empresa: {},
+    estudiante: {},
   }),
   methods: {
     async cargarEmpresas() {
@@ -86,8 +115,7 @@ export default {
     async cargarEstudiantes() {
       try {
         const result = await LISTAR_ESTUDIANTES_APROBADOS();
-        this.estudiantesAprobados = Object.values(result.data);
-        console.log(result);
+        this.estudiantes = Object.values(result.data);
       } catch (error) {
         console.log(error);
       }
@@ -99,9 +127,16 @@ export default {
         }
       });
     },
-    // registrarworkstation() {
-    //   REGISTRO_WORKSTATION
-    // },
+    actualizarEstudiante() {
+      this.estudiantes.forEach((estudiante) => {
+        if (estudiante.documento === this.documento) {
+          return (this.estudiante = estudiante);
+        }
+      });
+    },
+    registrarworkstation() {
+      console.log("REGISTRO_WORKSTATION");
+    },
   },
   mounted() {
     this.cargarEmpresas();
