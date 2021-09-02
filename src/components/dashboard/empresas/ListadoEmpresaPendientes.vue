@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-data-table :headers="columnas" :items="empresas" class="elevation-1">
+    <v-data-table :headers="columnas" :items="filas" class="elevation-1">
       <template v-slot:item.nit="{ item }">
         <DocumentosEmpresa :nit="item.nit" />
       </template>
@@ -45,12 +45,12 @@ export default Vue.extend({
       { text: "Direccion", value: "direccion", sortable: false },
       { text: "Acciones", value: "acciones", sortable: false },
     ],
-    empresas: [],
+    filas: [],
   }),
   methods: {
     async cargarDatos() {
       await LISTAR_EMPRESAS_PENDIENTES().then((result) => {
-        this.empresas = Object.values(result.data);
+        this.filas = Object.values(result.data);
       });
     },
     async eliminar(nit) {
