@@ -1,66 +1,21 @@
 <template>
   <v-container>
-    <v-card class="mx-auto my-auto">
-      <v-card-title>Listado de todas las Empresas Aprobadas</v-card-title>
-      <v-simple-table>
-        <thead>
-          <tr>
-            <th>Pasantes</th>
-            <th>Nit</th>
-            <th>Nombre</th>
-            <th>Representante</th>
-            <th>Celular</th>
-            <th>Correo electronico</th>
-            <th>Pais</th>
-            <th>Departamento</th>
-            <th>Ciudad</th>
-            <th>Dirreccion</th>
-            <th>Fecha de aprobación</th>
-            <th>Fecha de caducidad</th>
-            <th>Dias de vigencia</th>
-            <th>Dias de validez</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(empresa, index) in empresas" :key="index">
-            <td>
-              <v-btn color="indigo" dark small fab>
-                <v-icon>mdi-account-group</v-icon>
-              </v-btn>
-            </td>
-            <td>
-              <DocumentosEmpresa :nit="empresa.nit" />
-            </td>
-            <td>{{ empresa.nombre }}</td>
-            <td>{{ empresa.documento }}</td>
-            <td>{{ empresa.celular }}</td>
-            <td>{{ empresa.correo }}</td>
-            <td>{{ empresa.pais }}</td>
-            <td>{{ empresa.departamento }}</td>
-            <td>{{ empresa.ciudad }}</td>
-            <td>{{ empresa.direccion }}</td>
-            <td>{{ empresa.inicio }}</td>
-            <td>{{ empresa.fin }}</td>
-            <td>{{ empresa.periodo }}</td>
-            <td>
-              <v-btn v-show="empresa.dias >= 60" text color="success">
-                {{ empresa.dias }}
-              </v-btn>
-              <v-btn
-                v-show="empresa.dias < 60 && empresa.dias > 0"
-                text
-                color="warning"
-              >
-                {{ empresa.dias }}
-              </v-btn>
-              <v-btn v-show="empresa.dias < 0" text color="red">
-                {{ empresa.dias }}
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </v-simple-table>
-    </v-card>
+    <v-data-table :headers="columnas" :items="filas" class="elevation-1">
+      <template v-slot:item.nit="{ item }">
+        <DocumentosEmpresa :nit="item.nit" />
+      </template>
+      <template v-slot:item.dias="{ item }">
+        <v-btn v-show="item.dias >= 60" text color="success">
+          {{ item.dias }}
+        </v-btn>
+        <v-btn v-show="item.dias < 60 && item.dias > 0" text color="warning">
+          {{ item.dias }}
+        </v-btn>
+        <v-btn v-show="item.dias < 0" text color="red">
+          {{ item.dias }}
+        </v-btn>
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -74,20 +29,33 @@ export default Vue.extend({
   name: "ListadoEmpresaAprobadas",
   components: { DocumentosEmpresa },
   data: () => ({
-    empresas: [],
+    columnas: [
+      { text: "Nit", value: "nit", sortable: false },
+      { text: "Representante", value: "documento", sortable: false },
+      { text: "Celular", value: "celular", sortable: false },
+      { text: "Correo", value: "correo", sortable: false },
+      { text: "Pais", value: "pais", sortable: false },
+      { text: "Departamento", value: "departamento", sortable: false },
+      { text: "Ciudad", value: "ciudad", sortable: false },
+      { text: "Direccion", value: "direccion", sortable: false },
+      { text: "Fecha de aprobación", value: "inicio", sortable: false },
+      { text: "Fecha de caducidad", value: "fin", sortable: false },
+      { text: "Dias de vigencia", value: "periodo", sortable: false },
+      { text: "Dias de validez", value: "dias", sortable: false },
+    ],
+    filas: [],
   }),
   methods: {
     async cargarEmpresas() {
       try {
         const result = await LISTAR_EMPRESAS_APROBADAS();
-        this.empresas = await result.data;
-        this.empresas = Object.values(this.empresas);
-        this.empresas.forEach((empresa) => {
+        this.filas = Object.values(result.data);
+        this.filas.forEach((empresa) => {
           const fecha1 = moment(new Date().toString());
           const fecha2 = moment(empresa.fin);
           const fecha3 = moment(empresa.inicio);
-          empresa.dias = fecha2.diff(fecha1, "days");
           empresa.periodo = fecha2.diff(fecha3, "days");
+          empresa.dias = fecha2.diff(fecha1, "days");
         });
       } catch (error) {
         console.log(error);
