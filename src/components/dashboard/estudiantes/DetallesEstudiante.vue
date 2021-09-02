@@ -1,8 +1,11 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600">
+    <v-btn color="red darken-4" dark @click="dialog = !dialog">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="info darken-3" v-bind="attrs" v-on="on" fab small>
-        <v-icon>mdi-check</v-icon>
+        <v-icon>mdi-eye</v-icon>
       </v-btn>
     </template>
     <v-card>
@@ -146,64 +149,21 @@
           />
         </v-form>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn color="red darken-4" dark @click="dialog = !dialog">
-          Cerrar
-        </v-btn>
-        <v-btn color="info" @click="aprobar">Aprobar</v-btn>
-      </v-card-actions>
     </v-card>
+    <v-btn color="red darken-4" dark @click="dialog = !dialog">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
   </v-dialog>
 </template>
 
 <script>
-import {
-  APROBAR_ESTUDIANTE,
-  ELIMINAR_ESTUDIANTE,
-} from "../../../services/recursos/estudianteRS";
-import Swal from "sweetalert2";
-import {
-  APROBAR_CONVENIO_EMPRESA,
-  ELIMINAR_EMPRESA,
-} from "../../../services/recursos/empresaRS";
-
 export default {
-  name: "DocumentoAprobatorioEstudiante",
-  data: () => ({ dialog: false }),
+  name: "DetallesEstudiante",
+  data: () => ({
+    dialog: false,
+  }),
   props: {
     datos: Object,
-  },
-  methods: {
-    async aprobar() {
-      await Swal.fire({
-        title: "¿Desea aprobar a este estudiante?",
-        text:
-          "Soy conciente de que la informacion es correcta " +
-          `Documento: ${this.datos.documento} -
-           Nombres: ${this.datos.nombres} -
-           Apellidos: ${this.datos.nombres}`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#0f76b7",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, cumple con las validaciones!",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await APROBAR_ESTUDIANTE(this.datos);
-          await ELIMINAR_ESTUDIANTE(this.datos.documento).then((result) =>
-            console.log(result)
-          );
-          this.$emit("aprobado", true);
-          await Swal.fire(
-            "Aprobado!",
-            "Felicitaciones estudiante verificado 🙋‍♀️🙋‍♂️",
-            "success"
-          );
-          this.dialog = !this.dialog;
-        }
-      });
-    },
   },
 };
 </script>
