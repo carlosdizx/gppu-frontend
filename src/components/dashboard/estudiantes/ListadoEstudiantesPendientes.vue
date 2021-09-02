@@ -1,44 +1,19 @@
 <template>
   <v-container>
-    <v-card class="mx-auto my-auto">
-      <v-card-title>Listado de estudiantes pendientes</v-card-title>
-      <v-simple-table>
-        <thead>
-          <tr>
-            <th>Documento de identidad</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Correo electronico</th>
-            <th>Celular</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(estudiante, index) in estudiantes" :key="index">
-            <td>{{ estudiante.documento }}</td>
-            <td>{{ estudiante.nombres }}</td>
-            <td>{{ estudiante.apellidos }}</td>
-            <td>{{ estudiante.correo }}</td>
-            <td>{{ estudiante.telefono }}</td>
-            <td>
-              <DocumentoAprobatorioEstudiante
-                :datos="estudiante"
-                @aprobado="cargarDatos"
-              />
-              <v-btn
-                fab
-                dark
-                small
-                color="red darken-2"
-                @click="eliminar(estudiante.documento)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </v-simple-table>
-    </v-card>
+    <v-data-table :headers="columnas" :items="filas" class="elevation-1">
+      <template v-slot:item.acciones="{ item }">
+        <DocumentoAprobatorioEstudiante :datos="item" @aprobado="cargarDatos" />
+        <v-btn
+          fab
+          dark
+          small
+          color="red darken-2"
+          @click="eliminar(item.documento)"
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -55,12 +30,20 @@ export default Vue.extend({
   name: "ListadoEstudiantesPendientes",
   components: { DocumentoAprobatorioEstudiante },
   data: () => ({
-    estudiantes: [],
+    columnas: [
+      { text: "Documento", value: "documento" },
+      { text: "Nombres", value: "nombres" },
+      { text: "Apellidos", value: "apellidos" },
+      { text: "Correo", value: "correo", sortable: false },
+      { text: "Telefono", value: "telefono", sortable: false },
+      { text: "Acciones", value: "acciones" },
+    ],
+    filas: [],
   }),
   methods: {
     async cargarDatos() {
       await LISTAR_ESTUDIANTES_PENDIENTES().then((result) => {
-        this.estudiantes = result.data;
+        this.filas = Object.values(result.data);
       });
     },
     async eliminar(documento) {
