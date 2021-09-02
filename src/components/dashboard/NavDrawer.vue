@@ -51,16 +51,16 @@
 
       <v-list-item link @click="changeElement(6)">
         <v-list-item-icon>
-          <v-icon>mdi-clipboard-check</v-icon>
+          <v-icon>mdi-account-multiple</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Asignar practicantes</v-list-item-title>
+        <v-list-item-title>Supervisores</v-list-item-title>
       </v-list-item>
 
       <v-list-item link @click="changeElement(7)">
         <v-list-item-icon>
-          <v-icon>mdi-account-multiple</v-icon>
+          <v-icon>mdi-clipboard-check</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Supervisores</v-list-item-title>
+        <v-list-item-title>Asignar practicantes</v-list-item-title>
       </v-list-item>
     </v-list>
     {{ element }}
