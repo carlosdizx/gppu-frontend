@@ -1,11 +1,6 @@
 <template>
   <v-container>
-    <v-data-table
-      :headers="columnas"
-      :items="filas"
-      sort-by="calories"
-      class="elevation-1"
-    >
+    <v-data-table :headers="columnas" :items="filas" class="elevation-1">
       <template v-slot:item.detalle="{ item }">
         <DetallesEstudiante :datos="item" />
       </template>

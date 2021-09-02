@@ -1,39 +1,19 @@
 <template>
   <v-container>
-    <v-card class="mx-auto my-auto">
-      <v-card-title>Listado de todas las Empresas express</v-card-title>
-      <v-simple-table>
-        <thead>
-          <tr>
-            <th>Nit</th>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Telefono</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(empresa, index) in empresas" :key="index">
-            <td>{{ empresa.nit }}</td>
-            <td>{{ empresa.nombre }}</td>
-            <td>{{ empresa.correo }}</td>
-            <td>{{ empresa.telefono }}</td>
-            <td>
-              <v-btn
-                class="px-5"
-                fab
-                dark
-                small
-                color="red darken-2"
-                @click="eliminar(empresa.nit)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </v-simple-table>
-    </v-card>
+    <v-data-table :headers="columnas" :items="filas" class="elevation-1">
+      <template v-slot:item.eliminar="{ item }">
+        <v-btn
+          class="px-5"
+          fab
+          dark
+          small
+          color="red darken-2"
+          @click="eliminar(item.nit)"
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -49,21 +29,19 @@ import moment from "moment";
 export default Vue.extend({
   name: "ListadoEmpresaPendientesExpress",
   data: () => ({
-    empresas: [],
+    columnas: [
+      { text: "Nit", value: "nit" },
+      { text: "Nombre", value: "nombre" },
+      { text: "Telefono", value: "telefono" },
+      { text: "Eliminar", value: "eliminar" },
+    ],
+    filas: [],
   }),
   methods: {
     async cargarEmpresas() {
       try {
         const result = await LISTAR_EMPRESAS_EXPRESS();
-        this.empresas = await result.data;
-        this.empresas = Object.values(this.empresas);
-        this.empresas.forEach((empresa) => {
-          const fecha1 = moment(new Date().toString());
-          const fecha2 = moment(empresa.fin);
-          const fecha3 = moment(empresa.inicio);
-          empresa.dias = fecha2.diff(fecha1, "days");
-          empresa.periodo = fecha2.diff(fecha3, "days");
-        });
+        this.filas = Object.values(result.data);
       } catch (error) {
         console.log(error);
       }

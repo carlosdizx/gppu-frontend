@@ -1,55 +1,23 @@
 <template>
   <v-container>
-    <v-card class="mx-auto my-auto">
-      <v-card-title>Listado de empresas pendientes</v-card-title>
-      <v-simple-table>
-        <thead>
-          <tr>
-            <th>Nit</th>
-            <th>Nombre</th>
-            <th>Representante</th>
-            <th>Celular</th>
-            <th>Correo electronico</th>
-            <th>Pais</th>
-            <th>Departamento</th>
-            <th>Ciudad</th>
-            <th>Dirreccion</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(empresa, index) in empresas" :key="index">
-            <td>
-              <DocumentosEmpresa :nit="empresa.nit" />
-            </td>
-            <td>{{ empresa.nombre }}</td>
-            <td>{{ empresa.documento }}</td>
-            <td>{{ empresa.celular }}</td>
-            <td>{{ empresa.correo }}</td>
-            <td>{{ empresa.pais }}</td>
-            <td>{{ empresa.departamento }}</td>
-            <td>{{ empresa.ciudad }}</td>
-            <td>{{ empresa.direccion }}</td>
-            <td>
-              <v-btn
-                class="px-5"
-                fab
-                dark
-                small
-                color="red darken-2"
-                @click="eliminar(empresa.nit)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-              <DocumentoAprobatorioEmpresa
-                :datos="empresa"
-                @aprobado="cargarDatos"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </v-simple-table>
-    </v-card>
+    <v-data-table :headers="columnas" :items="filas" class="elevation-1">
+      <template v-slot:item.nit="{ item }">
+        <DocumentosEmpresa :nit="item.nit" />
+      </template>
+      <template v-slot:item.acciones="{ item }">
+        <v-btn
+          class="px-5"
+          fab
+          dark
+          small
+          color="red darken-2"
+          @click="eliminar(item.nit)"
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+        <DocumentoAprobatorioEmpresa :datos="item" @aprobado="cargarDatos" />
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -66,12 +34,23 @@ export default Vue.extend({
   name: "ListadoEmpresaPendientes",
   components: { DocumentosEmpresa, DocumentoAprobatorioEmpresa },
   data: () => ({
-    empresas: [],
+    columnas: [
+      { text: "Nit", value: "nit", sortable: false },
+      { text: "Representante", value: "documento", sortable: false },
+      { text: "Celular", value: "celular", sortable: false },
+      { text: "Correo", value: "correo", sortable: false },
+      { text: "Pais", value: "pais", sortable: false },
+      { text: "Departamento", value: "departamento", sortable: false },
+      { text: "Ciudad", value: "ciudad", sortable: false },
+      { text: "Direccion", value: "direccion", sortable: false },
+      { text: "Acciones", value: "acciones", sortable: false },
+    ],
+    filas: [],
   }),
   methods: {
     async cargarDatos() {
       await LISTAR_EMPRESAS_PENDIENTES().then((result) => {
-        this.empresas = result.data;
+        this.filas = Object.values(result.data);
       });
     },
     async eliminar(nit) {
