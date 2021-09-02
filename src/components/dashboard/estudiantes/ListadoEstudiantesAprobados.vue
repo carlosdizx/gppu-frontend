@@ -7,20 +7,19 @@
       class="elevation-1"
     >
       <template v-slot:item.detalle="{ item }">
-        <v-btn fab dark small color="info darken-2">
-          {{ item.id }}
-          <v-icon> mdi-eye </v-icon>
-        </v-btn>
+        <DetallesEstudiante :datos="item" />
       </template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
+import DetallesEstudiante from "./DetallesEstudiante";
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/estudianteRS";
 
 export default {
   name: "ListadoEstudiantesAprobados",
+  components: { DetallesEstudiante },
   data: () => ({
     columnas: [
       { text: "Documento", value: "documento" },
