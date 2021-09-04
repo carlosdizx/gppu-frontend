@@ -114,19 +114,6 @@ export default {
   methods: {
     async cargarEmpresas() {
       try {
-        /**
-        const result = await LISTAR_EMPRESAS_APROBADAS();
-        this.empresas = await result.data;
-        this.empresas = Object.values(this.empresas);
-        this.empresas.forEach((empresa) => {
-          const fecha1 = moment(new Date().toString());
-          const fecha2 = moment(empresa.fin);
-          const fecha3 = moment(empresa.inicio);
-          empresa.dias = fecha2.diff(fecha1, "days");
-          empresa.periodo = fecha2.diff(fecha3, "days");
-        });
-        this.empresas = this.empresas.filter((empresa) => empresa.dias >= 60);
-         */
         await LISTAR_EMPRESAS_APROBADAS().then((result) => {
           if (result.data) {
             this.empresas = Object.values(result.data);
