@@ -42,7 +42,7 @@ export default Vue.extend({
       { text: "Fecha de aprobación", value: "inicio", sortable: false },
       { text: "Fecha de caducidad", value: "fin", sortable: false },
       { text: "Periodo (dias)", value: "periodo", sortable: false },
-      { text: "Dias actual vigencia", value: "dias", sortable: false },
+      { text: "Dias de vigencia", value: "dias", sortable: false },
     ],
     filas: [],
   }),
