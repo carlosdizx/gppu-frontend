@@ -31,6 +31,7 @@ export default Vue.extend({
   data: () => ({
     columnas: [
       { text: "Nit", value: "nit", sortable: false },
+      { text: "Nombre", value: "nombre" },
       { text: "Representante", value: "documento", sortable: false },
       { text: "Celular", value: "celular", sortable: false },
       { text: "Correo", value: "correo", sortable: false },
@@ -40,29 +41,32 @@ export default Vue.extend({
       { text: "Direccion", value: "direccion", sortable: false },
       { text: "Fecha de aprobación", value: "inicio", sortable: false },
       { text: "Fecha de caducidad", value: "fin", sortable: false },
-      { text: "Dias de vigencia", value: "periodo", sortable: false },
-      { text: "Dias de validez", value: "dias", sortable: false },
+      { text: "Periodo (dias)", value: "periodo", sortable: false },
+      { text: "Dias de vigencia", value: "dias", sortable: false },
     ],
     filas: [],
   }),
   methods: {
     async cargarEmpresas() {
       try {
-        const result = await LISTAR_EMPRESAS_APROBADAS();
-        this.filas = Object.values(result.data);
-        this.filas.forEach((empresa) => {
-          const fecha1 = moment(new Date().toString());
-          const fecha2 = moment(empresa.fin);
-          const fecha3 = moment(empresa.inicio);
-          empresa.periodo = fecha2.diff(fecha3, "days");
-          empresa.dias = fecha2.diff(fecha1, "days");
+        await LISTAR_EMPRESAS_APROBADAS().then(async (resultado) => {
+          if (resultado.data) {
+            this.filas = await Object.values(resultado.data);
+            this.filas.forEach((empresa) => {
+              const fecha1 = moment(new Date().toString());
+              const fecha2 = moment(empresa.fin);
+              const fecha3 = moment(empresa.inicio);
+              empresa.periodo = fecha2.diff(fecha3, "days");
+              empresa.dias = fecha2.diff(fecha1, "days");
+            });
+          }
         });
       } catch (error) {
         console.log(error);
       }
     },
   },
-  mounted() {
+  created() {
     this.cargarEmpresas();
   },
 });

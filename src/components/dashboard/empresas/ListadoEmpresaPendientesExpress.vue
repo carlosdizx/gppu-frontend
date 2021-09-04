@@ -40,8 +40,11 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
-        const result = await LISTAR_EMPRESAS_EXPRESS();
-        this.filas = Object.values(result.data);
+        await LISTAR_EMPRESAS_EXPRESS().then((resultado) => {
+          if (resultado.data) {
+            this.filas = Object.values(resultado.data);
+          }
+        });
       } catch (error) {
         console.log(error);
       }

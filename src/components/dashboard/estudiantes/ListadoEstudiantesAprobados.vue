@@ -18,11 +18,8 @@ export default {
   data: () => ({
     columnas: [
       { text: "Documento", value: "documento" },
-      { text: "Tipo", value: "tipoDoc" },
-      { text: "F. Expedicion", value: "fechaExp", sortable: false },
       { text: "Nombres", value: "nombres" },
       { text: "Apellidos", value: "apellidos" },
-      { text: "Eps", value: "eps", sortable: false },
       { text: "Telefono", value: "telefono", sortable: false },
       { text: "Correo", value: "correo", sortable: false },
       { text: "Mas detalles", value: "detalle" },
@@ -31,9 +28,14 @@ export default {
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_ESTUDIANTES_APROBADOS().then(
-        (respuesta) => (this.filas = Object.values(respuesta.data))
-      );
+      await LISTAR_ESTUDIANTES_APROBADOS().then((resultado) => {
+        if (resultado.data) {
+          this.filas = Object.values(resultado.data);
+          this.filas = this.filas.filter(
+            (estudiante) => estudiante.estado === 2
+          );
+        }
+      });
     },
   },
   mounted() {

@@ -95,9 +95,7 @@ export default {
         }).then(async (result) => {
           if (result.isConfirmed) {
             await APROBAR_CONVENIO_EMPRESA(this.datos);
-            await ELIMINAR_EMPRESA(this.datos.nit).then((result) =>
-              console.log(result)
-            );
+            await ELIMINAR_EMPRESA(this.datos.nit);
             this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",

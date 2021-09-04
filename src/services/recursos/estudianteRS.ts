@@ -4,7 +4,7 @@ const universidad = "uarena";
 
 export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
   await INSTACIA.put(
-    `estudiantes/pendientes/${estudiante.documento}.json`,
+    `estudiantes/${estudiante.documento}.json`,
     JSON.stringify(estudiante),
     {
       headers: {
@@ -14,14 +14,11 @@ export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
   );
 
 export const ESTUDIANTE_YA_REGISTRADO = async (documento: any) => {
-  const resultado = await INSTACIA.get(
-    `estudiantes/pendientes/${documento}.json`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const resultado = await INSTACIA.get(`estudiantes/${documento}.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   return resultado.data;
 };
 
@@ -30,7 +27,7 @@ export const REGISTRO_DATOS_ESTUDIANTE_PENDIENTE = async (
   documento: any
 ) =>
   await INSTACIA.put(
-    `estudiantes/pendientes/${documento}/datos.json`,
+    `estudiantes/${documento}/datos.json`,
     JSON.stringify(datos),
     {
       headers: {
@@ -45,29 +42,29 @@ export const REGISTRO_ARCHIVO_ESTUDIANTE = async (
   nombre: any
 ) => {
   const refDoc = STORAGE.ref().child(
-    `${universidad}/estudiantes/pendientes/${documento}/${nombre}`
+    `${universidad}/estudiantes/${documento}/${nombre}`
   );
   const metadata = { contentType: "application/pdf" };
   return refDoc.put(archivo, metadata);
 };
 
 export const LISTAR_ESTUDIANTES_PENDIENTES = async () =>
-  await INSTACIA.get(`estudiantes/pendientes.json`, {
+  await INSTACIA.get(`estudiantes.json`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
 
 export const ELIMINAR_ESTUDIANTE = async (documento: any) =>
-  await INSTACIA.delete(`estudiantes/pendientes/${documento}.json`, {
+  await INSTACIA.delete(`estudiantes/${documento}.json`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
 
 export const APROBAR_ESTUDIANTE = async (datos: any) =>
-  await INSTACIA.put(
-    `estudiantes/aprobados/${datos.documento}.json`,
+  await INSTACIA.patch(
+    `estudiantes/${datos.documento}.json`,
     JSON.stringify(datos),
     {
       headers: {
@@ -77,8 +74,19 @@ export const APROBAR_ESTUDIANTE = async (datos: any) =>
   );
 
 export const LISTAR_ESTUDIANTES_APROBADOS = async () =>
-  await INSTACIA.get(`estudiantes/aprobados.json`, {
+  await INSTACIA.get(`estudiantes.json`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+export const ESTUDIANTE_PASANTE = async (datos: any) =>
+  await INSTACIA.patch(
+    `estudiantes/${datos.documento}.json`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );

@@ -88,11 +88,18 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
-import { LISTAR_ESTUDIANTES_APROBADOS } from "../../../services/recursos/estudianteRS";
+import {
+  ASIGNAR_PASANTE_APROBADAS,
+  LISTAR_EMPRESAS_APROBADAS,
+} from "../../../services/recursos/empresaRS";
+import {
+  ESTUDIANTE_PASANTE,
+  LISTAR_ESTUDIANTES_APROBADOS,
+} from "../../../services/recursos/estudianteRS";
 import { REGISTRO_ESTUDIANTE_EN_EMPRESA } from "../../../services/recursos/workStationsRS";
 
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export default {
   name: "Asignacion",
@@ -107,6 +114,7 @@ export default {
   methods: {
     async cargarEmpresas() {
       try {
+        /**
         const result = await LISTAR_EMPRESAS_APROBADAS();
         this.empresas = await result.data;
         this.empresas = Object.values(this.empresas);
@@ -118,15 +126,32 @@ export default {
           empresa.periodo = fecha2.diff(fecha3, "days");
         });
         this.empresas = this.empresas.filter((empresa) => empresa.dias >= 60);
+         */
+        await LISTAR_EMPRESAS_APROBADAS().then((result) => {
+          if (result.data) {
+            this.empresas = Object.values(result.data);
+          }
+        });
+        this.empresas.forEach((empresa) => {
+          const fecha1 = moment(new Date().toString());
+          const fecha2 = moment(empresa.fin);
+          empresa.dias = fecha2.diff(fecha1, "days");
+        });
+        this.empresas = this.empresas.filter((empresa) => empresa.dias >= 60);
       } catch (error) {
         console.log(error);
       }
     },
     async cargarEstudiantes() {
       try {
-        const result = await LISTAR_ESTUDIANTES_APROBADOS();
-        this.estudiantes = Object.values(result.data);
-        console.log(result.data);
+        await LISTAR_ESTUDIANTES_APROBADOS().then((resultado) => {
+          if (resultado.data) {
+            this.estudiantes = Object.values(resultado.data);
+            this.estudiantes = this.estudiantes.filter(
+              (estudiante) => estudiante.estado === 2
+            );
+          }
+        });
       } catch (error) {
         console.log(error);
       }
@@ -146,26 +171,36 @@ export default {
       });
     },
     async registrarworkstation() {
-      console.log("registrarworkstation");
-      const datos = {
-        nit: this.empresa.nit,
-        nombre: this.empresa.nombre,
-        documento: this.empresa.documento,
-        celular: this.empresa.celular,
-        correo: this.empresa.correo,
-        pais: this.empresa.pais,
-        departamento: this.empresa.departamento,
-        ciudad: this.empresa.ciudad,
-        direccion: this.empresa.direccion,
-        estudiantes: [{ nit: this.documento }],
+      this.estudiante.estado = 3;
+      await ESTUDIANTE_PASANTE(this.estudiante);
+      const estudiante = {
+        documento: this.estudiante.documento,
+        nombres: this.estudiante.nombres,
+        apellidos: this.estudiante.apellidos,
       };
-      console.log(datos);
-      await REGISTRO_ESTUDIANTE_EN_EMPRESA(datos);
+      const pasantes = this.empresa.pasantes ? this.empresa.pasantes : [];
+      pasantes.push(estudiante);
+      this.empresa.pasantes = pasantes;
+      await ASIGNAR_PASANTE_APROBADAS(this.empresa);
+      this.empresas = [];
+      this.estudiantes = [];
+      this.nit = null;
+      this.documento = null;
+      this.empresa = {};
+      this.estudiante = {};
+      await this.cargarEmpresas();
+      await this.cargarEstudiantes();
+      await Swal.fire({
+        title: "Felicitaciones por el nuevo puesto de practica 👨‍🏭👩‍🏭",
+        timer: 2500,
+        icon: "success",
+        showConfirmButton: false,
+      });
     },
   },
-  mounted() {
-    this.cargarEmpresas();
-    this.cargarEstudiantes();
+  async mounted() {
+    await this.cargarEmpresas();
+    await this.cargarEstudiantes();
   },
 };
 </script>
