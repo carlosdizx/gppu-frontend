@@ -61,7 +61,7 @@ export const ELIMINAR_ESTUDIANTE = async (documento: any) =>
       "Content-Type": "application/json",
     },
   });
-//------ Aqui
+
 export const APROBAR_ESTUDIANTE = async (datos: any) =>
   await INSTACIA.patch(
     `estudiantes/${datos.documento}.json`,
@@ -79,3 +79,14 @@ export const LISTAR_ESTUDIANTES_APROBADOS = async () =>
       "Content-Type": "application/json",
     },
   });
+
+export const ESTUDIANTE_PASANTE = async (datos: any) =>
+  await INSTACIA.patch(
+    `estudiantes/${datos.documento}.json`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );

@@ -89,10 +89,14 @@
 
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
-import { LISTAR_ESTUDIANTES_APROBADOS } from "../../../services/recursos/estudianteRS";
+import {
+  ESTUDIANTE_PASANTE,
+  LISTAR_ESTUDIANTES_APROBADOS,
+} from "../../../services/recursos/estudianteRS";
 import { REGISTRO_ESTUDIANTE_EN_EMPRESA } from "../../../services/recursos/workStationsRS";
 
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export default {
   name: "Asignacion",
@@ -164,13 +168,27 @@ export default {
       });
     },
     async registrarworkstation() {
-      console.log("registrarworkstation");
-      //await REGISTRO_ESTUDIANTE_EN_EMPRESA(datos);
+      this.estudiante.estado = 3;
+      await ESTUDIANTE_PASANTE(this.estudiante);
+      this.empresas = [];
+      this.estudiantes = [];
+      this.nit = null;
+      this.documento = null;
+      this.empresa = {};
+      this.estudiante = {};
+      await this.cargarEmpresas();
+      await this.cargarEstudiantes();
+      await Swal.fire({
+        title: "Felicitaciones por el nuevo puesto de practica 👨‍🏭👩‍🏭",
+        timer: 2500,
+        icon: "success",
+        showConfirmButton: false,
+      });
     },
   },
-  mounted() {
-    this.cargarEmpresas();
-    this.cargarEstudiantes();
+  async mounted() {
+    await this.cargarEmpresas();
+    await this.cargarEstudiantes();
   },
 };
 </script>
