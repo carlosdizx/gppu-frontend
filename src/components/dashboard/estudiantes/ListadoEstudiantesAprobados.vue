@@ -31,9 +31,9 @@ export default {
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_ESTUDIANTES_APROBADOS().then(
-        (respuesta) => (this.filas = Object.values(respuesta.data))
-      );
+      await LISTAR_ESTUDIANTES_APROBADOS().then((respuesta) => {
+        console.log(respuesta.data);
+      });
     },
   },
   mounted() {

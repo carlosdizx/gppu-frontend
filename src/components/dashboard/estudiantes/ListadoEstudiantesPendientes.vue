@@ -43,7 +43,12 @@ export default Vue.extend({
   methods: {
     async cargarDatos() {
       await LISTAR_ESTUDIANTES_PENDIENTES().then((result) => {
-        this.filas = Object.values(result.data);
+        if (result.data) {
+          this.filas = Object.values(result.data);
+          this.filas = this.filas.filter(
+            (estudiante) => estudiante.estado === 1
+          );
+        }
       });
     },
     async eliminar(documento) {
