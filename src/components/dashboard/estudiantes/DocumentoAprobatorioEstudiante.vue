@@ -13,7 +13,7 @@
         <v-form>
           <v-alert class="text-center" dense dark color="secondary">
             Datos del estudiante
-            <v-btn small fab color="info">
+            <v-btn @click="descargarDatosEstudiante" fab color="info">
               <v-icon>mdi-file-download</v-icon>
             </v-btn>
           </v-alert>
@@ -201,6 +201,9 @@ export default {
           this.dialog = !this.dialog;
         }
       });
+    },
+    descargarDatosEstudiante() {
+      console.log("descargar datos");
     },
   },
 };
