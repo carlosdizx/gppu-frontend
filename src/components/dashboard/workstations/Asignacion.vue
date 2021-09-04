@@ -107,6 +107,7 @@ export default {
   methods: {
     async cargarEmpresas() {
       try {
+        /**
         const result = await LISTAR_EMPRESAS_APROBADAS();
         this.empresas = await result.data;
         this.empresas = Object.values(this.empresas);
@@ -118,15 +119,26 @@ export default {
           empresa.periodo = fecha2.diff(fecha3, "days");
         });
         this.empresas = this.empresas.filter((empresa) => empresa.dias >= 60);
+         */
+        await LISTAR_EMPRESAS_APROBADAS().then((result) => {
+          if (result.data) {
+            this.empresas = Object.values(result.data);
+          }
+        });
       } catch (error) {
         console.log(error);
       }
     },
     async cargarEstudiantes() {
       try {
-        const result = await LISTAR_ESTUDIANTES_APROBADOS();
-        this.estudiantes = Object.values(result.data);
-        console.log(result.data);
+        await LISTAR_ESTUDIANTES_APROBADOS().then((resultado) => {
+          if (resultado.data) {
+            this.estudiantes = Object.values(resultado.data);
+            this.estudiantes = this.estudiantes.filter(
+              (estudiante) => estudiante.estado === 2
+            );
+          }
+        });
       } catch (error) {
         console.log(error);
       }
