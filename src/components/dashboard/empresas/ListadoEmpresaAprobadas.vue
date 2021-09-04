@@ -48,8 +48,11 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
-        const result = await LISTAR_EMPRESAS_APROBADAS();
-        this.filas = Object.values(result.data);
+        await LISTAR_EMPRESAS_APROBADAS().then((resultado) => {
+          if (resultado.data) {
+            this.filas = Object.values(resultado.data);
+          }
+        });
         this.filas.forEach((empresa) => {
           const fecha1 = moment(new Date().toString());
           const fecha2 = moment(empresa.fin);

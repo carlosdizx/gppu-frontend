@@ -49,8 +49,10 @@ export default Vue.extend({
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_EMPRESAS_PENDIENTES().then((result) => {
-        this.filas = Object.values(result.data);
+      await LISTAR_EMPRESAS_PENDIENTES().then((resultado) => {
+        if (resultado.data) {
+          this.filas = Object.values(resultado.data);
+        }
       });
     },
     async eliminar(nit) {
