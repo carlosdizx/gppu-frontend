@@ -35,7 +35,8 @@ export default Vue.extend({
   components: { DocumentosEmpresa, DocumentoAprobatorioEmpresa },
   data: () => ({
     columnas: [
-      { text: "Nit", value: "nit", sortable: false },
+      { text: "Nit", value: "nit" },
+      { text: "Nombre", value: "nombre" },
       { text: "Representante", value: "documento", sortable: false },
       { text: "Celular", value: "celular", sortable: false },
       { text: "Correo", value: "correo", sortable: false },

@@ -125,6 +125,12 @@ export default {
             this.empresas = Object.values(result.data);
           }
         });
+        this.empresas.forEach((empresa) => {
+          const fecha1 = moment(new Date().toString());
+          const fecha2 = moment(empresa.fin);
+          empresa.dias = fecha2.diff(fecha1, "days");
+        });
+        this.empresas = this.empresas.filter((empresa) => empresa.dias >= 60);
       } catch (error) {
         console.log(error);
       }
