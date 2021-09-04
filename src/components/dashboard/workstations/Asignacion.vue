@@ -88,7 +88,10 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+import {
+  ASIGNAR_PASANTE_APROBADAS,
+  LISTAR_EMPRESAS_APROBADAS,
+} from "../../../services/recursos/empresaRS";
 import {
   ESTUDIANTE_PASANTE,
   LISTAR_ESTUDIANTES_APROBADOS,
@@ -170,6 +173,15 @@ export default {
     async registrarworkstation() {
       this.estudiante.estado = 3;
       await ESTUDIANTE_PASANTE(this.estudiante);
+      const estudiante = {
+        documento: this.estudiante.documento,
+        nombres: this.estudiante.nombres,
+        apellidos: this.estudiante.apellidos,
+      };
+      const pasantes = this.empresa.pasantes ? this.empresa.pasantes : [];
+      pasantes.push(estudiante);
+      this.empresa.pasantes = pasantes;
+      await ASIGNAR_PASANTE_APROBADAS(this.empresa);
       this.empresas = [];
       this.estudiantes = [];
       this.nit = null;
