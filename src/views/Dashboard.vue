@@ -11,8 +11,9 @@
     <ListadoEmpresaAprobadas v-if="item === 3" />
     <ListadoEstudiantesPendientes v-if="item === 4" />
     <ListadoEstudiantesAprobados v-if="item === 5" />
-    <TablaCRUD v-if="item === 6" />
-    <Asignacion v-if="item === 7" />
+    <ListadoEstudiantesPasantes v-if="item === 6" />
+    <TablaCRUD v-if="item === 7" />
+    <Asignacion v-if="item === 8" />
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import ListadoEmpresaPendientesExpress from "../components/dashboard/empresas/Li
 import ListadoEmpresaAprobadas from "../components/dashboard/empresas/ListadoEmpresaAprobadas.vue";
 import ListadoEstudiantesPendientes from "../components/dashboard/estudiantes/ListadoEstudiantesPendientes";
 import ListadoEstudiantesAprobados from "../components/dashboard/estudiantes/ListadoEstudiantesAprobados";
+import ListadoEstudiantesPasantes from "../components/dashboard/estudiantes/ListadoEstudiantesPasantes";
 import Asignacion from "../components/dashboard/workstations/Asignacion";
 import TablaCRUD from "../components/general/TablaCRUD";
 import Vue from "vue";
@@ -38,6 +40,7 @@ export default Vue.extend({
     TablaCRUD,
     ListadoEstudiantesPendientes,
     ListadoEstudiantesAprobados,
+    ListadoEstudiantesPasantes,
     Asignacion,
   },
   data: () => ({
