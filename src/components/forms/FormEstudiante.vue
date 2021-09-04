@@ -562,6 +562,7 @@ export default {
         correo: this.correo,
         telefono: this.telefono,
         url: this.url,
+        estado: 1,
       };
       const datos = {
         promedio: this.promedio,

@@ -147,20 +147,7 @@ export default {
     },
     async registrarworkstation() {
       console.log("registrarworkstation");
-      const datos = {
-        nit: this.empresa.nit,
-        nombre: this.empresa.nombre,
-        documento: this.empresa.documento,
-        celular: this.empresa.celular,
-        correo: this.empresa.correo,
-        pais: this.empresa.pais,
-        departamento: this.empresa.departamento,
-        ciudad: this.empresa.ciudad,
-        direccion: this.empresa.direccion,
-        estudiantes: [{ nit: this.documento }],
-      };
-      console.log(datos);
-      await REGISTRO_ESTUDIANTE_EN_EMPRESA(datos);
+      //await REGISTRO_ESTUDIANTE_EN_EMPRESA(datos);
     },
   },
   mounted() {
