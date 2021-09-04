@@ -190,10 +190,8 @@ export default {
         confirmButtonText: "Si, cumple con las validaciones!",
       }).then(async (result) => {
         if (result.isConfirmed) {
+          this.datos.estado = 2;
           await APROBAR_ESTUDIANTE(this.datos);
-          await ELIMINAR_ESTUDIANTE(this.datos.documento).then((result) =>
-            console.log(result)
-          );
           this.$emit("aprobado", true);
           await Swal.fire(
             "Aprobado!",

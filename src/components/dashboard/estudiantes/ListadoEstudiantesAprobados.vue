@@ -31,8 +31,13 @@ export default {
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_ESTUDIANTES_APROBADOS().then((respuesta) => {
-        console.log(respuesta.data);
+      await LISTAR_ESTUDIANTES_APROBADOS().then((resultado) => {
+        if (resultado.data) {
+          this.filas = Object.values(resultado.data);
+          this.filas = this.filas.filter(
+            (estudiante) => estudiante.estado === 2
+          );
+        }
       });
     },
   },
