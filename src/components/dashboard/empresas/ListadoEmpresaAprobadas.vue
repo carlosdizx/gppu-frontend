@@ -8,6 +8,28 @@
           <v-spacer></v-spacer>
         </v-toolbar>
       </template>
+      <template v-slot:item.pasantes="{ item }">
+        <v-btn
+          fab
+          small
+          color="purple"
+          dark
+          class="elevation-1"
+          v-if="item.pasantes"
+        >
+          <v-icon>mdi-account-supervisor-outline</v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          small
+          color="purple"
+          class="elevation-1"
+          v-if="!item.pasantes"
+          disabled
+        >
+          <v-icon>mdi-account-supervisor-outline</v-icon>
+        </v-btn>
+      </template>
       <template v-slot:item.nit="{ item }">
         <DocumentosEmpresa :nit="item.nit" />
       </template>
@@ -37,6 +59,7 @@ export default Vue.extend({
   components: { DocumentosEmpresa },
   data: () => ({
     columnas: [
+      { text: "Practicantes", value: "pasantes", sortable: false },
       { text: "Nit", value: "nit", sortable: false },
       { text: "Nombre", value: "nombre" },
       { text: "Representante", value: "documento", sortable: false },
