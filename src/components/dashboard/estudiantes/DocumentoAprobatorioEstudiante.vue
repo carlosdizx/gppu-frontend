@@ -17,37 +17,24 @@
               <v-icon>mdi-file-download</v-icon>
             </v-btn>
           </v-alert>
-          <v-text-field label="Documento" :value="datos.documento" disabled />
-          <v-text-field label="Nombre" :value="datos.nombres" disabled />
-          <v-text-field label="Nombre" :value="datos.apellidos" disabled />
-          <v-text-field label="Tipo Doc." :value="datos.tipoDoc" disabled />
-          <v-text-field
-            label="F. expedicion"
-            :value="datos.fechaExp"
-            disabled
-          />
-          <v-text-field
-            label="F. nacimiento"
-            :value="datos.fechaNaci"
-            disabled
-          />
-          <v-text-field label="Genero" :value="datos.genero" disabled />
-          <v-text-field label="EPS" :value="datos.eps" disabled />
-          <v-text-field label="Pais" :value="datos.pais" disabled />
+          <v-text-field label="Documento" :value="datos.documento" />
+          <v-text-field label="Nombre" :value="datos.nombres" />
+          <v-text-field label="Nombre" :value="datos.apellidos" />
+          <v-text-field label="Tipo Doc." :value="datos.tipoDoc" />
+          <v-text-field label="F. expedicion" :value="datos.fechaExp" />
+          <v-text-field label="F. nacimiento" :value="datos.fechaNaci" />
+          <v-text-field label="Genero" :value="datos.genero" />
+          <v-text-field label="EPS" :value="datos.eps" />
+          <v-text-field label="Pais" :value="datos.pais" />
           <v-text-field
             label="Departamento/Estado/Provincia"
             :value="datos.departamento"
-            disabled
           />
-          <v-text-field label="Ciudad" :value="datos.ciudad" disabled />
-          <v-text-field label="Direccion" :value="datos.direccion" disabled />
-          <v-text-field label="Zona" :value="datos.zona" disabled />
-          <v-text-field label="Correo" :value="datos.correo" disabled />
-          <v-text-field
-            label="Celular o telefono"
-            :value="datos.telefono"
-            disabled
-          />
+          <v-text-field label="Ciudad" :value="datos.ciudad" />
+          <v-text-field label="Direccion" :value="datos.direccion" />
+          <v-text-field label="Zona" :value="datos.zona" />
+          <v-text-field label="Correo" :value="datos.correo" />
+          <v-text-field label="Celular o telefono" :value="datos.telefono" />
           <v-row>
             <v-col cols="12" class="text-center">
               <v-btn :href="datos.url" target="_blank">
