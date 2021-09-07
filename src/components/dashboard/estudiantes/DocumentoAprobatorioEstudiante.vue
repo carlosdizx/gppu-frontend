@@ -167,6 +167,8 @@ import {
   APROBAR_CONVENIO_EMPRESA,
   ELIMINAR_EMPRESA,
 } from "../../../services/recursos/empresaRS";
+import { localeChanged } from "vee-validate";
+import { jsPDF } from "jspdf";
 
 export default {
   name: "DocumentoAprobatorioEstudiante",
@@ -203,7 +205,12 @@ export default {
       });
     },
     descargarDatosEstudiante() {
-      console.log("descargar datos");
+      const doc = new jsPDF();
+
+      doc.text("Hello world!", 10, 10);
+      doc.save(
+        `${this.datos.nombres} ${this.datos.apellidos}-${this.datos.documento}`
+      );
     },
   },
 };
