@@ -207,7 +207,13 @@ export default {
     descargarDatosEstudiante() {
       const doc = new jsPDF();
 
-      doc.text("Hello world!", 10, 10);
+      doc.text(
+        `${this.datos.nombres} ${this.datos.apellidos}-${this.datos.documento}`,
+        40,
+        10
+      );
+      doc.text(this.datos.tipoDoc, 10, 10);
+      doc.text(this.datos.fechaExp, 10, 10);
       doc.save(
         `${this.datos.nombres} ${this.datos.apellidos}-${this.datos.documento}`
       );
