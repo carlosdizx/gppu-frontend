@@ -206,14 +206,26 @@ export default {
     },
     descargarDatosEstudiante() {
       const doc = new jsPDF();
-
+      doc.text("INFORME DATOS DEL ESTUDIANTE", 50, 30);
       doc.text(
-        `${this.datos.nombres} ${this.datos.apellidos}-${this.datos.documento}`,
-        40,
-        10
+        `Nombres y Apellidos: ${this.datos.nombres} ${this.datos.apellidos}`,
+        20,
+        50
       );
-      doc.text(this.datos.tipoDoc, 10, 10);
-      doc.text(this.datos.fechaExp, 10, 10);
+      doc.text(`Tipo De Documento: ${this.datos.tipoDoc}`, 20, 60);
+      doc.text(`Número Documento: ${this.datos.documento}`, 20, 70);
+      doc.text(`Fecha de Nacimiento: ${this.datos.fechaNaci}`, 20, 80);
+      doc.text(`Fecha de Expiracion: ${this.datos.fechaExp}`, 20, 90);
+      doc.text(`País: ${this.datos.pais}`, 20, 100);
+      doc.text(`Departamento: ${this.datos.departamento}`, 20, 110);
+      doc.text(`Ciudad: ${this.datos.ciudad}`, 20, 120);
+      doc.text(`Direccion: ${this.datos.direccion}`, 20, 130);
+      doc.text(`Zona: ${this.datos.zona}`, 20, 140);
+      doc.text(`Correo Electronico: ${this.datos.correo}`, 20, 150);
+      doc.text(`Teléfono: ${this.datos.telefono}`, 20, 160);
+      doc.text(`Género: ${this.datos.genero}`, 20, 170);
+      doc.text(`EPS: ${this.datos.eps}`, 20, 180);
+      doc.text(`URL: ${this.datos.url}`, 20, 190);
       doc.save(
         `${this.datos.nombres} ${this.datos.apellidos}-${this.datos.documento}`
       );
