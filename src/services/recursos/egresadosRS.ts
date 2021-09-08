@@ -1,8 +1,8 @@
 import { INSTACIA } from "@/services/axios";
 
-export const REGISTRO_ESTUDIANTE_EN_EMPRESA = async (datos: any) =>
+export const REGISTRO_EGRESADO = async (datos: any) =>
   await INSTACIA.put(
-    `empresas/aprobadas/${datos.nit}.json`,
+    `egresados/${datos.documento}.json`,
     JSON.stringify(datos),
     {
       headers: {

@@ -20,7 +20,7 @@ import DetallesEstudiante from "./DetallesEstudiante";
 import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudianteRS";
 
 export default {
-  name: "ListadoEstudiantesPasantes",
+  name: "ListadoPasantesEmpresa",
   components: { DetallesEstudiante },
   data: () => ({
     columnas: [

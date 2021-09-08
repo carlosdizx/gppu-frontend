@@ -42,7 +42,7 @@
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
 import DocumentosEmpresa from "./DocumentosEmpresa";
-import PasantesPorEmpresa from "./PasantesPorEmpresa";
+import PasantesPorEmpresa from "./ListadoPasantesEmpresa";
 import Vue from "vue";
 import moment from "moment";
 

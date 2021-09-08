@@ -96,7 +96,6 @@ import {
   ESTUDIANTE_PASANTE,
   LISTAR_ESTUDIANTES,
 } from "../../../services/recursos/estudianteRS";
-import { REGISTRO_ESTUDIANTE_EN_EMPRESA } from "../../../services/recursos/workStationsRS";
 
 import moment from "moment";
 import Swal from "sweetalert2";
