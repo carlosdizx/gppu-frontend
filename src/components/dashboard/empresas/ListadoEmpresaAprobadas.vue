@@ -24,8 +24,8 @@
       <template v-slot:item.nit="{ item }">
         <DocumentosEmpresa :nit="item.nit" />
       </template>
-      <template v-slot:item.convenio="{}">
-        <DocumentoRenovacionConvenio />
+      <template v-slot:item.convenio="{ item }">
+        <DocumentoRenovacionConvenio @renovado="cargarEmpresas" :datos="item" />
       </template>
       <template v-slot:item.dias="{ item }">
         <v-btn v-show="item.dias >= 60" text color="success">

@@ -75,6 +75,17 @@ export const APROBAR_CONVENIO_EMPRESA = async (datos: any) =>
     }
   );
 
+export const ACTUALIZAR_CONVENIO_EMPRESA = async (datos: any) =>
+  await INSTACIA.patch(
+    `empresas/aprobadas/${datos.nit}.json`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
 export const LISTAR_EMPRESAS_APROBADAS = async () =>
   await INSTACIA.get(`empresas/aprobadas.json`, {
     headers: {
