@@ -167,6 +167,7 @@ export default {
       const pasantes = this.empresa.pasantes ? this.empresa.pasantes : [];
       pasantes.push(estudiante);
       this.empresa.pasantes = pasantes;
+      this.empresa.dias = null;
       await ASIGNAR_PASANTE_APROBADAS(this.empresa);
       this.empresas = [];
       this.estudiantes = [];

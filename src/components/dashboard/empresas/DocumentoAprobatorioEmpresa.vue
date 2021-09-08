@@ -77,8 +77,6 @@ export default {
       if (this.fechas.length === 2) {
         const fecha_inicio = this.fechas[0];
         const fecha_fin = this.fechas[1];
-        console.log(fecha_inicio);
-        console.log(fecha_fin);
         this.datos.inicio = fecha_inicio;
         this.datos.fin = fecha_fin;
         await Swal.fire({
