@@ -8,6 +8,24 @@
         <v-icon>mdi-account-details</v-icon>
       </v-btn>
     </template>
+    <v-card>
+      <v-card-text>
+        <v-form>
+          <v-select
+            label="Seleccione el calificativo"
+            :items="opciones"
+            v-model="opcion"
+          />
+          <v-text-field
+            label="Calificacion en numeros"
+            :success="opcion === 'Aprobado'"
+            :error="opcion === 'Reprobado'"
+            :disabled="opcion === 'Cancelado'"
+            type="number"
+          />
+        </v-form>
+      </v-card-text>
+    </v-card>
   </v-dialog>
 </template>
 
@@ -16,7 +34,12 @@ export default {
   name: "DocumentoCalifacatorioPasante",
   data: () => ({
     dialog: false,
+    opciones: ["Aprobado", "Reprobado", "Cancelado"],
+    opcion: null,
   }),
+  props: {
+    datos: Object,
+  },
 };
 </script>
 
