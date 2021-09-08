@@ -8,8 +8,9 @@
           <v-spacer></v-spacer>
         </v-toolbar>
       </template>
-      <template v-slot:item.detalle="{ item }">
+      <template v-slot:item.acciones="{ item }">
         <DetallesEstudiante :datos="item" />
+        <DocumentoCalifacatorioPasante />
       </template>
     </v-data-table>
   </v-container>
@@ -17,11 +18,12 @@
 
 <script>
 import DetallesEstudiante from "./DetallesEstudiante";
+import DocumentoCalifacatorioPasante from "./DocumentoCalifacatorioPasante";
 import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudianteRS";
 
 export default {
   name: "ListadoPasantesEmpresa",
-  components: { DetallesEstudiante },
+  components: { DetallesEstudiante, DocumentoCalifacatorioPasante },
   data: () => ({
     columnas: [
       { text: "Documento", value: "documento" },
@@ -32,7 +34,7 @@ export default {
       { text: "Eps", value: "eps", sortable: false },
       { text: "Telefono", value: "telefono", sortable: false },
       { text: "Correo", value: "correo", sortable: false },
-      { text: "Mas detalles", value: "detalle" },
+      { text: "Acciones", value: "acciones" },
     ],
     filas: [],
   }),
