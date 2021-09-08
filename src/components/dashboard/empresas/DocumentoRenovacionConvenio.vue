@@ -63,6 +63,8 @@ export default {
           const fecha_fin = this.fechas[1];
           this.datos.inicio = fecha_inicio;
           this.datos.fin = fecha_fin;
+          this.datos.periodo = null;
+          this.datos.dias = null;
           await ACTUALIZAR_CONVENIO_EMPRESA(this.datos);
           this.$emit("renovado", true);
           await Swal.fire("Renovado!", "Felicitaciones 🤝", "success");
