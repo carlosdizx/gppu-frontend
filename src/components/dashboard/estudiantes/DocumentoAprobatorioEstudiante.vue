@@ -5,8 +5,10 @@
         <v-icon>mdi-check</v-icon>
       </v-btn>
     </template>
+    <v-btn color="red darken-4" dark @click="dialog = !dialog">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
     <v-card>
-      {{ datos }}
       <v-card-title>
         <span class="text-h5">Estudiante {{ datos.documento }}</span>
       </v-card-title>
@@ -16,6 +18,7 @@
             Actualizar Datos
             <v-btn
               fab
+              small
               color="secondary"
               @click="actualizarDatos"
               :disabled="actualiza"
@@ -23,27 +26,32 @@
               <v-icon>mdi-update</v-icon>
             </v-btn>
           </v-alert>
-          <v-text-field label="Documento" v-model="estudiante.documento" />
-          <v-text-field label="Nombres" v-model="estudiante.nombres" />
-          <v-text-field label="Apellidos" v-model="estudiante.apellidos" />
-          <v-text-field label="Tipo Doc." v-model="estudiante.tipoDoc" />
-          <v-text-field label="F. expedicion" v-model="estudiante.fechaExp" />
-          <v-text-field label="F. nacimiento" v-model="estudiante.fechaNaci" />
-          <v-text-field label="Genero" v-model="estudiante.genero" />
-          <v-text-field label="EPS" v-model="estudiante.eps" />
-          <v-text-field label="Pais" v-model="estudiante.pais" />
+          <v-text-field label="Documento" v-model="datos.documento" disabled />
+          <v-text-field label="Nombres" v-model="datos.nombres" disabled />
+          <v-text-field label="Apellidos" v-model="datos.apellidos" disabled />
+          <v-text-field label="Tipo Doc." v-model="datos.tipoDoc" disabled />
+          <v-text-field
+            label="F. expedicion"
+            v-model="datos.fechaExp"
+            disabled
+          />
+          <v-text-field
+            label="F. nacimiento"
+            v-model="datos.fechaNaci"
+            disabled
+          />
+          <v-text-field label="Genero" v-model="datos.genero" />
+          <v-text-field label="EPS" v-model="datos.eps" />
+          <v-text-field label="Pais" v-model="datos.pais" />
           <v-text-field
             label="Departamento/Estado/Provincia"
-            v-model="estudiante.departamento"
+            v-model="datos.departamento"
           />
-          <v-text-field label="Ciudad" v-model="estudiante.ciudad" />
-          <v-text-field label="Direccion" v-model="estudiante.direccion" />
-          <v-text-field label="Zona" v-model="estudiante.zona" />
-          <v-text-field label="Correo" v-model="estudiante.correo" />
-          <v-text-field
-            label="Celular o telefono"
-            v-model="estudiante.telefono"
-          />
+          <v-text-field label="Ciudad" v-model="datos.ciudad" />
+          <v-text-field label="Direccion" v-model="datos.direccion" />
+          <v-text-field label="Zona" v-model="datos.zona" />
+          <v-text-field label="Correo" v-model="datos.correo" />
+          <v-text-field label="Celular o telefono" v-model="datos.telefono" />
           <v-row>
             <v-col cols="12" class="text-center">
               <v-btn :href="datos.url" target="_blank">
@@ -156,15 +164,9 @@
 <script>
 import {
   APROBAR_ESTUDIANTE,
-  ELIMINAR_ESTUDIANTE,
+  ACTUUALIZAR_ESTUDIANTE_PENDIENTE,
 } from "../../../services/recursos/estudianteRS";
 import Swal from "sweetalert2";
-import {
-  APROBAR_CONVENIO_EMPRESA,
-  ELIMINAR_EMPRESA,
-} from "../../../services/recursos/empresaRS";
-import { localeChanged } from "vee-validate";
-import { REGISTRO_ESTUDIANTE_PENDIENTE } from "@/services/recursos/estudianteRS";
 
 export default {
   name: "DocumentoAprobatorioEstudiante",
@@ -172,23 +174,6 @@ export default {
     return {
       dialog: false,
       actualiza: false,
-      estudiante: {
-        documento: "",
-        nombres: "",
-        apellidos: "",
-        tipoDoc: "",
-        fechaExp: "",
-        fecNaci: "",
-        genero: "",
-        eps: "",
-        pais: "",
-        departamento: "",
-        ciudad: "",
-        direccion: "",
-        zona: "",
-        correo: "",
-        telefono: "",
-      },
     };
   },
   props: {
@@ -238,8 +223,7 @@ export default {
         confirmButtonText: "Si, Actualizar",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          this.datos.estado = 2;
-          await REGISTRO_ESTUDIANTE_PENDIENTE(this.estudiante);
+          await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
           await Swal.fire(
             "Actualizado!",
             "Felicitaciones estudiante Actualizado",
@@ -249,23 +233,6 @@ export default {
         }
       });
     },
-  },
-  mounted() {
-    this.estudiante.documento = this.datos.documento;
-    this.estudiante.nombres = this.datos.nombres;
-    this.estudiante.apellidos = this.datos.apellidos;
-    this.estudiante.tipoDoc = this.datos.tipoDoc;
-    this.estudiante.fechaExp = this.datos.fechaExp;
-    this.estudiante.fechaNaci = this.datos.fechaNaci;
-    this.estudiante.genero = this.datos.genero;
-    this.estudiante.eps = this.datos.eps;
-    this.estudiante.pais = this.datos.pais;
-    this.estudiante.departamento = this.datos.departamento;
-    this.estudiante.ciudad = this.datos.ciudad;
-    this.estudiante.direccion = this.datos.direccion;
-    this.estudiante.zona = this.datos.zona;
-    this.estudiante.correo = this.datos.correo;
-    this.estudiante.telefono = this.datos.telefono;
   },
 };
 </script>

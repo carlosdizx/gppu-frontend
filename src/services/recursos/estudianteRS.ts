@@ -90,3 +90,14 @@ export const ESTUDIANTE_PASANTE = async (datos: any) =>
       },
     }
   );
+
+export const ACTUUALIZAR_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
+  await INSTACIA.patch(
+    `estudiantes/${estudiante.documento}.json`,
+    JSON.stringify(estudiante),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
