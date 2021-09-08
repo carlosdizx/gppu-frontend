@@ -9,16 +9,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.pasantes="{ item }">
-        <v-btn
-          fab
-          small
-          color="purple"
-          dark
-          class="elevation-1"
-          v-if="item.pasantes"
-        >
-          <v-icon>mdi-account-supervisor-outline</v-icon>
-        </v-btn>
+        <PasantesPorEmpresa :pasantes="item.pasantes" v-if="item.pasantes" />
         <v-btn
           fab
           small
@@ -51,12 +42,13 @@
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
 import DocumentosEmpresa from "./DocumentosEmpresa";
+import PasantesPorEmpresa from "./PasantesPorEmpresa";
 import Vue from "vue";
 import moment from "moment";
 
 export default Vue.extend({
   name: "ListadoEmpresaAprobadas",
-  components: { DocumentosEmpresa },
+  components: { DocumentosEmpresa, PasantesPorEmpresa },
   data: () => ({
     columnas: [
       { text: "Practicantes", value: "pasantes", sortable: false },

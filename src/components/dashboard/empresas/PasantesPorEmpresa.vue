@@ -1,5 +1,8 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600">
+    <v-btn color="red darken-4" dark @click="dialog = !dialog">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
     <template v-slot:activator="{ on, attrs }">
       <v-btn fab small color="info darken-3" v-bind="attrs" v-on="on">
         <v-icon>mdi-account-supervisor-outline</v-icon>
@@ -21,18 +24,16 @@
 export default {
   name: "PasantesPorEmpresa",
   data: () => ({
+    dialog: false,
     columnas: [
       { text: "Documento", value: "documento" },
       { text: "Nombres", value: "nombres" },
       { text: "Apellidos", value: "apellidos" },
-      { text: "Telefono", value: "telefono", sortable: false },
-      { text: "Correo", value: "correo", sortable: false },
-      { text: "Mas detalles", value: "detalle" },
     ],
   }),
   props: {
-    pasantes: Array
-  }
+    pasantes: Array,
+  },
 };
 </script>
 
