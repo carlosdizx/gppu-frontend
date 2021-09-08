@@ -4,10 +4,11 @@
       <v-icon>mdi-close</v-icon>
     </v-btn>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn fab small color="info darken-3" v-bind="attrs" v-on="on">
+      <v-btn fab small color="lime" v-bind="attrs" v-on="on">
         <v-icon>mdi-handshake-outline</v-icon>
       </v-btn>
     </template>
+    Renovar conveio
   </v-dialog>
 </template>
 
