@@ -48,13 +48,6 @@ export const REGISTRO_ARCHIVO_ESTUDIANTE = async (
   return refDoc.put(archivo, metadata);
 };
 
-export const LISTAR_ESTUDIANTES_PENDIENTES = async () =>
-  await INSTACIA.get(`estudiantes.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
 export const ELIMINAR_ESTUDIANTE = async (documento: any) =>
   await INSTACIA.delete(`estudiantes/${documento}.json`, {
     headers: {
@@ -73,7 +66,7 @@ export const APROBAR_ESTUDIANTE = async (datos: any) =>
     }
   );
 
-export const LISTAR_ESTUDIANTES_APROBADOS = async () =>
+export const LISTAR_ESTUDIANTES = async () =>
   await INSTACIA.get(`estudiantes.json`, {
     headers: {
       "Content-Type": "application/json",

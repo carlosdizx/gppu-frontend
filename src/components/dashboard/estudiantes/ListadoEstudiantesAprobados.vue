@@ -17,7 +17,7 @@
 
 <script>
 import DetallesEstudiante from "./DetallesEstudiante";
-import { LISTAR_ESTUDIANTES_APROBADOS } from "../../../services/recursos/estudianteRS";
+import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudianteRS";
 
 export default {
   name: "ListadoEstudiantesAprobados",
@@ -35,7 +35,7 @@ export default {
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_ESTUDIANTES_APROBADOS().then((resultado) => {
+      await LISTAR_ESTUDIANTES().then((resultado) => {
         if (resultado.data) {
           this.filas = Object.values(resultado.data);
           this.filas = this.filas.filter(

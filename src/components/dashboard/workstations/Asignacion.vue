@@ -94,7 +94,7 @@ import {
 } from "../../../services/recursos/empresaRS";
 import {
   ESTUDIANTE_PASANTE,
-  LISTAR_ESTUDIANTES_APROBADOS,
+  LISTAR_ESTUDIANTES,
 } from "../../../services/recursos/estudianteRS";
 import { REGISTRO_ESTUDIANTE_EN_EMPRESA } from "../../../services/recursos/workStationsRS";
 
@@ -131,7 +131,7 @@ export default {
     },
     async cargarEstudiantes() {
       try {
-        await LISTAR_ESTUDIANTES_APROBADOS().then((resultado) => {
+        await LISTAR_ESTUDIANTES().then((resultado) => {
           if (resultado.data) {
             this.estudiantes = Object.values(resultado.data);
             this.estudiantes = this.estudiantes.filter(

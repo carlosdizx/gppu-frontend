@@ -30,9 +30,8 @@ import DocumentoAprobatorioEstudiante from "./DocumentoAprobatorioEstudiante";
 import Vue from "vue";
 import {
   ELIMINAR_ESTUDIANTE,
-  LISTAR_ESTUDIANTES_PENDIENTES,
+  LISTAR_ESTUDIANTES,
 } from "../../../services/recursos/estudianteRS";
-import { ELIMINAR_EMPRESA } from "../../../services/recursos/empresaRS";
 export default Vue.extend({
   name: "ListadoEstudiantesPendientes",
   components: { DocumentoAprobatorioEstudiante },
@@ -49,7 +48,7 @@ export default Vue.extend({
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_ESTUDIANTES_PENDIENTES().then((result) => {
+      await LISTAR_ESTUDIANTES().then((result) => {
         if (result.data) {
           this.filas = Object.values(result.data);
           this.filas = this.filas.filter(
