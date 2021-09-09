@@ -58,7 +58,7 @@
               </v-btn>
             </v-col>
             <v-col cols="12" class="text-center">
-              <v-btn :href="datos.url" target="_blank">
+              <v-btn :disabled="url === ''" :href="url" target="_blank">
                 Hoja de vida <v-icon>mdi-account-box</v-icon>
               </v-btn>
             </v-col>
@@ -158,11 +158,13 @@
 
 <script>
 import { jsPDF } from "jspdf";
+import { LISTAR_ARCHIVO_ESTUDIANTE } from "../../../services/recursos/estudianteRS";
 
 export default {
   name: "DetallesEstudiante",
   data: () => ({
     dialog: false,
+    url: "",
   }),
   props: {
     datos: Object,
@@ -194,6 +196,18 @@ export default {
         `${this.datos.nombres} ${this.datos.apellidos}-${this.datos.documento}`
       );
     },
+  },
+  async mounted() {
+    try {
+      await LISTAR_ARCHIVO_ESTUDIANTE(
+        this.datos.documento,
+        "hoja_de_vida"
+      ).then((result) => {
+        this.url = result;
+      });
+    } catch (e) {
+      //
+    }
   },
 };
 </script>

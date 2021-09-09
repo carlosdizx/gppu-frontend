@@ -59,7 +59,7 @@
               </v-btn>
             </v-col>
             <v-col cols="12" class="text-center">
-              <v-btn :href="datos.url" target="_blank">
+              <v-btn :disabled="url === ''" :href="url" target="_blank">
                 Hoja de vida <v-icon>mdi-account-box</v-icon>
               </v-btn>
             </v-col>
@@ -165,6 +165,7 @@
 import {
   APROBAR_ESTUDIANTE,
   ACTUUALIZAR_ESTUDIANTE_PENDIENTE,
+  LISTAR_ARCHIVO_ESTUDIANTE,
 } from "../../../services/recursos/estudianteRS";
 import Swal from "sweetalert2";
 
@@ -174,6 +175,7 @@ export default {
     return {
       dialog: false,
       actualiza: false,
+      url: "",
     };
   },
   props: {
@@ -233,6 +235,18 @@ export default {
         }
       });
     },
+  },
+  async mounted() {
+    try {
+      await LISTAR_ARCHIVO_ESTUDIANTE(
+        this.datos.documento,
+        "hoja_de_vida"
+      ).then((result) => {
+        this.url = result;
+      });
+    } catch (e) {
+      //
+    }
   },
 };
 </script>

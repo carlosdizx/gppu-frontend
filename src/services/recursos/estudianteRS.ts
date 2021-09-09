@@ -94,3 +94,7 @@ export const ACTUUALIZAR_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
       },
     }
   );
+export const LISTAR_ARCHIVO_ESTUDIANTE = async (documento: any, nombre: any) =>
+  await STORAGE.ref()
+    .child(`${universidad}/estudiantes/${documento}/${nombre}_${documento}`)
+    .getDownloadURL();
