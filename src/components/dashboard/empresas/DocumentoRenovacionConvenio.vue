@@ -5,7 +5,7 @@
     </v-btn>
     <template v-slot:activator="{ on, attrs }">
       <v-btn fab small color="lime" v-bind="attrs" v-on="on">
-        <v-icon>mdi-handshake-outline</v-icon>
+        <v-icon>mdi-autorenew</v-icon>
       </v-btn>
     </template>
     <v-container>
