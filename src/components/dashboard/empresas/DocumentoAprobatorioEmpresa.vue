@@ -79,6 +79,17 @@ export default {
         const fecha_fin = this.fechas[1];
         this.datos.inicio = fecha_inicio;
         this.datos.fin = fecha_fin;
+        const convenios = [];
+        const convenio = {
+          inicio: fecha_inicio,
+          fin: fecha_fin,
+          generado: new Date()
+            .toLocaleDateString()
+            .toString()
+            .replaceAll("/", "-"),
+        };
+        convenios.push(convenio);
+        this.datos.convenios = convenios;
         await Swal.fire({
           title: "¿Aprobar convenio con esta empresa?",
           text:
@@ -94,7 +105,7 @@ export default {
           if (result.isConfirmed) {
             await APROBAR_CONVENIO_EMPRESA(this.datos);
             await ELIMINAR_EMPRESA(this.datos.nit);
-            this.$emit("aprobado", true);
+            await this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",
               "Felicitaciones por el nuevo convenio 🤝",

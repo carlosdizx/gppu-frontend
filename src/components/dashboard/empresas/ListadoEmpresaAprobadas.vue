@@ -5,7 +5,7 @@
         <v-toolbar flat>
           <v-toolbar-title>Empresas aprobadas</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
+          {{ new Date().toLocaleDateString().toString().replaceAll("/", "-") }}
         </v-toolbar>
       </template>
       <template v-slot:item.pasantes="{ item }">
@@ -92,6 +92,7 @@ export default Vue.extend({
               const fecha3 = moment(empresa.inicio);
               empresa.periodo = fecha2.diff(fecha3, "days");
               empresa.dias = fecha2.diff(fecha1, "days");
+              //new Date().toLocaleDateString().toString().replaceAll("/", "-")
             });
           }
         });
