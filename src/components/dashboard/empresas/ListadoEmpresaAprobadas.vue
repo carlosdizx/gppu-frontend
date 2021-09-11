@@ -5,7 +5,7 @@
         <v-toolbar flat>
           <v-toolbar-title>Empresas aprobadas</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
+          {{ new Date().toLocaleDateString().toString().replaceAll("/", "-") }}
         </v-toolbar>
       </template>
       <template v-slot:item.pasantes="{ item }">
@@ -24,8 +24,13 @@
       <template v-slot:item.nit="{ item }">
         <DocumentosEmpresa :nit="item.nit" />
       </template>
-      <template v-slot:item.convenio="{ item }">
+      <template v-slot:item.convenios="{ item }">
         <DocumentoRenovacionConvenio @renovado="cargarEmpresas" :datos="item" />
+        <ListadoConveniosEmpresa
+          :convenios="item.convenios"
+          :nombre="item.nombre"
+          :nit="item.nit"
+        />
       </template>
       <template v-slot:item.dias="{ item }">
         <v-btn v-show="item.dias >= 60" text color="success">
@@ -46,6 +51,7 @@
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
 import DocumentosEmpresa from "./DocumentosEmpresa";
 import PasantesPorEmpresa from "./ListadoPasantesEmpresa";
+import ListadoConveniosEmpresa from "./ListadoConveniosEmpresa";
 import DocumentoRenovacionConvenio from "./DocumentoRenovacionConvenio";
 import Vue from "vue";
 import moment from "moment";
@@ -56,6 +62,7 @@ export default Vue.extend({
     DocumentosEmpresa,
     PasantesPorEmpresa,
     DocumentoRenovacionConvenio,
+    ListadoConveniosEmpresa,
   },
   data: () => ({
     columnas: [
@@ -73,7 +80,7 @@ export default Vue.extend({
       { text: "Fecha de caducidad", value: "fin", sortable: false },
       { text: "Periodo (dias)", value: "periodo", sortable: false },
       { text: "Dias de vigencia", value: "dias", sortable: false },
-      { text: "Renovar convenio", value: "convenio", sortable: false },
+      { text: "Convenios", value: "convenios", sortable: false },
     ],
     filas: [],
   }),

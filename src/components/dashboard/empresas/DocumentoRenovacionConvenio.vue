@@ -5,7 +5,7 @@
     </v-btn>
     <template v-slot:activator="{ on, attrs }">
       <v-btn fab small color="lime" v-bind="attrs" v-on="on">
-        <v-icon>mdi-handshake-outline</v-icon>
+        <v-icon>mdi-autorenew</v-icon>
       </v-btn>
     </template>
     <v-container>
@@ -63,6 +63,14 @@ export default {
           const fecha_fin = this.fechas[1];
           this.datos.inicio = fecha_inicio;
           this.datos.fin = fecha_fin;
+          this.datos.convenios.push({
+            inicio: fecha_inicio,
+            fin: fecha_fin,
+            generado: new Date()
+              .toLocaleDateString()
+              .toString()
+              .replaceAll("/", "-"),
+          });
           this.datos.periodo = null;
           this.datos.dias = null;
           await ACTUALIZAR_CONVENIO_EMPRESA(this.datos);
