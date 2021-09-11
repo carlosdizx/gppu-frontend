@@ -9,10 +9,17 @@
       </v-btn>
     </template>
     <v-container>
-      <v-card>
-        <v-card-title>{{ datos.nombre }} || {{ datos.nit }}</v-card-title>
-        <v-card-text> </v-card-text>
-      </v-card>
+      <v-data-table :headers="columnas" :items="convenios" class="elevation-1">
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>{{ nombre }}</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-toolbar-title>{{ nit }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            Convenios
+          </v-toolbar>
+        </template>
+      </v-data-table>
     </v-container>
   </v-dialog>
 </template>
@@ -23,9 +30,16 @@ export default {
   components: {},
   data: () => ({
     dialog: false,
+    columnas: [
+      { text: "Fecha inicio", value: "inicio" },
+      { text: "Fecha fin", value: "fin" },
+      { text: "Fecha de generacion", value: "generado" },
+    ],
   }),
   props: {
-    datos: Object,
+    convenios: Array,
+    nombre: String,
+    nit: String,
   },
 };
 </script>

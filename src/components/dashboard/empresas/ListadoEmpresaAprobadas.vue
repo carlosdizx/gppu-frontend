@@ -26,7 +26,11 @@
       </template>
       <template v-slot:item.convenios="{ item }">
         <DocumentoRenovacionConvenio @renovado="cargarEmpresas" :datos="item" />
-        <ListadoConveniosEmpresa :datos="item" />
+        <ListadoConveniosEmpresa
+          :convenios="item.convenios"
+          :nombre="item.nombre"
+          :nit="item.nit"
+        />
       </template>
       <template v-slot:item.dias="{ item }">
         <v-btn v-show="item.dias >= 60" text color="success">
@@ -92,7 +96,6 @@ export default Vue.extend({
               const fecha3 = moment(empresa.inicio);
               empresa.periodo = fecha2.diff(fecha3, "days");
               empresa.dias = fecha2.diff(fecha1, "days");
-              //new Date().toLocaleDateString().toString().replaceAll("/", "-")
             });
           }
         });
