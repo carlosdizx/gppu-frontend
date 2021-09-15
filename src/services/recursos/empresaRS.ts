@@ -93,19 +93,6 @@ export const LISTAR_EMPRESAS_APROBADAS = async () =>
     },
   });
 
-/*
-export const ESTUDIANTE_PASANTE = async (datos: any) =>
-  await INSTACIA.patch(
-    `estudiantes/${datos.documento}.json`,
-    JSON.stringify(datos),
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
- */
-
 export const ASIGNAR_PASANTE_APROBADAS = async (datos: any) =>
   await INSTACIA.patch(
     `empresas/aprobadas/${datos.nit}.json`,

@@ -10,7 +10,7 @@
       </template>
       <template v-slot:item.acciones="{ item }">
         <DetallesEstudiante :datos="item" />
-        <DocumentoCalifacatorioPasante />
+        <DocumentoCalifacatorioPasante :datos="item" />
       </template>
     </v-data-table>
   </v-container>

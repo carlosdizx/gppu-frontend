@@ -70,6 +70,13 @@
         </v-list-item-icon>
         <v-list-item-title>Asignar practicantes</v-list-item-title>
       </v-list-item>
+
+      <v-list-item link @click="changeElement(9)">
+        <v-list-item-icon>
+          <v-icon>mdi-account-star</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Egresados</v-list-item-title>
+      </v-list-item>
     </v-list>
     {{ element }}
   </v-navigation-drawer>

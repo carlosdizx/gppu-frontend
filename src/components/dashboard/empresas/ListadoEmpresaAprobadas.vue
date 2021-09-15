@@ -5,7 +5,7 @@
         <v-toolbar flat>
           <v-toolbar-title>Empresas aprobadas</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
-          {{ new Date().toLocaleDateString().toString().replaceAll("/", "-") }}
+          {{ new Date().toLocaleDateString().replaceAll("/", "-") }}
         </v-toolbar>
       </template>
       <template v-slot:item.pasantes="{ item }">
