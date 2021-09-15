@@ -6,3 +6,10 @@ export const REGISTRO_EGRESADO = async (nombre: string, datos: any) =>
       "Content-Type": "application/json",
     },
   });
+
+export const LISTAR_EGRESADOS = async () =>
+  await INSTACIA.get(`egresados.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });

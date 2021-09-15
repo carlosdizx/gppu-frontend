@@ -166,24 +166,24 @@ export default {
     },
     async registrarEgresado() {
       const datos = {
-        valoracion1: this.valoracion1,
-        valoracion2: this.valoracion2,
-        valoracion3: this.valoracion3,
-        valoracion4: this.valoracion4,
-        valoracion5: this.valoracion5,
-        valoracion6: this.valoracion6,
-        valoracion7: this.valoracion7,
-        valorcionFinal: this.radio,
-        competencias: this.competencias,
-        aspectos_pro: this.aspectos_pro,
-        aspectos_por: this.aspectos_por,
-        comentario: this.comentario,
-        estudiante: {
-          documento: this.datos.documento,
-          nombres: this.datos.nombres,
-          apellidos: this.datos.nombres,
-          celular: this.datos.celular,
-          correo: this.datos.correo,
+        documento: this.datos.documento,
+        nombres: this.datos.nombres,
+        apellidos: this.datos.nombres,
+        celular: this.datos.telefono,
+        correo: this.datos.correo,
+        calificacion: {
+          valoracion1: this.valoracion1,
+          valoracion2: this.valoracion2,
+          valoracion3: this.valoracion3,
+          valoracion4: this.valoracion4,
+          valoracion5: this.valoracion5,
+          valoracion6: this.valoracion6,
+          valoracion7: this.valoracion7,
+          valorcionFinal: this.radio,
+          competencias: this.competencias,
+          aspectos_pro: this.aspectos_pro,
+          aspectos_por: this.aspectos_por,
+          comentario: this.comentario,
         },
         empresa: {
           nit: this.empresa.nit,
@@ -193,7 +193,7 @@ export default {
       const nombre =
         new Date().toLocaleDateString().replaceAll("/", "-") +
         "-" +
-        datos.estudiante.documento;
+        datos.documento;
       await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
         if (result.status === 200) {
           await Swal.fire(
