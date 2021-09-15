@@ -16,7 +16,7 @@
         />
       </template>
       <template v-slot:item.detalle="{ item }">
-        {{ item.empresa.nombre }}
+        <DetallesEgresado :datos="item" />
       </template>
     </v-data-table>
   </v-container>
@@ -24,9 +24,10 @@
 
 <script>
 import { LISTAR_EGRESADOS } from "../../services/recursos/egresadosRS";
-
+import DetallesEgresado from "./DetallesEgresado";
 export default {
   name: "ListadoEgresados",
+  components: { DetallesEgresado },
   data: () => ({
     search: "",
     calories: "",
