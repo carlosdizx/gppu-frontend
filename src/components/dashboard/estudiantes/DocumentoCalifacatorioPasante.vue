@@ -105,12 +105,21 @@
             />
           </v-radio-group>
           <v-textarea label="Comentario" counter v-model="comentario" />
-          <v-btn @click="registrarEgresado" block color="success accent-4">
+          <v-btn
+            :disabled="!radio"
+            label=""
+            @click="registrarEgresado"
+            block
+            color="success accent-4"
+          >
             Registrar calificacion
           </v-btn>
         </v-form>
       </v-card-text>
     </v-card>
+    <v-btn color="red darken-4" dark @click="dialog = !dialog">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
   </v-dialog>
 </template>
 
@@ -133,7 +142,7 @@ export default {
     aspectos_pro: "",
     aspectos_por: "",
     comentario: "",
-    radio: "Cancelado",
+    radio: null,
   }),
   props: {
     datos: Object,
@@ -154,7 +163,7 @@ export default {
       }
     },
     registrarEgresado() {
-      const datosCalificacion = {
+      const datos = {
         valoracion1: this.valoracion1,
         valoracion2: this.valoracion2,
         valoracion3: this.valoracion3,
@@ -167,6 +176,17 @@ export default {
         aspectos_pro: this.aspectos_pro,
         aspectos_por: this.aspectos_por,
         comentario: this.comentario,
+        estudiante: {
+          documento: this.datos.documento,
+          nombres: this.datos.nombres,
+          apellidos: this.datos.nombres,
+          celular: this.datos.celular,
+          correo: this.datos.correo,
+        },
+        empresa: {
+          nit: this.empresa.nit,
+          nombre: this.empresa.nombre,
+        },
       };
     },
   },
