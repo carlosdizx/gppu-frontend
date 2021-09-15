@@ -71,6 +71,7 @@
           <v-textarea
             label="Favor listar y describir competencias técnicas en las cuales se ha desempeñado el practicante"
             counter
+            v-model="competencias"
           />
           De acuerdo con los factores técnicos descritos anteriormente. ¿Cómo
           considera usted que ha sido el desempeño del estudiante en éste corte?
@@ -81,10 +82,15 @@
             v-model="valoracion7"
           />
           <v-alert dense color="blue-grey" dark>EVALUACIÓN GENERAL</v-alert>
-          <v-textarea label="¿Qué aspectos destaca del estudiante?" counter />
+          <v-textarea
+            label="¿Qué aspectos destaca del estudiante?"
+            counter
+            v-model="aspectos_pro"
+          />
           <v-textarea
             label="¿Qué aspectos son susceptibles de mejora por parte del estudiante?"
             counter
+            v-model="aspectos_por"
           />
           <v-radio-group
             v-model="radio"
@@ -98,7 +104,7 @@
               :value="`${(n / 2).toFixed(2)}`"
             />
           </v-radio-group>
-          <v-textarea label="Comentario" counter />
+          <v-textarea label="Comentario" counter v-model="comentario" />
           <v-btn @click="registrarEgresado" block color="success accent-4">
             Registrar calificacion
           </v-btn>
@@ -157,6 +163,10 @@ export default {
         valoracion6: this.valoracion6,
         valoracion7: this.valoracion7,
         valorcionFinal: this.radio,
+        competencias: this.competencias,
+        aspectos_pro: this.aspectos_pro,
+        aspectos_por: this.aspectos_por,
+        comentario: this.comentario,
       };
     },
   },
