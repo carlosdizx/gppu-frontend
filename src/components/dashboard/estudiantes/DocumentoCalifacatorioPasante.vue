@@ -125,6 +125,8 @@
 
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+import { REGISTRO_EGRESADO } from "../../../services/recursos/egresadosRS";
+import Swal from "sweetalert2";
 
 export default {
   name: "DocumentoCalifacatorioPasante",
@@ -162,7 +164,7 @@ export default {
         }
       }
     },
-    registrarEgresado() {
+    async registrarEgresado() {
       const datos = {
         valoracion1: this.valoracion1,
         valoracion2: this.valoracion2,
@@ -188,6 +190,20 @@ export default {
           nombre: this.empresa.nombre,
         },
       };
+      const nombre =
+        new Date().toLocaleDateString().replaceAll("/", "-") +
+        "-" +
+        datos.estudiante.documento;
+      await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
+        if (result.status === 200) {
+          await Swal.fire(
+            "Proceso finalizado 🏁",
+            "Registro exitoso",
+            "success"
+          );
+          this.dialog = !this.dialog;
+        }
+      });
     },
   },
   mounted() {
