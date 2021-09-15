@@ -17,6 +17,7 @@
       </template>
       <template v-slot:item.detalle="{ item }">
         <DetallesEgresado :datos="item" />
+        {{ item.empresa.nombre }}
       </template>
     </v-data-table>
   </v-container>
@@ -53,7 +54,6 @@ export default {
     async cargarDatos() {
       await LISTAR_EGRESADOS().then((resultado) => {
         if (resultado.data) {
-          console.log(resultado.data);
           this.filas = Object.values(resultado.data);
         }
       });

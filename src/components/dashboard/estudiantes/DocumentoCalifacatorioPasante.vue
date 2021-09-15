@@ -179,7 +179,7 @@ export default {
           valoracion5: this.valoracion5,
           valoracion6: this.valoracion6,
           valoracion7: this.valoracion7,
-          valorcionFinal: this.radio,
+          valoracionFinal: this.radio,
           competencias: this.competencias,
           aspectos_pro: this.aspectos_pro,
           aspectos_por: this.aspectos_por,
