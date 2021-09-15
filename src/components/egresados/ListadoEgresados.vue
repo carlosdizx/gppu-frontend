@@ -17,7 +17,6 @@
       </template>
       <template v-slot:item.detalle="{ item }">
         <DetallesEgresado :datos="item" />
-        {{ item.empresa.nombre }}
       </template>
     </v-data-table>
   </v-container>
