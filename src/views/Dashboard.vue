@@ -14,6 +14,7 @@
     <ListadoEstudiantesPasantes v-if="item === 6" />
     <TablaCRUD v-if="item === 7" />
     <Asignacion v-if="item === 8" />
+    <ListadoEgresados v-if="item === 9" />
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import ListadoEstudiantesAprobados from "../components/dashboard/estudiantes/Lis
 import ListadoEstudiantesPasantes from "../components/dashboard/estudiantes/ListadoEstudiantesPasantes";
 import Asignacion from "../components/dashboard/workstations/Asignacion";
 import TablaCRUD from "../components/general/TablaCRUD";
+import ListadoEgresados from "../components/egresados/ListadoEgresados";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",
@@ -42,6 +44,7 @@ export default Vue.extend({
     ListadoEstudiantesAprobados,
     ListadoEstudiantesPasantes,
     Asignacion,
+    ListadoEgresados,
   },
   data: () => ({
     item: 1,
