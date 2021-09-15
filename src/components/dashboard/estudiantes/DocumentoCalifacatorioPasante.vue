@@ -17,19 +17,53 @@
           <v-text-field label="Doumento" disabled v-model="datos.documento" />
           <v-alert dense color="blue-grey" dark>Datos empresa</v-alert>
           <v-text-field label="Nombre" disabled v-model="empresa.nombre" />
-          <v-text-field label="Nombre" disabled v-model="empresa.nit" />
-          <v-select
-            label="Seleccione el calificativo"
-            :items="opciones"
-            v-model="opcion"
+          <v-text-field label="Nit" disabled v-model="empresa.nit" />
+
+          <v-alert dense color="blue-grey" dark>
+            COMPETENCIA APTITUDINAL
+          </v-alert>
+          ¿Acata las normas y principios de la entidad?
+          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-alert dense color="blue-grey" dark>
+            COMPETENCIA ACTITUDINAL
+          </v-alert>
+          Es responsable en el cumplimiento de su horario de trabajo
+          <v-slider thumb-color="success" thumb-label max="5" />
+          Es responsable en el cumplimiento de sus tareas
+          <v-slider thumb-color="success" thumb-label max="5" />
+          Espíritu de colaboración
+          <v-slider thumb-color="success" thumb-label max="5" />
+          Relaciones interpersonales
+          <v-slider thumb-color="success" thumb-label max="5" />
+          Se adapta con facilidad
+          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-alert dense color="blue-grey" dark>COMPETENCIA TÉCNICA</v-alert>
+          <v-textarea
+            label="Favor listar y describir competencias técnicas en las cuales se ha desempeñado el practicante"
+            counter
           />
-          <v-text-field
-            label="Calificacion en numeros"
-            :success="opcion === 'Aprobado'"
-            :error="opcion === 'Reprobado'"
-            :disabled="opcion === 'Cancelado'"
-            type="number"
+          De acuerdo con los factores técnicos descritos anteriormente. ¿Cómo
+          considera usted que ha sido el desempeño del estudiante en éste corte?
+          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-alert dense color="blue-grey" dark>EVALUACIÓN GENERAL</v-alert>
+          <v-textarea label="¿Qué aspectos destaca del estudiante?" counter />
+          <v-textarea
+            label="¿Qué aspectos son susceptibles de mejora por parte del estudiante?"
+            counter
           />
+          <v-radio-group
+            v-model="radio"
+            label="¿Qué calificación usted le asigna al practicante?"
+          >
+            <v-radio :key="0" label="Cancelado" value="Cancelado" />
+            <v-radio
+              v-for="n in 10"
+              :key="n"
+              :label="`${(n / 2).toFixed(2)}`"
+              :value="`${(n / 2).toFixed(2)}`"
+            />
+          </v-radio-group>
+          <v-btn block color="success accent-4">Registrar calificacion</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
@@ -42,6 +76,7 @@ import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS"
 export default {
   name: "DocumentoCalifacatorioPasante",
   data: () => ({
+    radio: "Cancelado",
     dialog: false,
     opciones: ["Aprobado", "Reprobado", "Cancelado"],
     opcion: null,
@@ -50,19 +85,24 @@ export default {
   props: {
     datos: Object,
   },
-  async mounted() {
-    const resultado = await LISTAR_EMPRESAS_APROBADAS();
-    const empresas = Object.values(resultado.data);
-    for (const empresa of empresas) {
-      const pasantes = empresa.pasantes;
-      if (pasantes) {
-        for (const pasante of pasantes) {
-          if (this.datos.documento === pasante.documento) {
-            this.empresa = empresa;
+  methods: {
+    async cargarEmpresa() {
+      const resultado = await LISTAR_EMPRESAS_APROBADAS();
+      const empresas = Object.values(resultado.data);
+      for (const empresa of empresas) {
+        const pasantes = empresa.pasantes;
+        if (pasantes) {
+          for (const pasante of pasantes) {
+            if (this.datos.documento === pasante.documento) {
+              this.empresa = empresa;
+            }
           }
         }
       }
-    }
+    },
+  },
+  mounted() {
+    this.cargarEmpresa();
   },
 };
 </script>
