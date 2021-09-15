@@ -23,20 +23,50 @@
             COMPETENCIA APTITUDINAL
           </v-alert>
           ¿Acata las normas y principios de la entidad?
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion1"
+          />
           <v-alert dense color="blue-grey" dark>
             COMPETENCIA ACTITUDINAL
           </v-alert>
           Es responsable en el cumplimiento de su horario de trabajo
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion2"
+          />
           Es responsable en el cumplimiento de sus tareas
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion3"
+          />
           Espíritu de colaboración
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion4"
+          />
           Relaciones interpersonales
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion5"
+          />
           Se adapta con facilidad
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion6"
+          />
           <v-alert dense color="blue-grey" dark>COMPETENCIA TÉCNICA</v-alert>
           <v-textarea
             label="Favor listar y describir competencias técnicas en las cuales se ha desempeñado el practicante"
@@ -44,7 +74,12 @@
           />
           De acuerdo con los factores técnicos descritos anteriormente. ¿Cómo
           considera usted que ha sido el desempeño del estudiante en éste corte?
-          <v-slider thumb-color="success" thumb-label max="5" />
+          <v-slider
+            thumb-color="success"
+            thumb-label
+            max="5"
+            v-model="valoracion7"
+          />
           <v-alert dense color="blue-grey" dark>EVALUACIÓN GENERAL</v-alert>
           <v-textarea label="¿Qué aspectos destaca del estudiante?" counter />
           <v-textarea
@@ -63,7 +98,10 @@
               :value="`${(n / 2).toFixed(2)}`"
             />
           </v-radio-group>
-          <v-btn block color="success accent-4">Registrar calificacion</v-btn>
+          <v-textarea label="Comentario" counter />
+          <v-btn @click="registrarEgresado" block color="success accent-4">
+            Registrar calificacion
+          </v-btn>
         </v-form>
       </v-card-text>
     </v-card>
@@ -76,11 +114,20 @@ import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS"
 export default {
   name: "DocumentoCalifacatorioPasante",
   data: () => ({
-    radio: "Cancelado",
     dialog: false,
-    opciones: ["Aprobado", "Reprobado", "Cancelado"],
-    opcion: null,
     empresa: {},
+    valoracion1: null,
+    valoracion2: null,
+    valoracion3: null,
+    valoracion4: null,
+    valoracion5: null,
+    valoracion6: null,
+    valoracion7: null,
+    competencias: "",
+    aspectos_pro: "",
+    aspectos_por: "",
+    comentario: "",
+    radio: "Cancelado",
   }),
   props: {
     datos: Object,
@@ -99,6 +146,18 @@ export default {
           }
         }
       }
+    },
+    registrarEgresado() {
+      const datosCalificacion = {
+        valoracion1: this.valoracion1,
+        valoracion2: this.valoracion2,
+        valoracion3: this.valoracion3,
+        valoracion4: this.valoracion4,
+        valoracion5: this.valoracion5,
+        valoracion6: this.valoracion6,
+        valoracion7: this.valoracion7,
+        valorcionFinal: this.radio,
+      };
     },
   },
   mounted() {
