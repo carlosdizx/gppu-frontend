@@ -10,8 +10,8 @@
     </template>
     <v-card>
       <v-card-title>
-        {{ datos.documento }} |
-        {{ datos.nombres + " " + datos.apellidos }}
+        {{ datos.documento }} | {{ datos.nombres + " " + datos.apellidos }} |
+        {{ datos.calificacion.valoracionFinal }}
       </v-card-title>
       <v-card-text>
         <v-form>
@@ -68,6 +68,26 @@
           <v-alert>
             Nota final: {{ datos.calificacion.valoracionFinal }}
           </v-alert>
+          <v-text-field
+            label=""
+            v-model="datos.calificacion.aspectos_pro"
+            disabled
+          />
+          <v-text-field
+            label=""
+            v-model="datos.calificacion.aspectos_por"
+            disabled
+          />
+          <v-text-field
+            label=""
+            v-model="datos.calificacion.comentario"
+            disabled
+          />
+          <v-text-field
+            label=""
+            v-model="datos.calificacion.competencias"
+            disabled
+          />
         </v-form>
       </v-card-text>
     </v-card>
