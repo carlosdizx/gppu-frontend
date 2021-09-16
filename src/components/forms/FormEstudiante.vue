@@ -67,7 +67,7 @@
                 <v-text-field
                   v-model="documento"
                   append-icon="mdi-card-account-details"
-                  label="Numero de documento"
+                  label="Número de documento"
                   :error-messages="errors"
                   counter
                 />
@@ -76,7 +76,7 @@
           </v-row>
           <v-row>
             <Calendario
-              texto="Fecha de expedicion"
+              texto="Fecha de expedición"
               @fecha="fechaExp = $event"
             />
             <Calendario
@@ -91,7 +91,7 @@
           >
             <v-select
               v-model="genero"
-              label="Genero"
+              label="Género"
               :items="['Masculino', 'Femenino', 'Otro']"
               prepend-icon="mdi-gender-male-female"
               :error-messages="errors"
@@ -111,12 +111,12 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Pais"
+            name="País"
             rules="required|min:3|max:30"
           >
             <v-text-field
               v-model="pais"
-              label="Pais"
+              label="País"
               prepend-icon="mdi-earth"
               :error-messages="errors"
               counter
@@ -150,12 +150,12 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Direccion"
+            name="Dirección"
             rules="required|min:5|max:50"
           >
             <v-text-field
               v-model="direccion"
-              label="Direccion"
+              label="Dirección"
               prepend-icon="mdi-home"
               :error-messages="errors"
               counter
@@ -177,19 +177,19 @@
           >
             <v-text-field
               v-model="correo"
-              label="Correo electronico"
+              label="Correo electrónico"
               prepend-icon="mdi-email"
               :error-messages="errors"
             />
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Telefono"
+            name="Télefono"
             rules="required|min:5|max:20"
           >
             <v-text-field
               v-model="telefono"
-              label="Telefono o Celular"
+              label="Télefono o Celular"
               prepend-icon="mdi-phone"
               type="number"
               :error-messages="errors"
@@ -197,7 +197,7 @@
             />
           </validation-provider>
 
-          <v-alert dense color="secondary" dark>Datos academicos</v-alert>
+          <v-alert dense color="secondary" dark>Datos académicos</v-alert>
 
           <validation-provider
             v-slot="{ errors }"
@@ -219,7 +219,7 @@
           >
             <v-select
               v-model="semestre"
-              :items="['Decimo', 'Noveno', 'Octavo', 'Otro']"
+              :items="['Décimo', 'Noveno', 'Octavo', 'Otro']"
               label="Semestre"
               prepend-icon="mdi-circle-half-full"
               :error-messages="errors"
@@ -229,7 +229,7 @@
           <!-- --------------------------------- Preferencias --------------------------------- -->
 
           <v-alert dense color="secondary" dark>
-            Datos de preferencia de practica
+            Datos de preferencia de práctica
           </v-alert>
 
           <validation-provider
@@ -239,7 +239,7 @@
           >
             <v-select
               v-model="opcion1"
-              label="Primera opcion"
+              label="Primera opción"
               :items="opcinesCargo"
               prepend-icon="mdi-briefcase"
               :error-messages="errors"
@@ -252,7 +252,7 @@
           >
             <v-select
               v-model="opcion2"
-              label="Segunda opcion"
+              label="Segunda opción"
               :items="opcinesCargo"
               prepend-icon="mdi-briefcase-outline"
               :error-messages="errors"
@@ -265,7 +265,7 @@
           >
             <v-select
               v-model="opcion3"
-              label="Tercera opcion"
+              label="Tercera opción"
               :items="opcinesCargo"
               prepend-icon="mdi-briefcase-outline"
               :error-messages="errors"
@@ -314,7 +314,7 @@
           <!-- --------------------------------- Competencias --------------------------------- -->
 
           <v-alert dense color="secondary" dark>
-            Competencias Tecnicas y profesionales
+            Competencias Técnicas y profesionales
           </v-alert>
 
           <validation-provider
@@ -584,7 +584,7 @@ export default {
       if (await ESTUDIANTE_YA_REGISTRADO(estudiante.documento)) {
         return await Swal.fire(
           "Estudiante ya registrado",
-          "sus datos ya fueron subidos a plataforma",
+          "Sus datos ya fueron subidos a plataforma",
           "error"
         );
       }
@@ -601,7 +601,7 @@ export default {
         } else {
           await Swal.fire(
             "El documento hoja de vida errado",
-            "Solo seleccionar archivos pdf",
+            "Solo seleccionar archivos PDF",
             "error"
           );
         }
@@ -614,7 +614,7 @@ export default {
         await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estudiante.documento);
         await Swal.fire(
           "Registro exitoso",
-          "Sus datos seran validados en los proximos dias",
+          "Sus datos serán validados en los próximos días",
           "success"
         );
         this.carga = false;
