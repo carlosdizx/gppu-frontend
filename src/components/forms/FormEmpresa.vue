@@ -37,12 +37,12 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Numero de documento"
+            name="Número de documento del representante"
             rules="required|min:5|max:25"
           >
             <v-text-field
               v-model="documento"
-              label="Numero de documento del representante"
+              label="Número de documento del representante"
               prepend-icon="mdi-card-account-details"
               :error-messages="errors"
               counter
@@ -55,7 +55,7 @@
           >
             <v-text-field
               v-model="celular"
-              label="Numero de celular"
+              label="Número de celular"
               type="number"
               prepend-icon="mdi-phone"
               :error-messages="errors"
@@ -69,7 +69,7 @@
           >
             <v-text-field
               v-model="correo"
-              label="Correo electronico"
+              label="Correo electrónico"
               prepend-icon="mdi-email"
               :error-messages="errors"
             />
@@ -81,7 +81,7 @@
           >
             <v-text-field
               v-model="pais"
-              label="Pais"
+              label="País"
               prepend-icon="mdi-earth"
               :error-messages="errors"
               counter
@@ -120,7 +120,7 @@
           >
             <v-text-field
               v-model="direccion"
-              label="Direccion"
+              label="Dirección"
               prepend-icon="mdi-home"
               :error-messages="errors"
               counter
@@ -150,7 +150,7 @@
           >
             <v-file-input
               accept="application/pdf"
-              label="Carta de intencion"
+              label="Carta de intención"
               v-model="archivoCarta"
               append-icon="mdi-pdf-box"
               :error-messages="errors"
@@ -163,7 +163,7 @@
           >
             <v-file-input
               accept="application/pdf"
-              label="Archivo del documento del representante"
+              label="Documento del representante"
               v-model="archivoDocumento"
               append-icon="mdi-pdf-box"
               :error-messages="errors"
@@ -189,7 +189,7 @@
           >
             <v-file-input
               accept="application/pdf"
-              label="Camara de comercio"
+              label="Cámara  de comercio"
               v-model="archivoCamara"
               append-icon="mdi-pdf-box"
               :error-messages="errors"
