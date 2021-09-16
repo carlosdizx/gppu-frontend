@@ -309,21 +309,21 @@ export default {
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
           "El documento del representante errado",
-          "Solo seleccionar archivos pdf",
+          "Solo seleccionar archivos PDF",
           "error"
         );
       }
       if (this.archivoRut.type !== "application/pdf") {
         return Swal.fire(
           "El documento RUT errado",
-          "Solo seleccionar archivos pdf",
+          "Solo seleccionar archivos PDF",
           "error"
         );
       }
       if (this.archivoCamara.type !== "application/pdf") {
         return Swal.fire(
-          "El documento de Camara de comercio errado",
-          "Solo seleccionar archivos pdf",
+          "El documento de Cámara de comercio errado",
+          "Solo seleccionar archivos PDF",
           "error"
         );
       }
@@ -364,45 +364,39 @@ export default {
           datos.nit,
           this.archivoRut,
           "rut_" + datos.nit
-        )
-          .then((result) => console.log(result))
-          .catch((error) =>
-            Swal.fire("Error al subir el RUT", `${error},`, "error")
-          );
+        ).catch((error) =>
+          Swal.fire("Error al subir el RUT", `${error},`, "error")
+        );
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoCamara,
           "camara_comercio_" + datos.nit
-        )
-          .then((result) => console.log(result))
-          .catch((error) =>
-            Swal.fire(
-              "Error al subir la Camara de Comercio",
-              `${error},`,
-              "error"
-            )
-          );
+        ).catch((error) =>
+          Swal.fire(
+            "Error al subir la Camara de Comercio",
+            `${error},`,
+            "error"
+          )
+        );
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoCarta,
           "carta_intencion_" + datos.nit
-        )
-          .then((result) => console.log(result))
-          .catch((error) =>
-            Swal.fire(
-              "Error al subir la carta de intencion",
-              `${error},`,
-              "error"
-            )
-          );
+        ).catch((error) =>
+          Swal.fire(
+            "Error al subir la carta de intencion",
+            `${error},`,
+            "error"
+          )
+        );
         this.carga = false;
         await Swal.fire(
           "Registro exitoso",
-          "Sus datos y documentos fueron subidos en plataforma <br>" +
-            "En los proximos 2(dos) dias habiles puede recibir una llamada de el/la" +
-            " coordinador@ de practicas para continuar con su proceso de vinculacion",
+          "Sus datos y documentos fueron subidos en plataforma.<br>" +
+            "En los próximos 2(dos) días hábiles puede recibir una llamada de el/la<br>" +
+            "coordinador@ de prácticas para continuar con su proceso de vinculación.",
           "success"
         );
         this.carga = false;
