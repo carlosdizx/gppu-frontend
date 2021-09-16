@@ -39,7 +39,7 @@ export default Vue.extend({
     columnas: [
       { text: "Nit", value: "nit" },
       { text: "Nombre", value: "nombre" },
-      { text: "Telefono", value: "telefono" },
+      { text: "Télefono", value: "telefono" },
       { text: "Eliminar", value: "eliminar" },
     ],
     filas: [],
