@@ -129,16 +129,20 @@
           <v-alert dense color="secondary" dark>
             Tenga preparado los siguientes archivos solicitados en formato PDF.
           </v-alert>
-          <v-btn
-            v-show="!archivoCarta"
-            color="blue darken-4"
-            dark
-            fab
-            :href="formatoCarta"
-            target="_blank"
-          >
-            <v-icon>mdi-file-document-edit</v-icon>
-          </v-btn>
+          <v-alert dense color="blue-grey" dark>
+            <v-btn
+              v-show="!archivoCarta"
+              color="blue darken-4"
+              dark
+              fab
+              small
+              :href="formatoCarta"
+              target="_blank"
+            >
+              <v-icon>mdi-file-document-edit</v-icon>
+            </v-btn>
+            <strong> 👈 Formato de carta de intención</strong>
+          </v-alert>
           <validation-provider
             v-slot="{ errors }"
             name="Carta de intencion"
@@ -293,10 +297,10 @@ export default {
     archivoCarta: null,
     carga: false,
     formatoCarta:
-      "https://firebasestorage.googleapis.com/v0/b/gppu-backend.appspot.com/" +
-      "o/uarena%2Fdocumentos%2FSOLICITUD%20PRACTICANTE%20ING." +
-      "%20SISTEMAS%20UMARIANA.pdf?alt=media&token=ed42a169" +
-      "-0d5c-466f-aa3d-ac81fa423928",
+      "https://firebasestorage.googleapis.com" +
+      "/v0/b/gppu-backend.appspot.com/o/" +
+      "uarena%2Fdocumentos%2FFormato%20carta%20de%20intencion.docx" +
+      "?alt=media&token=2d0ff50a-a86f-4255-a178-66d362d11fc1",
     dialog: false,
   }),
   methods: {
