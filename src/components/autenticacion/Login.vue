@@ -16,7 +16,7 @@
                 v-model="email"
                 :error-messages="errors"
                 color="indigo"
-                label="Correo electronico"
+                label="Correo electrónico"
                 prepend-icon="mdi-account-circle"
                 @keypress.enter="iniciarSesion"
               />
@@ -47,12 +47,12 @@
             type="submit"
             :disabled="invalid"
           >
-            Iniciar sesion
+            Iniciar sesión
           </v-btn>
           <br />
           <router-link to="registro" v-slot="{ navigate }" custom>
             <v-btn @click="navigate" block color="success" role="link">
-              No tengo cuenta
+              Soy empresa o estudiante
             </v-btn>
           </router-link>
         </v-card-text>
