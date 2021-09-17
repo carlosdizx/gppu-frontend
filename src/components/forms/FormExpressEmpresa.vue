@@ -56,7 +56,7 @@
                 >
                   <v-text-field
                     v-model="telefono"
-                    label="Telefono o celular"
+                    label="Teléfono  o celular"
                     prepend-icon="mdi-phone"
                     type="number"
                     :error-messages="errors"
@@ -70,7 +70,7 @@
                 >
                   <v-text-field
                     v-model="correo"
-                    label="Correo electronico"
+                    label="Correo electrónico"
                     prepend-icon="mdi-email"
                     type="email"
                     :error-messages="errors"
@@ -79,7 +79,6 @@
                 </validation-provider>
               </v-form>
             </v-container>
-            <small>** Medidas legales van aqui, texto que da miedo</small>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -165,8 +164,8 @@ export default {
         if (result.status === 200) {
           await Swal.fire(
             "Datos registrados exitosamente",
-            "En un plazo de 2 (dos) dias habiles recibira informacion " +
-              "por llamada o correo respecto al proceso de convenio empresa universidad",
+            "En un plazo de 2 (dos) días hábiles recibirá información " +
+              "por llamada o correo respecto al proceso de convenio empresa universidad.",
             "success"
           );
           await router.push("/about");

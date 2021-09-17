@@ -55,23 +55,18 @@
         <v-list-item-title>Estudiantes practicantes</v-list-item-title>
       </v-list-item>
 
-      <v-alert color="pink darken-1" dark dense>Puestos de practica</v-alert>
+      <v-alert color="pink darken-1" dark dense>Puestos de práctica</v-alert>
 
       <v-list-item link @click="changeElement(7)">
-        <v-list-item-icon>
-          <v-icon>mdi-account-multiple</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Supervisores</v-list-item-title>
-      </v-list-item>
-
-      <v-list-item link @click="changeElement(8)">
         <v-list-item-icon>
           <v-icon>mdi-clipboard-check</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Asignar practicantes</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link @click="changeElement(9)">
+      <v-alert color="amber darken-2" dark dense>Egresados</v-alert>
+
+      <v-list-item link @click="changeElement(8)">
         <v-list-item-icon>
           <v-icon>mdi-account-star</v-icon>
         </v-list-item-icon>
