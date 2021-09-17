@@ -27,7 +27,7 @@ import ListadoEstudiantesPendientes from "../components/dashboard/estudiantes/Li
 import ListadoEstudiantesAprobados from "../components/dashboard/estudiantes/ListadoEstudiantesAprobados";
 import ListadoEstudiantesPasantes from "../components/dashboard/estudiantes/ListadoEstudiantesPasantes";
 import Asignacion from "../components/dashboard/workstations/Asignacion";
-import ListadoEgresados from "../components/egresados/ListadoEgresados";
+import ListadoEgresados from "../components/dashboard/egresados/ListadoEgresados";
 import Vue from "vue";
 export default Vue.extend({
   name: "Dashboard",
