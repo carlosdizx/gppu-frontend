@@ -168,7 +168,7 @@ export default {
       const datos = {
         documento: this.datos.documento,
         nombres: this.datos.nombres,
-        apellidos: this.datos.nombres,
+        apellidos: this.datos.apellidos,
         celular: this.datos.telefono,
         correo: this.datos.correo,
         calificacion: {

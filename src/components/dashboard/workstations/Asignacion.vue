@@ -22,12 +22,12 @@
               />
               <v-text-field label="Ciudad" :value="empresa.ciudad" disabled />
               <v-text-field
-                label="Direccion"
+                label="Dirección"
                 :value="empresa.direccion"
                 disabled
               />
               <v-text-field
-                label="Dias de validez"
+                label="Días de validez"
                 :value="empresa.dias"
                 disabled
               />
@@ -63,7 +63,7 @@
                 disabled
               />
               <v-text-field
-                label="Direccion"
+                label="Dirección"
                 :value="estudiante.direccion"
                 disabled
               />
@@ -80,8 +80,9 @@
           :disabled="!nit || !documento"
           color="success"
           @click="registrarworkstation"
-          >Asignar</v-btn
         >
+          Asignar
+        </v-btn>
       </v-card-text>
     </v-card>
   </v-container>

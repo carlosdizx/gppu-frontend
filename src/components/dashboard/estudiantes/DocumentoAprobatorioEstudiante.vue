@@ -31,7 +31,7 @@
           <v-text-field label="Apellidos" v-model="datos.apellidos" disabled />
           <v-text-field label="Tipo Doc." v-model="datos.tipoDoc" disabled />
           <v-text-field
-            label="F. expedicion"
+            label="F. expedición"
             v-model="datos.fechaExp"
             disabled
           />
@@ -40,18 +40,18 @@
             v-model="datos.fechaNaci"
             disabled
           />
-          <v-text-field label="Genero" v-model="datos.genero" />
+          <v-text-field label="Género" v-model="datos.genero" />
           <v-text-field label="EPS" v-model="datos.eps" />
-          <v-text-field label="Pais" v-model="datos.pais" />
+          <v-text-field label="País" v-model="datos.pais" />
           <v-text-field
             label="Departamento/Estado/Provincia"
             v-model="datos.departamento"
           />
           <v-text-field label="Ciudad" v-model="datos.ciudad" />
-          <v-text-field label="Direccion" v-model="datos.direccion" />
+          <v-text-field label="Dirección" v-model="datos.direccion" />
           <v-text-field label="Zona" v-model="datos.zona" />
           <v-text-field label="Correo" v-model="datos.correo" />
-          <v-text-field label="Celular o telefono" v-model="datos.telefono" />
+          <v-text-field label="Celular o télefono" v-model="datos.telefono" />
           <v-row>
             <v-col cols="12" class="text-center">
               <v-btn :href="datos.url" target="_blank">
@@ -65,7 +65,7 @@
             </v-col>
           </v-row>
           <v-alert class="text-center" dense dark color="secondary">
-            Datos academicos
+            Datos académicos
           </v-alert>
           <v-text-field
             label="Promedio"
@@ -81,17 +81,17 @@
             Datos preferencia
           </v-alert>
           <v-text-field
-            label="Opcion 1 de practica"
+            label="Opción 1 de práctica"
             :value="datos.datos.opcion1"
             disabled
           />
           <v-text-field
-            label="Opcion 2 de practica"
+            label="Opción 2 de práctica"
             :value="datos.datos.opcion2"
             disabled
           />
           <v-text-field
-            label="Opcion 3 de practica"
+            label="Opción 3 de práctica"
             :value="datos.datos.opcion3"
             disabled
           />
@@ -119,12 +119,12 @@
             disabled
           />
           <v-text-field
-            label="Experiencia en ingenieria"
+            label="Experiencia en ingeniería"
             :value="datos.datos.exp_ingenieria"
             disabled
           />
           <v-textarea
-            label="Competencias tecnicas"
+            label="Competencias técnicas"
             :value="datos.datos.competencias"
             disabled
           />

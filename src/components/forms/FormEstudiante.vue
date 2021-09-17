@@ -1,7 +1,7 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <v-card-title>Formulario estuidante</v-card-title>
+      <v-card-title>Formulario estudiante</v-card-title>
       <v-card-subtitle>
         Complete los datos que le sean requeridos
       </v-card-subtitle>

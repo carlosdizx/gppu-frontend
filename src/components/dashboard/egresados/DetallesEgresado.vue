@@ -21,7 +21,7 @@
           <v-text-field label="Celular" v-model="datos.celular" disabled />
           <v-text-field label="Correo" v-model="datos.correo" disabled />
           <v-alert dense color="blue-grey" dark>
-            Datos del puesto de practica
+            Datos del puesto de práctica
           </v-alert>
           <v-text-field
             label="Empresa"
@@ -29,7 +29,7 @@
             disabled
           />
           <v-text-field label="Nit" v-model="datos.empresa.nit" disabled />
-          <v-alert dense color="blue-grey" dark> Resumen de practica </v-alert>
+          <v-alert dense color="blue-grey" dark> Resumen de práctica </v-alert>
           <v-text-field
             label="¿Acata las normas y principios de la entidad?"
             v-model="datos.calificacion.valoracion1"

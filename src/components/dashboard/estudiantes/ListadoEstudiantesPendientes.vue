@@ -41,7 +41,7 @@ export default Vue.extend({
       { text: "Nombres", value: "nombres" },
       { text: "Apellidos", value: "apellidos" },
       { text: "Correo", value: "correo", sortable: false },
-      { text: "Telefono", value: "telefono", sortable: false },
+      { text: "Télefono", value: "telefono", sortable: false },
       { text: "Acciones", value: "acciones" },
     ],
     filas: [],

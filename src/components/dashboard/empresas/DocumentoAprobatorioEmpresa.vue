@@ -93,7 +93,7 @@ export default {
         await Swal.fire({
           title: "¿Aprobar convenio con esta empresa?",
           text:
-            "Soy conciente de que la informacion es correcta" +
+            "Soy conciente de que la informacion es correcta " +
             `Nit: ${this.datos.nit}
            Nombre: ${this.datos.nombre}`,
           icon: "warning",
