@@ -28,11 +28,11 @@ export default {
     columnas: [
       { text: "Documento", value: "documento" },
       { text: "Tipo", value: "tipoDoc" },
-      { text: "F. Expedicion", value: "fechaExp", sortable: false },
+      { text: "F. Expedición", value: "fechaExp", sortable: false },
       { text: "Nombres", value: "nombres" },
       { text: "Apellidos", value: "apellidos" },
       { text: "Eps", value: "eps", sortable: false },
-      { text: "Telefono", value: "telefono", sortable: false },
+      { text: "Télefono", value: "telefono", sortable: false },
       { text: "Correo", value: "correo", sortable: false },
       { text: "Acciones", value: "acciones" },
     ],
