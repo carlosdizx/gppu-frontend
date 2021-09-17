@@ -37,7 +37,7 @@ export default {
       { text: "Apellidos", value: "apellidos" },
       { text: "Celular", value: "celular", sortable: false },
       { text: "Correo", value: "correo", sortable: false },
-      { text: "Mas detalles", value: "detalle" },
+      { text: "Más detalles", value: "detalle" },
     ],
     filas: [],
   }),
