@@ -6,6 +6,13 @@
           <v-img src="@/assets/GPPU.png" max-width="200" max-height="200" />
         </v-card-title>
         <v-card-text>
+          <small>
+            Created by:<br />
+            - Carlos Ernesto Díaz Basante<br />
+            - Brayan David Tobar Tonguino
+          </small>
+        </v-card-text>
+        <v-card-text>
           <v-form @submit.prevent="iniciarSesion">
             <validation-provider
               v-slot="{ errors }"
