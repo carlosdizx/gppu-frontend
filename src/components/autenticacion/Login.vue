@@ -57,13 +57,27 @@
           </router-link>
         </v-card-text>
         <v-card-text>
-          <small>
-            <small>
-              Created by:<br />
-              - Carlos Ernesto Díaz Basante<br />
-              - Brayan David Tobar Tonguino
-            </small>
-          </small>
+          Created by:<br />
+          <v-btn
+            text
+            block
+            role="link"
+            color="blue-grey"
+            href="https://portafolio-carlos-diaz.netlify.app"
+            target="_blank"
+          >
+            <small> Carlos Ernesto Díaz Basante </small>
+          </v-btn>
+          <v-btn
+            text
+            role="link"
+            block
+            color="blue-grey"
+            href=""
+            target="_blank"
+          >
+            <small> Brayan David Tobar Tonguino </small>
+          </v-btn>
         </v-card-text>
       </v-card>
     </v-app>
