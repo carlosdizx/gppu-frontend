@@ -96,7 +96,8 @@
             v-model="radio"
             label="¿Qué calificación usted le asigna al practicante?"
           >
-            <v-radio :key="0" label="Cancelado" value="Cancelado" />
+            <v-radio :key="-1" label="Cancelado" value="Cancelado" />
+            <v-radio :key="0" label="Reasignación" value="Reasignación" />
             <v-radio
               v-for="n in 10"
               :key="n"
@@ -127,6 +128,7 @@
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
 import { REGISTRO_EGRESADO } from "../../../services/recursos/egresadosRS";
 import Swal from "sweetalert2";
+import { ACTUUALIZAR_ESTUDIANTE_PENDIENTE } from "../../../services/recursos/estudianteRS";
 
 export default {
   name: "DocumentoCalifacatorioPasante",
@@ -164,7 +166,14 @@ export default {
         }
       }
     },
+    async reasignarEstudiante() {
+      if (this.radio === "Reasignación") {
+        this.datos.estado = 2;
+        await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
+      }
+    },
     async registrarEgresado() {
+      await this.reasignarEstudiante();
       const datos = {
         documento: this.datos.documento,
         nombres: this.datos.nombres,
