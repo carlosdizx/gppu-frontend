@@ -170,6 +170,7 @@ export default {
       if (this.radio === "Reasignación") {
         this.datos.estado = 2;
         await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
+        this.$emit("reasinado", true);
       }
     },
     async registrarEgresado() {

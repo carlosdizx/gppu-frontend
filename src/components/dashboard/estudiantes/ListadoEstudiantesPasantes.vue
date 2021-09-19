@@ -10,7 +10,7 @@
       </template>
       <template v-slot:item.acciones="{ item }">
         <DetallesEstudiante :datos="item" />
-        <DocumentoCalifacatorioPasante :datos="item" />
+        <DocumentoCalifacatorioPasante :datos="item" @reasinado="cargarDatos" />
       </template>
     </v-data-table>
   </v-container>
@@ -40,6 +40,7 @@ export default {
   }),
   methods: {
     async cargarDatos() {
+      this.filas = [];
       await LISTAR_ESTUDIANTES().then((respuesta) => {
         if (respuesta.data) {
           this.filas = Object.values(respuesta.data);
