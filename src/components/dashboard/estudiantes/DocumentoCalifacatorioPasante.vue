@@ -125,7 +125,10 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+import {
+  ASIGNAR_PASANTE_APROBADAS,
+  LISTAR_EMPRESAS_APROBADAS,
+} from "../../../services/recursos/empresaRS";
 import { REGISTRO_EGRESADO } from "../../../services/recursos/egresadosRS";
 import Swal from "sweetalert2";
 import { ACTUUALIZAR_ESTUDIANTE_PENDIENTE } from "../../../services/recursos/estudianteRS";
@@ -170,6 +173,12 @@ export default {
       if (this.radio === "Reasignación") {
         this.datos.estado = 2;
         await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
+        let pasantes = this.empresa.pasantes;
+        pasantes = pasantes.filter(
+          (pasante) => pasante.documento !== this.datos.documento
+        );
+        this.empresa.pasantes = pasantes;
+        await ASIGNAR_PASANTE_APROBADAS(this.empresa);
         this.$emit("reasinado", true);
       }
     },
