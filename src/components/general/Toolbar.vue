@@ -8,7 +8,11 @@
       </router-link>
       <v-toolbar-title>{{ titulo }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-icon>{{ icono }}</v-icon>
+      <router-link :to="url" v-slot="{ navigate }" custom>
+        <v-btn role="link" @click="navigate" icon>
+          <v-icon>{{ icono }}</v-icon>
+        </v-btn>
+      </router-link>
     </v-toolbar>
     <v-tabs background-color="cyan darken-4" center-active dark>
       <v-tab v-for="(tab, i) in tabs" :key="i" @click="cambiarIndex(i + 1)">
@@ -27,6 +31,7 @@ export default {
   props: {
     titulo: String,
     icono: String,
+    url: String,
     tabs: Array,
     back: Boolean,
   },
