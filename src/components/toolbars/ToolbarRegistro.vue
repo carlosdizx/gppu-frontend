@@ -2,7 +2,8 @@
   <div>
     <Toolbar
       titulo="Formularios de registro"
-      icono="mdi-account-multiple"
+      icono="mdi-information"
+      url="about"
       back
       :tabs="tabs"
       @indice="indice = $event"
