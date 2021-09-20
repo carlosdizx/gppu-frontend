@@ -417,6 +417,33 @@
           />
         </v-form>
       </v-card-text>
+
+      <template>
+        <v-container fluid>
+          <v-checkbox v-model="checkbox">
+            <template v-slot:label>
+              <div>
+                Al hacer click en registrar usted acepta nuestras
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <a target="_blank" href="/about" @click.stop v-on="on">
+                      Condiciones
+                    </a>
+                  </template> </v-tooltip
+                >, y nuestra
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <a target="_blank" href="/about" @click.stop v-on="on">
+                      Política de datos
+                    </a>
+                  </template>
+                </v-tooltip>
+              </div>
+            </template>
+          </v-checkbox>
+        </v-container>
+      </template>
+
       <v-card-text>
         <v-form>
           <v-alert block dense dark color="red" v-show="invalid">
@@ -424,7 +451,7 @@
           </v-alert>
           <div class="text-center">
             <v-btn
-              :disabled="carga || invalid"
+              :disabled="carga || invalid || !checkbox"
               :loading="carga"
               class="white--text"
               color="success darken-2"
@@ -535,6 +562,7 @@ export default {
     url: "https://portafolio-carlos-diaz.netlify.app/",
     hoja: null,
     carga: false,
+    checkbox: false,
   }),
   methods: {
     async registrar() {
