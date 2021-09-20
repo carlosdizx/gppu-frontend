@@ -80,6 +80,22 @@
               </v-form>
             </v-container>
           </v-card-text>
+          <v-card-text>
+            <template>
+              <v-container fluid>
+                <v-checkbox v-model="checkbox">
+                  <template v-slot:label>
+                    <div>
+                      Aceptar nuestras políticas y condiciones sobre el
+                      tratamiento de datos, Estamos comprometidos con la
+                      protección de los mismos para consultarlos cuando sea
+                      requerido
+                    </div>
+                  </template>
+                </v-checkbox>
+              </v-container>
+            </template>
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="red darken-1" dark @click="dialog = !dialog">
@@ -87,7 +103,7 @@
             </v-btn>
             <v-btn
               color="info darken-1"
-              :disabled="invalid"
+              :disabled="invalid || !checkbox"
               @click="registrarExpress"
             >
               Registrar
@@ -151,6 +167,7 @@ export default {
     nombre: "Arenilla Gamer",
     telefono: 313221632,
     correo: "carlodiaz@umariana.edu.co",
+    checkbox: false,
   }),
   methods: {
     async registrarExpress() {

@@ -423,21 +423,9 @@
           <v-checkbox v-model="checkbox">
             <template v-slot:label>
               <div>
-                Al hacer click en registrar usted acepta nuestras
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <a target="_blank" href="/about" @click.stop v-on="on">
-                      Condiciones
-                    </a>
-                  </template> </v-tooltip
-                >, y nuestra
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <a target="_blank" href="/about" @click.stop v-on="on">
-                      Política de datos
-                    </a>
-                  </template>
-                </v-tooltip>
+                Aceptar nuestras políticas y condiciones sobre el tratamiento de
+                datos, Estamos comprometidos con la protección de los mismos
+                para consultarlos cuando sea requerido
               </div>
             </template>
           </v-checkbox>

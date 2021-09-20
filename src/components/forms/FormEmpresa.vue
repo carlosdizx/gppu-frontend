@@ -198,13 +198,28 @@
         </v-form>
       </v-card-text>
       <v-card-text>
+        <template>
+          <v-container fluid>
+            <v-checkbox v-model="checkbox">
+              <template v-slot:label>
+                <div>
+                  Aceptar nuestras políticas y condiciones sobre el tratamiento
+                  de datos, Estamos comprometidos con la protección de los
+                  mismos para consultarlos cuando sea requerido
+                </div>
+              </template>
+            </v-checkbox>
+          </v-container>
+        </template>
+      </v-card-text>
+      <v-card-text>
         <v-form>
           <v-alert block dense dark color="red" v-show="invalid">
             Complete todos los campos
           </v-alert>
           <div class="text-center">
             <v-btn
-              :disabled="invalid || carga"
+              :disabled="invalid || carga || !checkbox"
               :loading="carga"
               class="white--text"
               color="success darken-2"
@@ -302,6 +317,7 @@ export default {
       "uarena%2Fdocumentos%2FFormato%20carta%20de%20intencion.docx" +
       "?alt=media&token=2d0ff50a-a86f-4255-a178-66d362d11fc1",
     dialog: false,
+    checkbox: false,
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresa", ""]),
