@@ -180,49 +180,52 @@ export default {
         this.empresa.pasantes = pasantes;
         await ASIGNAR_PASANTE_APROBADAS(this.empresa);
         this.$emit("reasinado", true);
+        return true;
       }
+      return false;
     },
     async registrarEgresado() {
-      await this.reasignarEstudiante();
-      const datos = {
-        documento: this.datos.documento,
-        nombres: this.datos.nombres,
-        apellidos: this.datos.apellidos,
-        celular: this.datos.telefono,
-        correo: this.datos.correo,
-        calificacion: {
-          valoracion1: this.valoracion1,
-          valoracion2: this.valoracion2,
-          valoracion3: this.valoracion3,
-          valoracion4: this.valoracion4,
-          valoracion5: this.valoracion5,
-          valoracion6: this.valoracion6,
-          valoracion7: this.valoracion7,
-          valoracionFinal: this.radio,
-          competencias: this.competencias,
-          aspectos_pro: this.aspectos_pro,
-          aspectos_por: this.aspectos_por,
-          comentario: this.comentario,
-        },
-        empresa: {
-          nit: this.empresa.nit,
-          nombre: this.empresa.nombre,
-        },
-      };
-      const nombre =
-        new Date().toLocaleDateString().replaceAll("/", "-") +
-        "-" +
-        datos.documento;
-      await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
-        if (result.status === 200) {
-          await Swal.fire(
-            "Proceso finalizado 🏁",
-            "Registro exitoso",
-            "success"
-          );
-          this.dialog = !this.dialog;
-        }
-      });
+      if (!(await this.reasignarEstudiante())) {
+        const datos = {
+          documento: this.datos.documento,
+          nombres: this.datos.nombres,
+          apellidos: this.datos.apellidos,
+          celular: this.datos.telefono,
+          correo: this.datos.correo,
+          calificacion: {
+            valoracion1: this.valoracion1,
+            valoracion2: this.valoracion2,
+            valoracion3: this.valoracion3,
+            valoracion4: this.valoracion4,
+            valoracion5: this.valoracion5,
+            valoracion6: this.valoracion6,
+            valoracion7: this.valoracion7,
+            valoracionFinal: this.radio,
+            competencias: this.competencias,
+            aspectos_pro: this.aspectos_pro,
+            aspectos_por: this.aspectos_por,
+            comentario: this.comentario,
+          },
+          empresa: {
+            nit: this.empresa.nit,
+            nombre: this.empresa.nombre,
+          },
+        };
+        const nombre =
+          new Date().toLocaleDateString().replaceAll("/", "-") +
+          "-" +
+          datos.documento;
+        await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
+          if (result.status === 200) {
+            await Swal.fire(
+              "Proceso finalizado 🏁",
+              "Registro exitoso",
+              "success"
+            );
+            this.dialog = !this.dialog;
+          }
+        });
+      }
     },
   },
   mounted() {
