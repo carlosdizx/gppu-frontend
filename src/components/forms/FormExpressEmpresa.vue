@@ -185,7 +185,7 @@ export default {
               "por llamada o correo respecto al proceso de convenio empresa universidad.",
             "success"
           );
-          await router.push("/about");
+          //await router.push("/about");
         }
       });
     },
