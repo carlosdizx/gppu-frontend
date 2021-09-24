@@ -312,10 +312,10 @@ export default {
     archivoCarta: null,
     carga: false,
     formatoCarta:
-      "https://firebasestorage.googleapis.com" +
-      "/v0/b/gppu-backend.appspot.com/o/" +
-      "uarena%2Fdocumentos%2FFormato%20carta%20de%20intencion.docx" +
-      "?alt=media&token=2d0ff50a-a86f-4255-a178-66d362d11fc1",
+      "https://firebasestorage.googleapis.com/v0/b/" +
+      "gppu-backend.appspot.com/o/universidad_mariana" +
+      "%2Fdocumentos%2FFormato%20carta%20de%20intencion.docx" +
+      "?alt=media&token=a030e247-9df9-47b4-af49-4513d2328a53",
     dialog: false,
     checkbox: false,
   }),
