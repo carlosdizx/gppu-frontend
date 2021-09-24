@@ -163,10 +163,10 @@ export default {
   },
   data: () => ({
     dialog: false,
-    nit: "87656565-ak",
-    nombre: "Arenilla Gamer",
-    telefono: 313221632,
-    correo: "carlodiaz@umariana.edu.co",
+    nit: "",
+    nombre: "",
+    telefono: null,
+    correo: "",
     checkbox: false,
   }),
   methods: {
@@ -185,7 +185,8 @@ export default {
               "por llamada o correo respecto al proceso de convenio empresa universidad.",
             "success"
           );
-          await router.push("/about");
+          this.dialog = !this.dialog;
+          //await router.push("/about");
         }
       });
     },

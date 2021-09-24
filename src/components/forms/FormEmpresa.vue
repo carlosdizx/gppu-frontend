@@ -297,15 +297,15 @@ export default {
     FormExpressEmpresa,
   },
   data: () => ({
-    nit: "87570236-50",
-    nombre: "Arena Center",
-    documento: "1082749257",
-    celular: 3163930876,
-    correo: "carlodiaz@arenacenter.com",
-    pais: "Colombia",
-    departamento: "Nariño",
-    ciudad: "Pasto",
-    direccion: "Cl 18 # 35 - 06, Palermo",
+    nit: "",
+    nombre: "",
+    documento: "",
+    celular: null,
+    correo: "",
+    pais: "",
+    departamento: "",
+    ciudad: "",
+    direccion: "",
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
@@ -416,7 +416,7 @@ export default {
           "success"
         );
         this.carga = false;
-        await router.push("/about");
+        //await router.push("/about");
       } else {
         await Swal.fire(
           "Empresa ya registrada",
