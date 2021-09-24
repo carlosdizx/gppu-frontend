@@ -1,6 +1,6 @@
 import { INSTACIA } from "@/services/axios";
 import { STORAGE } from "@/main";
-const universidad = "universidad_mariana";
+const universidad = "universidad_narinio";
 
 export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
   await INSTACIA.put(
