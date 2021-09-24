@@ -131,7 +131,10 @@ import {
 } from "../../../services/recursos/empresaRS";
 import { REGISTRO_EGRESADO } from "../../../services/recursos/egresadosRS";
 import Swal from "sweetalert2";
-import { ACTUUALIZAR_ESTUDIANTE_PENDIENTE } from "../../../services/recursos/estudianteRS";
+import {
+  ACTUUALIZAR_ESTUDIANTE_PENDIENTE,
+  ELIMINAR_ESTUDIANTE,
+} from "../../../services/recursos/estudianteRS";
 
 export default {
   name: "DocumentoCalifacatorioPasante",
@@ -217,11 +220,14 @@ export default {
           datos.documento;
         await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
           if (result.status === 200) {
+            await ELIMINAR_ESTUDIANTE(datos.documento);
+            this.$emit("reasinado", true);
             await Swal.fire(
               "Proceso finalizado 🏁",
               "Registro exitoso",
               "success"
             );
+            await this.cargarEmpresa();
             this.dialog = !this.dialog;
           }
         });
