@@ -434,8 +434,8 @@
 
       <v-card-text>
         <v-form>
-          <v-alert block dense dark color="red" v-show="invalid">
-            Complete los campos requeridos
+          <v-alert block dense color="pink lighten-4" v-show="invalid">
+            Complete los campos requeridos*
           </v-alert>
           <div class="text-center">
             <v-btn
