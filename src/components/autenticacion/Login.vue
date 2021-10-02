@@ -61,7 +61,7 @@
           </router-link>
         </v-card-text>
         <v-card-text>
-          Created by:<br />
+          Designed and created by:<br />
           <v-btn
             text
             block
