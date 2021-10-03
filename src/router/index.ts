@@ -26,6 +26,12 @@ const routes: Array<RouteConfig> = [
     name: "About",
     component: () => import("../views/About.vue"),
   },
+  {
+    path: "/usuario",
+    name: "Usuario",
+    component: () => import("../views/Usuario.vue"),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = new VueRouter({

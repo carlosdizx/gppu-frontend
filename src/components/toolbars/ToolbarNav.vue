@@ -3,9 +3,11 @@
     <v-app-bar-nav-icon @click="changeState"></v-app-bar-nav-icon>
     <v-toolbar-title>GPPU</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+    <router-link to="usuario" v-slot="{ navigate }" custom>
+      <v-btn icon @click="navigate">
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+    </router-link>
     <v-btn icon @click="redirectToHome">
       <v-icon>mdi-export</v-icon>
     </v-btn>
