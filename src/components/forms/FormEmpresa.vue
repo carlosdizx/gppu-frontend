@@ -416,7 +416,7 @@ export default {
           "success"
         );
         this.carga = false;
-        //await router.push("/about");
+        await router.push("/about");
       } else {
         await Swal.fire(
           "Empresa ya registrada",

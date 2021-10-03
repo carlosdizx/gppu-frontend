@@ -186,7 +186,7 @@ export default {
             "success"
           );
           this.dialog = !this.dialog;
-          //await router.push("/about");
+          await router.push("/about");
         }
       });
     },
