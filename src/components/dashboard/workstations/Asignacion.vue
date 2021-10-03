@@ -6,12 +6,14 @@
         <v-row>
           <v-col cols="6">
             <v-form>
-              <v-select
-                label="Seleccione la empresa"
+              <v-combobox
+                v-model="empresa"
                 :items="empresas"
-                item-text="nit"
-                v-model="nit"
-                v-on="actualizarEmpresa(nit)"
+                item-text="nombre"
+                hide-selected
+                label="Add some tags"
+                persistent-hint
+                small-chips
               />
               <v-text-field label="Nit" :value="empresa.nit" disabled />
               <v-text-field label="Nombre" :value="empresa.nombre" disabled />
@@ -35,12 +37,14 @@
           </v-col>
           <v-col cols="6">
             <v-form>
-              <v-select
-                label="Seleccione la estudiante"
+              <v-combobox
+                v-model="estudiante"
                 :items="estudiantes"
                 item-text="documento"
-                v-model="documento"
-                v-on="actualizarEstudiante(documento)"
+                hide-selected
+                label="Add some tags"
+                persistent-hint
+                small-chips
               />
               <v-text-field
                 label="Nombres"
@@ -142,20 +146,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    actualizarEmpresa() {
-      this.empresas.forEach((empresa) => {
-        if (empresa.nit === this.nit) {
-          return (this.empresa = empresa);
-        }
-      });
-    },
-    actualizarEstudiante() {
-      this.estudiantes.forEach((estudiante) => {
-        if (estudiante.documento === this.documento) {
-          return (this.estudiante = estudiante);
-        }
-      });
     },
     async registrarworkstation() {
       this.estudiante.estado = 3;
