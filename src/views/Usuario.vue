@@ -15,7 +15,9 @@
     <v-container>
       <v-card-text>
         <v-card>
-          <v-card-title> Martha Obando Carrillo </v-card-title>
+          <v-card-title>
+            {{ usuario.nombres + " " + usuario.apellidos }}
+          </v-card-title>
         </v-card>
       </v-card-text>
     </v-container>
@@ -23,8 +25,19 @@
 </template>
 
 <script>
+import { OBTENER_DATOS_USUARIO } from "../services/auth";
+
 export default {
   name: "Usuario",
+  data: () => ({
+    usuario: null,
+  }),
+  async mounted() {
+    await OBTENER_DATOS_USUARIO().then((result) => {
+      console.log(result);
+      this.usuario = result.data;
+    });
+  },
 };
 </script>
 

@@ -1,3 +1,5 @@
+import { INSTACIA } from "@/services/axios";
+
 const API_KEY = "AIzaSyDO8hVE9rxb9oP38kTH4qRhqxUcHNtAi3w";
 const URL_SING_IN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 const URL_SING_IN_TOKEN = `https://securetoken.googleapis.com/v1/token?key=${API_KEY}`;
@@ -42,3 +44,13 @@ export const LOGUEAR_USUARIO_TOKEN = async (refreshToken: any) =>
       }),
     })
   ).json();
+
+export const OBTENER_DATOS_USUARIO = async () => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  console.log(token);
+  return await INSTACIA.get(`${token.localId}.json?auth=${token.idToken}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
