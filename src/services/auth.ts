@@ -69,3 +69,10 @@ export const OBTENER_DATOS_USUARIO = async () => {
     }
   );
 };
+
+export const LISTAR_USUARIOS = async () =>
+  await INSTACIA.get(`usuarios.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });

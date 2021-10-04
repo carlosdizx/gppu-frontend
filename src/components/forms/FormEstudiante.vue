@@ -12,6 +12,17 @@
           :disabled="carga"
         >
           <v-alert dense color="secondary" dark>Datos personales</v-alert>
+          {{ programa }}
+          <v-combobox
+            v-model="programa"
+            :items="programas"
+            item-text="programa"
+            label="Programa acácemico"
+            hide-selected
+            small-chips
+            dense
+            outlined
+          />
           <validation-provider
             v-slot="{ errors }"
             name="Nombres"
@@ -481,6 +492,7 @@ import {
   REGISTRO_ESTUDIANTE_PENDIENTE,
 } from "@/services/recursos/estudianteRS";
 import Swal from "sweetalert2";
+import { LISTAR_USUARIOS } from "@/services/auth";
 
 setInteractionMode("eager");
 
@@ -516,6 +528,8 @@ export default {
   components: { Calendario, ValidationObserver, ValidationProvider },
   data: () => ({
     opcinesCargo: OPCIONES_CAMPO,
+    programas: [],
+    programa: null,
     nombres: "",
     apellidos: "",
     tipoDoc: "",
@@ -635,6 +649,14 @@ export default {
         this.carga = false;
       }
     },
+    async listadoProgramas() {
+      await LISTAR_USUARIOS().then((resultado) => {
+        this.programas = Object.values(resultado.data);
+      });
+    },
+  },
+  mounted() {
+    this.listadoProgramas();
   },
 };
 </script>
