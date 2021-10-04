@@ -15,9 +15,10 @@
     <v-container>
       <v-card-text>
         <v-card>
-          <v-card-title> Coordinador@ de practicas </v-card-title>
+          <v-card-title>{{ rol }}</v-card-title>
           <v-card-text>
             <v-form autocomplete="off">
+              <v-alert dense dark>{{ programa }}</v-alert>
               <v-text-field label="Nombres" v-model="nombres" />
               <v-text-field label="Apellidos" v-model="apellidos" />
               <v-text-field label="Documento" v-model="documento" />
@@ -49,6 +50,8 @@ export default {
     documento: "",
     celular: "",
     direccion: "",
+    programa: "",
+    rol: "",
   }),
   methods: {
     async registrar() {
@@ -78,6 +81,9 @@ export default {
         this.documento = result.data.documento;
         this.celular = result.data.celular;
         this.direccion = result.data.direccion;
+        this.programa = result.data.programa;
+        this.rol =
+          result.data.rol === 1 ? "Coordinador@ de prácticas" : "Asesor@";
       }
     });
   },
