@@ -193,10 +193,9 @@ export default {
       await router.push("/about");
     },
     async listadoProgramas() {
-      await LISTAR_USUARIOS().then((resultado) => {
-        this.programas = Object.values(resultado.data);
-        console.log(this.programas);
-      });
+      await LISTAR_USUARIOS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
     },
   },
   async mounted() {

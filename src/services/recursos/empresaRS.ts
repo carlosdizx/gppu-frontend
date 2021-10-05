@@ -58,12 +58,15 @@ export const LISTAR_EMPRESAS_PENDIENTES = async (programa: any) =>
     },
   });
 
-export const ELIMINAR_EMPRESA = async (nit: any) =>
-  await INSTACIA.delete(`empresas/pendientes/${nit}.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const ELIMINAR_EMPRESA = async (programa: any, nit: any) =>
+  await INSTACIA.delete(
+    `usuarios/${programa}/empresas/pendientes/${nit}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
 export const LISTAR_ARCHIVOS_EMPRESA = async (nit: any, nombre: any) =>
   await STORAGE.ref()
