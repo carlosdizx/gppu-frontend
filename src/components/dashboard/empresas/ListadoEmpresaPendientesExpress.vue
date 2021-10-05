@@ -47,7 +47,9 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
-        await LISTAR_EMPRESAS_EXPRESS().then((resultado) => {
+        this.filas = [];
+        const token = JSON.parse(localStorage.getItem("token"));
+        await LISTAR_EMPRESAS_EXPRESS(token.localId).then((resultado) => {
           if (resultado.data) {
             this.filas = Object.values(resultado.data);
           }
@@ -67,9 +69,8 @@ export default Vue.extend({
         confirmButtonText: "Si, eliminar!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await ELIMINAR_EMPRESA_EXPRESS(nit).then((result) =>
-            console.log(result)
-          );
+          const token = JSON.parse(localStorage.getItem("token"));
+          await ELIMINAR_EMPRESA_EXPRESS(token.localId, nit);
           await this.cargarEmpresas();
           await Swal.fire(
             "Eliminada!",

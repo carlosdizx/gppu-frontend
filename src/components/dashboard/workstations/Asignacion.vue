@@ -130,7 +130,8 @@ export default {
   methods: {
     async cargarEmpresas() {
       try {
-        await LISTAR_EMPRESAS_APROBADAS().then((result) => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        await LISTAR_EMPRESAS_APROBADAS(token.localId).then((result) => {
           if (result.data) {
             this.empresas = Object.values(result.data);
           }

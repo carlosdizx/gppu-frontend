@@ -27,6 +27,20 @@ export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (
     }
   );
 
+export const LISTAR_EMPRESAS_EXPRESS = async (programa: any) =>
+  await INSTACIA.get(`usuarios/${programa}/empresas/express.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+export const ELIMINAR_EMPRESA_EXPRESS = async (programa: any, nit: any) =>
+  await INSTACIA.delete(`usuarios/${programa}/empresas/express/${nit}.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
 export const EMPRESA_YA_REGISTRADA = async (programa: any, nit: any) => {
   const resultado = await INSTACIA.get(
     `usuarios/${programa}/empresas/pendientes/${nit}.json`,
@@ -112,17 +126,3 @@ export const ASIGNAR_PASANTE_APROBADAS = async (datos: any) =>
       },
     }
   );
-
-export const LISTAR_EMPRESAS_EXPRESS = async () =>
-  await INSTACIA.get(`empresas/express.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-export const ELIMINAR_EMPRESA_EXPRESS = async (nit: any) =>
-  await INSTACIA.delete(`empresas/express/${nit}.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });

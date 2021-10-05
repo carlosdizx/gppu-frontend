@@ -159,7 +159,8 @@ export default {
   },
   methods: {
     async cargarEmpresa() {
-      const resultado = await LISTAR_EMPRESAS_APROBADAS();
+      const token = JSON.parse(localStorage.getItem("token"));
+      const resultado = await LISTAR_EMPRESAS_APROBADAS(token.localId);
       const empresas = Object.values(resultado.data);
       for (const empresa of empresas) {
         const pasantes = empresa.pasantes;
