@@ -13,9 +13,12 @@ export const REGISTRO_DATOS_EMPRESA = async (programa: any, datos: any) =>
     }
   );
 
-export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (datos: any) =>
+export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (
+  programa: any,
+  datos: any
+) =>
   await INSTACIA.put(
-    `empresas/express/${datos.nit}.json`,
+    `usuarios/${programa}/empresas/express/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {

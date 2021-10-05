@@ -126,6 +126,7 @@ import {
 } from "vee-validate";
 import Swal from "sweetalert2";
 import router from "@/router";
+import { LISTAR_USUARIOS } from "@/services/auth";
 
 setInteractionMode("eager");
 
@@ -168,6 +169,7 @@ export default {
     telefono: null,
     correo: "",
     checkbox: false,
+    programas: [],
   }),
   methods: {
     async registrarExpress() {
@@ -177,19 +179,28 @@ export default {
         telefono: this.telefono,
         correo: this.correo,
       };
-      await REGISTRO_DATOS_EXPRESS_EMPRESA(datos).then(async (result) => {
-        if (result.status === 200) {
-          await Swal.fire(
-            "Datos registrados exitosamente",
-            "En un plazo de 2 (dos) días hábiles recibirá información " +
-              "por llamada o correo respecto al proceso de convenio empresa universidad.",
-            "success"
-          );
-          this.dialog = !this.dialog;
-          await router.push("/about");
-        }
+      console.log("xddddd");
+      await this.programas.forEach((programa) => {
+        console.log("xd");
+        REGISTRO_DATOS_EXPRESS_EMPRESA(programa.id, datos);
+      });
+      await Swal.fire(
+        "Datos registrados exitosamente",
+        "En un plazo de 2 (dos) días hábiles recibirá información " +
+          "por llamada o correo respecto al proceso de convenio empresa universidad.",
+        "success"
+      );
+      await router.push("/about");
+    },
+    async listadoProgramas() {
+      await LISTAR_USUARIOS().then((resultado) => {
+        this.programas = Object.values(resultado.data);
+        console.log(this.programas);
       });
     },
+  },
+  async mounted() {
+    await this.listadoProgramas();
   },
 };
 </script>
