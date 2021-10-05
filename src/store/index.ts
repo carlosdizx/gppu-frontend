@@ -66,15 +66,6 @@ export default new Vuex.Store({
         );
       }
     },
-    //--------------------------------------------------------------------------
-    //------------------------------ EMPRESA -----------------------------------
-    //--------------------------------------------------------------------------
-    registrarDatosEmpresa: async ({ commit }, datos: any) => {
-      return await REGISTRO_DATOS_EMPRESA(datos);
-    },
-    removeUserToken({ commit }) {
-      commit("asignarToken", null);
-    },
   },
   modules: {},
 });

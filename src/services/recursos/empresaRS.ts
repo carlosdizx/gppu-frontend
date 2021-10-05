@@ -2,9 +2,9 @@ import { INSTACIA } from "@/services/axios";
 import { STORAGE } from "@/main";
 const universidad = "universidad_mariana";
 
-export const REGISTRO_DATOS_EMPRESA = async (datos: any) =>
+export const REGISTRO_DATOS_EMPRESA = async (programa: any, datos: any) =>
   await INSTACIA.put(
-    `empresas/pendientes/${datos.nit}.json`,
+    `usuarios/${programa}/empresas/pendientes/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {
@@ -24,12 +24,15 @@ export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (datos: any) =>
     }
   );
 
-export const EMPRESA_YA_REGISTRADA = async (nit: any) => {
-  const resultado = await INSTACIA.get(`empresas/pendientes/${nit}.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const EMPRESA_YA_REGISTRADA = async (programa: any, nit: any) => {
+  const resultado = await INSTACIA.get(
+    `usuarios/${programa}/empresas/pendientes/${nit}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   return resultado.data;
 };
 

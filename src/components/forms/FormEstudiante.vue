@@ -667,9 +667,9 @@ export default {
       }
     },
     async listadoProgramas() {
-      await LISTAR_USUARIOS().then((resultado) => {
-        this.programas = Object.values(resultado.data);
-      });
+      await LISTAR_USUARIOS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
     },
   },
   mounted() {

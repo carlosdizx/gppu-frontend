@@ -250,6 +250,7 @@ import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
   REGISTRO_ARCHIVO_EMPRESA,
+  REGISTRO_DATOS_EMPRESA,
 } from "@/services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -260,6 +261,7 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import router from "@/router";
+import { LISTAR_USUARIOS } from "@/services/auth";
 
 setInteractionMode("eager");
 
@@ -318,6 +320,7 @@ export default {
       "?alt=media&token=a030e247-9df9-47b4-af49-4513d2328a53",
     dialog: false,
     checkbox: false,
+    programas: [],
   }),
   methods: {
     ...mapActions(["registrarDatosEmpresa", ""]),
@@ -354,13 +357,17 @@ export default {
         ciudad: this.ciudad,
         direccion: this.direccion,
       };
-      let pass = await EMPRESA_YA_REGISTRADA(datos.nit);
+      let pass = this.programas.forEach((programa) => {
+        if (EMPRESA_YA_REGISTRADA(programa.id, datos.nit)) {
+          return true;
+        }
+      });
 
       if (!pass) {
         this.carga = true;
-        await this.registrarDatosEmpresa(datos)
-          .then((result) => console.log(result))
-          .catch((error) => console.log(error));
+        await this.programas.forEach((programa) => {
+          REGISTRO_DATOS_EMPRESA(programa.id, datos);
+        });
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
@@ -425,6 +432,15 @@ export default {
         );
       }
     },
+    async listadoProgramas() {
+      await LISTAR_USUARIOS().then((resultado) => {
+        this.programas = Object.values(resultado.data);
+        console.log(this.programas);
+      });
+    },
+  },
+  async mounted() {
+    await this.listadoProgramas();
   },
 };
 </script>
