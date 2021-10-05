@@ -12,17 +12,23 @@
           :disabled="carga"
         >
           <v-alert dense color="secondary" dark>Datos personales</v-alert>
-          {{ programa }}
-          <v-combobox
-            v-model="programa"
-            :items="programas"
-            item-text="programa"
-            label="Programa acácemico"
-            hide-selected
-            small-chips
-            dense
-            outlined
-          />
+          <validation-provider
+            v-slot="{ errors }"
+            name="Programa académico"
+            rules="required"
+          >
+            <v-combobox
+              v-model="programa"
+              :items="programas"
+              item-text="programa"
+              label="Programa académico"
+              :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+            />
+          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="Nombres"
@@ -576,6 +582,7 @@ export default {
       }
       const estudiante = {
         nombres: this.nombres,
+        programa: this.programa.id,
         apellidos: this.apellidos,
         tipoDoc: this.tipoDoc,
         documento: this.documento,
@@ -610,7 +617,12 @@ export default {
         aspectos_per: this.aspectos_per,
         mejoras: this.mejoras,
       };
-      if (await ESTUDIANTE_YA_REGISTRADO(estudiante.documento)) {
+      if (
+        await ESTUDIANTE_YA_REGISTRADO(
+          estudiante.programa,
+          estudiante.documento
+        )
+      ) {
         return await Swal.fire(
           "Estudiante ya registrado",
           "Sus datos ya fueron subidos a plataforma",
@@ -639,8 +651,12 @@ export default {
       }
       if (facha) {
         this.carga = true;
-        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante);
-        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estudiante.documento);
+        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante.programa, estudiante);
+        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(
+          estudiante.programa,
+          datos,
+          estudiante.documento
+        );
         await Swal.fire(
           "Registro exitoso",
           "Sus datos serán validados en los próximos días",

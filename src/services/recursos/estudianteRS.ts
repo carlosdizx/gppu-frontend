@@ -2,9 +2,12 @@ import { INSTACIA } from "@/services/axios";
 import { STORAGE } from "@/main";
 const universidad = "universidad_mariana";
 
-export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
+export const REGISTRO_ESTUDIANTE_PENDIENTE = async (
+  programa: any,
+  estudiante: any
+) =>
   await INSTACIA.put(
-    `estudiantes/${estudiante.documento}.json`,
+    `usuarios/${programa}/estudiantes/${estudiante.documento}.json`,
     JSON.stringify(estudiante),
     {
       headers: {
@@ -13,21 +16,28 @@ export const REGISTRO_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
     }
   );
 
-export const ESTUDIANTE_YA_REGISTRADO = async (documento: any) => {
-  const resultado = await INSTACIA.get(`estudiantes/${documento}.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const ESTUDIANTE_YA_REGISTRADO = async (
+  programa: any,
+  documento: any
+) => {
+  const resultado = await INSTACIA.get(
+    `usuarios/${programa}/estudiantes/${documento}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   return resultado.data;
 };
 
 export const REGISTRO_DATOS_ESTUDIANTE_PENDIENTE = async (
+  programa: any,
   datos: any,
   documento: any
 ) =>
   await INSTACIA.put(
-    `estudiantes/${documento}/datos.json`,
+    `usuarios/${programa}/estudiantes/${documento}/datos.json`,
     JSON.stringify(datos),
     {
       headers: {
