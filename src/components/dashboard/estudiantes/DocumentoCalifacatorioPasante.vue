@@ -221,7 +221,8 @@ export default {
           datos.documento;
         await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
           if (result.status === 200) {
-            await ELIMINAR_ESTUDIANTE(datos.documento);
+            const token = JSON.parse(localStorage.getItem("token"));
+            await ELIMINAR_ESTUDIANTE(token.localId, datos.documento);
             this.$emit("reasinado", true);
             await Swal.fire(
               "Proceso finalizado 🏁",

@@ -69,7 +69,8 @@ export default Vue.extend({
         confirmButtonText: "Si, eliminar!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await ELIMINAR_ESTUDIANTE(documento).then((result) =>
+          const token = JSON.parse(localStorage.getItem("token"));
+          await ELIMINAR_ESTUDIANTE(token.localId, documento).then((result) =>
             console.log(result)
           );
           await this.cargarDatos();

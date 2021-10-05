@@ -59,8 +59,8 @@ export const REGISTRO_ARCHIVO_ESTUDIANTE = async (
   return refDoc.put(archivo, metadata);
 };
 
-export const ELIMINAR_ESTUDIANTE = async (documento: any) =>
-  await INSTACIA.delete(`estudiantes/${documento}.json`, {
+export const ELIMINAR_ESTUDIANTE = async (programa: any, documento: any) =>
+  await INSTACIA.delete(`usuarios/${programa}/estudiantes/${documento}.json`, {
     headers: {
       "Content-Type": "application/json",
     },
