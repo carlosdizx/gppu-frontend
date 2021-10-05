@@ -148,7 +148,8 @@ export default {
     },
     async cargarEstudiantes() {
       try {
-        await LISTAR_ESTUDIANTES().then((resultado) => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        await LISTAR_ESTUDIANTES(token.localId).then((resultado) => {
           if (resultado.data) {
             this.estudiantes = Object.values(resultado.data);
             this.estudiantes = this.estudiantes.filter(

@@ -41,7 +41,8 @@ export default {
   methods: {
     async cargarDatos() {
       this.filas = [];
-      await LISTAR_ESTUDIANTES().then((respuesta) => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      await LISTAR_ESTUDIANTES(token.localId).then((respuesta) => {
         if (respuesta.data) {
           this.filas = Object.values(respuesta.data);
           this.filas = this.filas.filter(
