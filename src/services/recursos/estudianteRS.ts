@@ -66,6 +66,20 @@ export const ELIMINAR_ESTUDIANTE = async (programa: any, documento: any) =>
     },
   });
 
+export const ACTUUALIZAR_ESTUDIANTE_PENDIENTE = async (
+  programa: any,
+  estudiante: any
+) =>
+  await INSTACIA.patch(
+    `usuarios/${programa}/estudiantes/${estudiante.documento}.json`,
+    JSON.stringify(estudiante),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
 export const APROBAR_ESTUDIANTE = async (datos: any) =>
   await INSTACIA.patch(
     `estudiantes/${datos.documento}.json`,
@@ -95,16 +109,6 @@ export const ESTUDIANTE_PASANTE = async (datos: any) =>
     }
   );
 
-export const ACTUUALIZAR_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
-  await INSTACIA.patch(
-    `estudiantes/${estudiante.documento}.json`,
-    JSON.stringify(estudiante),
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
 export const LISTAR_ARCHIVO_ESTUDIANTE = async (
   programa: any,
   documento: any,

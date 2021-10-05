@@ -225,7 +225,8 @@ export default {
         confirmButtonText: "Si, Actualizar",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
+          const token = JSON.parse(localStorage.getItem("token"));
+          await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(token.localId, this.datos);
           await Swal.fire(
             "Actualizado!",
             "Felicitaciones estudiante Actualizado",
