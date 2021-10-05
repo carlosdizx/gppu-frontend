@@ -2,8 +2,11 @@
   <v-navigation-drawer v-model="nav" absolute>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title>Admin</v-list-item-title>
-        <v-list-item-subtitle>Martha Nubia Carrillo</v-list-item-subtitle>
+        <v-list-item-title>{{ rol }}</v-list-item-title>
+        <v-list-item-subtitle>
+          {{ nombres + " " + apellidos }}
+        </v-list-item-subtitle>
+        <v-list-item-action-text>{{ programa }}</v-list-item-action-text>
       </v-list-item-content>
     </v-list-item>
 
@@ -78,11 +81,17 @@
 </template>
 
 <script>
+import { OBTENER_DATOS_USUARIO } from "../../services/auth";
+
 export default {
   name: "NavDrawer",
   data: () => ({
     element: null,
     nav: false,
+    nombres: "",
+    apellidos: "",
+    programa: "",
+    rol: "",
   }),
   methods: {
     changeElement(idItem) {
@@ -91,6 +100,16 @@ export default {
     change() {
       this.nav = !this.nav;
     },
+  },
+  async mounted() {
+    await OBTENER_DATOS_USUARIO().then((result) => {
+      if (result.data) {
+        this.nombres = result.data.nombres;
+        this.apellidos = result.data.apellidos;
+        this.programa = result.data.programa;
+        this.rol = result.data.rol === 1 ? "Coordinador@ de prácticas" : "";
+      }
+    });
   },
 };
 </script>

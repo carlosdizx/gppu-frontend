@@ -82,8 +82,7 @@ export default {
         this.celular = result.data.celular;
         this.direccion = result.data.direccion;
         this.programa = result.data.programa;
-        this.rol =
-          result.data.rol === 1 ? "Coordinador@ de prácticas" : "Asesor@";
+        this.rol = result.data.rol === 1 ? "Coordinador@ de prácticas" : "";
       }
     });
   },
