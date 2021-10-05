@@ -95,8 +95,8 @@ export const ACTUALIZAR_CONVENIO_EMPRESA = async (datos: any) =>
     }
   );
 
-export const LISTAR_EMPRESAS_APROBADAS = async () =>
-  await INSTACIA.get(`empresas/aprobadas.json`, {
+export const LISTAR_EMPRESAS_APROBADAS = async (programa: any) =>
+  await INSTACIA.get(`usuarios/${programa}/empresas/aprobadas.json`, {
     headers: {
       "Content-Type": "application/json",
     },
