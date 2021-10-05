@@ -73,9 +73,9 @@ export const LISTAR_ARCHIVOS_EMPRESA = async (nit: any, nombre: any) =>
     .child(`${universidad}/empresas/${nit}/${nombre}_${nit}`)
     .getDownloadURL();
 
-export const APROBAR_CONVENIO_EMPRESA = async (datos: any) =>
+export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
   await INSTACIA.put(
-    `empresas/aprobadas/${datos.nit}.json`,
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {
