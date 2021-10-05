@@ -163,7 +163,8 @@ export default {
     },
     async registrarworkstation() {
       this.estudiante.estado = 3;
-      await ESTUDIANTE_PASANTE(this.estudiante);
+      const token = JSON.parse(localStorage.getItem("token"));
+      await ESTUDIANTE_PASANTE(token.localId, this.estudiante);
       const estudiante = {
         documento: this.estudiante.documento,
         nombres: this.estudiante.nombres,
@@ -173,7 +174,7 @@ export default {
       pasantes.push(estudiante);
       this.empresa.pasantes = pasantes;
       this.empresa.dias = null;
-      await ASIGNAR_PASANTE_APROBADAS(this.empresa);
+      await ASIGNAR_PASANTE_APROBADAS(token.localId, this.empresa);
       this.empresas = [];
       this.estudiantes = [];
       this.empresa = null;

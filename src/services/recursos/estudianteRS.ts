@@ -98,9 +98,9 @@ export const LISTAR_ESTUDIANTES = async (programa: any) =>
     },
   });
 
-export const ESTUDIANTE_PASANTE = async (datos: any) =>
+export const ESTUDIANTE_PASANTE = async (programa: any, datos: any) =>
   await INSTACIA.patch(
-    `estudiantes/${datos.documento}.json`,
+    `usuarios/${programa}/estudiantes/${datos.documento}.json`,
     JSON.stringify(datos),
     {
       headers: {

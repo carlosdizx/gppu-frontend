@@ -116,9 +116,9 @@ export const LISTAR_EMPRESAS_APROBADAS = async (programa: any) =>
     },
   });
 
-export const ASIGNAR_PASANTE_APROBADAS = async (datos: any) =>
+export const ASIGNAR_PASANTE_APROBADAS = async (programa: any, datos: any) =>
   await INSTACIA.patch(
-    `empresas/aprobadas/${datos.nit}.json`,
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {
