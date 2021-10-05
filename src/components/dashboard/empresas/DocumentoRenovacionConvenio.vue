@@ -73,7 +73,8 @@ export default {
           });
           this.datos.periodo = null;
           this.datos.dias = null;
-          await ACTUALIZAR_CONVENIO_EMPRESA(this.datos);
+          const token = JSON.parse(localStorage.getItem("token"));
+          await ACTUALIZAR_CONVENIO_EMPRESA(token.localId, this.datos);
           this.$emit("renovado", true);
           await Swal.fire("Renovado!", "Felicitaciones 🤝", "success");
           this.dialog = !this.dialog;

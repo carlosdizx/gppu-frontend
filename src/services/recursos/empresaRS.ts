@@ -84,9 +84,9 @@ export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
     }
   );
 
-export const ACTUALIZAR_CONVENIO_EMPRESA = async (datos: any) =>
+export const ACTUALIZAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
   await INSTACIA.patch(
-    `empresas/aprobadas/${datos.nit}.json`,
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {
