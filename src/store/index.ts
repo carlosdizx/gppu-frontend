@@ -66,6 +66,9 @@ export default new Vuex.Store({
         );
       }
     },
+    removeUserToken({ commit }) {
+      commit("asignarToken", null);
+    },
   },
   modules: {},
 });
