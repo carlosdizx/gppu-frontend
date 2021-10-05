@@ -47,7 +47,7 @@ export const LOGUEAR_USUARIO_TOKEN = async (refreshToken: any) =>
 
 export const RISGISTAR_DATOS_USUARIO = async (datos: any) => {
   const token = JSON.parse(<string>localStorage.getItem("token"));
-  return await INSTACIA.put(
+  return await INSTACIA.patch(
     `usuarios/${token.localId}.json?auth=${token.idToken}`,
     JSON.stringify(datos),
     {
