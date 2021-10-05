@@ -77,8 +77,8 @@ export const APROBAR_ESTUDIANTE = async (datos: any) =>
     }
   );
 
-export const LISTAR_ESTUDIANTES = async () =>
-  await INSTACIA.get(`estudiantes.json`, {
+export const LISTAR_ESTUDIANTES = async (programa: any) =>
+  await INSTACIA.get(`usuarios/${programa}/estudiantes.json`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -105,7 +105,13 @@ export const ACTUUALIZAR_ESTUDIANTE_PENDIENTE = async (estudiante: any) =>
       },
     }
   );
-export const LISTAR_ARCHIVO_ESTUDIANTE = async (documento: any, nombre: any) =>
+export const LISTAR_ARCHIVO_ESTUDIANTE = async (
+  programa: any,
+  documento: any,
+  nombre: any
+) =>
   await STORAGE.ref()
-    .child(`${universidad}/estudiantes/${documento}/${nombre}_${documento}`)
+    .child(
+      `${universidad}/${programa}/estudiantes/${documento}/${nombre}_${documento}`
+    )
     .getDownloadURL();

@@ -238,7 +238,9 @@ export default {
   },
   async mounted() {
     try {
+      const token = JSON.parse(localStorage.getItem("token"));
       await LISTAR_ARCHIVO_ESTUDIANTE(
+        token.localId,
         this.datos.documento,
         "hoja_de_vida"
       ).then((result) => {

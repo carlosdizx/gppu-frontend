@@ -48,7 +48,8 @@ export default Vue.extend({
   }),
   methods: {
     async cargarDatos() {
-      await LISTAR_ESTUDIANTES().then((result) => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      await LISTAR_ESTUDIANTES(token.localId).then((result) => {
         if (result.data) {
           this.filas = Object.values(result.data);
           this.filas = this.filas.filter(
