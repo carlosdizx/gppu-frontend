@@ -634,6 +634,7 @@ export default {
         if (this.hoja.type === "application/pdf") {
           this.carga = true;
           await REGISTRO_ARCHIVO_ESTUDIANTE(
+            estudiante.programa,
             estudiante.documento,
             this.hoja,
             `hoja_de_vida_${estudiante.documento}`
