@@ -198,7 +198,8 @@ export default {
       }).then(async (result) => {
         if (result.isConfirmed) {
           this.datos.estado = 2;
-          await APROBAR_ESTUDIANTE(this.datos);
+          const token = JSON.parse(localStorage.getItem("token"));
+          await APROBAR_ESTUDIANTE(token.localId, this.datos);
           this.$emit("aprobado", true);
           await Swal.fire(
             "Aprobado!",

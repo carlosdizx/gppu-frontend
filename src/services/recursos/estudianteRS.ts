@@ -80,9 +80,9 @@ export const ACTUUALIZAR_ESTUDIANTE_PENDIENTE = async (
     }
   );
 
-export const APROBAR_ESTUDIANTE = async (datos: any) =>
+export const APROBAR_ESTUDIANTE = async (programa: any, datos: any) =>
   await INSTACIA.patch(
-    `estudiantes/${datos.documento}.json`,
+    `usuarios/${programa}/estudiantes/${datos.documento}.json`,
     JSON.stringify(datos),
     {
       headers: {
