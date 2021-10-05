@@ -51,8 +51,8 @@ export const REGISTRO_ARCHIVO_EMPRESA = async (
   return refDoc.put(archivo, metadata);
 };
 
-export const LISTAR_EMPRESAS_PENDIENTES = async () =>
-  await INSTACIA.get(`empresas/pendientes.json`, {
+export const LISTAR_EMPRESAS_PENDIENTES = async (programa: any) =>
+  await INSTACIA.get(`usuarios/${programa}/empresas/pendientes.json`, {
     headers: {
       "Content-Type": "application/json",
     },

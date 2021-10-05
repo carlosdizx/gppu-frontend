@@ -58,7 +58,8 @@ export default Vue.extend({
   methods: {
     async cargarDatos() {
       this.filas = [];
-      await LISTAR_EMPRESAS_PENDIENTES().then((resultado) => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      await LISTAR_EMPRESAS_PENDIENTES(token.localId).then((resultado) => {
         if (resultado.data) {
           this.filas = Object.values(resultado.data);
         }
