@@ -41,17 +41,12 @@ export const ELIMINAR_EMPRESA_EXPRESS = async (programa: any, nit: any) =>
     },
   });
 
-export const EMPRESA_YA_REGISTRADA = async (programa: any, nit: any) => {
-  const resultado = await INSTACIA.get(
-    `usuarios/${programa}/empresas/pendientes/${nit}.json`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  return resultado.data;
-};
+export const EMPRESA_YA_REGISTRADA = async (programa: any, nit: any) =>
+  await INSTACIA.get(`usuarios/${programa}/empresas/pendientes/${nit}.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
 export const REGISTRO_ARCHIVO_EMPRESA = async (
   nit: any,

@@ -299,15 +299,15 @@ export default {
     FormExpressEmpresa,
   },
   data: () => ({
-    nit: "",
-    nombre: "",
-    documento: "",
-    celular: null,
-    correo: "",
-    pais: "",
-    departamento: "",
-    ciudad: "",
-    direccion: "",
+    nit: "10000000-1",
+    nombre: "10000000-1",
+    documento: "10000000-1",
+    celular: 10000000,
+    correo: "10000000-1@mail.com",
+    pais: "10000000-1",
+    departamento: "10000000-1",
+    ciudad: "10000000-1",
+    direccion: "10000000-1",
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
@@ -357,11 +357,16 @@ export default {
         ciudad: this.ciudad,
         direccion: this.direccion,
       };
-      let pass = this.programas.forEach((programa) => {
-        if (EMPRESA_YA_REGISTRADA(programa.id, datos.nit)) {
-          return true;
-        }
-      });
+      let pass = false;
+      for (const programa of this.programas) {
+        await EMPRESA_YA_REGISTRADA(programa.id, datos.nit).then(
+          (resultado) => {
+            if (resultado.data) {
+              return (pass = true);
+            }
+          }
+        );
+      }
 
       if (!pass) {
         this.carga = true;
