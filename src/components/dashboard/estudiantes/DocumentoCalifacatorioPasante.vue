@@ -176,13 +176,14 @@ export default {
     async reasignarEstudiante() {
       if (this.radio === "Reasignación") {
         this.datos.estado = 2;
-        await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
+        const token = JSON.parse(localStorage.getItem("token"));
+        await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(token.localId, this.datos);
         let pasantes = this.empresa.pasantes;
         pasantes = pasantes.filter(
           (pasante) => pasante.documento !== this.datos.documento
         );
         this.empresa.pasantes = pasantes;
-        await ASIGNAR_PASANTE_APROBADAS(this.empresa);
+        await ASIGNAR_PASANTE_APROBADAS(token.localId, this.empresa);
         this.$emit("reasinado", true);
         return true;
       }
@@ -219,20 +220,23 @@ export default {
           new Date().toLocaleDateString().replaceAll("/", "-") +
           "-" +
           datos.documento;
-        await REGISTRO_EGRESADO(nombre, datos).then(async (result) => {
-          if (result.status === 200) {
-            const token = JSON.parse(localStorage.getItem("token"));
-            await ELIMINAR_ESTUDIANTE(token.localId, datos.documento);
-            this.$emit("reasinado", true);
-            await Swal.fire(
-              "Proceso finalizado 🏁",
-              "Registro exitoso",
-              "success"
-            );
-            await this.cargarEmpresa();
-            this.dialog = !this.dialog;
+        const token = JSON.parse(localStorage.getItem("token"));
+        await REGISTRO_EGRESADO(token.localId, nombre, datos).then(
+          async (result) => {
+            if (result.status === 200) {
+              const token = JSON.parse(localStorage.getItem("token"));
+              await ELIMINAR_ESTUDIANTE(token.localId, datos.documento);
+              this.$emit("reasinado", true);
+              await Swal.fire(
+                "Proceso finalizado 🏁",
+                "Registro exitoso",
+                "success"
+              );
+              await this.cargarEmpresa();
+              this.dialog = !this.dialog;
+            }
           }
-        });
+        );
       }
     },
   },

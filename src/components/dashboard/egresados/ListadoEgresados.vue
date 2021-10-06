@@ -51,7 +51,8 @@ export default {
       );
     },
     async cargarDatos() {
-      await LISTAR_EGRESADOS().then((resultado) => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      await LISTAR_EGRESADOS(token.localId).then((resultado) => {
         if (resultado.data) {
           this.filas = Object.values(resultado.data);
         }
