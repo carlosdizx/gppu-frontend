@@ -87,9 +87,10 @@ export const LISTAR_ARCHIVOS_EMPRESA = async (nit: any, nombre: any) =>
     .child(`${universidad}/empresas/${nit}/${nombre}_${nit}`)
     .getDownloadURL();
 
-export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
-  await INSTACIA.put(
-    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json`,
+export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.put(
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json?auth=${token.idToken}`,
     JSON.stringify(datos),
     {
       headers: {
@@ -97,10 +98,15 @@ export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
       },
     }
   );
+};
 
-export const ACTUALIZAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
-  await INSTACIA.patch(
-    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json`,
+export const ACTUALIZAR_CONVENIO_EMPRESA = async (
+  programa: any,
+  datos: any
+) => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.patch(
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json?auth=${token.idToken}`,
     JSON.stringify(datos),
     {
       headers: {
@@ -108,6 +114,7 @@ export const ACTUALIZAR_CONVENIO_EMPRESA = async (programa: any, datos: any) =>
       },
     }
   );
+};
 
 export const LISTAR_EMPRESAS_APROBADAS = async (programa: any) =>
   await INSTACIA.get(`usuarios/${programa}/empresas/aprobadas.json`, {
