@@ -76,3 +76,10 @@ export const LISTAR_USUARIOS = async () =>
       "Content-Type": "application/json",
     },
   });
+
+export const OBTENER_HABILIDADES = async (usuario: any) =>
+  await INSTACIA.get(`usuarios/${usuario}/datos/habilidades.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });

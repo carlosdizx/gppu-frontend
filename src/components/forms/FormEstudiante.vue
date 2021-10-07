@@ -17,7 +17,7 @@
             name="Programa académico"
             rules="required"
           >
-            {{ programas }}
+            {{ habilidades }}
             <v-combobox
               v-model="programa"
               :items="programas"
@@ -28,6 +28,7 @@
               small-chips
               dense
               outlined
+              v-on:change="listadoHabilidades"
             />
           </validation-provider>
           <validation-provider
@@ -249,6 +250,24 @@
           <v-alert dense color="secondary" dark>
             Datos de preferencia de práctica
           </v-alert>
+
+          <validation-provider
+            v-slot="{ errors }"
+            name="Opciones de habilidades"
+            rules="required"
+          >
+            <v-combobox
+              v-model="programa"
+              :items="programas"
+              item-text="nombre"
+              label="Programa académico"
+              :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+            />
+          </validation-provider>
 
           <validation-provider
             v-slot="{ errors }"
@@ -500,6 +519,7 @@ import {
 } from "@/services/recursos/estudianteRS";
 import Swal from "sweetalert2";
 import { LISTAR_PROGRAMAS } from "@/services/recursos/ProgramaRS";
+import { OBTENER_DATOS_USUARIO, OBTENER_HABILIDADES } from "@/services/auth";
 
 setInteractionMode("eager");
 
@@ -672,6 +692,15 @@ export default {
       await LISTAR_PROGRAMAS().then(
         (resultado) => (this.programas = Object.values(resultado.data))
       );
+    },
+    async listadoHabilidades() {
+      if (this.programa != null) {
+        await OBTENER_HABILIDADES(this.programa.id).then(
+          (resultado) => (this.habilidades = resultado.data)
+        );
+      } else {
+        this.habilidades = [];
+      }
     },
   },
   async mounted() {
