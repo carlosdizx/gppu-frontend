@@ -21,7 +21,7 @@
             <v-combobox
               v-model="programa"
               :items="programas"
-              item-text="programa"
+              item-text="nombre"
               label="Programa académico"
               :error-messages="errors"
               hide-selected
@@ -499,7 +499,7 @@ import {
   REGISTRO_ESTUDIANTE_PENDIENTE,
 } from "@/services/recursos/estudianteRS";
 import Swal from "sweetalert2";
-import { LISTAR_USUARIOS, OBTENER_DATOS_USUARIO } from "@/services/auth";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/ProgramaRS";
 
 setInteractionMode("eager");
 
@@ -669,9 +669,9 @@ export default {
       }
     },
     async listadoProgramas() {
-      await LISTAR_USUARIOS().then((resultado) => {
-        this.programas = Object.values(resultado.data);
-      });
+      await LISTAR_PROGRAMAS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
     },
   },
   async mounted() {
