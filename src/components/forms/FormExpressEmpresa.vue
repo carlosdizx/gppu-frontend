@@ -126,7 +126,7 @@ import {
 } from "vee-validate";
 import Swal from "sweetalert2";
 import router from "@/router";
-import { LISTAR_USUARIOS } from "@/services/auth";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 
 setInteractionMode("eager");
 
@@ -193,7 +193,7 @@ export default {
       await router.push("/about");
     },
     async listadoProgramas() {
-      await LISTAR_USUARIOS().then(
+      await LISTAR_PROGRAMAS().then(
         (resultado) => (this.programas = Object.values(resultado.data))
       );
     },

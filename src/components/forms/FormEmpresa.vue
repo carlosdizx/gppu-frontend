@@ -246,7 +246,6 @@
 
 <script>
 import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
-import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
   REGISTRO_ARCHIVO_EMPRESA,
@@ -261,7 +260,7 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import router from "@/router";
-import { LISTAR_USUARIOS } from "@/services/auth";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 
 setInteractionMode("eager");
 
@@ -299,15 +298,15 @@ export default {
     FormExpressEmpresa,
   },
   data: () => ({
-    nit: "10000000-1",
-    nombre: "10000000-1",
-    documento: "10000000-1",
-    celular: 10000000,
-    correo: "10000000-1@mail.com",
-    pais: "10000000-1",
-    departamento: "10000000-1",
-    ciudad: "10000000-1",
-    direccion: "10000000-1",
+    nit: "",
+    nombre: "",
+    documento: "",
+    celular: "",
+    correo: "",
+    pais: "",
+    departamento: "",
+    ciudad: "",
+    direccion: "",
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,
@@ -323,7 +322,6 @@ export default {
     programas: [],
   }),
   methods: {
-    ...mapActions(["registrarDatosEmpresa", ""]),
     async registrar() {
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
@@ -438,7 +436,7 @@ export default {
       }
     },
     async listadoProgramas() {
-      await LISTAR_USUARIOS().then(
+      await LISTAR_PROGRAMAS().then(
         (resultado) => (this.programas = Object.values(resultado.data))
       );
     },

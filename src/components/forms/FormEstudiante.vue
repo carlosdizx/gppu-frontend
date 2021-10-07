@@ -480,7 +480,7 @@ import {
   REGISTRO_ESTUDIANTE_PENDIENTE,
 } from "@/services/recursos/estudianteRS";
 import Swal from "sweetalert2";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/ProgramaRS";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 import { OBTENER_DATOS_USUARIO, OBTENER_HABILIDADES } from "@/services/auth";
 
 setInteractionMode("eager");
