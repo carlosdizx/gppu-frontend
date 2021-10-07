@@ -221,6 +221,12 @@ export default {
           "-" +
           datos.documento;
         const token = JSON.parse(localStorage.getItem("token"));
+        let pasantes = this.empresa.pasantes;
+        pasantes = pasantes.filter(
+          (pasante) => pasante.documento !== this.datos.documento
+        );
+        this.empresa.pasantes = pasantes;
+        await ASIGNAR_PASANTE_APROBADAS(token.localId, this.empresa);
         await REGISTRO_EGRESADO(token.localId, nombre, datos).then(
           async (result) => {
             if (result.status === 200) {
