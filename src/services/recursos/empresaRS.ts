@@ -118,9 +118,10 @@ export const LISTAR_EMPRESAS_APROBADAS = async (programa: any) =>
     },
   });
 
-export const ASIGNAR_PASANTE_APROBADAS = async (programa: any, datos: any) =>
-  await INSTACIA.patch(
-    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json`,
+export const ASIGNAR_PASANTE_APROBADAS = async (programa: any, datos: any) => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.patch(
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json?auth=${token.idToken}`,
     JSON.stringify(datos),
     {
       headers: {
@@ -128,3 +129,4 @@ export const ASIGNAR_PASANTE_APROBADAS = async (programa: any, datos: any) =>
       },
     }
   );
+};
