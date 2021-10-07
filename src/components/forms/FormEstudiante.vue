@@ -17,7 +17,6 @@
             name="Programa académico"
             rules="required"
           >
-            {{ habilidades }}
             <v-combobox
               v-model="programa"
               :items="programas"
@@ -257,57 +256,20 @@
             rules="required"
           >
             <v-combobox
-              v-model="programa"
-              :items="programas"
+              v-model="habilidadeSeleccionadas"
+              :items="habilidades"
               item-text="nombre"
-              label="Programa académico"
+              label="Programa académico, seleccione 3 o mas"
+              hint="Puede proponer"
               :error-messages="errors"
               hide-selected
               small-chips
               dense
               outlined
+              multiple
             />
           </validation-provider>
 
-          <validation-provider
-            v-slot="{ errors }"
-            name="Opcion 1"
-            rules="required"
-          >
-            <v-select
-              v-model="opcion1"
-              label="Primera opción"
-              :items="opcinesCargo"
-              prepend-icon="mdi-briefcase"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Opcion 2"
-            rules="required"
-          >
-            <v-select
-              v-model="opcion2"
-              label="Segunda opción"
-              :items="opcinesCargo"
-              prepend-icon="mdi-briefcase-outline"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Opcion 3"
-            rules="required"
-          >
-            <v-select
-              v-model="opcion3"
-              label="Tercera opción"
-              :items="opcinesCargo"
-              prepend-icon="mdi-briefcase-outline"
-              :error-messages="errors"
-            />
-          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="Modalidad"
@@ -575,9 +537,7 @@ export default {
     promedio: null,
     semestre: "",
     habilidades: [],
-    opcion1: null,
-    opcion2: null,
-    opcion3: null,
+    habilidadeSeleccionadas: [],
     modalidad: "",
     tipoEmp: "",
     expectativas: "",
@@ -625,9 +585,7 @@ export default {
       const datos = {
         promedio: this.promedio,
         semestre: this.semestre,
-        opcion1: this.opcion1,
-        opcion2: this.opcion2,
-        opcion3: this.opcion3,
+        habilidades: this.habilidadeSeleccionadas,
         modalidad: this.modalidad,
         tipoEmp: this.tipoEmp,
         expectativas: this.expectativas,
@@ -695,6 +653,7 @@ export default {
     },
     async listadoHabilidades() {
       if (this.programa != null) {
+        this.habilidadeSeleccionadas = [];
         await OBTENER_HABILIDADES(this.programa.id).then(
           (resultado) => (this.habilidades = resultado.data)
         );
