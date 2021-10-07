@@ -13,7 +13,6 @@
             <v-text-field label="Dirección" v-model="direccion" />
             <v-combobox
               v-model="habilidades"
-              :items="habilidades"
               item-text="documento"
               label="Habilidades"
               hide-selected
