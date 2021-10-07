@@ -259,7 +259,7 @@
               v-model="habilidadeSeleccionadas"
               :items="habilidades"
               item-text="nombre"
-              label="Programa académico, seleccione 3 o mas"
+              label="Habilidades, seleccione 3 o mas"
               hint="Puede proponer"
               :error-messages="errors"
               hide-selected

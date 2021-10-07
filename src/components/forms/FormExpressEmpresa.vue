@@ -179,9 +179,7 @@ export default {
         telefono: this.telefono,
         correo: this.correo,
       };
-      console.log("xddddd");
       await this.programas.forEach((programa) => {
-        console.log("xd");
         REGISTRO_DATOS_EXPRESS_EMPRESA(programa.id, datos);
       });
       await Swal.fire(
