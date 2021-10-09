@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app dark color="cyan darken-4">
     <v-app-bar-nav-icon @click="changeState"></v-app-bar-nav-icon>
-    <v-toolbar-title>GCEU - Universidad Mariana</v-toolbar-title>
+    <v-toolbar-title>GPPU - Universidad Mariana</v-toolbar-title>
     <v-spacer></v-spacer>
     <router-link to="usuario" v-slot="{ navigate }" custom>
       <v-btn icon @click="navigate">
