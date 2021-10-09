@@ -64,8 +64,8 @@ export default {
           this.datos.inicio = fecha_inicio;
           this.datos.fin = fecha_fin;
           this.datos.convenios.push({
-            inicio: fecha_inicio,
-            fin: fecha_fin,
+            inicio: this.datos.inicio,
+            fin: this.datos.fin,
             generado: new Date()
               .toLocaleDateString()
               .toString()
@@ -73,7 +73,8 @@ export default {
           });
           this.datos.periodo = null;
           this.datos.dias = null;
-          await ACTUALIZAR_CONVENIO_EMPRESA(this.datos);
+          const token = JSON.parse(localStorage.getItem("token"));
+          await ACTUALIZAR_CONVENIO_EMPRESA(token.localId, this.datos);
           this.$emit("renovado", true);
           await Swal.fire("Renovado!", "Felicitaciones 🤝", "success");
           this.dialog = !this.dialog;

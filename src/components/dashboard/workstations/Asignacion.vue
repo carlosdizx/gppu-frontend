@@ -6,70 +6,88 @@
         <v-row>
           <v-col cols="6">
             <v-form>
-              <v-select
-                label="Seleccione la empresa"
+              <v-combobox
+                v-model="empresa"
                 :items="empresas"
-                item-text="nit"
-                v-model="nit"
-                v-on="actualizarEmpresa(nit)"
+                item-text="nombre"
+                label="Buscar empresa"
+                hide-selected
+                small-chips
+                dense
+                outlined
               />
-              <v-text-field label="Nit" :value="empresa.nit" disabled />
-              <v-text-field label="Nombre" :value="empresa.nombre" disabled />
               <v-text-field
-                label="Departamento"
-                :value="empresa.departamento"
+                label="Nit"
+                :value="!empresa ? null : empresa.nit"
                 disabled
               />
-              <v-text-field label="Ciudad" :value="empresa.ciudad" disabled />
+              <v-text-field
+                label="Nombre"
+                :value="!empresa ? null : empresa.nombre"
+                disabled
+              />
+              <v-text-field
+                label="Departamento"
+                :value="!empresa ? null : empresa.departamento"
+                disabled
+              />
+              <v-text-field
+                label="Ciudad"
+                :value="!empresa ? null : empresa.ciudad"
+                disabled
+              />
               <v-text-field
                 label="Dirección"
-                :value="empresa.direccion"
+                :value="!empresa ? null : empresa.direccion"
                 disabled
               />
               <v-text-field
                 label="Días de validez"
-                :value="empresa.dias"
+                :value="!empresa ? null : empresa.dias"
                 disabled
               />
             </v-form>
           </v-col>
           <v-col cols="6">
             <v-form>
-              <v-select
-                label="Seleccione la estudiante"
+              <v-combobox
+                v-model="estudiante"
                 :items="estudiantes"
                 item-text="documento"
-                v-model="documento"
-                v-on="actualizarEstudiante(documento)"
+                label="Buscar estudiante"
+                hide-selected
+                small-chips
+                dense
+                outlined
               />
               <v-text-field
                 label="Nombres"
-                :value="estudiante.nombres"
+                :value="!estudiante ? null : estudiante.nombres"
                 disabled
               />
               <v-text-field
                 label="Apellidos"
-                :value="estudiante.apellidos"
+                :value="!estudiante ? null : estudiante.apellidos"
                 disabled
               />
               <v-text-field
                 label="Departamento"
-                :value="estudiante.departamento"
+                :value="!estudiante ? null : estudiante.departamento"
                 disabled
               />
               <v-text-field
                 label="Ciudad"
-                :value="estudiante.ciudad"
+                :value="!estudiante ? null : estudiante.ciudad"
                 disabled
               />
               <v-text-field
                 label="Dirección"
-                :value="estudiante.direccion"
+                :value="!estudiante ? null : estudiante.direccion"
                 disabled
               />
               <v-text-field
                 label="Celular"
-                :value="estudiante.telefono"
+                :value="!estudiante ? null : estudiante.telefono"
                 disabled
               />
             </v-form>
@@ -77,7 +95,7 @@
         </v-row>
         <v-btn
           block
-          :disabled="!nit || !documento"
+          :disabled="!empresa || !estudiante"
           color="success"
           @click="registrarworkstation"
         >
@@ -106,15 +124,14 @@ export default {
   data: () => ({
     empresas: [],
     estudiantes: [],
-    nit: null,
-    documento: null,
-    empresa: {},
-    estudiante: {},
+    empresa: null,
+    estudiante: null,
   }),
   methods: {
     async cargarEmpresas() {
       try {
-        await LISTAR_EMPRESAS_APROBADAS().then((result) => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        await LISTAR_EMPRESAS_APROBADAS(token.localId).then((result) => {
           if (result.data) {
             this.empresas = Object.values(result.data);
           }
@@ -131,7 +148,8 @@ export default {
     },
     async cargarEstudiantes() {
       try {
-        await LISTAR_ESTUDIANTES().then((resultado) => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        await LISTAR_ESTUDIANTES(token.localId).then((resultado) => {
           if (resultado.data) {
             this.estudiantes = Object.values(resultado.data);
             this.estudiantes = this.estudiantes.filter(
@@ -143,23 +161,10 @@ export default {
         console.log(error);
       }
     },
-    actualizarEmpresa() {
-      this.empresas.forEach((empresa) => {
-        if (empresa.nit === this.nit) {
-          return (this.empresa = empresa);
-        }
-      });
-    },
-    actualizarEstudiante() {
-      this.estudiantes.forEach((estudiante) => {
-        if (estudiante.documento === this.documento) {
-          return (this.estudiante = estudiante);
-        }
-      });
-    },
     async registrarworkstation() {
       this.estudiante.estado = 3;
-      await ESTUDIANTE_PASANTE(this.estudiante);
+      const token = JSON.parse(localStorage.getItem("token"));
+      await ESTUDIANTE_PASANTE(token.localId, this.estudiante);
       const estudiante = {
         documento: this.estudiante.documento,
         nombres: this.estudiante.nombres,
@@ -169,13 +174,11 @@ export default {
       pasantes.push(estudiante);
       this.empresa.pasantes = pasantes;
       this.empresa.dias = null;
-      await ASIGNAR_PASANTE_APROBADAS(this.empresa);
+      await ASIGNAR_PASANTE_APROBADAS(token.localId, this.empresa);
       this.empresas = [];
       this.estudiantes = [];
-      this.nit = null;
-      this.documento = null;
-      this.empresa = {};
-      this.estudiante = {};
+      this.empresa = null;
+      this.estudiante = null;
       await this.cargarEmpresas();
       await this.cargarEstudiantes();
       await Swal.fire({

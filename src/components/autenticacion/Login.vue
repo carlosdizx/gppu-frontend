@@ -3,7 +3,11 @@
     <v-app>
       <v-card class="mx-auto my-auto">
         <v-card-title class="mx-auto my-auto">
-          <v-img src="@/assets/GPPU.png" max-width="200" max-height="200" />
+          <v-img
+            src="@/assets/GCEU_sin_fondo.png"
+            max-width="250"
+            max-height="250"
+          />
         </v-card-title>
         <v-card-text>
           <v-form @submit.prevent="iniciarSesion">
@@ -57,7 +61,7 @@
           </router-link>
         </v-card-text>
         <v-card-text>
-          Created by:<br />
+          Designed and created by:<br />
           <v-btn
             text
             block
@@ -67,16 +71,6 @@
             target="_blank"
           >
             <small> Carlos Ernesto Díaz Basante </small>
-          </v-btn>
-          <v-btn
-            text
-            role="link"
-            block
-            color="blue-grey"
-            href=""
-            target="_blank"
-          >
-            <small> Brayan David Tobar Tonguino </small>
           </v-btn>
         </v-card-text>
       </v-card>

@@ -1,3 +1,5 @@
+import { INSTACIA } from "@/services/axios";
+
 const API_KEY = "AIzaSyDO8hVE9rxb9oP38kTH4qRhqxUcHNtAi3w";
 const URL_SING_IN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 const URL_SING_IN_TOKEN = `https://securetoken.googleapis.com/v1/token?key=${API_KEY}`;
@@ -42,3 +44,42 @@ export const LOGUEAR_USUARIO_TOKEN = async (refreshToken: any) =>
       }),
     })
   ).json();
+
+export const RISGISTAR_DATOS_USUARIO = async (datos: any) => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.patch(
+    `usuarios/${token.localId}/datos.json?auth=${token.idToken}`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
+export const OBTENER_DATOS_USUARIO = async () => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.get(
+    `usuarios/${token.localId}/datos.json?auth=${token.idToken}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
+export const LISTAR_USUARIOS = async () =>
+  await INSTACIA.get(`usuarios.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+export const OBTENER_HABILIDADES = async (usuario: any) =>
+  await INSTACIA.get(`usuarios/${usuario}/datos/habilidades.json`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });

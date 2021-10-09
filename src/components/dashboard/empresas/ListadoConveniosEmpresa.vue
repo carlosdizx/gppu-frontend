@@ -33,7 +33,7 @@ export default {
     columnas: [
       { text: "Fecha inicio", value: "inicio" },
       { text: "Fecha fin", value: "fin" },
-      { text: "Fecha de generacion", value: "generado" },
+      { text: "Fecha de generación", value: "generado" },
     ],
   }),
   props: {

@@ -6,13 +6,15 @@
       <v-spacer></v-spacer>
 
       <router-link to="/" v-slot="{ navigate }" custom>
-        <v-btn icon @click="navigate">
+        <v-btn @click="navigate" color="info">
+          Iniciar sesión
           <v-icon>mdi-login</v-icon>
         </v-btn>
       </router-link>
 
-      <router-link to="/registro" v-slot="{ navigate }" custom>
-        <v-btn icon @click="navigate">
+      <router-link class="mx-2" to="/registro" v-slot="{ navigate }" custom>
+        <v-btn @click="navigate" color="lime darken-2">
+          Registrarme
           <v-icon>mdi-account-plus</v-icon>
         </v-btn>
       </router-link>

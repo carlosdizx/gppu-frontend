@@ -87,18 +87,21 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
-        await LISTAR_EMPRESAS_APROBADAS().then(async (resultado) => {
-          if (resultado.data) {
-            this.filas = await Object.values(resultado.data);
-            this.filas.forEach((empresa) => {
-              const fecha1 = moment(new Date().toString());
-              const fecha2 = moment(empresa.fin);
-              const fecha3 = moment(empresa.inicio);
-              empresa.periodo = fecha2.diff(fecha3, "days");
-              empresa.dias = fecha2.diff(fecha1, "days");
-            });
+        const token = JSON.parse(localStorage.getItem("token"));
+        await LISTAR_EMPRESAS_APROBADAS(token.localId).then(
+          async (resultado) => {
+            if (resultado.data) {
+              this.filas = await Object.values(resultado.data);
+              this.filas.forEach((empresa) => {
+                const fecha1 = moment(new Date().toString());
+                const fecha2 = moment(empresa.fin);
+                const fecha3 = moment(empresa.inicio);
+                empresa.periodo = fecha2.diff(fecha3, "days");
+                empresa.dias = fecha2.diff(fecha1, "days");
+              });
+            }
           }
-        });
+        );
       } catch (error) {
         console.log(error);
       }

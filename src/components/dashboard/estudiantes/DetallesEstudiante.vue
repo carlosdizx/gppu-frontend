@@ -80,18 +80,8 @@
             Datos preferencia
           </v-alert>
           <v-text-field
-            label="Opción 1 de práctica"
-            :value="datos.datos.opcion1"
-            disabled
-          />
-          <v-text-field
-            label="Opción 2 de práctica"
-            :value="datos.datos.opcion2"
-            disabled
-          />
-          <v-text-field
-            label="Opción 3 de práctica"
-            :value="datos.datos.opcion3"
+            label="Habilidades"
+            :value="datos.datos.habilidades"
             disabled
           />
           <v-text-field
@@ -199,7 +189,9 @@ export default {
   },
   async mounted() {
     try {
+      const token = JSON.parse(localStorage.getItem("token"));
       await LISTAR_ARCHIVO_ESTUDIANTE(
+        token.localId,
         this.datos.documento,
         "hoja_de_vida"
       ).then((result) => {

@@ -1,14 +1,24 @@
 import { INSTACIA } from "@/services/axios";
 
-export const REGISTRO_EGRESADO = async (nombre: string, datos: any) =>
-  await INSTACIA.post(`egresados.json`, JSON.stringify(datos), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const REGISTRO_EGRESADO = async (
+  programa: any,
+  nombre: string,
+  datos: any
+) => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.post(
+    `usuarios/${programa}/egresados.json?auth=${token.idToken}`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
 
-export const LISTAR_EGRESADOS = async () =>
-  await INSTACIA.get(`egresados.json`, {
+export const LISTAR_EGRESADOS = async (programa: any) =>
+  await INSTACIA.get(`usuarios/${programa}/egresados.json`, {
     headers: {
       "Content-Type": "application/json",
     },

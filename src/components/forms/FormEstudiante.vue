@@ -14,6 +14,24 @@
           <v-alert dense color="secondary" dark>Datos personales</v-alert>
           <validation-provider
             v-slot="{ errors }"
+            name="Programa académico"
+            rules="required"
+          >
+            <v-combobox
+              v-model="programa"
+              :items="programas"
+              item-text="nombre"
+              label="Programa académico"
+              :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+              v-on:change="listadoHabilidades"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
             name="Nombres"
             rules="required|min:5|max:60"
           >
@@ -234,43 +252,24 @@
 
           <validation-provider
             v-slot="{ errors }"
-            name="Opcion 1"
+            name="Opciones de habilidades"
             rules="required"
           >
-            <v-select
-              v-model="opcion1"
-              label="Primera opción"
-              :items="opcinesCargo"
-              prepend-icon="mdi-briefcase"
+            <v-combobox
+              v-model="habilidadeSeleccionadas"
+              :items="habilidades"
+              item-text="nombre"
+              label="Habilidades, seleccione 3 o mas"
+              hint="Puede proponer"
               :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+              multiple
             />
           </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Opcion 2"
-            rules="required"
-          >
-            <v-select
-              v-model="opcion2"
-              label="Segunda opción"
-              :items="opcinesCargo"
-              prepend-icon="mdi-briefcase-outline"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Opcion 3"
-            rules="required"
-          >
-            <v-select
-              v-model="opcion3"
-              label="Tercera opción"
-              :items="opcinesCargo"
-              prepend-icon="mdi-briefcase-outline"
-              :error-messages="errors"
-            />
-          </validation-provider>
+
           <validation-provider
             v-slot="{ errors }"
             name="Modalidad"
@@ -434,8 +433,8 @@
 
       <v-card-text>
         <v-form>
-          <v-alert block dense dark color="red" v-show="invalid">
-            Complete los campos requeridos
+          <v-alert block dense color="pink lighten-4" v-show="invalid">
+            Complete los campos requeridos*
           </v-alert>
           <div class="text-center">
             <v-btn
@@ -481,6 +480,8 @@ import {
   REGISTRO_ESTUDIANTE_PENDIENTE,
 } from "@/services/recursos/estudianteRS";
 import Swal from "sweetalert2";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
+import { OBTENER_DATOS_USUARIO, OBTENER_HABILIDADES } from "@/services/auth";
 
 setInteractionMode("eager");
 
@@ -516,6 +517,8 @@ export default {
   components: { Calendario, ValidationObserver, ValidationProvider },
   data: () => ({
     opcinesCargo: OPCIONES_CAMPO,
+    programas: [],
+    programa: null,
     nombres: "",
     apellidos: "",
     tipoDoc: "",
@@ -533,9 +536,8 @@ export default {
     telefono: null,
     promedio: null,
     semestre: "",
-    opcion1: null,
-    opcion2: null,
-    opcion3: null,
+    habilidades: [],
+    habilidadeSeleccionadas: [],
     modalidad: "",
     tipoEmp: "",
     expectativas: "",
@@ -562,6 +564,7 @@ export default {
       }
       const estudiante = {
         nombres: this.nombres,
+        programa: this.programa.id,
         apellidos: this.apellidos,
         tipoDoc: this.tipoDoc,
         documento: this.documento,
@@ -582,9 +585,7 @@ export default {
       const datos = {
         promedio: this.promedio,
         semestre: this.semestre,
-        opcion1: this.opcion1,
-        opcion2: this.opcion2,
-        opcion3: this.opcion3,
+        habilidades: this.habilidadeSeleccionadas,
         modalidad: this.modalidad,
         tipoEmp: this.tipoEmp,
         expectativas: this.expectativas,
@@ -596,7 +597,12 @@ export default {
         aspectos_per: this.aspectos_per,
         mejoras: this.mejoras,
       };
-      if (await ESTUDIANTE_YA_REGISTRADO(estudiante.documento)) {
+      if (
+        await ESTUDIANTE_YA_REGISTRADO(
+          estudiante.programa,
+          estudiante.documento
+        )
+      ) {
         return await Swal.fire(
           "Estudiante ya registrado",
           "Sus datos ya fueron subidos a plataforma",
@@ -608,6 +614,7 @@ export default {
         if (this.hoja.type === "application/pdf") {
           this.carga = true;
           await REGISTRO_ARCHIVO_ESTUDIANTE(
+            estudiante.programa,
             estudiante.documento,
             this.hoja,
             `hoja_de_vida_${estudiante.documento}`
@@ -625,8 +632,12 @@ export default {
       }
       if (facha) {
         this.carga = true;
-        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante);
-        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(datos, estudiante.documento);
+        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante.programa, estudiante);
+        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(
+          estudiante.programa,
+          datos,
+          estudiante.documento
+        );
         await Swal.fire(
           "Registro exitoso",
           "Sus datos serán validados en los próximos días",
@@ -635,6 +646,24 @@ export default {
         this.carga = false;
       }
     },
+    async listadoProgramas() {
+      await LISTAR_PROGRAMAS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
+    },
+    async listadoHabilidades() {
+      if (this.programa != null) {
+        this.habilidadeSeleccionadas = [];
+        await OBTENER_HABILIDADES(this.programa.id).then(
+          (resultado) => (this.habilidades = resultado.data)
+        );
+      } else {
+        this.habilidades = [];
+      }
+    },
+  },
+  async mounted() {
+    await this.listadoProgramas();
   },
 };
 </script>

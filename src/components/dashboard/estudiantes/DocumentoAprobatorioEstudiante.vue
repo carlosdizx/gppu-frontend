@@ -81,18 +81,8 @@
             Datos preferencia
           </v-alert>
           <v-text-field
-            label="Opción 1 de práctica"
-            :value="datos.datos.opcion1"
-            disabled
-          />
-          <v-text-field
-            label="Opción 2 de práctica"
-            :value="datos.datos.opcion2"
-            disabled
-          />
-          <v-text-field
-            label="Opción 3 de práctica"
-            :value="datos.datos.opcion3"
+            label="Habilidades"
+            :value="datos.datos.habilidades"
             disabled
           />
           <v-text-field
@@ -198,7 +188,8 @@ export default {
       }).then(async (result) => {
         if (result.isConfirmed) {
           this.datos.estado = 2;
-          await APROBAR_ESTUDIANTE(this.datos);
+          const token = JSON.parse(localStorage.getItem("token"));
+          await APROBAR_ESTUDIANTE(token.localId, this.datos);
           this.$emit("aprobado", true);
           await Swal.fire(
             "Aprobado!",
@@ -225,7 +216,8 @@ export default {
         confirmButtonText: "Si, Actualizar",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(this.datos);
+          const token = JSON.parse(localStorage.getItem("token"));
+          await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(token.localId, this.datos);
           await Swal.fire(
             "Actualizado!",
             "Felicitaciones estudiante Actualizado",
@@ -238,7 +230,9 @@ export default {
   },
   async mounted() {
     try {
+      const token = JSON.parse(localStorage.getItem("token"));
       await LISTAR_ARCHIVO_ESTUDIANTE(
+        token.localId,
         this.datos.documento,
         "hoja_de_vida"
       ).then((result) => {

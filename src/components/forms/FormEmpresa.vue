@@ -214,8 +214,8 @@
       </v-card-text>
       <v-card-text>
         <v-form>
-          <v-alert block dense dark color="red" v-show="invalid">
-            Complete todos los campos
+          <v-alert block dense color="pink lighten-4" v-show="invalid">
+            Complete todos los campos*
           </v-alert>
           <div class="text-center">
             <v-btn
@@ -246,10 +246,10 @@
 
 <script>
 import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
-import { mapActions } from "vuex";
 import {
   EMPRESA_YA_REGISTRADA,
   REGISTRO_ARCHIVO_EMPRESA,
+  REGISTRO_DATOS_EMPRESA,
 } from "@/services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -260,6 +260,7 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import router from "@/router";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 
 setInteractionMode("eager");
 
@@ -300,7 +301,7 @@ export default {
     nit: "",
     nombre: "",
     documento: "",
-    celular: null,
+    celular: "",
     correo: "",
     pais: "",
     departamento: "",
@@ -318,9 +319,9 @@ export default {
       "?alt=media&token=a030e247-9df9-47b4-af49-4513d2328a53",
     dialog: false,
     checkbox: false,
+    programas: [],
   }),
   methods: {
-    ...mapActions(["registrarDatosEmpresa", ""]),
     async registrar() {
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
@@ -354,13 +355,22 @@ export default {
         ciudad: this.ciudad,
         direccion: this.direccion,
       };
-      let pass = await EMPRESA_YA_REGISTRADA(datos.nit);
+      let pass = false;
+      for (const programa of this.programas) {
+        await EMPRESA_YA_REGISTRADA(programa.id, datos.nit).then(
+          (resultado) => {
+            if (resultado.data) {
+              return (pass = true);
+            }
+          }
+        );
+      }
 
       if (!pass) {
         this.carga = true;
-        await this.registrarDatosEmpresa(datos)
-          .then((result) => console.log(result))
-          .catch((error) => console.log(error));
+        await this.programas.forEach((programa) => {
+          REGISTRO_DATOS_EMPRESA(programa.id, datos);
+        });
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
@@ -416,7 +426,7 @@ export default {
           "success"
         );
         this.carga = false;
-        //await router.push("/about");
+        await router.push("/about");
       } else {
         await Swal.fire(
           "Empresa ya registrada",
@@ -425,6 +435,14 @@ export default {
         );
       }
     },
+    async listadoProgramas() {
+      await LISTAR_PROGRAMAS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
+    },
+  },
+  async mounted() {
+    await this.listadoProgramas();
   },
 };
 </script>
