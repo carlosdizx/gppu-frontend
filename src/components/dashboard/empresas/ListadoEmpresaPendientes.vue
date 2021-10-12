@@ -58,8 +58,7 @@ export default Vue.extend({
   methods: {
     async cargarDatos() {
       this.filas = [];
-      const token = JSON.parse(localStorage.getItem("token"));
-      await LISTAR_EMPRESAS_PENDIENTES(token.localId).then((resultado) => {
+      await LISTAR_EMPRESAS_PENDIENTES().then((resultado) => {
         if (resultado.data) {
           this.filas = Object.values(resultado.data);
         }
@@ -80,7 +79,7 @@ export default Vue.extend({
       }).then(async (result) => {
         if (result.isConfirmed) {
           const token = JSON.parse(localStorage.getItem("token"));
-          await ELIMINAR_EMPRESA(nit).then((result) => console.log(result));
+          await ELIMINAR_EMPRESA(nit);
           await this.cargarDatos();
           await Swal.fire(
             "Eliminada!",

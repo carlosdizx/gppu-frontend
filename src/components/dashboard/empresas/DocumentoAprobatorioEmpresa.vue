@@ -14,23 +14,24 @@
           <v-alert class="text-center" dense dark color="secondary">
             Datos de la empresa
           </v-alert>
-          <v-text-field label="Nit" :value="datos.nit" disabled />
-          <v-text-field label="Nombre" :value="datos.nombre" disabled />
-          <v-text-field
-            label="Representante"
-            :value="datos.documento"
+          <v-text-field label="Nit" v-model="datos.nit" />
+          <v-text-field label="Nombre" v-model="datos.nombre" />
+          <v-text-field label="Representante" v-model="datos.documento" />
+          <v-text-field label="Celular" v-model="datos.celular" />
+          <v-text-field label="Correo" v-model="datos.correo" />
+          <v-text-field label="Pais" v-model="datos.pais" />
+          <v-text-field label="Departamento" v-model="datos.departamento" />
+          <v-text-field label="Ciudad" v-model="datos.ciudad" />
+          <v-text-field label="Direccion" v-model="datos.direccion" />
+          <v-combobox
+            background-color="blue-grey"
+            multiple
+            chips
+            label="Programas académicos de intéres"
+            v-model="datos.programas"
+            item-text="nombre"
             disabled
           />
-          <v-text-field label="Celular" :value="datos.celular" disabled />
-          <v-text-field label="Correo" :value="datos.correo" disabled />
-          <v-text-field label="Pais" :value="datos.pais" disabled />
-          <v-text-field
-            label="Departamento"
-            :value="datos.departamento"
-            disabled
-          />
-          <v-text-field label="Ciudad" :value="datos.ciudad" disabled />
-          <v-text-field label="Direccion" :value="datos.direccion" disabled />
           <v-alert class="text-center" dense dark color="secondary">
             Periodo de valides del convenio
           </v-alert>
@@ -62,6 +63,7 @@ import {
   ELIMINAR_EMPRESA,
 } from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
+import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
 export default {
   name: "DocumentoAprobatorioEmpresa",
   components: { CalendarioRango },
@@ -80,6 +82,10 @@ export default {
         this.datos.inicio = fecha_inicio;
         this.datos.fin = fecha_fin;
         const convenios = [];
+        let responsable = "";
+        await OBTENER_DATOS_USUARIO().then((result) => {
+          responsable = result.data.nombres + " " + result.data.apellidos;
+        });
         const convenio = {
           inicio: fecha_inicio,
           fin: fecha_fin,
@@ -87,6 +93,7 @@ export default {
             .toLocaleDateString()
             .toString()
             .replaceAll("/", "-"),
+          responsable: responsable,
         };
         convenios.push(convenio);
         this.datos.convenios = convenios;
@@ -104,8 +111,10 @@ export default {
         }).then(async (result) => {
           if (result.isConfirmed) {
             const token = JSON.parse(localStorage.getItem("token"));
-            await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
-            await ELIMINAR_EMPRESA(this.datos.nit);
+            this.datos.programas.forEach((programas) => {
+              APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
+            });
+            //await ELIMINAR_EMPRESA(this.datos.nit);
             await this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",
@@ -121,4 +130,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-text-field {
+  color: black;
+}
+</style>
