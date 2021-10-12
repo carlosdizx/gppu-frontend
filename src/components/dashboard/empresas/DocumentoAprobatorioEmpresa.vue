@@ -105,7 +105,7 @@ export default {
           if (result.isConfirmed) {
             const token = JSON.parse(localStorage.getItem("token"));
             await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
-            await ELIMINAR_EMPRESA(token.localId, this.datos.nit);
+            await ELIMINAR_EMPRESA(this.datos.nit);
             await this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",

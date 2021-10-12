@@ -80,9 +80,7 @@ export default Vue.extend({
       }).then(async (result) => {
         if (result.isConfirmed) {
           const token = JSON.parse(localStorage.getItem("token"));
-          await ELIMINAR_EMPRESA(token.localId, nit).then((result) =>
-            console.log(result)
-          );
+          await ELIMINAR_EMPRESA(nit).then((result) => console.log(result));
           await this.cargarDatos();
           await Swal.fire(
             "Eliminada!",
