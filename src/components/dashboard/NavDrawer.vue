@@ -2,7 +2,7 @@
   <v-navigation-drawer v-model="nav" absolute>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title>{{ rol }}</v-list-item-title>
+        <v-list-item-title>{{ cargo }}</v-list-item-title>
         <v-list-item-subtitle>
           {{ nombres + " " + apellidos }}
         </v-list-item-subtitle>
@@ -35,28 +35,30 @@
         <v-list-item-title>Empresas aprobadas</v-list-item-title>
       </v-list-item>
 
-      <v-alert color="deep-purple darken-1" dark dense>Estudiantes</v-alert>
+      <div v-if="rol === 1">
+        <v-alert color="deep-purple darken-1" dark dense> Estudiantes </v-alert>
 
-      <v-list-item link @click="changeElement(4)">
-        <v-list-item-icon>
-          <v-icon>mdi-school-outline</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Estudiantes pendientes</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(4)">
+          <v-list-item-icon>
+            <v-icon>mdi-school-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Estudiantes pendientes</v-list-item-title>
+        </v-list-item>
 
-      <v-list-item link @click="changeElement(5)">
-        <v-list-item-icon>
-          <v-icon>mdi-school</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Estudiantes aprobados</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(5)">
+          <v-list-item-icon>
+            <v-icon>mdi-school</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Estudiantes aprobados</v-list-item-title>
+        </v-list-item>
 
-      <v-list-item link @click="changeElement(6)">
-        <v-list-item-icon>
-          <v-icon>mdi-account-check</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Estudiantes practicantes</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(6)">
+          <v-list-item-icon>
+            <v-icon>mdi-account-check</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Estudiantes practicantes</v-list-item-title>
+        </v-list-item>
+      </div>
 
       <v-alert color="pink darken-1" dark dense>Puestos de práctica</v-alert>
 
@@ -91,7 +93,8 @@ export default {
     nombres: "",
     apellidos: "",
     programa: "",
-    rol: "",
+    cargo: "",
+    rol: 0,
   }),
   methods: {
     changeElement(idItem) {
@@ -107,7 +110,13 @@ export default {
         this.nombres = result.data.nombres;
         this.apellidos = result.data.apellidos;
         this.programa = result.data.programa;
-        this.rol = result.data.rol === 1 ? "Coordinador@ de prácticas" : "";
+        this.rol = result.data.rol;
+        this.cargo =
+          this.rol === 1
+            ? "Coordinador@ de prácticas"
+            : this.rol === 2
+            ? "Asesor/@ de Jurídica"
+            : "Super Admin";
       }
     });
   },

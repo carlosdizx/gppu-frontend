@@ -12,6 +12,7 @@
             <v-text-field type="number" label="Celular" v-model="celular" />
             <v-text-field label="Dirección" v-model="direccion" />
             <v-combobox
+              v-if="mostrarHabilidades"
               v-model="habilidades"
               :items="habilidades"
               item-text="documento"
@@ -50,6 +51,7 @@ export default {
     programa: "",
     rol: "",
     habilidades: [],
+    mostrarHabilidades: false,
   }),
   methods: {
     async registrar() {
@@ -81,8 +83,15 @@ export default {
         this.celular = result.data.celular;
         this.direccion = result.data.direccion;
         this.programa = result.data.programa;
-        this.rol = result.data.rol === 1 ? "Coordinador@ de prácticas" : "";
+        const temtRol = result.data.rol;
+        this.rol =
+          temtRol === 1
+            ? "Coordinador@ de prácticas"
+            : temtRol === 2
+            ? "Asesor/@ de Jurídica"
+            : "Super Admin";
         this.habilidades = result.data.habilidades;
+        this.mostrarHabilidades = temtRol === 1;
       }
     });
   },
