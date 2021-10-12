@@ -24,13 +24,15 @@
           <v-text-field label="Ciudad" v-model="datos.ciudad" />
           <v-text-field label="Direccion" v-model="datos.direccion" />
           <v-combobox
-            background-color="blue-grey"
-            multiple
-            chips
-            label="Programas académicos de intéres"
             v-model="datos.programas"
+            :items="programas"
             item-text="nombre"
-            disabled
+            label="Programa académico"
+            hide-selected
+            small-chips
+            dense
+            outlined
+            multiple
           />
           <v-alert class="text-center" dense dark color="secondary">
             Periodo de valides del convenio
@@ -64,17 +66,24 @@ import {
 } from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
+import { LISTAR_PROGRAMAS } from "../../../services/recursos/programaRS";
 export default {
   name: "DocumentoAprobatorioEmpresa",
   components: { CalendarioRango },
   data: () => ({
     dialog: false,
     fechas: [],
+    programas: [],
   }),
   props: {
     datos: Object,
   },
   methods: {
+    async listadoProgramas() {
+      await LISTAR_PROGRAMAS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
+    },
     async aprobar() {
       if (this.fechas.length === 2) {
         const fecha_inicio = this.fechas[0];
@@ -114,7 +123,7 @@ export default {
             this.datos.programas.forEach((programas) => {
               APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
             });
-            //await ELIMINAR_EMPRESA(this.datos.nit);
+            await ELIMINAR_EMPRESA(this.datos.nit);
             await this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",
@@ -127,11 +136,10 @@ export default {
       }
     },
   },
+  mounted() {
+    this.listadoProgramas();
+  },
 };
 </script>
 
-<style scoped>
-.v-text-field {
-  color: black;
-}
-</style>
+<style scoped></style>
