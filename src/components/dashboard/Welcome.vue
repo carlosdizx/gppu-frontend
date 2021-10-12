@@ -3,9 +3,9 @@
     <v-card>
       <v-card-title>Bienvenido, a la plataforma GCEU</v-card-title>
       <v-alert>
-        En la parte superior izquierda de la pantalla encontrará una pestaña con
-        la cual podrá navegar sobre las distintas ventanas que posee la
-        aplicación.
+        En la parte superior izquierda de la pantalla encontrará un icono
+        <v-icon>mdi-view-sequential</v-icon> con la cual podrá navegar sobre las
+        distintas ventanas que posee la aplicación.
       </v-alert>
       <v-alert>
         En el icono <v-icon>mdi-account</v-icon> podrá actualizar la información

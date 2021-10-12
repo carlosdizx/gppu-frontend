@@ -62,23 +62,27 @@
         </v-list-item>
       </div>
 
-      <v-alert color="pink darken-1" dark dense>Puestos de práctica</v-alert>
+      <div v-if="rol === 1">
+        <v-alert color="pink darken-1" dark dense>Puestos de práctica</v-alert>
 
-      <v-list-item link @click="changeElement(7)">
-        <v-list-item-icon>
-          <v-icon>mdi-clipboard-check</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Asignar practicantes</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(7)">
+          <v-list-item-icon>
+            <v-icon>mdi-clipboard-check</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Asignar practicantes</v-list-item-title>
+        </v-list-item>
+      </div>
 
-      <v-alert color="amber darken-2" dark dense>Egresados</v-alert>
+      <div v-if="rol === 1">
+        <v-alert color="amber darken-2" dark dense>Egresados</v-alert>
 
-      <v-list-item link @click="changeElement(8)">
-        <v-list-item-icon>
-          <v-icon>mdi-account-star</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Egresados</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(8)">
+          <v-list-item-icon>
+            <v-icon>mdi-account-star</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Egresados</v-list-item-title>
+        </v-list-item>
+      </div>
     </v-list>
     {{ element }}
   </v-navigation-drawer>
