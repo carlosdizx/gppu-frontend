@@ -247,9 +247,10 @@
 <script>
 import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
 import {
-  EMPRESA_YA_REGISTRADA,
-  REGISTRO_ARCHIVO_EMPRESA,
   REGISTRO_DATOS_EMPRESA,
+  EMPRESA_PENDIENTE_YA_REGISTRADA,
+  REGISTRO_ARCHIVO_EMPRESA,
+  EMPRESA_APROBADA_YA_REGISTRADA,
 } from "@/services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -356,21 +357,21 @@ export default {
         direccion: this.direccion,
       };
       let pass = false;
-      for (const programa of this.programas) {
-        await EMPRESA_YA_REGISTRADA(programa.id, datos.nit).then(
-          (resultado) => {
-            if (resultado.data) {
-              return (pass = true);
-            }
-          }
-        );
-      }
+      await EMPRESA_PENDIENTE_YA_REGISTRADA(datos.nit).then((resultado) => {
+        if (resultado.data) {
+          return (pass = true);
+        }
+      });
+
+      await EMPRESA_APROBADA_YA_REGISTRADA(datos.nit).then((resultado) => {
+        if (resultado.data) {
+          return (pass = true);
+        }
+      });
 
       if (!pass) {
         this.carga = true;
-        await this.programas.forEach((programa) => {
-          REGISTRO_DATOS_EMPRESA(programa.id, datos);
-        });
+        await REGISTRO_DATOS_EMPRESA(datos);
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,

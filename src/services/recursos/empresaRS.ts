@@ -1,10 +1,11 @@
 import { INSTACIA } from "@/services/axios";
 import { STORAGE } from "@/main";
-const universidad = "universidad_mariana";
+const UNIVERSIDAD = "universidad_mariana";
+const JURIDICA = "";
 
-export const REGISTRO_DATOS_EMPRESA = async (programa: any, datos: any) =>
+export const REGISTRO_DATOS_EMPRESA = async (datos: any) =>
   await INSTACIA.put(
-    `usuarios/${programa}/empresas/pendientes/${datos.nit}.json`,
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/pendientes/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {
@@ -13,12 +14,9 @@ export const REGISTRO_DATOS_EMPRESA = async (programa: any, datos: any) =>
     }
   );
 
-export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (
-  programa: any,
-  datos: any
-) =>
+export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (datos: any) =>
   await INSTACIA.put(
-    `usuarios/${programa}/empresas/express/${datos.nit}.json`,
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/express/${datos.nit}.json`,
     JSON.stringify(datos),
     {
       headers: {
@@ -28,25 +26,44 @@ export const REGISTRO_DATOS_EXPRESS_EMPRESA = async (
   );
 
 export const LISTAR_EMPRESAS_EXPRESS = async (programa: any) =>
-  await INSTACIA.get(`usuarios/${programa}/empresas/express.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  await INSTACIA.get(
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/express.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-export const ELIMINAR_EMPRESA_EXPRESS = async (programa: any, nit: any) =>
-  await INSTACIA.delete(`usuarios/${programa}/empresas/express/${nit}.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const ELIMINAR_EMPRESA_EXPRESS = async (nit: any) =>
+  await INSTACIA.delete(
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/express/${nit}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-export const EMPRESA_YA_REGISTRADA = async (programa: any, nit: any) =>
-  await INSTACIA.get(`usuarios/${programa}/empresas/pendientes/${nit}.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const EMPRESA_PENDIENTE_YA_REGISTRADA = async (nit: any) =>
+  await INSTACIA.get(
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/pendientes/${nit}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+export const EMPRESA_APROBADA_YA_REGISTRADA = async (nit: any) =>
+  await INSTACIA.get(
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/aprobadas/${nit}.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
 export const REGISTRO_ARCHIVO_EMPRESA = async (
   nit: any,
@@ -54,22 +71,25 @@ export const REGISTRO_ARCHIVO_EMPRESA = async (
   nombre: any
 ) => {
   const refDoc = STORAGE.ref().child(
-    `${universidad}/empresas/${nit}/${nombre}`
+    `${UNIVERSIDAD}/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/${nit}/${nombre}`
   );
   const metadata = { contentType: "application/pdf" };
   return refDoc.put(archivo, metadata);
 };
 
-export const LISTAR_EMPRESAS_PENDIENTES = async (programa: any) =>
-  await INSTACIA.get(`usuarios/${programa}/empresas/pendientes.json`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const LISTAR_EMPRESAS_PENDIENTES = async () =>
+  await INSTACIA.get(
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/pendientes.json`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-export const ELIMINAR_EMPRESA = async (programa: any, nit: any) =>
+export const ELIMINAR_EMPRESA = async (nit: any) =>
   await INSTACIA.delete(
-    `usuarios/${programa}/empresas/pendientes/${nit}.json`,
+    `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/pendientes/${nit}.json`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +99,9 @@ export const ELIMINAR_EMPRESA = async (programa: any, nit: any) =>
 
 export const LISTAR_ARCHIVOS_EMPRESA = async (nit: any, nombre: any) =>
   await STORAGE.ref()
-    .child(`${universidad}/empresas/${nit}/${nombre}_${nit}`)
+    .child(
+      `${UNIVERSIDAD}/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/${nit}/${nombre}_${nit}`
+    )
     .getDownloadURL();
 
 export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) => {
