@@ -6,6 +6,7 @@
       @changeDrawer="itemSelector"
       ref="NavDrawer"
     />
+    <Welcome v-if="item === 0" />
     <ListadoEmpresa v-if="item === 1" />
     <ListadoEmpresaPendientesExpress v-if="item === 2" />
     <ListadoEmpresaAprobadas v-if="item === 3" />
@@ -20,6 +21,7 @@
 <script>
 import ToolbarNav from "../components/toolbars/ToolbarNav";
 import NavDrawer from "@/components/dashboard/NavDrawer.vue";
+import Welcome from "@/components/dashboard/Welcome.vue";
 import ListadoEmpresa from "../components/dashboard/empresas/ListadoEmpresaPendientes";
 import ListadoEmpresaPendientesExpress from "../components/dashboard/empresas/ListadoEmpresaPendientesExpress";
 import ListadoEmpresaAprobadas from "../components/dashboard/empresas/ListadoEmpresaAprobadas.vue";
@@ -34,6 +36,7 @@ export default Vue.extend({
   components: {
     ToolbarNav,
     NavDrawer,
+    Welcome,
     ListadoEmpresa,
     ListadoEmpresaPendientesExpress,
     ListadoEmpresaAprobadas,
@@ -44,7 +47,7 @@ export default Vue.extend({
     ListadoEgresados,
   },
   data: () => ({
-    item: 1,
+    item: 0,
     navigation: false,
   }),
   methods: {

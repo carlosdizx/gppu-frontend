@@ -13,27 +13,29 @@
     <v-divider></v-divider>
 
     <v-list nav dense>
-      <v-alert color="info darken-2" dark dense>Empresas</v-alert>
-      <v-list-item link @click="changeElement(1)">
-        <v-list-item-icon>
-          <v-icon>mdi-domain-plus</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Empresas pendientes</v-list-item-title>
-      </v-list-item>
+      <div v-if="rol === 2">
+        <v-alert color="info darken-2" dark dense>Empresas</v-alert>
+        <v-list-item link @click="changeElement(1)">
+          <v-list-item-icon>
+            <v-icon>mdi-domain-plus</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Empresas pendientes</v-list-item-title>
+        </v-list-item>
 
-      <v-list-item link @click="changeElement(2)">
-        <v-list-item-icon>
-          <v-icon>mdi-clock-fast</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Empresas express</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(2)">
+          <v-list-item-icon>
+            <v-icon>mdi-clock-fast</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Empresas express</v-list-item-title>
+        </v-list-item>
 
-      <v-list-item link @click="changeElement(3)">
-        <v-list-item-icon>
-          <v-icon>mdi-domain</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Empresas aprobadas</v-list-item-title>
-      </v-list-item>
+        <v-list-item link @click="changeElement(3)">
+          <v-list-item-icon>
+            <v-icon>mdi-domain</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Empresas aprobadas</v-list-item-title>
+        </v-list-item>
+      </div>
 
       <div v-if="rol === 1">
         <v-alert color="deep-purple darken-1" dark dense> Estudiantes </v-alert>
