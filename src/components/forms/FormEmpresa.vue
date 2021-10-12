@@ -126,6 +126,25 @@
               counter
             />
           </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Programas académicos"
+            rules="required"
+          >
+            <v-combobox
+              multiple
+              v-model="programasSeleccionados"
+              :items="programas"
+              item-text="nombre"
+              :error-messages="errors"
+              label="Programa académico de interés"
+              hide-selected
+              small-chips
+              dense
+              outlined
+            >
+            </v-combobox>
+          </validation-provider>
           <v-alert dense color="secondary" dark>
             Tenga preparado los siguientes archivos solicitados en formato PDF.
           </v-alert>
@@ -321,6 +340,7 @@ export default {
     dialog: false,
     checkbox: false,
     programas: [],
+    programasSeleccionados: null,
   }),
   methods: {
     async registrar() {
@@ -355,6 +375,7 @@ export default {
         departamento: this.departamento,
         ciudad: this.ciudad,
         direccion: this.direccion,
+        programas: this.programasSeleccionados,
       };
       let pass = false;
       await EMPRESA_PENDIENTE_YA_REGISTRADA(datos.nit).then((resultado) => {
