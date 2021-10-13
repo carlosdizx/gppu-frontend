@@ -39,64 +39,141 @@
                 counter
               />
             </validation-provider>
-            <v-text-field
-              outlined
-              dense
-              label="Representante"
-              v-model="datos.documento"
-            />
-            <v-text-field
-              outlined
-              dense
-              label="Celular"
-              v-model="datos.celular"
-            />
-            <v-text-field
-              outlined
-              dense
-              label="Correo"
-              v-model="datos.correo"
-            />
-            <v-text-field outlined dense label="Pais" v-model="datos.pais" />
-            <v-text-field
-              outlined
-              dense
-              label="Departamento"
-              v-model="datos.departamento"
-            />
-            <v-text-field
-              outlined
-              dense
-              label="Ciudad"
-              v-model="datos.ciudad"
-            />
-            <v-text-field
-              outlined
-              dense
-              label="Direccion"
-              v-model="datos.direccion"
-            />
-            <v-combobox
-              v-model="datos.programas"
-              :items="programas"
-              item-text="nombre"
-              label="Programa académico"
-              hide-selected
-              small-chips
-              dense
-              outlined
-              multiple
-            />
-            <v-file-input
-              prepend-icon="mdi-handshake"
-              small-chips
-              outlined
-              dense
-              hint="Solo PDF"
-              persistent-hint
-              accept="application/pdf"
-              label="Documento de convenio"
-            />
+            <validation-provider
+              v-slot="{ errors }"
+              name="Doc. representante"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Representante"
+                v-model="datos.documento"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Celular"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Celular"
+                v-model="datos.celular"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Correo"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Correo"
+                v-model="datos.correo"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="País"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="País"
+                v-model="datos.pais"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Departamento"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Departamento"
+                v-model="datos.departamento"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Ciudad"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Ciudad"
+                v-model="datos.ciudad"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Dirección"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Dirección"
+                v-model="datos.direccion"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Dirección"
+              rules="required"
+            >
+              <v-combobox
+                v-model="datos.programas"
+                :items="programas"
+                item-text="nombre"
+                label="Programa académico"
+                hide-selected
+                small-chips
+                dense
+                outlined
+                multiple
+                :error-messages="errors"
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Documento de convenio"
+              rules="required"
+            >
+              <v-file-input
+                prepend-icon="mdi-handshake"
+                v-model="convenio"
+                small-chips
+                outlined
+                dense
+                hint="Solo PDF"
+                persistent-hint
+                append-icon="mdi-pdf-box"
+                accept="application/pdf"
+                label="Documento de convenio"
+                :error-messages="errors"
+              />
+            </validation-provider>
             <v-alert class="text-center" dense dark color="secondary">
               Periodo de valides del convenio
             </v-alert>
@@ -168,6 +245,7 @@ export default {
     dialog: false,
     fechas: [],
     programas: [],
+    convenio: null,
   }),
   props: {
     datos: Object,
