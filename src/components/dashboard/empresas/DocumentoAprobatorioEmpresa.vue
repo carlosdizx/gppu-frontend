@@ -198,6 +198,7 @@ import CalendarioRango from "../../general/CalendarioRango";
 import {
   APROBAR_CONVENIO_EMPRESA,
   ELIMINAR_EMPRESA,
+  REGISTRAR_ARCHIVO_CONVENIO,
   REGISTRO_ARCHIVO_EMPRESA,
 } from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
@@ -295,7 +296,7 @@ export default {
             "error"
           );
         }
-        await REGISTRO_ARCHIVO_EMPRESA(
+        await REGISTRAR_ARCHIVO_CONVENIO(
           this.datos.nit,
           this.convenio,
           "convenio_" + this.datos.nit + "_" + new Date().toDateString()

@@ -77,6 +77,18 @@ export const REGISTRO_ARCHIVO_EMPRESA = async (
   return refDoc.put(archivo, metadata);
 };
 
+export const REGISTRAR_ARCHIVO_CONVENIO = async (
+  nit: any,
+  archivo: any,
+  nombre: any
+) => {
+  const refDoc = STORAGE.ref().child(
+    `${UNIVERSIDAD}/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/${nit}/convenios/${nombre}`
+  );
+  const metadata = { contentType: "application/pdf" };
+  return refDoc.put(archivo, metadata);
+};
+
 export const LISTAR_EMPRESAS_PENDIENTES = async () =>
   await INSTACIA.get(
     `usuarios/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/pendientes.json`,
