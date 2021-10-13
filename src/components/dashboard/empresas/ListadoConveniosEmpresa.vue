@@ -34,6 +34,7 @@ export default {
       { text: "Fecha inicio", value: "inicio" },
       { text: "Fecha fin", value: "fin" },
       { text: "Fecha de generación", value: "generado" },
+      { text: "Responsable", value: "responsable" },
     ],
   }),
   props: {
