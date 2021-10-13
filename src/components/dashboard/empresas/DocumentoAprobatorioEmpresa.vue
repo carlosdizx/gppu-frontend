@@ -128,6 +128,7 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import moment from "moment";
 setInteractionMode("eager");
 
 {
@@ -175,8 +176,19 @@ export default {
     },
     async aprobar() {
       if (this.fechas.length === 2) {
-        const fecha_inicio = this.fechas[0];
-        const fecha_fin = this.fechas[1];
+        const fecha_inicio = moment(this.fechas[0]);
+        const fecha_fin = moment(this.fechas[1]);
+        const diferencia = fecha_fin.diff(fecha_inicio, "days");
+        if (diferencia < 61) {
+          return Swal.fire(
+            "Fechas erroneas",
+            `Las fechas estan mal,deben durar mas de 61 dias y
+            la fecha de fin de convenio tiene que ser mayor a la
+             fecha de inicio de convenio
+             <br/>Diferencia en dias ${diferencia}`,
+            "error"
+          );
+        }
         this.datos.inicio = fecha_inicio;
         this.datos.fin = fecha_fin;
         const convenios = [];
