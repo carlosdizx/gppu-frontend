@@ -198,6 +198,7 @@ import CalendarioRango from "../../general/CalendarioRango";
 import {
   APROBAR_CONVENIO_EMPRESA,
   ELIMINAR_EMPRESA,
+  REGISTRO_ARCHIVO_EMPRESA,
 } from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
@@ -294,6 +295,13 @@ export default {
             "error"
           );
         }
+        await REGISTRO_ARCHIVO_EMPRESA(
+          this.datos.nit,
+          this.convenio,
+          "convenio_" + this.datos.nit + "_" + new Date().toDateString()
+        ).catch((error) =>
+          Swal.fire("Error al subir el RUT", `${error},`, "error")
+        );
         convenios.push(convenio);
         this.datos.convenios = convenios;
         await Swal.fire({
