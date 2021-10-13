@@ -21,11 +21,7 @@
           <v-icon>mdi-account-supervisor-outline</v-icon>
         </v-btn>
       </template>
-      <template v-slot:item.nit="{ item }">
-        <DocumentosEmpresa :nit="item.nit" />
-      </template>
       <template v-slot:item.convenios="{ item }">
-        <DocumentoRenovacionConvenio @renovado="cargarEmpresas" :datos="item" />
         <ListadoConveniosEmpresa
           :convenios="item.convenios"
           :nombre="item.nombre"
@@ -49,19 +45,14 @@
 
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
-import DocumentosEmpresa from "./DocumentosEmpresa";
-import PasantesPorEmpresa from "./ListadoPasantesEmpresa";
-import ListadoConveniosEmpresa from "./ListadoConveniosEmpresa";
-import DocumentoRenovacionConvenio from "./DocumentoRenovacionConvenio";
-import Vue from "vue";
 import moment from "moment";
+import PasantesPorEmpresa from "../empresas/ListadoPasantesEmpresa";
+import ListadoConveniosEmpresa from "../empresas/ListadoConveniosEmpresa";
 
-export default Vue.extend({
-  name: "ListadoEmpresaAprobadas",
+export default {
+  name: "ListadoEmpresas",
   components: {
-    DocumentosEmpresa,
     PasantesPorEmpresa,
-    DocumentoRenovacionConvenio,
     ListadoConveniosEmpresa,
   },
   data: () => ({
@@ -110,7 +101,7 @@ export default Vue.extend({
   created() {
     this.cargarEmpresas();
   },
-});
+};
 </script>
 
 <style scoped></style>

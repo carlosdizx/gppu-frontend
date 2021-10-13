@@ -13,8 +13,9 @@
     <ListadoEstudiantesPendientes v-if="item === 4" />
     <ListadoEstudiantesAprobados v-if="item === 5" />
     <ListadoEstudiantesPasantes v-if="item === 6" />
-    <Asignacion v-if="item === 7" />
-    <ListadoEgresados v-if="item === 8" />
+    <ListadoEmpresas v-if="item === 7" />
+    <Asignacion v-if="item === 8" />
+    <ListadoEgresados v-if="item === 9" />
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import ListadoEstudiantesPendientes from "../components/dashboard/estudiantes/Li
 import ListadoEstudiantesAprobados from "../components/dashboard/estudiantes/ListadoEstudiantesAprobados";
 import ListadoEstudiantesPasantes from "../components/dashboard/estudiantes/ListadoEstudiantesPasantes";
 import Asignacion from "../components/dashboard/workstations/Asignacion";
+import ListadoEmpresas from "../components/dashboard/workstations/ListadoEmpresas";
 import ListadoEgresados from "../components/dashboard/egresados/ListadoEgresados";
 import Vue from "vue";
 export default Vue.extend({
@@ -44,6 +46,7 @@ export default Vue.extend({
     ListadoEstudiantesAprobados,
     ListadoEstudiantesPasantes,
     Asignacion,
+    ListadoEmpresas,
     ListadoEgresados,
   },
   data: () => ({

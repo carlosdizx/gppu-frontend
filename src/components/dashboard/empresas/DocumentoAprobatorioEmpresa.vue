@@ -14,7 +14,7 @@
           <v-alert class="text-center" dense dark color="secondary">
             Datos de la empresa
           </v-alert>
-          <v-text-field label="Nit" v-model="datos.nit" />
+          <v-text-field label="Nit" v-model="datos.nit" disabled />
           <v-text-field label="Nombre" v-model="datos.nombre" />
           <v-text-field label="Representante" v-model="datos.documento" />
           <v-text-field label="Celular" v-model="datos.celular" />
