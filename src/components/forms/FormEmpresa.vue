@@ -271,6 +271,7 @@ import {
   REGISTRO_ARCHIVO_EMPRESA,
   EMPRESA_APROBADA_YA_REGISTRADA,
 } from "@/services/recursos/empresaRS";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
@@ -280,7 +281,6 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import router from "@/router";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 
 setInteractionMode("eager");
 

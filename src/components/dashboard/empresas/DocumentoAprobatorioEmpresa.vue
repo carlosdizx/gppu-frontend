@@ -1,97 +1,115 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600">
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn fab small color="info darken-3" v-bind="attrs" v-on="on">
-        <v-icon>mdi-briefcase-check-outline</v-icon>
-      </v-btn>
-    </template>
-    <v-card>
-      <v-card-title>
-        <span class="text-h5">Empresa {{ datos.nit }}</span>
-      </v-card-title>
-      <v-card-text>
-        <v-form>
-          <v-alert class="text-center" dense dark color="secondary">
-            Datos de la empresa
-          </v-alert>
-          <v-text-field
-            outlined
-            dense
-            label="Nit"
-            v-model="datos.nit"
-            disabled
-          />
-          <v-text-field outlined dense label="Nombre" v-model="datos.nombre" />
-          <v-text-field
-            outlined
-            dense
-            label="Representante"
-            v-model="datos.documento"
-          />
-          <v-text-field
-            outlined
-            dense
-            label="Celular"
-            v-model="datos.celular"
-          />
-          <v-text-field outlined dense label="Correo" v-model="datos.correo" />
-          <v-text-field outlined dense label="Pais" v-model="datos.pais" />
-          <v-text-field
-            outlined
-            dense
-            label="Departamento"
-            v-model="datos.departamento"
-          />
-          <v-text-field outlined dense label="Ciudad" v-model="datos.ciudad" />
-          <v-text-field
-            outlined
-            dense
-            label="Direccion"
-            v-model="datos.direccion"
-          />
-          <v-combobox
-            v-model="datos.programas"
-            :items="programas"
-            item-text="nombre"
-            label="Programa académico"
-            hide-selected
-            small-chips
-            dense
-            outlined
-            multiple
-          />
-          <v-file-input
-            prepend-icon="mdi-handshake"
-            small-chips
-            outlined
-            dense
-            hint="Solo PDF"
-            persistent-hint
-            accept="application/pdf"
-            label="Documento de convenio"
-          />
-          <v-alert class="text-center" dense dark color="secondary">
-            Periodo de valides del convenio
-          </v-alert>
-          <CalendarioRango @fecha="fechas = $event" />
-          {{ fechas }}
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn color="red darken-4" dark @click="dialog = !dialog">
-          Cerrar
+  <validation-observer ref="observer" v-slot="{ invalid }">
+    <v-dialog v-model="dialog" persistent max-width="600">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn fab small color="info darken-3" v-bind="attrs" v-on="on">
+          <v-icon>mdi-briefcase-check-outline</v-icon>
         </v-btn>
-        <v-btn
-          :disabled="this.fechas.length !== 2"
-          color="info"
-          @click="aprobar"
-        >
-          Aprobar
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Empresa {{ datos.nit }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-form>
+            <v-alert class="text-center" dense dark color="secondary">
+              Datos de la empresa
+            </v-alert>
+            <v-text-field
+              outlined
+              dense
+              label="Nit"
+              v-model="datos.nit"
+              disabled
+            />
+            <validation-provider
+              v-slot="{ errors }"
+              name="Nombre"
+              rules="required"
+            >
+              <v-text-field
+                outlined
+                dense
+                label="Nombre"
+                v-model="datos.nombre"
+                :error-messages="errors"
+                counter
+              />
+            </validation-provider>
+            <v-text-field
+              outlined
+              dense
+              label="Representante"
+              v-model="datos.documento"
+            />
+            <v-text-field
+              outlined
+              dense
+              label="Celular"
+              v-model="datos.celular"
+            />
+            <v-text-field
+              outlined
+              dense
+              label="Correo"
+              v-model="datos.correo"
+            />
+            <v-text-field outlined dense label="Pais" v-model="datos.pais" />
+            <v-text-field
+              outlined
+              dense
+              label="Departamento"
+              v-model="datos.departamento"
+            />
+            <v-text-field
+              outlined
+              dense
+              label="Ciudad"
+              v-model="datos.ciudad"
+            />
+            <v-text-field
+              outlined
+              dense
+              label="Direccion"
+              v-model="datos.direccion"
+            />
+            <v-combobox
+              v-model="datos.programas"
+              :items="programas"
+              item-text="nombre"
+              label="Programa académico"
+              hide-selected
+              small-chips
+              dense
+              outlined
+              multiple
+            />
+            <v-file-input
+              prepend-icon="mdi-handshake"
+              small-chips
+              outlined
+              dense
+              hint="Solo PDF"
+              persistent-hint
+              accept="application/pdf"
+              label="Documento de convenio"
+            />
+            <v-alert class="text-center" dense dark color="secondary">
+              Periodo de valides del convenio
+            </v-alert>
+            <CalendarioRango @fecha="fechas = $event" />
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="red darken-4" dark @click="dialog = !dialog">
+            Cerrar
+          </v-btn>
+          <v-btn :disabled="invalid" @click="aprobar"> Aprobar </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </validation-observer>
 </template>
 
 <script>
@@ -103,9 +121,44 @@ import {
 import Swal from "sweetalert2";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
 import { LISTAR_PROGRAMAS } from "../../../services/recursos/programaRS";
+import { digits, email, max, min, required } from "vee-validate/dist/rules";
+import {
+  extend,
+  setInteractionMode,
+  ValidationObserver,
+  ValidationProvider,
+} from "vee-validate";
+setInteractionMode("eager");
+
+{
+  extend("digits", {
+    ...digits,
+    message: "{_field_} Se necesita {length} digitos. ({_value_})",
+  });
+
+  extend("required", {
+    ...required,
+    message: "{_field_} no puede estar vacio",
+  });
+
+  extend("max", {
+    ...max,
+    message: "{_field_} {length} maximo de caracteres",
+  });
+
+  extend("min", {
+    ...min,
+    message: "{_field_} Ingrese mas caracteres ",
+  });
+
+  extend("email", {
+    ...email,
+    message: "Correo con formato incorrecto",
+  });
+}
 export default {
   name: "DocumentoAprobatorioEmpresa",
-  components: { CalendarioRango },
+  components: { ValidationObserver, ValidationProvider, CalendarioRango },
   data: () => ({
     dialog: false,
     fechas: [],
@@ -155,7 +208,6 @@ export default {
           confirmButtonText: "Si, cumple con las validaciones!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const token = JSON.parse(localStorage.getItem("token"));
             this.datos.programas.forEach((programas) => {
               APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
             });
@@ -169,6 +221,12 @@ export default {
             this.dialog = !this.dialog;
           }
         });
+      } else {
+        await Swal.fire(
+          "Seleccione una fecha",
+          "Debe seleccionar un rango de fecha",
+          "error"
+        );
       }
     },
   },
