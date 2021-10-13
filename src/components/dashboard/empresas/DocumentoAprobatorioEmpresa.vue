@@ -280,15 +280,7 @@ export default {
         await OBTENER_DATOS_USUARIO().then((result) => {
           responsable = result.data.nombres + " " + result.data.apellidos;
         });
-        const convenio = {
-          inicio: fecha_inicio,
-          fin: fecha_fin,
-          generado: new Date()
-            .toLocaleDateString()
-            .toString()
-            .replaceAll("/", "-"),
-          responsable: responsable,
-        };
+
         if (this.convenio.type !== "application/pdf") {
           return Swal.fire(
             "El documento del convenio es erroneo",
@@ -296,15 +288,6 @@ export default {
             "error"
           );
         }
-        await REGISTRAR_ARCHIVO_CONVENIO(
-          this.datos.nit,
-          this.convenio,
-          "convenio_" + this.datos.nit + "_" + new Date().toDateString()
-        ).catch((error) =>
-          Swal.fire("Error al subir el RUT", `${error},`, "error")
-        );
-        convenios.push(convenio);
-        this.datos.convenios = convenios;
         await Swal.fire({
           title: "¿Aprobar convenio con esta empresa?",
           text: `Soy conciente de que la informacion es correcta`,
@@ -315,12 +298,34 @@ export default {
           confirmButtonText: "Si, cumple con las validaciones!",
         }).then(async (result) => {
           if (result.isConfirmed) {
+            const convenio = {
+              inicio: fecha_inicio,
+              fin: fecha_fin,
+              generado: new Date()
+                .toLocaleDateString()
+                .toString()
+                .replaceAll("/", "-"),
+              responsable: responsable,
+            };
+            await REGISTRAR_ARCHIVO_CONVENIO(
+              this.datos.nit,
+              this.convenio,
+              "convenio_" + this.datos.nit + "_" + new Date().toDateString()
+            )
+              .then((result) => {
+                convenio.archivo = result.metadata.name;
+              })
+              .catch((error) =>
+                Swal.fire("Error al subir el RUT", `${error},`, "error")
+              );
+            convenios.push(convenio);
+            this.datos.convenios = convenios;
             this.datos.programas.forEach((programas) => {
               APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
             });
             const token = JSON.parse(localStorage.getItem("token"));
             await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
-            await ELIMINAR_EMPRESA(this.datos.nit);
+            //await ELIMINAR_EMPRESA(this.datos.nit);
             await this.$emit("aprobado", true);
             await Swal.fire(
               "Aprobada!",
