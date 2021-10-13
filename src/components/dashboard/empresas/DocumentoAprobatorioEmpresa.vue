@@ -14,15 +14,41 @@
           <v-alert class="text-center" dense dark color="secondary">
             Datos de la empresa
           </v-alert>
-          <v-text-field label="Nit" v-model="datos.nit" disabled />
-          <v-text-field label="Nombre" v-model="datos.nombre" />
-          <v-text-field label="Representante" v-model="datos.documento" />
-          <v-text-field label="Celular" v-model="datos.celular" />
-          <v-text-field label="Correo" v-model="datos.correo" />
-          <v-text-field label="Pais" v-model="datos.pais" />
-          <v-text-field label="Departamento" v-model="datos.departamento" />
-          <v-text-field label="Ciudad" v-model="datos.ciudad" />
-          <v-text-field label="Direccion" v-model="datos.direccion" />
+          <v-text-field
+            outlined
+            dense
+            label="Nit"
+            v-model="datos.nit"
+            disabled
+          />
+          <v-text-field outlined dense label="Nombre" v-model="datos.nombre" />
+          <v-text-field
+            outlined
+            dense
+            label="Representante"
+            v-model="datos.documento"
+          />
+          <v-text-field
+            outlined
+            dense
+            label="Celular"
+            v-model="datos.celular"
+          />
+          <v-text-field outlined dense label="Correo" v-model="datos.correo" />
+          <v-text-field outlined dense label="Pais" v-model="datos.pais" />
+          <v-text-field
+            outlined
+            dense
+            label="Departamento"
+            v-model="datos.departamento"
+          />
+          <v-text-field outlined dense label="Ciudad" v-model="datos.ciudad" />
+          <v-text-field
+            outlined
+            dense
+            label="Direccion"
+            v-model="datos.direccion"
+          />
           <v-combobox
             v-model="datos.programas"
             :items="programas"
@@ -33,6 +59,16 @@
             dense
             outlined
             multiple
+          />
+          <v-file-input
+            prepend-icon="mdi-handshake"
+            small-chips
+            outlined
+            dense
+            hint="Solo PDF"
+            persistent-hint
+            accept="application/pdf"
+            label="Documento de convenio"
           />
           <v-alert class="text-center" dense dark color="secondary">
             Periodo de valides del convenio
