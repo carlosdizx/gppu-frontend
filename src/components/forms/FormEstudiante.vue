@@ -259,7 +259,7 @@
               v-model="habilidadeSeleccionadas"
               :items="habilidades"
               item-text="nombre"
-              label="Habilidades, seleccione 3 o mas"
+              label="Habilidades"
               hint="Puede proponer"
               :error-messages="errors"
               hide-selected
@@ -335,7 +335,7 @@
           >
             <v-select
               v-model="exp_ingenieria"
-              label="¿Experiencia en Ing. de Sistemas?"
+              label="¿Experiencia en el programa académico?"
               :items="['Si', 'No']"
               :error-messages="errors"
             />
