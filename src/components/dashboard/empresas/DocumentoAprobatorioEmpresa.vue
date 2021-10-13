@@ -1,6 +1,9 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-dialog v-model="dialog" persistent max-width="600">
+      <v-btn color="red darken-4" dark @click="dialog = !dialog">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
       <template v-slot:activator="{ on, attrs }">
         <v-btn fab small color="info darken-3" v-bind="attrs" v-on="on">
           <v-icon>mdi-briefcase-check-outline</v-icon>
@@ -100,14 +103,15 @@
             <CalendarioRango @fecha="fechas = $event" />
           </v-form>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="red darken-4" dark @click="dialog = !dialog">
-            Cerrar
+        <v-card-text>
+          <v-btn block :disabled="invalid" color="success" @click="aprobar">
+            Aprobar
           </v-btn>
-          <v-btn :disabled="invalid" @click="aprobar"> Aprobar </v-btn>
-        </v-card-actions>
+        </v-card-text>
       </v-card>
+      <v-btn color="red darken-4" dark @click="dialog = !dialog">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-dialog>
   </validation-observer>
 </template>
@@ -209,10 +213,7 @@ export default {
         this.datos.convenios = convenios;
         await Swal.fire({
           title: "¿Aprobar convenio con esta empresa?",
-          text:
-            "Soy conciente de que la informacion es correcta " +
-            `Nit: ${this.datos.nit}
-           Nombre: ${this.datos.nombre}`,
+          text: `Soy conciente de que la informacion es correcta`,
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#0f76b7",
@@ -223,6 +224,8 @@ export default {
             this.datos.programas.forEach((programas) => {
               APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
             });
+            const token = JSON.parse(localStorage.getItem("token"));
+            await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
             await ELIMINAR_EMPRESA(this.datos.nit);
             await this.$emit("aprobado", true);
             await Swal.fire(
