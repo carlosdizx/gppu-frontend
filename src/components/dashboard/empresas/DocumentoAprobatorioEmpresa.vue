@@ -287,6 +287,13 @@ export default {
             .replaceAll("/", "-"),
           responsable: responsable,
         };
+        if (this.convenio.type !== "application/pdf") {
+          return Swal.fire(
+            "El documento del convenio es erroneo",
+            "Solo seleccionar archivos PDF",
+            "error"
+          );
+        }
         convenios.push(convenio);
         this.datos.convenios = convenios;
         await Swal.fire({
