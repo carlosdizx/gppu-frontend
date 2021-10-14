@@ -116,6 +116,13 @@ export const LISTAR_ARCHIVOS_EMPRESA = async (nit: any, nombre: any) =>
     )
     .getDownloadURL();
 
+export const LISTAR_ARCHIVO_CONVENIO_EMPRESA = async (nit: any, nombre: any) =>
+  await STORAGE.ref()
+    .child(
+      `${UNIVERSIDAD}/lxWMzUUF0vZosLQtHyHvXNmztV52/empresas/${nit}/convenios/${nombre}`
+    )
+    .getDownloadURL();
+
 export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) => {
   const token = JSON.parse(<string>localStorage.getItem("token"));
   return await INSTACIA.put(
