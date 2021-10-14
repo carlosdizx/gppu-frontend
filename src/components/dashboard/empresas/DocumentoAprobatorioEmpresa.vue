@@ -273,8 +273,8 @@ export default {
             "error"
           );
         }
-        this.datos.inicio = fecha_inicio;
-        this.datos.fin = fecha_fin;
+        this.datos.inicio = this.fechas[0];
+        this.datos.fin = this.fechas[1];
         const convenios = [];
         let responsable = "";
         await OBTENER_DATOS_USUARIO().then((result) => {
@@ -298,13 +298,16 @@ export default {
           confirmButtonText: "Si, cumple con las validaciones!",
         }).then(async (result) => {
           if (result.isConfirmed) {
+            const fecha_hoy = new Date();
             const convenio = {
-              inicio: fecha_inicio,
-              fin: fecha_fin,
-              generado: new Date()
-                .toLocaleDateString()
-                .toString()
-                .replaceAll("/", "-"),
+              inicio: this.fechas[0],
+              fin: this.fechas[1],
+              generado:
+                fecha_hoy.getFullYear() +
+                "-" +
+                (fecha_hoy.getMonth() + 1) +
+                "-" +
+                fecha_hoy.getDate(),
               responsable: responsable,
             };
             await REGISTRAR_ARCHIVO_CONVENIO(
@@ -316,7 +319,7 @@ export default {
                 convenio.archivo = result.metadata.name;
               })
               .catch((error) =>
-                Swal.fire("Error al subir el RUT", `${error},`, "error")
+                Swal.fire("Error al subir el convenio", `${error},`, "error")
               );
             convenios.push(convenio);
             this.datos.convenios = convenios;
