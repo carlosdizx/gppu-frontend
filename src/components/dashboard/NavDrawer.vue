@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="nav" fixed>
+  <v-navigation-drawer v-model="nav" relative app>
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title>{{ cargo }}</v-list-item-title>
