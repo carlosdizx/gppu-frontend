@@ -42,6 +42,7 @@ export default {
       { text: "Fecha fin", value: "fin" },
       { text: "Fecha de generación", value: "generado" },
       { text: "Responsable", value: "responsable" },
+      { text: "Documento responsable", value: "documento" },
       { text: "Archivo", value: "archivo" },
     ],
   }),

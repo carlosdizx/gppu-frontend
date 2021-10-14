@@ -277,8 +277,10 @@ export default {
         this.datos.fin = this.fechas[1];
         const convenios = [];
         let responsable = "";
+        let documento = "";
         await OBTENER_DATOS_USUARIO().then((result) => {
           responsable = result.data.nombres + " " + result.data.apellidos;
+          documento = result.data.documento;
         });
 
         if (this.convenio.type !== "application/pdf") {
@@ -309,6 +311,7 @@ export default {
                 "-" +
                 fecha_hoy.getDate(),
               responsable: responsable,
+              documento: documento,
             };
             await REGISTRAR_ARCHIVO_CONVENIO(
               this.datos.nit,
