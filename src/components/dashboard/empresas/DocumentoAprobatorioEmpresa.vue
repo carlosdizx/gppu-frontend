@@ -414,6 +414,86 @@ export default {
           confirmButtonText: "Si, cumple con las validaciones!",
         }).then(async (result) => {
           if (result.isConfirmed) {
+            if (this.edicion) {
+              if (this.edicion) {
+                //-------------------- Validacion si el formato de los archivos-----------
+                if (this.carta.type !== "application/pdf") {
+                  return Swal.fire(
+                    "La carta de intención errada",
+                    "Solo seleccionar archivos PDF",
+                    "error"
+                  );
+                }
+                if (this.documento.type !== "application/pdf") {
+                  return Swal.fire(
+                    "El documento del representante errado",
+                    "Solo seleccionar archivos PDF",
+                    "error"
+                  );
+                }
+                if (this.rut.type !== "application/pdf") {
+                  return Swal.fire(
+                    "El documento RUT errado",
+                    "Solo seleccionar archivos PDF",
+                    "error"
+                  );
+                }
+                if (this.camara.type !== "application/pdf") {
+                  return Swal.fire(
+                    "El documento de Cámara de comercio errado",
+                    "Solo seleccionar archivos PDF",
+                    "error"
+                  );
+                }
+              }
+
+              //--------------------- Subida de archivos ----------------
+
+              await REGISTRO_ARCHIVO_EMPRESA(
+                this.datos.nit,
+                this.carta,
+                "carta_intencion_" + this.datos.nit
+              ).catch((error) =>
+                Swal.fire(
+                  "Error al subir la carta de intencion",
+                  `${error},`,
+                  "error"
+                )
+              );
+
+              await REGISTRO_ARCHIVO_EMPRESA(
+                this.datos.nit,
+                this.documento,
+                "documento_" + this.datos.nit
+              ).catch((error) =>
+                Swal.fire(
+                  "Error al subir el documento del representante",
+                  `${error},`,
+                  "error"
+                )
+              );
+
+              await REGISTRO_ARCHIVO_EMPRESA(
+                this.datos.nit,
+                this.rut,
+                "rut_" + this.datos.nit
+              ).catch((error) =>
+                Swal.fire("Error al subir el RUT", `${error},`, "error")
+              );
+
+              await REGISTRO_ARCHIVO_EMPRESA(
+                this.datos.nit,
+                this.camara,
+                "camara_comercio_" + this.datos.nit
+              ).catch((error) =>
+                Swal.fire(
+                  "Error al subir la Camara de Comercio",
+                  `${error},`,
+                  "error"
+                )
+              );
+            }
+
             const fecha_hoy = new Date();
             const convenio = {
               inicio: this.fechas[0],

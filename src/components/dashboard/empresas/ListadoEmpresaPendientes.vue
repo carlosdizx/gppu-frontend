@@ -50,7 +50,7 @@ export default Vue.extend({
       { text: "País", value: "pais", sortable: false },
       { text: "Departamento", value: "departamento", sortable: false },
       { text: "Ciudad", value: "ciudad", sortable: false },
-      { text: "Direcció", value: "direccion", sortable: false },
+      { text: "Dirección", value: "direccion", sortable: false },
       { text: "Acciones", value: "acciones", sortable: false },
     ],
     filas: [],

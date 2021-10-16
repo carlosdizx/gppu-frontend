@@ -344,6 +344,13 @@ export default {
   }),
   methods: {
     async registrar() {
+      if (this.archivoCarta.type !== "application/pdf") {
+        return Swal.fire(
+          "La carta de intención errada",
+          "Solo seleccionar archivos PDF",
+          "error"
+        );
+      }
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
           "El documento del representante errado",
@@ -398,15 +405,13 @@ export default {
           datos.nit,
           this.archivoDocumento,
           "documento_" + datos.nit
-        )
-          .then((result) => console.log(result))
-          .catch((error) =>
-            Swal.fire(
-              "Error al subir el documento del representante",
-              `${error},`,
-              "error"
-            )
-          );
+        ).catch((error) =>
+          Swal.fire(
+            "Error al subir el documento del representante",
+            `${error},`,
+            "error"
+          )
+        );
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
@@ -439,6 +444,7 @@ export default {
             "error"
           )
         );
+
         this.carga = false;
         await Swal.fire(
           "Registro exitoso",
