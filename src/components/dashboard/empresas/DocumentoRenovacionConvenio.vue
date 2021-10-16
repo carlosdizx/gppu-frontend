@@ -1,46 +1,72 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600">
-    <v-btn color="red darken-4" dark @click="dialog = !dialog">
-      <v-icon>mdi-close</v-icon>
-    </v-btn>
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn fab small color="lime" v-bind="attrs" v-on="on">
-        <v-icon>mdi-autorenew</v-icon>
+  <validation-observer ref="observer" v-slot="{ invalid }">
+    <v-dialog v-model="dialog" persistent max-width="600">
+      <v-btn color="red darken-4" dark @click="dialog = !dialog">
+        <v-icon>mdi-close</v-icon>
       </v-btn>
-    </template>
-    <v-container>
-      <v-card>
-        <v-card-title>{{ datos.nombre }} | {{ datos.nit }}</v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-file-input
-              label="Nuevo documento de convenio"
-              v-model="convenio"
-              small-chips
-              outlined
-              dense
-              hint="Solo PDF"
-              persistent-hint
-              accept="application/pdf"
-              append-icon="mdi-pdf-box"
-            />
-          </v-form>
-          <CalendarioRango @fecha="fechas = $event" />
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            block
-            color="green accent-4"
-            dark
-            @click="renovar"
-            :disabled="fechas.length < 2"
-          >
-            Renovar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-container>
-  </v-dialog>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn fab small color="lime" v-bind="attrs" v-on="on">
+          <v-icon>mdi-autorenew</v-icon>
+        </v-btn>
+      </template>
+      <v-container>
+        <v-card>
+          <v-card-title>{{ datos.nombre }} | {{ datos.nit }}</v-card-title>
+          <v-card-text>
+            <v-form>
+              <validation-provider
+                v-slot="{ errors }"
+                name="Programas académicos"
+                rules="required"
+              >
+                <v-combobox
+                  v-model="datos.programas"
+                  :items="programas"
+                  item-text="nombre"
+                  label="Programa académico"
+                  hide-selected
+                  small-chips
+                  dense
+                  outlined
+                  multiple
+                  :error-messages="errors"
+                />
+              </validation-provider>
+              <validation-provider
+                v-slot="{ errors }"
+                name="Documento de convenio"
+                rules="required"
+              >
+                <v-file-input
+                  label="Nuevo documento de convenio"
+                  v-model="convenio"
+                  small-chips
+                  outlined
+                  dense
+                  hint="Solo PDF"
+                  persistent-hint
+                  accept="application/pdf"
+                  append-icon="mdi-pdf-box"
+                  :error-messages="errors"
+                />
+              </validation-provider>
+            </v-form>
+            <CalendarioRango @fecha="fechas = $event" />
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              block
+              color="green accent-4"
+              @click="renovar"
+              :disabled="invalid"
+            >
+              Renovar <v-icon>mdi-handshake</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-container>
+    </v-dialog>
+  </validation-observer>
 </template>
 
 <script>
@@ -49,18 +75,61 @@ import CalendarioRango from "../../general/CalendarioRango";
 import Swal from "sweetalert2";
 import moment from "moment";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
+import { LISTAR_PROGRAMAS } from "../../../services/recursos/programaRS";
+import { digits, email, max, min, required } from "vee-validate/dist/rules";
+import {
+  extend,
+  setInteractionMode,
+  ValidationObserver,
+  ValidationProvider,
+} from "vee-validate";
+setInteractionMode("eager");
+
+{
+  extend("digits", {
+    ...digits,
+    message: "{_field_} Se necesita {length} digitos. ({_value_})",
+  });
+
+  extend("required", {
+    ...required,
+    message: "{_field_} no puede estar vacio",
+  });
+
+  extend("max", {
+    ...max,
+    message: "{_field_} {length} maximo de caracteres",
+  });
+
+  extend("min", {
+    ...min,
+    message: "{_field_} Ingrese mas caracteres ",
+  });
+
+  extend("email", {
+    ...email,
+    message: "Correo con formato incorrecto",
+  });
+}
+
 export default {
   name: "DocumentoRenovacionConvenio",
-  components: { CalendarioRango },
+  components: { ValidationObserver, ValidationProvider, CalendarioRango },
   data: () => ({
     dialog: false,
     fechas: [],
+    programas: [],
     convenio: null,
   }),
   props: {
     datos: Object,
   },
   methods: {
+    async listadoProgramas() {
+      await LISTAR_PROGRAMAS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
+    },
     async renovar() {
       const fecha_inicio = moment(this.fechas[0]);
       const fecha_fin = moment(this.fechas[1]);
@@ -115,6 +184,9 @@ export default {
         }
       });
     },
+  },
+  async mounted() {
+    await this.listadoProgramas();
   },
 };
 </script>
