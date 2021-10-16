@@ -303,6 +303,7 @@ import CalendarioRango from "../../general/CalendarioRango";
 import DocumentosEmpresa from "./DocumentosEmpresa";
 import {
   APROBAR_CONVENIO_EMPRESA,
+  APROBAR_EMPRESA,
   ELIMINAR_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
   REGISTRO_ARCHIVO_EMPRESA,
@@ -553,7 +554,20 @@ export default {
             APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
           });
           const token = JSON.parse(localStorage.getItem("token"));
-          await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
+          const datos = {
+            nit: this.datos.nit,
+            nombre: this.datos.nombre,
+            representante: this.datos.representante,
+            celular: this.datos.celular,
+            correo: this.datos.correo,
+            pais: this.datos.pais,
+            departamento: this.datos.departamento,
+            ciudad: this.datos.ciudad,
+            direccion: this.datos.direccion,
+            programas: this.datos.programas,
+            convenios: this.datos.convenios,
+          };
+          await APROBAR_EMPRESA(token.localId, datos);
           await ELIMINAR_EMPRESA(this.datos.nit);
           await this.$emit("aprobado", true);
           await Swal.fire(

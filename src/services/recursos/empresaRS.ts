@@ -136,6 +136,19 @@ export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) => {
   );
 };
 
+export const APROBAR_EMPRESA = async (programa: any, datos: any) => {
+  const token = JSON.parse(<string>localStorage.getItem("token"));
+  return await INSTACIA.put(
+    `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json?auth=${token.idToken}`,
+    JSON.stringify(datos),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
 export const ACTUALIZAR_CONVENIO_EMPRESA = async (
   programa: any,
   datos: any
