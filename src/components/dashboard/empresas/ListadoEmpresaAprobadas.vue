@@ -60,10 +60,6 @@ export default Vue.extend({
       { text: "Departamento", value: "departamento" },
       { text: "Ciudad", value: "ciudad" },
       { text: "Dirección", value: "direccion" },
-      { text: "Fecha de aprobación", value: "inicio" },
-      { text: "Fecha de caducidad", value: "fin" },
-      { text: "Periodo (días)", value: "periodo" },
-      { text: "Días de vigencia", value: "dias" },
       { text: "Convenios", value: "convenios", sortable: false },
     ],
     filas: [],
@@ -76,13 +72,6 @@ export default Vue.extend({
           async (resultado) => {
             if (resultado.data) {
               this.filas = await Object.values(resultado.data);
-              this.filas.forEach((empresa) => {
-                const fecha1 = moment(new Date().toString());
-                const fecha2 = moment(empresa.fin);
-                const fecha3 = moment(empresa.inicio);
-                empresa.periodo = fecha2.diff(fecha3, "days");
-                empresa.dias = fecha2.diff(fecha1, "days");
-              });
             }
           }
         );

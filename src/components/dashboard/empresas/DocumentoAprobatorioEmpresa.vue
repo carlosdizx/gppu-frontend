@@ -557,7 +557,7 @@ export default {
           const datos = {
             nit: this.datos.nit,
             nombre: this.datos.nombre,
-            representante: this.datos.representante,
+            representante: this.datos.documento,
             celular: this.datos.celular,
             correo: this.datos.correo,
             pais: this.datos.pais,
