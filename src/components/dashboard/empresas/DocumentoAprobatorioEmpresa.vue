@@ -466,6 +466,15 @@ export default {
                 );
               }
 
+              if (this.convenio.type !== "application/pdf") {
+                this.carga = false;
+                return Swal.fire(
+                  "El documento de convenio errado",
+                  "Solo seleccionar archivos PDF",
+                  "error"
+                );
+              }
+
               //--------------------- Subida de archivos ----------------
 
               await REGISTRO_ARCHIVO_EMPRESA(

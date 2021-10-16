@@ -70,7 +70,11 @@
 </template>
 
 <script>
-import { ACTUALIZAR_CONVENIO_EMPRESA } from "../../../services/recursos/empresaRS";
+import {
+  ACTUALIZAR_CONVENIO_EMPRESA,
+  APROBAR_CONVENIO_EMPRESA,
+  REGISTRAR_ARCHIVO_CONVENIO,
+} from "../../../services/recursos/empresaRS";
 import CalendarioRango from "../../general/CalendarioRango";
 import Swal from "sweetalert2";
 import moment from "moment";
@@ -146,6 +150,13 @@ export default {
           );
         }
 
+        if (this.convenio.type !== "application/pdf") {
+          return Swal.fire(
+            "El documento del convenio es erroneo",
+            "Solo seleccionar archivos PDF",
+            "error"
+          );
+        }
         await Swal.fire({
           title: "¿Renovar convenio con esta empresa?",
           text:
@@ -159,26 +170,46 @@ export default {
           confirmButtonText: "Si, esa es la empresa!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            this.datos.inicio = this.fechas[0];
-            this.datos.fin = this.fechas[1];
-            this.datos.convenios.push({
-              inicio: this.datos.inicio,
-              fin: this.datos.fin,
-              generado: new Date()
-                .toLocaleDateString()
-                .toString()
-                .replaceAll("/", "-"),
-            });
+            const convenios = [];
             let responsable = "";
             let documento = "";
             await OBTENER_DATOS_USUARIO().then((result) => {
               responsable = result.data.nombres + " " + result.data.apellidos;
               documento = result.data.documento;
             });
+            this.datos.inicio = this.fechas[0];
+            this.datos.fin = this.fechas[1];
+            const fecha_hoy = new Date();
+            const convenio = {
+              inicio: this.fechas[0],
+              fin: this.fechas[1],
+              generado:
+                fecha_hoy.getFullYear() +
+                "-" +
+                (fecha_hoy.getMonth() + 1) +
+                "-" +
+                fecha_hoy.getDate(),
+              responsable: responsable,
+              documento: documento,
+            };
+            await REGISTRAR_ARCHIVO_CONVENIO(
+              this.datos.nit,
+              this.convenio,
+              "convenio_" + this.datos.nit + "_" + new Date().toDateString()
+            )
+              .then((result) => {
+                convenio.archivo = result.metadata.name;
+              })
+              .catch((error) =>
+                Swal.fire("Error al subir el convenio", `${error},`, "error")
+              );
             this.datos.periodo = null;
             this.datos.dias = null;
-            const token = JSON.parse(localStorage.getItem("token"));
-            await ACTUALIZAR_CONVENIO_EMPRESA(token.localId, this.datos);
+            convenios.push(convenio);
+            this.datos.convenios = convenios;
+            this.datos.programas.forEach((programas) => {
+              ACTUALIZAR_CONVENIO_EMPRESA(programas.id, this.datos);
+            });
             this.$emit("renovado", true);
             await Swal.fire("Renovado!", "Felicitaciones 🤝", "success");
             this.dialog = !this.dialog;
