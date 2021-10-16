@@ -12,6 +12,19 @@
       <v-card>
         <v-card-title>{{ datos.nombre }} | {{ datos.nit }}</v-card-title>
         <v-card-text>
+          <v-form>
+            <v-file-input
+              label="Nuevo documento de convenio"
+              v-model="convenio"
+              small-chips
+              outlined
+              dense
+              hint="Solo PDF"
+              persistent-hint
+              accept="application/pdf"
+              append-icon="mdi-pdf-box"
+            />
+          </v-form>
           <CalendarioRango @fecha="fechas = $event" />
         </v-card-text>
         <v-card-actions>
@@ -34,18 +47,35 @@
 import { ACTUALIZAR_CONVENIO_EMPRESA } from "../../../services/recursos/empresaRS";
 import CalendarioRango from "../../general/CalendarioRango";
 import Swal from "sweetalert2";
+import moment from "moment";
+import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
 export default {
   name: "DocumentoRenovacionConvenio",
   components: { CalendarioRango },
   data: () => ({
     dialog: false,
     fechas: [],
+    convenio: null,
   }),
   props: {
     datos: Object,
   },
   methods: {
     async renovar() {
+      const fecha_inicio = moment(this.fechas[0]);
+      const fecha_fin = moment(this.fechas[1]);
+      const diferencia = fecha_fin.diff(fecha_inicio, "days");
+      if (diferencia < 61) {
+        return Swal.fire(
+          "Fechas erroneas",
+          `Las fechas estan mal,deben durar mas de 61 dias y
+            la fecha de fin de convenio tiene que ser mayor a la
+             fecha de inicio de convenio
+             <br/>Diferencia en dias ${diferencia}`,
+          "error"
+        );
+      }
+
       await Swal.fire({
         title: "¿Renovar convenio con esta empresa?",
         text:
@@ -59,10 +89,8 @@ export default {
         confirmButtonText: "Si, esa es la empresa!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const fecha_inicio = this.fechas[0];
-          const fecha_fin = this.fechas[1];
-          this.datos.inicio = fecha_inicio;
-          this.datos.fin = fecha_fin;
+          this.datos.inicio = this.fechas[0];
+          this.datos.fin = this.fechas[1];
           this.datos.convenios.push({
             inicio: this.datos.inicio,
             fin: this.datos.fin,
@@ -70,6 +98,12 @@ export default {
               .toLocaleDateString()
               .toString()
               .replaceAll("/", "-"),
+          });
+          let responsable = "";
+          let documento = "";
+          await OBTENER_DATOS_USUARIO().then((result) => {
+            responsable = result.data.nombres + " " + result.data.apellidos;
+            documento = result.data.documento;
           });
           this.datos.periodo = null;
           this.datos.dias = null;
