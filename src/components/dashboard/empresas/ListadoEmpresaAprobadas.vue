@@ -8,19 +8,6 @@
           {{ new Date().toLocaleDateString().replaceAll("/", "-") }}
         </v-toolbar>
       </template>
-      <template v-slot:item.pasantes="{ item }">
-        <PasantesPorEmpresa :pasantes="item.pasantes" v-if="item.pasantes" />
-        <v-btn
-          fab
-          small
-          color="purple"
-          class="elevation-1"
-          v-if="!item.pasantes"
-          disabled
-        >
-          <v-icon>mdi-account-supervisor-outline</v-icon>
-        </v-btn>
-      </template>
       <template v-slot:item.nit="{ item }">
         <DocumentosEmpresa :nit="item.nit" />
       </template>
@@ -50,7 +37,6 @@
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
 import DocumentosEmpresa from "./DocumentosEmpresa";
-import PasantesPorEmpresa from "./ListadoPasantesEmpresa";
 import ListadoConveniosEmpresa from "./ListadoConveniosEmpresa";
 import DocumentoRenovacionConvenio from "./DocumentoRenovacionConvenio";
 import Vue from "vue";
@@ -60,13 +46,11 @@ export default Vue.extend({
   name: "ListadoEmpresaAprobadas",
   components: {
     DocumentosEmpresa,
-    PasantesPorEmpresa,
     DocumentoRenovacionConvenio,
     ListadoConveniosEmpresa,
   },
   data: () => ({
     columnas: [
-      { text: "Practicantes", value: "pasantes", sortable: false },
       { text: "Nit", value: "nit", sortable: false },
       { text: "Nombre", value: "nombre" },
       { text: "Representante", value: "documento" },
