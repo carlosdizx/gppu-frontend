@@ -182,7 +182,7 @@
           >
             <v-file-input
               accept="application/pdf"
-              label="Documento del representante"
+              label="Documento de identidad del representante"
               v-model="archivoDocumento"
               append-icon="mdi-pdf-box"
               :error-messages="errors"

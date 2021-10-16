@@ -155,6 +155,87 @@
                 :error-messages="errors"
               />
             </validation-provider>
+            <v-divider />
+            <v-switch
+              v-model="edicion"
+              label="Editar documentos de la empresa"
+            />
+            <validation-provider
+              v-slot="{ errors }"
+              name="Carta de intencion"
+              rules="required"
+            >
+              <v-file-input
+                label="Carta de intención"
+                v-model="carta"
+                small-chips
+                outlined
+                dense
+                hint="Solo PDF"
+                persistent-hint
+                accept="application/pdf"
+                append-icon="mdi-pdf-box"
+                :error-messages="errors"
+                :disabled="!edicion"
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Documento representante"
+              rules="required"
+            >
+              <v-file-input
+                label="Documento de identidad del representante"
+                v-model="documento"
+                small-chips
+                outlined
+                dense
+                hint="Solo PDF"
+                persistent-hint
+                accept="application/pdf"
+                append-icon="mdi-pdf-box"
+                :error-messages="errors"
+                :disabled="!edicion"
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Documento RUT"
+              rules="required"
+            >
+              <v-file-input
+                label="RUT"
+                v-model="rut"
+                small-chips
+                outlined
+                dense
+                hint="Solo PDF"
+                persistent-hint
+                accept="application/pdf"
+                append-icon="mdi-pdf-box"
+                :error-messages="errors"
+                :disabled="!edicion"
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
+              name="Documento Camara C..."
+              rules="required"
+            >
+              <v-file-input
+                label="Cámara  de comercio"
+                v-model="camara"
+                small-chips
+                outlined
+                dense
+                hint="Solo PDF"
+                persistent-hint
+                append-icon="mdi-pdf-box"
+                accept="application/pdf"
+                :error-messages="errors"
+                :disabled="!edicion"
+              />
+            </validation-provider>
             <validation-provider
               v-slot="{ errors }"
               name="Documento de convenio"
@@ -247,6 +328,11 @@ export default {
     dialog: false,
     fechas: [],
     programas: [],
+    carta: null,
+    documento: null,
+    rut: null,
+    camara: null,
+    edicion: false,
     convenio: null,
   }),
   props: {
