@@ -9,7 +9,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.nit="{ item }">
-        <DocumentosEmpresa :nit="item.nit" />
+        <DocumentosEmpresa :nit="item.nit" tipo />
       </template>
       <template v-slot:item.acciones="{ item }">
         <v-btn

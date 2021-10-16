@@ -156,6 +156,10 @@
               />
             </validation-provider>
             <v-divider />
+            <v-alert dense>
+              Ver documentos actuales 👉 <DocumentosEmpresa :nit="datos.nit" />
+            </v-alert>
+            <v-divider />
             <v-switch
               v-model="edicion"
               label="Editar documentos de la empresa"
@@ -281,6 +285,7 @@
 
 <script>
 import CalendarioRango from "../../general/CalendarioRango";
+import DocumentosEmpresa from "./DocumentosEmpresa";
 import {
   APROBAR_CONVENIO_EMPRESA,
   ELIMINAR_EMPRESA,
@@ -328,7 +333,12 @@ setInteractionMode("eager");
 }
 export default {
   name: "DocumentoAprobatorioEmpresa",
-  components: { ValidationObserver, ValidationProvider, CalendarioRango },
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+    CalendarioRango,
+    DocumentosEmpresa,
+  },
   data: () => ({
     dialog: false,
     fechas: [],
