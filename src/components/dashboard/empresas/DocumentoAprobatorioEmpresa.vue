@@ -14,7 +14,7 @@
           <span class="text-h5">Empresa {{ datos.nit }}</span>
         </v-card-title>
         <v-card-text>
-          <v-form>
+          <v-form :disabled="carga">
             <v-alert class="text-center" dense dark color="secondary">
               Datos de la empresa
             </v-alert>
@@ -271,7 +271,13 @@
           </v-form>
         </v-card-text>
         <v-card-text>
-          <v-btn block :disabled="invalid" color="success" @click="aprobar">
+          <v-btn
+            block
+            :disabled="invalid || carga"
+            color="success"
+            @click="aprobar"
+            :loading="carga"
+          >
             Aprobar
           </v-btn>
         </v-card-text>
@@ -349,6 +355,7 @@ export default {
     camara: {},
     edicion: false,
     convenio: null,
+    carga: false,
   }),
   props: {
     datos: Object,
@@ -414,37 +421,40 @@ export default {
           confirmButtonText: "Si, cumple con las validaciones!",
         }).then(async (result) => {
           if (result.isConfirmed) {
+            this.carga = true;
             if (this.edicion) {
-              if (this.edicion) {
-                //-------------------- Validacion si el formato de los archivos-----------
-                if (this.carta.type !== "application/pdf") {
-                  return Swal.fire(
-                    "La carta de intención errada",
-                    "Solo seleccionar archivos PDF",
-                    "error"
-                  );
-                }
-                if (this.documento.type !== "application/pdf") {
-                  return Swal.fire(
-                    "El documento del representante errado",
-                    "Solo seleccionar archivos PDF",
-                    "error"
-                  );
-                }
-                if (this.rut.type !== "application/pdf") {
-                  return Swal.fire(
-                    "El documento RUT errado",
-                    "Solo seleccionar archivos PDF",
-                    "error"
-                  );
-                }
-                if (this.camara.type !== "application/pdf") {
-                  return Swal.fire(
-                    "El documento de Cámara de comercio errado",
-                    "Solo seleccionar archivos PDF",
-                    "error"
-                  );
-                }
+              //-------------------- Validacion si el formato de los archivos-----------
+              if (this.carta.type !== "application/pdf") {
+                this.carga = false;
+                return Swal.fire(
+                  "La carta de intención errada",
+                  "Solo seleccionar archivos PDF",
+                  "error"
+                );
+              }
+              if (this.documento.type !== "application/pdf") {
+                this.carga = false;
+                return Swal.fire(
+                  "El documento del representante errado",
+                  "Solo seleccionar archivos PDF",
+                  "error"
+                );
+              }
+              if (this.rut.type !== "application/pdf") {
+                this.carga = false;
+                return Swal.fire(
+                  "El documento RUT errado",
+                  "Solo seleccionar archivos PDF",
+                  "error"
+                );
+              }
+              if (this.camara.type !== "application/pdf") {
+                this.carga = false;
+                return Swal.fire(
+                  "El documento de Cámara de comercio errado",
+                  "Solo seleccionar archivos PDF",
+                  "error"
+                );
               }
 
               //--------------------- Subida de archivos ----------------
@@ -493,47 +503,48 @@ export default {
                 )
               );
             }
-
-            const fecha_hoy = new Date();
-            const convenio = {
-              inicio: this.fechas[0],
-              fin: this.fechas[1],
-              generado:
-                fecha_hoy.getFullYear() +
-                "-" +
-                (fecha_hoy.getMonth() + 1) +
-                "-" +
-                fecha_hoy.getDate(),
-              responsable: responsable,
-              documento: documento,
-            };
-            await REGISTRAR_ARCHIVO_CONVENIO(
-              this.datos.nit,
-              this.convenio,
-              "convenio_" + this.datos.nit + "_" + new Date().toDateString()
-            )
-              .then((result) => {
-                convenio.archivo = result.metadata.name;
-              })
-              .catch((error) =>
-                Swal.fire("Error al subir el convenio", `${error},`, "error")
-              );
-            convenios.push(convenio);
-            this.datos.convenios = convenios;
-            this.datos.programas.forEach((programas) => {
-              APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
-            });
-            const token = JSON.parse(localStorage.getItem("token"));
-            await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
-            //await ELIMINAR_EMPRESA(this.datos.nit);
-            await this.$emit("aprobado", true);
-            await Swal.fire(
-              "Aprobada!",
-              "Felicitaciones por el nuevo convenio 🤝",
-              "success"
-            );
-            this.dialog = !this.dialog;
           }
+
+          const fecha_hoy = new Date();
+          const convenio = {
+            inicio: this.fechas[0],
+            fin: this.fechas[1],
+            generado:
+              fecha_hoy.getFullYear() +
+              "-" +
+              (fecha_hoy.getMonth() + 1) +
+              "-" +
+              fecha_hoy.getDate(),
+            responsable: responsable,
+            documento: documento,
+          };
+          await REGISTRAR_ARCHIVO_CONVENIO(
+            this.datos.nit,
+            this.convenio,
+            "convenio_" + this.datos.nit + "_" + new Date().toDateString()
+          )
+            .then((result) => {
+              convenio.archivo = result.metadata.name;
+            })
+            .catch((error) =>
+              Swal.fire("Error al subir el convenio", `${error},`, "error")
+            );
+          convenios.push(convenio);
+          this.datos.convenios = convenios;
+          this.datos.programas.forEach((programas) => {
+            APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
+          });
+          const token = JSON.parse(localStorage.getItem("token"));
+          await APROBAR_CONVENIO_EMPRESA(token.localId, this.datos);
+          //await ELIMINAR_EMPRESA(this.datos.nit);
+          await this.$emit("aprobado", true);
+          await Swal.fire(
+            "Aprobada!",
+            "Felicitaciones por el nuevo convenio 🤝",
+            "success"
+          );
+          this.carga = false;
+          this.dialog = !this.dialog;
         });
       } else {
         await Swal.fire(
