@@ -170,7 +170,7 @@ export default {
           confirmButtonText: "Si, esa es la empresa!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const convenios = [];
+            const convenios = this.datos.convenios;
             let responsable = "";
             let documento = "";
             await OBTENER_DATOS_USUARIO().then((result) => {
@@ -198,7 +198,7 @@ export default {
               "convenio_" + this.datos.nit + "_" + new Date().toDateString()
             )
               .then((result) => {
-                convenio.archivo = result.metadata.name;
+                convenio.archivo = result;
               })
               .catch((error) =>
                 Swal.fire("Error al subir el convenio", `${error},`, "error")

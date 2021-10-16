@@ -550,7 +550,9 @@ export default {
             );
           convenios.push(convenio);
           this.datos.convenios = convenios;
-          this.datos.programas.forEach((programas) => {
+          const programasAcademicos = this.datos.programas;
+          this.datos.programas = [];
+          programasAcademicos.forEach((programas) => {
             APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
           });
           const token = JSON.parse(localStorage.getItem("token"));
@@ -564,7 +566,7 @@ export default {
             departamento: this.datos.departamento,
             ciudad: this.datos.ciudad,
             direccion: this.datos.direccion,
-            programas: this.datos.programas,
+            programas: programasAcademicos,
             convenios: this.datos.convenios,
           };
           await APROBAR_EMPRESA(token.localId, datos);
