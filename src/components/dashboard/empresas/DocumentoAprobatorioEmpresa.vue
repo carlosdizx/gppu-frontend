@@ -159,6 +159,7 @@
             <v-switch
               v-model="edicion"
               label="Editar documentos de la empresa"
+              v-on:change="actualizacionDocumentos"
             />
             <validation-provider
               v-slot="{ errors }"
@@ -236,6 +237,9 @@
                 :disabled="!edicion"
               />
             </validation-provider>
+            <v-alert color="indigo" dark dense>
+              Subir documento de convenio 👇
+            </v-alert>
             <validation-provider
               v-slot="{ errors }"
               name="Documento de convenio"
@@ -243,6 +247,7 @@
             >
               <v-file-input
                 prepend-icon="mdi-handshake"
+                color="success"
                 v-model="convenio"
                 small-chips
                 outlined
@@ -328,10 +333,10 @@ export default {
     dialog: false,
     fechas: [],
     programas: [],
-    carta: null,
-    documento: null,
-    rut: null,
-    camara: null,
+    carta: {},
+    documento: {},
+    rut: {},
+    camara: {},
     edicion: false,
     convenio: null,
   }),
@@ -343,6 +348,19 @@ export default {
       await LISTAR_PROGRAMAS().then(
         (resultado) => (this.programas = Object.values(resultado.data))
       );
+    },
+    actualizacionDocumentos() {
+      if (this.edicion) {
+        this.carta = null;
+        this.documento = null;
+        this.rut = null;
+        this.camara = null;
+      } else {
+        this.carta = {};
+        this.documento = {};
+        this.rut = {};
+        this.camara = {};
+      }
     },
     async aprobar() {
       if (this.fechas.length === 2) {
