@@ -73,6 +73,7 @@
 import {
   ACTUALIZAR_CONVENIO_EMPRESA,
   APROBAR_CONVENIO_EMPRESA,
+  APROBAR_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
 } from "../../../services/recursos/empresaRS";
 import CalendarioRango from "../../general/CalendarioRango";
@@ -211,6 +212,28 @@ export default {
             this.datos.programas.forEach((programas) => {
               ACTUALIZAR_CONVENIO_EMPRESA(programas.id, this.datos);
             });
+            convenios.push(convenio);
+            this.datos.convenios = convenios;
+            const programasAcademicos = this.datos.programas;
+            this.datos.programas = [];
+            programasAcademicos.forEach((programas) => {
+              APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
+            });
+            const token = JSON.parse(localStorage.getItem("token"));
+            const datos = {
+              nit: this.datos.nit,
+              nombre: this.datos.nombre,
+              documento: this.datos.documento,
+              celular: this.datos.celular,
+              correo: this.datos.correo,
+              pais: this.datos.pais,
+              departamento: this.datos.departamento,
+              ciudad: this.datos.ciudad,
+              direccion: this.datos.direccion,
+              programas: programasAcademicos,
+              convenios: this.datos.convenios,
+            };
+            await APROBAR_EMPRESA(token.localId, datos);
             this.$emit("renovado", true);
             await Swal.fire("Renovado!", "Felicitaciones 🤝", "success");
             this.dialog = !this.dialog;
