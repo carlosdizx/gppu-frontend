@@ -138,7 +138,7 @@ export const APROBAR_CONVENIO_EMPRESA = async (programa: any, datos: any) => {
 
 export const APROBAR_EMPRESA = async (programa: any, datos: any) => {
   const token = JSON.parse(<string>localStorage.getItem("token"));
-  return await INSTACIA.put(
+  return await INSTACIA.patch(
     `usuarios/${programa}/empresas/aprobadas/${datos.nit}.json?auth=${token.idToken}`,
     JSON.stringify(datos),
     {

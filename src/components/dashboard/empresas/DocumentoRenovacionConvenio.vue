@@ -198,6 +198,45 @@ export default {
               responsable: responsable,
               documento: documento,
             };
+            await REGISTRAR_ARCHIVO_CONVENIO(
+              this.datos.nit,
+              this.convenio,
+              this.datos.nit + "_" + shortid.generate()
+            )
+              .then((result) => {
+                convenio.archivo = result;
+                console.log(JSON.parse(JSON.stringify(result)));
+              })
+              .catch((error) =>
+                Swal.fire("Error al subir el convenio", `${error},`, "error")
+              );
+            convenios.push(convenio);
+            this.datos.convenios = convenios;
+            const programasAcademicos = this.datos.programas;
+            this.datos.programas = [];
+            programasAcademicos.forEach((programas) => {
+              ACTUALIZAR_CONVENIO_EMPRESA(programas.id, this.datos);
+            });
+            const token = JSON.parse(localStorage.getItem("token"));
+            const datos = {
+              nit: this.datos.nit,
+              nombre: this.datos.nombre,
+              documento: this.datos.documento,
+              celular: this.datos.celular,
+              correo: this.datos.correo,
+              pais: this.datos.pais,
+              departamento: this.datos.departamento,
+              ciudad: this.datos.ciudad,
+              direccion: this.datos.direccion,
+              programas: programasAcademicos,
+              convenios: this.datos.convenios,
+            };
+            await APROBAR_EMPRESA(token.localId, datos);
+            await Swal.fire(
+              "Renovado!",
+              "Felicitaciones por el nuevo convenio 🤝",
+              "success"
+            );
             this.dialog = !this.dialog;
             this.carga = false;
           }

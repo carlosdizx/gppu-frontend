@@ -541,7 +541,7 @@ export default {
           await REGISTRAR_ARCHIVO_CONVENIO(
             this.datos.nit,
             this.convenio,
-            shortid.generate() + "_" + this.datos.nit + "_"
+            this.datos.nit + "_" + shortid.generate()
           )
             .then((result) => {
               convenio.archivo = result.metadata.name;
