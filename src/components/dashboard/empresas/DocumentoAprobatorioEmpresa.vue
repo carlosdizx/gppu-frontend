@@ -309,6 +309,7 @@ import {
   REGISTRO_ARCHIVO_EMPRESA,
 } from "../../../services/recursos/empresaRS";
 import Swal from "sweetalert2";
+import shortid from "shortid";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
 import { LISTAR_PROGRAMAS } from "../../../services/recursos/programaRS";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
@@ -540,7 +541,7 @@ export default {
           await REGISTRAR_ARCHIVO_CONVENIO(
             this.datos.nit,
             this.convenio,
-            "convenio_" + this.datos.nit + "_" + new Date().toDateString()
+            shortid.generate() + "_" + this.datos.nit + "_"
           )
             .then((result) => {
               convenio.archivo = result.metadata.name;

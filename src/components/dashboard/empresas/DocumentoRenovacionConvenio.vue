@@ -87,6 +87,7 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import shortid from "shortid";
 setInteractionMode("eager");
 
 {
@@ -199,7 +200,7 @@ export default {
             await REGISTRAR_ARCHIVO_CONVENIO(
               this.datos.nit,
               this.convenio,
-              "convenio_" + this.datos.nit + "_" + new Date().toDateString()
+              shortid.generate() + "_" + this.datos.nit + "_"
             )
               .then((result) => {
                 convenio.archivo = result.metadata.name;
