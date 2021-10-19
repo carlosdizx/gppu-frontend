@@ -192,21 +192,21 @@ export default {
               responsable: responsable,
               documento: documento,
             };
+            this.datos.periodo = null;
+            this.datos.dias = null;
+            convenios.push(convenio);
+            this.datos.convenios = convenios;
             await REGISTRAR_ARCHIVO_CONVENIO(
               this.datos.nit,
               this.convenio,
               "convenio_" + this.datos.nit + "_" + new Date().toDateString()
             )
               .then((result) => {
-                convenio.archivo = result;
+                convenio.archivo = result.metadata.name;
               })
               .catch((error) =>
                 Swal.fire("Error al subir el convenio", `${error},`, "error")
               );
-            this.datos.periodo = null;
-            this.datos.dias = null;
-            convenios.push(convenio);
-            this.datos.convenios = convenios;
             this.datos.programas.forEach((programas) => {
               ACTUALIZAR_CONVENIO_EMPRESA(programas.id, this.datos);
             });
