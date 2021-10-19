@@ -57,8 +57,9 @@
             <v-btn
               block
               color="green accent-4"
+              :loading="carga"
               @click="renovar"
-              :disabled="invalid"
+              :disabled="invalid || carga"
             >
               Renovar <v-icon>mdi-handshake</v-icon>
             </v-btn>
@@ -74,6 +75,7 @@ import {
   ACTUALIZAR_CONVENIO_EMPRESA,
   APROBAR_CONVENIO_EMPRESA,
   APROBAR_EMPRESA,
+  ELIMINAR_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
 } from "../../../services/recursos/empresaRS";
 import CalendarioRango from "../../general/CalendarioRango";
@@ -126,6 +128,7 @@ export default {
     fechas: [],
     programas: [],
     convenio: null,
+    carga: false,
   }),
   props: {
     datos: Object,
@@ -152,6 +155,15 @@ export default {
           );
         }
 
+        this.datos.inicio = this.fechas[0];
+        this.datos.fin = this.fechas[1];
+        const convenios = this.datos.convenios;
+        let responsable = "";
+        let documento = "";
+        await OBTENER_DATOS_USUARIO().then((result) => {
+          responsable = result.data.nombres + " " + result.data.apellidos;
+          documento = result.data.documento;
+        });
         if (this.convenio.type !== "application/pdf") {
           return Swal.fire(
             "El documento del convenio es erroneo",
@@ -172,15 +184,7 @@ export default {
           confirmButtonText: "Si, esa es la empresa!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const convenios = this.datos.convenios;
-            let responsable = "";
-            let documento = "";
-            await OBTENER_DATOS_USUARIO().then((result) => {
-              responsable = result.data.nombres + " " + result.data.apellidos;
-              documento = result.data.documento;
-            });
-            this.datos.inicio = this.fechas[0];
-            this.datos.fin = this.fechas[1];
+            this.carga = true;
             const fecha_hoy = new Date();
             const convenio = {
               inicio: this.fechas[0],
@@ -194,49 +198,8 @@ export default {
               responsable: responsable,
               documento: documento,
             };
-            this.datos.periodo = null;
-            this.datos.dias = null;
-            convenios.push(convenio);
-            this.datos.convenios = convenios;
-            await REGISTRAR_ARCHIVO_CONVENIO(
-              this.datos.nit,
-              this.convenio,
-              shortid.generate() + "_" + this.datos.nit + "_"
-            )
-              .then((result) => {
-                convenio.archivo = result.metadata.name;
-              })
-              .catch((error) =>
-                Swal.fire("Error al subir el convenio", `${error},`, "error")
-              );
-            this.datos.programas.forEach((programas) => {
-              ACTUALIZAR_CONVENIO_EMPRESA(programas.id, this.datos);
-            });
-            convenios.push(convenio);
-            this.datos.convenios = convenios;
-            const programasAcademicos = this.datos.programas;
-            this.datos.programas = [];
-            programasAcademicos.forEach((programas) => {
-              APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
-            });
-            const token = JSON.parse(localStorage.getItem("token"));
-            const datos = {
-              nit: this.datos.nit,
-              nombre: this.datos.nombre,
-              documento: this.datos.documento,
-              celular: this.datos.celular,
-              correo: this.datos.correo,
-              pais: this.datos.pais,
-              departamento: this.datos.departamento,
-              ciudad: this.datos.ciudad,
-              direccion: this.datos.direccion,
-              programas: programasAcademicos,
-              convenios: this.datos.convenios,
-            };
-            await APROBAR_EMPRESA(token.localId, datos);
-            this.$emit("renovado", true);
-            await Swal.fire("Renovado!", "Felicitaciones 🤝", "success");
             this.dialog = !this.dialog;
+            this.carga = false;
           }
         });
       } else {
