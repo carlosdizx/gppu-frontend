@@ -161,7 +161,15 @@ export default {
         console.log(error);
       }
     },
+
     async registrarworkstation() {
+      if (!(this.empresa.nit && this.estudiante.documento)) {
+        return Swal.fire(
+          "Datos suministrados son erroneos",
+          "Solo seleccione los datos, no se los invente 😒",
+          "error"
+        );
+      }
       this.estudiante.estado = 3;
       const token = JSON.parse(localStorage.getItem("token"));
       await ESTUDIANTE_PASANTE(token.localId, this.estudiante);
