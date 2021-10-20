@@ -15,7 +15,7 @@
         <br />
         <h2>1. Responsables del tratamiento de los datos</h2>
         <v-divider />
-        <h3>Universidad Mariana</h3>
+        <h3>{{ universidad }}</h3>
         NIT: 800092198-5 <br />
         Dirección: Calle 18 No. 34-104 Pasto (N) <br />
         Correo electrónico: informacion@umariana.edu.co <br />
@@ -31,8 +31,22 @@
         <br /><br />
         <h2>2. Tratamiento y finalidad</h2>
         <v-divider />
-        El tratamiento a la información que realizará la Universidad Mariana con
-        el aval de CUEEN, será:
+        El tratamiento a la información que realizará la entidad
+        {{ universidad }} con el aval de CUEEN, será: <br /><br />
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+        <v-divider />
+        <br /><br />
+        <h2>3. Derechos del titular</h2>
+        <v-divider />
+        Como titular de la información tiene derecho a:
         <br /><br />
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -56,6 +70,7 @@ export default {
   name: "DocumentoPoliticas",
   data: () => ({
     dialog: false,
+    universidad: "Universidad Mariana",
   }),
 };
 </script>
