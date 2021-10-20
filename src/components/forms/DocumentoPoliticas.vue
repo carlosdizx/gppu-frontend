@@ -4,13 +4,13 @@
       <v-icon>mdi-close</v-icon>
     </v-btn>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="orange darken-2" text v-bind="attrs" v-on="on">
+      <v-btn color="primary darken-2" text v-bind="attrs" v-on="on">
         Politicas y normativas
       </v-btn>
     </template>
     <v-card>
       <v-card-text>
-        <h1>Políticas de Tratamiento de la Información de datos</h1>
+        <h1>Políticas de tratamiento de la información y de datos</h1>
         <br />
         <br />
         <h2>1. Responsables del tratamiento de los datos</h2>
