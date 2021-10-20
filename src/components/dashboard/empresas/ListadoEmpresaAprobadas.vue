@@ -40,7 +40,6 @@ import DocumentosEmpresa from "./DocumentosEmpresa";
 import ListadoConveniosEmpresa from "./ListadoConveniosEmpresa";
 import DocumentoRenovacionConvenio from "./DocumentoRenovacionConvenio";
 import Vue from "vue";
-import moment from "moment";
 
 export default Vue.extend({
   name: "ListadoEmpresaAprobadas",

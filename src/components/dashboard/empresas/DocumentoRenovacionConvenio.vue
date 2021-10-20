@@ -76,6 +76,7 @@ import {
   APROBAR_CONVENIO_EMPRESA,
   APROBAR_EMPRESA,
   ELIMINAR_EMPRESA,
+  LISTAR_ARCHIVO_CONVENIO_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
 } from "../../../services/recursos/empresaRS";
 import CalendarioRango from "../../general/CalendarioRango";
@@ -147,23 +148,13 @@ export default {
         if (diferencia < 61) {
           return Swal.fire(
             "Fechas erroneas",
-            `Las fechas estan mal,deben durar mas de 61 dias y
+            `Las fechas estan mal,deben durar mas de 60 dias y
             la fecha de fin de convenio tiene que ser mayor a la
              fecha de inicio de convenio
              <br/>Diferencia en dias ${diferencia}`,
             "error"
           );
         }
-
-        this.datos.inicio = this.fechas[0];
-        this.datos.fin = this.fechas[1];
-        const convenios = this.datos.convenios;
-        let responsable = "";
-        let documento = "";
-        await OBTENER_DATOS_USUARIO().then((result) => {
-          responsable = result.data.nombres + " " + result.data.apellidos;
-          documento = result.data.documento;
-        });
         if (this.convenio.type !== "application/pdf") {
           return Swal.fire(
             "El documento del convenio es erroneo",
@@ -173,10 +164,7 @@ export default {
         }
         await Swal.fire({
           title: "¿Renovar convenio con esta empresa?",
-          text:
-            "Soy conciente de que la informacion es correcta" +
-            `Nit: ${this.datos.nit}
-           Nombre: ${this.datos.nombre}`,
+          text: "Soy conciente de que la informacion es correcta",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#0f76b7",
@@ -185,6 +173,15 @@ export default {
         }).then(async (result) => {
           if (result.isConfirmed) {
             this.carga = true;
+            this.datos.inicio = this.fechas[0];
+            this.datos.fin = this.fechas[1];
+            const convenios = this.datos.convenios;
+            let responsable = "";
+            let documento = "";
+            await OBTENER_DATOS_USUARIO().then((result) => {
+              responsable = result.data.nombres + " " + result.data.apellidos;
+              documento = result.data.documento;
+            });
             const fecha_hoy = new Date();
             const convenio = {
               inicio: this.fechas[0],
@@ -204,12 +201,15 @@ export default {
               this.datos.nit + "_" + shortid.generate()
             )
               .then((result) => {
-                convenio.archivo = result;
-                console.log(JSON.parse(JSON.stringify(result)));
+                convenio.archivo = result.metadata.name;
               })
               .catch((error) =>
                 Swal.fire("Error al subir el convenio", `${error},`, "error")
               );
+            convenio.archivo = await LISTAR_ARCHIVO_CONVENIO_EMPRESA(
+              this.datos.nit,
+              convenio.archivo
+            );
             convenios.push(convenio);
             this.datos.convenios = convenios;
             const programasAcademicos = this.datos.programas;

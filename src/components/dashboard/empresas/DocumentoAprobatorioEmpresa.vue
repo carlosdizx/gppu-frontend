@@ -398,23 +398,13 @@ export default {
         if (diferencia < 61) {
           return Swal.fire(
             "Fechas erroneas",
-            `Las fechas estan mal,deben durar mas de 61 dias y
+            `Las fechas estan mal,deben durar mas de 60 dias y
             la fecha de fin de convenio tiene que ser mayor a la
              fecha de inicio de convenio
              <br/>Diferencia en dias ${diferencia}`,
             "error"
           );
         }
-        this.datos.inicio = this.fechas[0];
-        this.datos.fin = this.fechas[1];
-        const convenios = [];
-        let responsable = "";
-        let documento = "";
-        await OBTENER_DATOS_USUARIO().then((result) => {
-          responsable = result.data.nombres + " " + result.data.apellidos;
-          documento = result.data.documento;
-        });
-
         if (this.convenio.type !== "application/pdf") {
           return Swal.fire(
             "El documento del convenio es erroneo",
@@ -423,13 +413,13 @@ export default {
           );
         }
         await Swal.fire({
-          title: "¿Aprobar convenio con esta empresa?",
-          text: `Soy conciente de que la informacion es correcta`,
+          title: "¿Renovar convenio con esta empresa?",
+          text: "Soy conciente de que la informacion es correcta",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#0f76b7",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Si, cumple con las validaciones!",
+          confirmButtonText: "Si, esa es la empresa!",
         }).then(async (result) => {
           if (result.isConfirmed) {
             this.carga = true;
@@ -523,63 +513,71 @@ export default {
                 )
               );
             }
-          }
-
-          const fecha_hoy = new Date();
-          const convenio = {
-            inicio: this.fechas[0],
-            fin: this.fechas[1],
-            generado:
-              fecha_hoy.getFullYear() +
-              "-" +
-              (fecha_hoy.getMonth() + 1) +
-              "-" +
-              fecha_hoy.getDate(),
-            responsable: responsable,
-            documento: documento,
-          };
-          await REGISTRAR_ARCHIVO_CONVENIO(
-            this.datos.nit,
-            this.convenio,
-            this.datos.nit + "_" + shortid.generate()
-          )
-            .then((result) => {
-              convenio.archivo = result.metadata.name;
-            })
-            .catch((error) =>
-              Swal.fire("Error al subir el convenio", `${error},`, "error")
+            this.datos.inicio = this.fechas[0];
+            this.datos.fin = this.fechas[1];
+            const convenios = [];
+            let responsable = "";
+            let documento = "";
+            await OBTENER_DATOS_USUARIO().then((result) => {
+              responsable = result.data.nombres + " " + result.data.apellidos;
+              documento = result.data.documento;
+            });
+            const fecha_hoy = new Date();
+            const convenio = {
+              inicio: this.fechas[0],
+              fin: this.fechas[1],
+              generado:
+                fecha_hoy.getFullYear() +
+                "-" +
+                (fecha_hoy.getMonth() + 1) +
+                "-" +
+                fecha_hoy.getDate(),
+              responsable: responsable,
+              documento: documento,
+            };
+            await REGISTRAR_ARCHIVO_CONVENIO(
+              this.datos.nit,
+              this.convenio,
+              this.datos.nit + "_" + shortid.generate()
+            )
+              .then((result) => {
+                convenio.archivo = result.metadata.name;
+              })
+              .catch((error) =>
+                Swal.fire("Error al subir el convenio", `${error},`, "error")
+              );
+            convenios.push(convenio);
+            this.datos.convenios = convenios;
+            const programasAcademicos = this.datos.programas;
+            this.datos.programas = [];
+            programasAcademicos.forEach((programas) => {
+              APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
+            });
+            const token = JSON.parse(localStorage.getItem("token"));
+            const datos = {
+              nit: this.datos.nit,
+              nombre: this.datos.nombre,
+              documento: this.datos.documento,
+              celular: this.datos.celular,
+              correo: this.datos.correo,
+              pais: this.datos.pais,
+              departamento: this.datos.departamento,
+              ciudad: this.datos.ciudad,
+              direccion: this.datos.direccion,
+              programas: programasAcademicos,
+              convenios: this.datos.convenios,
+            };
+            await APROBAR_EMPRESA(token.localId, datos);
+            await ELIMINAR_EMPRESA(this.datos.nit);
+            await this.$emit("aprobado", true);
+            await Swal.fire(
+              "Aprobada!",
+              "Felicitaciones por el nuevo convenio 🤝",
+              "success"
             );
-          convenios.push(convenio);
-          this.datos.convenios = convenios;
-          const programasAcademicos = this.datos.programas;
-          this.datos.programas = [];
-          programasAcademicos.forEach((programas) => {
-            APROBAR_CONVENIO_EMPRESA(programas.id, this.datos);
-          });
-          const token = JSON.parse(localStorage.getItem("token"));
-          const datos = {
-            nit: this.datos.nit,
-            nombre: this.datos.nombre,
-            documento: this.datos.documento,
-            celular: this.datos.celular,
-            correo: this.datos.correo,
-            pais: this.datos.pais,
-            departamento: this.datos.departamento,
-            ciudad: this.datos.ciudad,
-            direccion: this.datos.direccion,
-            programas: programasAcademicos,
-            convenios: this.datos.convenios,
-          };
-          await APROBAR_EMPRESA(token.localId, datos);
-          await ELIMINAR_EMPRESA(this.datos.nit);
-          await this.$emit("aprobado", true);
-          await Swal.fire(
-            "Aprobada!",
-            "Felicitaciones por el nuevo convenio 🤝",
-            "success"
-          );
-          this.carga = false;
-          this.dialog = !this.dialog;
+            this.carga = false;
+            this.dialog = !this.dialog;
+          }
         });
       } else {
         await Swal.fire(
