@@ -13,7 +13,7 @@
         <v-card>
           <v-card-title>{{ datos.nombre }} | {{ datos.nit }}</v-card-title>
           <v-card-text>
-            <v-form>
+            <v-form :disabled="carga">
               <validation-provider
                 v-slot="{ errors }"
                 name="Programas académicos"
@@ -51,7 +51,7 @@
                 />
               </validation-provider>
             </v-form>
-            <CalendarioRango @fecha="fechas = $event" />
+            <CalendarioRango :disabled="carga" @fecha="fechas = $event" />
           </v-card-text>
           <v-card-actions>
             <v-btn

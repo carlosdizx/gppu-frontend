@@ -482,6 +482,7 @@ import {
 import Swal from "sweetalert2";
 import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 import { OBTENER_DATOS_USUARIO, OBTENER_HABILIDADES } from "@/services/auth";
+import router from "@/router";
 
 setInteractionMode("eager");
 
@@ -644,6 +645,7 @@ export default {
           "success"
         );
         this.carga = false;
+        await router.push("/about");
       }
     },
     async listadoProgramas() {
