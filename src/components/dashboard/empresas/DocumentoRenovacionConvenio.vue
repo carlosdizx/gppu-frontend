@@ -73,10 +73,7 @@
 <script>
 import {
   ACTUALIZAR_CONVENIO_EMPRESA,
-  APROBAR_CONVENIO_EMPRESA,
   APROBAR_EMPRESA,
-  ELIMINAR_EMPRESA,
-  LISTAR_ARCHIVO_CONVENIO_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
 } from "../../../services/recursos/empresaRS";
 import CalendarioRango from "../../general/CalendarioRango";
@@ -206,10 +203,6 @@ export default {
               .catch((error) =>
                 Swal.fire("Error al subir el convenio", `${error},`, "error")
               );
-            convenio.archivo = await LISTAR_ARCHIVO_CONVENIO_EMPRESA(
-              this.datos.nit,
-              convenio.archivo
-            );
             convenios.push(convenio);
             this.datos.convenios = convenios;
             const programasAcademicos = this.datos.programas;
@@ -237,6 +230,8 @@ export default {
               "Felicitaciones por el nuevo convenio 🤝",
               "success"
             );
+            this.datos.programas = datos.programas;
+            this.$emit("renovado", true);
             this.dialog = !this.dialog;
             this.carga = false;
           }

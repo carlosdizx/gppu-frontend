@@ -53,9 +53,8 @@ export default {
   },
   async created() {
     for (const convenio of this.convenios) {
-      convenio.archivo = await LISTAR_ARCHIVO_CONVENIO_EMPRESA(
-        this.nit,
-        convenio.archivo
+      LISTAR_ARCHIVO_CONVENIO_EMPRESA(this.nit, convenio.archivo).then(
+        (url) => (convenio.archivo = url)
       );
     }
   },
