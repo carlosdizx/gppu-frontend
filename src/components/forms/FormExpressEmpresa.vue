@@ -86,10 +86,10 @@
                 <v-checkbox v-model="checkbox">
                   <template v-slot:label>
                     <div>
-                      Aceptar nuestras políticas y condiciones sobre el
-                      tratamiento de datos, Estamos comprometidos con la
-                      protección de los mismos para consultarlos cuando sea
-                      requerido
+                      Acepta las políticas y condiciones sobre el tratamiento de
+                      datos
+                      <br />
+                      <DocumentoPoliticas />
                     </div>
                   </template>
                 </v-checkbox>
@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import DocumentoPoliticas from "./DocumentoPoliticas";
 import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresaRS";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
@@ -161,6 +162,7 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
+    DocumentoPoliticas,
   },
   data: () => ({
     dialog: false,
