@@ -225,6 +225,7 @@
                   Aceptar nuestras políticas y condiciones sobre el tratamiento
                   de datos, Estamos comprometidos con la protección de los
                   mismos para consultarlos cuando sea requerido
+                  <DocumentoPoliticas />
                 </div>
               </template>
             </v-checkbox>
@@ -265,6 +266,7 @@
 
 <script>
 import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
+import DocumentoPoliticas from "@/components/forms/DocumentoPoliticas";
 import {
   REGISTRO_DATOS_EMPRESA,
   EMPRESA_PENDIENTE_YA_REGISTRADA,
@@ -316,6 +318,7 @@ export default {
     ValidationObserver,
     ValidationProvider,
     FormExpressEmpresa,
+    DocumentoPoliticas,
   },
   data: () => ({
     nit: "1985495561-1",
