@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="6">
             <v-form>
-              <v-autocomplete
+              <v-combobox
                 v-model="empresa"
                 :items="empresas"
                 item-text="nombre"
@@ -50,7 +50,7 @@
           </v-col>
           <v-col cols="6">
             <v-form>
-              <v-autocomplete
+              <v-combobox
                 v-model="estudiante"
                 :items="estudiantes"
                 item-text="documento"
