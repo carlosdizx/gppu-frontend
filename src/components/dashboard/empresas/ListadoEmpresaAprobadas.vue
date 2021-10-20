@@ -66,6 +66,7 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
+        this.$mount();
         this.filas = [];
         const token = JSON.parse(localStorage.getItem("token"));
         await LISTAR_EMPRESAS_APROBADAS(token.localId).then(
@@ -80,7 +81,7 @@ export default Vue.extend({
       }
     },
   },
-  created() {
+  mounted() {
     this.cargarEmpresas();
   },
 });
