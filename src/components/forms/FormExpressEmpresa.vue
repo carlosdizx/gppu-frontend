@@ -89,10 +89,14 @@
                       Acepta las políticas y condiciones sobre el tratamiento de
                       datos
                       <br />
-                      <DocumentoPoliticas />
+                      <small>
+                        **Estamos comprometidos con la protección de los mismos
+                        para consultarlos cuando sea requerido**
+                      </small>
                     </div>
                   </template>
                 </v-checkbox>
+                <DocumentoPoliticas />
               </v-container>
             </template>
           </v-card-text>

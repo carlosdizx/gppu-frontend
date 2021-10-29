@@ -229,10 +229,10 @@
                     **Estamos comprometidos con la protección de los mismos para
                     consultarlos cuando sea requerido**
                   </small>
-                  <DocumentoPoliticas />
                 </div>
               </template>
             </v-checkbox>
+            <DocumentoPoliticas />
           </v-container>
         </template>
       </v-card-text>
@@ -325,15 +325,15 @@ export default {
     DocumentoPoliticas,
   },
   data: () => ({
-    nit: "1985495561-1",
-    nombre: "Empresa 0",
-    documento: "4152685485741",
-    celular: "3151456569",
-    correo: "empresa@mail.com",
-    pais: "Colombia",
-    departamento: "Nariño",
-    ciudad: "Pasto",
-    direccion: "Por ai",
+    nit: "",
+    nombre: "",
+    documento: "",
+    celular: "",
+    correo: "",
+    pais: "",
+    departamento: "",
+    ciudad: "",
+    direccion: "",
     archivoDocumento: null,
     archivoRut: null,
     archivoCamara: null,

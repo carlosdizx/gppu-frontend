@@ -428,10 +428,10 @@
                   **Estamos comprometidos con la protección de los mismos para
                   consultarlos cuando sea requerido**
                 </small>
-                <DocumentoPoliticas />
               </div>
             </template>
           </v-checkbox>
+          <DocumentoPoliticas />
         </v-container>
       </template>
 
@@ -486,7 +486,7 @@ import {
 } from "@/services/recursos/estudianteRS";
 import Swal from "sweetalert2";
 import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
-import { OBTENER_DATOS_USUARIO, OBTENER_HABILIDADES } from "@/services/auth";
+import { OBTENER_HABILIDADES } from "@/services/auth";
 import router from "@/router";
 
 setInteractionMode("eager");
