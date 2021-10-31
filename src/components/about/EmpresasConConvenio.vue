@@ -4,7 +4,7 @@
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>
-            Empresas que ya formalizaron uno o más convenio
+            Empresas que ya formalizaron uno o más convenios
           </v-toolbar-title>
         </v-toolbar>
       </template>
