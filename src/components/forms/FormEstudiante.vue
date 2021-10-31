@@ -33,7 +33,7 @@
           <validation-provider
             v-slot="{ errors }"
             name="Nombres"
-            rules="required|min:5|max:60"
+            rules="required"
           >
             <v-text-field
               v-model="nombres"
@@ -46,7 +46,7 @@
           <validation-provider
             v-slot="{ errors }"
             name="Apellidos"
-            rules="required|min:5|max:60"
+            rules="required"
           >
             <v-text-field
               v-model="apellidos"
