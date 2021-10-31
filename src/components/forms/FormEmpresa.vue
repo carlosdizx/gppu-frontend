@@ -379,6 +379,23 @@ export default {
           "error"
         );
       }
+      if (this.programasSeleccionados) {
+        let invalido = false;
+        const invalidos = [];
+        this.programasSeleccionados.forEach((programa) => {
+          if (!programa.id) {
+            invalido = true;
+            invalidos.push(programa);
+          }
+        });
+        if (invalido) {
+          return Swal.fire(
+            "Programa academico incorrecto",
+            "Vuelva a seleccionar los programas academicos, no digite el nombre completo",
+            "error"
+          );
+        }
+      }
       const datos = {
         nit: this.nit,
         nombre: this.nombre,

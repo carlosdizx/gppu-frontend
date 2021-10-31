@@ -38,6 +38,42 @@
               counter
             />
           </validation-provider>
+          <v-row>
+            <v-col cols="6">
+              <validation-provider
+                v-slot="{ errors }"
+                name="Tipo doc..."
+                rules="required"
+              >
+                <v-select
+                  v-model="tipoDoc"
+                  label="Tipo de documento"
+                  :items="[
+                    'Cedula de ciudadania',
+                    'Tarjeta de identidad',
+                    'Otro',
+                  ]"
+                  prepend-icon="mdi-format-list-bulleted-type"
+                  :error-messages="errors"
+                />
+              </validation-provider>
+            </v-col>
+            <v-col cols="6">
+              <validation-provider
+                v-slot="{ errors }"
+                name="Documento"
+                rules="required|min:5|max:30"
+              >
+                <v-text-field
+                  v-model="documento"
+                  append-icon="mdi-card-account-details"
+                  label="Número de documento"
+                  :error-messages="errors"
+                  counter
+                />
+              </validation-provider>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
 
@@ -140,6 +176,8 @@ export default {
     checkbox: false,
     nombres: "",
     apellidos: "",
+    tipoDoc: "",
+    documento: "",
   }),
 };
 </script>
