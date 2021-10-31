@@ -8,9 +8,9 @@
       :tabs="tabs"
       @indice="indice = $event"
     />
-    <FormEmpresa v-if="indice === 1" />
-    <FormEstudiante v-if="indice === 2" />
-    <FormDocente v-if="indice === 3" />
+    <FormEmpresa v-show="indice === 1" />
+    <FormEstudiante v-show="indice === 2" />
+    <FormDocente v-show="indice === 3" />
   </div>
 </template>
 
@@ -23,11 +23,7 @@ export default {
   name: "ToolbarRegistro",
   components: { Toolbar, FormEmpresa, FormEstudiante, FormDocente },
   data: () => ({
-    tabs: [
-      "mdi-office-building-marker-outline",
-      "mdi-school",
-      "mdi-school-outline",
-    ],
+    tabs: ["mdi-office-building-marker-outline", "mdi-school", "mdi-teach"],
     indice: 1,
   }),
   methods: {},
