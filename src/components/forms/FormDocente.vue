@@ -14,6 +14,24 @@
         <v-form autocomplete="off" :disabled="carga">
           <validation-provider
             v-slot="{ errors }"
+            name="Programa académico"
+            rules="required"
+          >
+            <v-combobox
+              v-model="programa"
+              :items="programas"
+              item-text="nombre"
+              label="Programa académico"
+              :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+              v-on:change="listadoHabilidades"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
             name="Nombres"
             rules="required"
           >
@@ -74,6 +92,25 @@
               </validation-provider>
             </v-col>
           </v-row>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Opciones de habilidades"
+            rules="required"
+          >
+            <v-combobox
+              v-model="habilidadeSeleccionadas"
+              :items="habilidades"
+              item-text="nombre"
+              label="Habilidades"
+              hint="Puede proponer"
+              :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+              multiple
+            />
+          </validation-provider>
         </v-form>
       </v-card-text>
 
@@ -128,6 +165,9 @@
 
 <script>
 import DocumentoPoliticas from "./DocumentoPoliticas";
+import Swal from "sweetalert2";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
+import { OBTENER_HABILIDADES } from "@/services/auth";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -135,6 +175,7 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+
 setInteractionMode("eager");
 
 {
@@ -174,11 +215,44 @@ export default {
   data: () => ({
     carga: false,
     checkbox: false,
+    programas: [],
+    programa: null,
+    habilidades: [],
+    habilidadeSeleccionadas: [],
     nombres: "",
     apellidos: "",
     tipoDoc: "",
     documento: "",
   }),
+  methods: {
+    async listadoProgramas() {
+      await LISTAR_PROGRAMAS().then(
+        (resultado) => (this.programas = Object.values(resultado.data))
+      );
+    },
+    async listadoHabilidades() {
+      if (this.programa) {
+        if (!this.programa.id) {
+          return Swal.fire(
+            "Programa academico incorrecto",
+            "Vuelva a seleccionar el programa academico, no digite el nombre completo",
+            "error"
+          );
+        }
+      }
+      if (this.programa != null) {
+        this.habilidadeSeleccionadas = [];
+        await OBTENER_HABILIDADES(this.programa.id).then(
+          (resultado) => (this.habilidades = resultado.data)
+        );
+      } else {
+        this.habilidades = [];
+      }
+    },
+  },
+  async mounted() {
+    await this.listadoProgramas();
+  },
 };
 </script>
 

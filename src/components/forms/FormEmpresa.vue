@@ -390,7 +390,7 @@ export default {
         });
         if (invalido) {
           return Swal.fire(
-            "Programa academico incorrecto",
+            "Programas academicos incorrectos",
             "Vuelva a seleccionar los programas academicos, no digite el nombre completo",
             "error"
           );

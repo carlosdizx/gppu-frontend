@@ -664,6 +664,15 @@ export default {
       );
     },
     async listadoHabilidades() {
+      if (this.programa) {
+        if (!this.programa.id) {
+          return Swal.fire(
+            "Programa academico incorrecto",
+            "Vuelva a seleccionar el programa academico, no digite el nombre completo",
+            "error"
+          );
+        }
+      }
       if (this.programa != null) {
         this.habilidadeSeleccionadas = [];
         await OBTENER_HABILIDADES(this.programa.id).then(
