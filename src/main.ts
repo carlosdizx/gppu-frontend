@@ -11,14 +11,14 @@ import firebase from "firebase/app";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDO8hVE9rxb9oP38kTH4qRhqxUcHNtAi3w",
-  authDomain: "gppu-backend.firebaseapp.com",
-  databaseURL: "https://gppu-backend-default-rtdb.firebaseio.com",
-  projectId: "gppu-backend",
-  storageBucket: "gppu-backend.appspot.com",
-  messagingSenderId: "512100142634",
-  appId: "1:512100142634:web:b8a6d707db524a553e3d53",
-  measurementId: "G-H1PD88776G",
+  apiKey: "AIzaSyA_ZD2E_MljH_mKuX78Z0IUpw5PRfF4Z24",
+  authDomain: "gceu-gestion.firebaseapp.com",
+  databaseURL: "https://gceu-gestion-default-rtdb.firebaseio.com",
+  projectId: "gceu-gestion",
+  storageBucket: "gceu-gestion.appspot.com",
+  messagingSenderId: "66955649732",
+  appId: "1:66955649732:web:13c4d412ca612e00aedf91",
+  measurementId: "G-G2790SS2B0",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
