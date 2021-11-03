@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Bienvenido, a la plataforma GCEU</v-card-title>
+      <v-card-text><h2>Bienvenido, a la plataforma GCEU</h2></v-card-text>
       <v-alert>
         En la parte superior izquierda de la pantalla encontrará un icono
         <v-icon>mdi-view-sequential</v-icon> con la cual podrá navegar sobre las
@@ -19,7 +19,7 @@
         plataforma está bajo responsabilidad de un grupo selecto de personas
         incluyendolo.
       </v-alert>
-      <v-card-title> Tips </v-card-title>
+      <v-card-text><h2>Tips</h2></v-card-text>
       <v-alert>
         - No comparta sus credenciales de acceso. <br /><br />
         - Se le ha delegado la autorización a una parte de la información del
