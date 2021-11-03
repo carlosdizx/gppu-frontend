@@ -19,12 +19,19 @@
             Convenios
           </v-toolbar>
         </template>
+        <template v-slot:item.archivo="{ item }">
+          <v-btn :href="item.archivo" target="_blank">
+            Ver documento <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </template>
       </v-data-table>
     </v-container>
   </v-dialog>
 </template>
 
 <script>
+import { LISTAR_ARCHIVO_CONVENIO_EMPRESA } from "../../../services/recursos/empresaRS";
+
 export default {
   name: "ListadoConveniosEmpresa",
   components: {},
@@ -34,12 +41,22 @@ export default {
       { text: "Fecha inicio", value: "inicio" },
       { text: "Fecha fin", value: "fin" },
       { text: "Fecha de generación", value: "generado" },
+      { text: "Responsable", value: "responsable" },
+      { text: "Documento responsable", value: "documento" },
+      { text: "Archivo", value: "archivo" },
     ],
   }),
   props: {
     convenios: Array,
     nombre: String,
     nit: String,
+  },
+  async created() {
+    for (const convenio of this.convenios) {
+      LISTAR_ARCHIVO_CONVENIO_EMPRESA(this.nit, convenio.archivo).then(
+        (url) => (convenio.archivo = url)
+      );
+    }
   },
 };
 </script>

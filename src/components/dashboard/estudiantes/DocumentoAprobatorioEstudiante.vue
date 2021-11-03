@@ -16,30 +16,16 @@
         <v-form>
           <v-alert class="text-center" dense dark color="secondary">
             Actualizar Datos
-            <v-btn
-              fab
-              small
-              color="secondary"
-              @click="actualizarDatos"
-              :disabled="actualiza"
-            >
+            <v-btn fab small color="secondary" @click="actualizarDatos">
               <v-icon>mdi-update</v-icon>
             </v-btn>
           </v-alert>
           <v-text-field label="Documento" v-model="datos.documento" disabled />
-          <v-text-field label="Nombres" v-model="datos.nombres" disabled />
-          <v-text-field label="Apellidos" v-model="datos.apellidos" disabled />
-          <v-text-field label="Tipo Doc." v-model="datos.tipoDoc" disabled />
-          <v-text-field
-            label="F. expedición"
-            v-model="datos.fechaExp"
-            disabled
-          />
-          <v-text-field
-            label="F. nacimiento"
-            v-model="datos.fechaNaci"
-            disabled
-          />
+          <v-text-field label="Nombres" v-model="datos.nombres" />
+          <v-text-field label="Apellidos" v-model="datos.apellidos" />
+          <v-text-field label="Tipo Doc." v-model="datos.tipoDoc" />
+          <v-text-field label="F. expedición" v-model="datos.fechaExp" />
+          <v-text-field label="F. nacimiento" v-model="datos.fechaNaci" />
           <v-text-field label="Género" v-model="datos.genero" />
           <v-text-field label="EPS" v-model="datos.eps" />
           <v-text-field label="País" v-model="datos.pais" />
@@ -164,7 +150,6 @@ export default {
   data() {
     return {
       dialog: false,
-      actualiza: false,
       url: "",
     };
   },
@@ -201,7 +186,6 @@ export default {
       });
     },
     async actualizarDatos() {
-      console.log("actualizar");
       await Swal.fire({
         title: "¿Esta seguro de Actualizar los datos del estudiante?",
         text:

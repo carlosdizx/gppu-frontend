@@ -18,5 +18,3 @@ export default {
   name: "ToolbarUsuario",
 };
 </script>
-
-<style scoped></style>

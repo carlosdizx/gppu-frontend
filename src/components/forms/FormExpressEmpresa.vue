@@ -86,13 +86,17 @@
                 <v-checkbox v-model="checkbox">
                   <template v-slot:label>
                     <div>
-                      Aceptar nuestras políticas y condiciones sobre el
-                      tratamiento de datos, Estamos comprometidos con la
-                      protección de los mismos para consultarlos cuando sea
-                      requerido
+                      Acepta las políticas y condiciones sobre el tratamiento de
+                      datos
+                      <br />
+                      <small>
+                        **Estamos comprometidos con la protección de los mismos
+                        para consultarlos cuando sea requerido**
+                      </small>
                     </div>
                   </template>
                 </v-checkbox>
+                <DocumentoPoliticas />
               </v-container>
             </template>
           </v-card-text>
@@ -116,6 +120,7 @@
 </template>
 
 <script>
+import DocumentoPoliticas from "./DocumentoPoliticas";
 import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresaRS";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
@@ -161,6 +166,7 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
+    DocumentoPoliticas,
   },
   data: () => ({
     dialog: false,
@@ -169,7 +175,6 @@ export default {
     telefono: null,
     correo: "",
     checkbox: false,
-    programas: [],
   }),
   methods: {
     async registrarExpress() {
@@ -179,9 +184,7 @@ export default {
         telefono: this.telefono,
         correo: this.correo,
       };
-      await this.programas.forEach((programa) => {
-        REGISTRO_DATOS_EXPRESS_EMPRESA(programa.id, datos);
-      });
+      await REGISTRO_DATOS_EXPRESS_EMPRESA(datos);
       await Swal.fire(
         "Datos registrados exitosamente",
         "En un plazo de 2 (dos) días hábiles recibirá información " +
@@ -190,14 +193,6 @@ export default {
       );
       await router.push("/about");
     },
-    async listadoProgramas() {
-      await LISTAR_PROGRAMAS().then(
-        (resultado) => (this.programas = Object.values(resultado.data))
-      );
-    },
-  },
-  async mounted() {
-    await this.listadoProgramas();
   },
 };
 </script>

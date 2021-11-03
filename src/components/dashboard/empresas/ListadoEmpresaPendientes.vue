@@ -9,7 +9,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.nit="{ item }">
-        <DocumentosEmpresa :nit="item.nit" />
+        <DocumentosEmpresa :nit="item.nit" tipo />
       </template>
       <template v-slot:item.acciones="{ item }">
         <v-btn
@@ -50,7 +50,7 @@ export default Vue.extend({
       { text: "País", value: "pais", sortable: false },
       { text: "Departamento", value: "departamento", sortable: false },
       { text: "Ciudad", value: "ciudad", sortable: false },
-      { text: "Direcció", value: "direccion", sortable: false },
+      { text: "Dirección", value: "direccion", sortable: false },
       { text: "Acciones", value: "acciones", sortable: false },
     ],
     filas: [],
@@ -58,8 +58,7 @@ export default Vue.extend({
   methods: {
     async cargarDatos() {
       this.filas = [];
-      const token = JSON.parse(localStorage.getItem("token"));
-      await LISTAR_EMPRESAS_PENDIENTES(token.localId).then((resultado) => {
+      await LISTAR_EMPRESAS_PENDIENTES().then((resultado) => {
         if (resultado.data) {
           this.filas = Object.values(resultado.data);
         }
@@ -80,9 +79,7 @@ export default Vue.extend({
       }).then(async (result) => {
         if (result.isConfirmed) {
           const token = JSON.parse(localStorage.getItem("token"));
-          await ELIMINAR_EMPRESA(token.localId, nit).then((result) =>
-            console.log(result)
-          );
+          await ELIMINAR_EMPRESA(nit);
           await this.cargarDatos();
           await Swal.fire(
             "Eliminada!",

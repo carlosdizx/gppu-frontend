@@ -3,16 +3,25 @@
     <v-data-table :headers="columnas" :items="filas" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Empresas aprobadas</v-toolbar-title>
+          <v-toolbar-title>Empresas</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           {{ new Date().toLocaleDateString().replaceAll("/", "-") }}
         </v-toolbar>
       </template>
-      <template v-slot:item.nit="{ item }">
-        <DocumentosEmpresa :nit="item.nit" />
+      <template v-slot:item.pasantes="{ item }">
+        <PasantesPorEmpresa :pasantes="item.pasantes" v-if="item.pasantes" />
+        <v-btn
+          fab
+          small
+          color="purple"
+          class="elevation-1"
+          v-if="!item.pasantes"
+          disabled
+        >
+          <v-icon>mdi-account-supervisor-outline</v-icon>
+        </v-btn>
       </template>
       <template v-slot:item.convenios="{ item }">
-        <DocumentoRenovacionConvenio @renovado="cargarEmpresas" :datos="item" />
         <ListadoConveniosEmpresa
           :convenios="item.convenios"
           :nombre="item.nombre"
@@ -36,20 +45,19 @@
 
 <script>
 import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
-import DocumentosEmpresa from "./DocumentosEmpresa";
-import ListadoConveniosEmpresa from "./ListadoConveniosEmpresa";
-import DocumentoRenovacionConvenio from "./DocumentoRenovacionConvenio";
-import Vue from "vue";
+import moment from "moment";
+import PasantesPorEmpresa from "../empresas/ListadoPasantesEmpresa";
+import ListadoConveniosEmpresa from "../empresas/ListadoConveniosEmpresa";
 
-export default Vue.extend({
-  name: "ListadoEmpresaAprobadas",
+export default {
+  name: "ListadoEmpresas",
   components: {
-    DocumentosEmpresa,
-    DocumentoRenovacionConvenio,
+    PasantesPorEmpresa,
     ListadoConveniosEmpresa,
   },
   data: () => ({
     columnas: [
+      { text: "Practicantes", value: "pasantes", sortable: false },
       { text: "Nit", value: "nit", sortable: false },
       { text: "Nombre", value: "nombre" },
       { text: "Representante", value: "documento" },
@@ -59,6 +67,10 @@ export default Vue.extend({
       { text: "Departamento", value: "departamento" },
       { text: "Ciudad", value: "ciudad" },
       { text: "Dirección", value: "direccion" },
+      { text: "Fecha de aprobación", value: "inicio" },
+      { text: "Fecha de caducidad", value: "fin" },
+      { text: "Periodo (días)", value: "periodo" },
+      { text: "Días de vigencia", value: "dias" },
       { text: "Convenios", value: "convenios", sortable: false },
     ],
     filas: [],
@@ -66,13 +78,18 @@ export default Vue.extend({
   methods: {
     async cargarEmpresas() {
       try {
-        this.$mount();
-        this.filas = [];
         const token = JSON.parse(localStorage.getItem("token"));
         await LISTAR_EMPRESAS_APROBADAS(token.localId).then(
           async (resultado) => {
             if (resultado.data) {
               this.filas = await Object.values(resultado.data);
+              this.filas.forEach((empresa) => {
+                const fecha1 = moment(new Date().toString());
+                const fecha2 = moment(empresa.fin);
+                const fecha3 = moment(empresa.inicio);
+                empresa.periodo = fecha2.diff(fecha3, "days");
+                empresa.dias = fecha2.diff(fecha1, "days");
+              });
             }
           }
         );
@@ -81,10 +98,10 @@ export default Vue.extend({
       }
     },
   },
-  mounted() {
+  created() {
     this.cargarEmpresas();
   },
-});
+};
 </script>
 
 <style scoped></style>

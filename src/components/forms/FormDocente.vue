@@ -2,19 +2,16 @@
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
       <v-card-text>
-        <h2>Formulario estudiante</h2>
-        <small> Para estudiantes de la Universidad Mariana </small>
+        <h2>Formulario docente</h2>
+        <small>
+          Para docentes que desean realizar movilidad o práctica en el exterior
+        </small>
       </v-card-text>
       <v-card-subtitle>
         Complete los datos que le sean requeridos
       </v-card-subtitle>
       <v-card-text>
-        <v-form
-          @submit.prevent="registrar"
-          autocomplete="off"
-          :disabled="carga"
-        >
-          <v-alert dense color="secondary" dark>Datos personales</v-alert>
+        <v-form autocomplete="off" :disabled="carga">
           <validation-provider
             v-slot="{ errors }"
             name="Programa académico"
@@ -95,6 +92,25 @@
               </validation-provider>
             </v-col>
           </v-row>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Opciones de habilidades"
+            rules="required"
+          >
+            <v-combobox
+              v-model="habilidadeSeleccionadas"
+              :items="habilidades"
+              item-text="nombre"
+              label="Habilidades"
+              hint="Puede proponer"
+              :error-messages="errors"
+              hide-selected
+              small-chips
+              dense
+              outlined
+              multiple
+            />
+          </validation-provider>
           <v-row>
             <Calendario
               texto="Fecha de expedición"
@@ -182,15 +198,6 @@
               counter
             />
           </validation-provider>
-          <validation-provider v-slot="{ errors }" name="Zona" rules="required">
-            <v-select
-              v-model="zona"
-              label="Zona"
-              :items="['Rural', 'Urbana']"
-              prepend-icon="mdi-map-legend"
-              :error-messages="errors"
-            />
-          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="Correo"
@@ -217,88 +224,6 @@
               counter
             />
           </validation-provider>
-
-          <v-alert dense color="secondary" dark>Datos académicos</v-alert>
-
-          <validation-provider
-            v-slot="{ errors }"
-            name="Promedio"
-            rules="required"
-          >
-            <v-text-field
-              v-model="promedio"
-              label="Promedio de calificaciones (aprox)"
-              prepend-icon="mdi-counter"
-              type="number"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Semestre"
-            rules="required"
-          >
-            <v-select
-              v-model="semestre"
-              :items="['Décimo', 'Noveno', 'Octavo', 'Otro']"
-              label="Semestre"
-              prepend-icon="mdi-circle-half-full"
-              :error-messages="errors"
-            />
-          </validation-provider>
-
-          <!-- --------------------------------- Preferencias --------------------------------- -->
-
-          <v-alert dense color="secondary" dark>
-            Datos de preferencia de práctica
-          </v-alert>
-
-          <validation-provider
-            v-slot="{ errors }"
-            name="Opciones de habilidades"
-            rules="required"
-          >
-            <v-combobox
-              v-model="habilidadeSeleccionadas"
-              :items="habilidades"
-              item-text="nombre"
-              label="Habilidades"
-              hint="Puede proponer"
-              :error-messages="errors"
-              hide-selected
-              small-chips
-              dense
-              outlined
-              multiple
-            />
-          </validation-provider>
-
-          <validation-provider
-            v-slot="{ errors }"
-            name="Modalidad"
-            rules="required"
-          >
-            <v-select
-              v-model="modalidad"
-              label="Modalidad de trabajo"
-              :items="['Presencial', 'Virtual', 'Mixta', 'No importa']"
-              prepend-icon="mdi-home-plus"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Tipo empresa"
-            rules="required"
-          >
-            <v-select
-              v-model="tipoEmp"
-              label="Tipo de empresa"
-              :items="['Privada', 'Publica']"
-              prepend-icon="mdi-domain"
-              :error-messages="errors"
-            />
-          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="Expectativas"
@@ -312,111 +237,6 @@
               counter
             />
           </validation-provider>
-
-          <!-- --------------------------------- Competencias --------------------------------- -->
-
-          <v-alert dense color="secondary" dark>
-            Competencias Técnicas y profesionales
-          </v-alert>
-
-          <validation-provider
-            v-slot="{ errors }"
-            name="Experiencia"
-            rules="required"
-          >
-            <v-select
-              v-model="experiencia"
-              label="¿Cuenta con experiencia laboral?"
-              :items="['Si', 'No']"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Experiencia ing"
-            rules="required"
-          >
-            <v-select
-              v-model="exp_ingenieria"
-              label="¿Experiencia en el programa académico?"
-              :items="['Si', 'No']"
-              :error-messages="errors"
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Competencias"
-            rules="required|min:20|max:100"
-          >
-            <v-textarea
-              v-model="competencias"
-              label="Competencias técnicas que posee"
-              :error-messages="errors"
-              counter
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Competencias fuertes"
-            rules="required|min:20|max:100"
-          >
-            <v-textarea
-              v-model="comp_fuerte"
-              label="Competencias técnicas en las cuales se considera fuerte"
-              :error-messages="errors"
-              counter
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Aspectos profecionales"
-            rules="required|min:20|max:200"
-          >
-            <v-textarea
-              v-model="aspectos_pro"
-              label="¿Qué aspectos destaca de su perfil profesional?"
-              :error-messages="errors"
-              counter
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Aspectos personales"
-            rules="required|min:20|max:200"
-          >
-            <v-textarea
-              v-model="aspectos_per"
-              label="¿Qué aspectos destaca de su perfil personal?"
-              :error-messages="errors"
-              counter
-            />
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="Aspectos a mejorar"
-            rules="required|min:10|max:200"
-          >
-            <v-textarea
-              v-model="mejoras"
-              label="¿Qué aspectos son susceptibles de mejora por su parte?"
-              :error-messages="errors"
-              counter
-            />
-          </validation-provider>
-
-          <v-alert block dense dark color="info darken-3"> Opcionales </v-alert>
-
-          <v-text-field
-            v-model="url"
-            label="URL Portafolio digital (opcional)"
-            prepend-icon="mdi-web"
-          />
-          <v-file-input
-            v-model="hoja"
-            accept="application/pdf"
-            label="Hoja de vida  (opcional)"
-            prepend-icon="mdi-file-account"
-          />
         </v-form>
       </v-card-text>
 
@@ -450,7 +270,6 @@
               class="white--text"
               color="success darken-2"
               block
-              @click="registrar"
             >
               Registrar
             </v-btn>
@@ -473,7 +292,9 @@
 <script>
 import Calendario from "../general/Calendario.vue";
 import DocumentoPoliticas from "./DocumentoPoliticas";
-import { OPCIONES_CAMPO } from "@/assets/textos";
+import Swal from "sweetalert2";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
+import { OBTENER_HABILIDADES } from "@/services/auth";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -481,16 +302,6 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
-import {
-  ESTUDIANTE_YA_REGISTRADO,
-  REGISTRO_ARCHIVO_ESTUDIANTE,
-  REGISTRO_DATOS_ESTUDIANTE_PENDIENTE,
-  REGISTRO_ESTUDIANTE_PENDIENTE,
-} from "@/services/recursos/estudianteRS";
-import Swal from "sweetalert2";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
-import { OBTENER_HABILIDADES } from "@/services/auth";
-import router from "@/router";
 
 setInteractionMode("eager");
 
@@ -522,17 +333,20 @@ setInteractionMode("eager");
 }
 
 export default {
-  name: "FormEstudiante",
+  name: "FormDocente",
   components: {
-    Calendario,
     ValidationObserver,
     ValidationProvider,
+    Calendario,
     DocumentoPoliticas,
   },
   data: () => ({
-    opcinesCargo: OPCIONES_CAMPO,
+    carga: false,
+    checkbox: false,
     programas: [],
     programa: null,
+    habilidades: [],
+    habilidadeSeleccionadas: [],
     nombres: "",
     apellidos: "",
     tipoDoc: "",
@@ -545,122 +359,11 @@ export default {
     departamento: "",
     ciudad: "",
     direccion: "",
-    zona: "",
     correo: "",
     telefono: null,
-    promedio: null,
-    semestre: "",
-    habilidades: [],
-    habilidadeSeleccionadas: [],
-    modalidad: "",
-    tipoEmp: "",
     expectativas: "",
-    experiencia: "",
-    exp_ingenieria: "",
-    competencias: "",
-    comp_fuerte: "",
-    aspectos_pro: "",
-    aspectos_per: "",
-    mejoras: "",
-    url: "",
-    hoja: null,
-    carga: false,
-    checkbox: false,
   }),
   methods: {
-    async registrar() {
-      if (this.fechaNaci === null || this.fechaExp === null) {
-        return await Swal.fire(
-          "Complete todos los campos",
-          "Fecha de nacimiento y fecha de expedicion de documento de identidad son necesarios",
-          "error"
-        );
-      }
-      const estudiante = {
-        nombres: this.nombres,
-        programa: this.programa.id,
-        apellidos: this.apellidos,
-        tipoDoc: this.tipoDoc,
-        documento: this.documento,
-        fechaExp: this.fechaExp,
-        fechaNaci: this.fechaNaci,
-        genero: this.genero,
-        eps: this.eps,
-        pais: this.pais,
-        departamento: this.departamento,
-        ciudad: this.ciudad,
-        direccion: this.direccion,
-        zona: this.zona,
-        correo: this.correo,
-        telefono: this.telefono,
-        url: this.url,
-        estado: 1,
-      };
-      const datos = {
-        promedio: this.promedio,
-        semestre: this.semestre,
-        habilidades: this.habilidadeSeleccionadas,
-        modalidad: this.modalidad,
-        tipoEmp: this.tipoEmp,
-        expectativas: this.expectativas,
-        experiencia: this.experiencia,
-        exp_ingenieria: this.exp_ingenieria,
-        competencias: this.competencias,
-        comp_fuerte: this.comp_fuerte,
-        aspectos_pro: this.aspectos_pro,
-        aspectos_per: this.aspectos_per,
-        mejoras: this.mejoras,
-      };
-      if (
-        await ESTUDIANTE_YA_REGISTRADO(
-          estudiante.programa,
-          estudiante.documento
-        )
-      ) {
-        return await Swal.fire(
-          "Estudiante ya registrado",
-          "Sus datos ya fueron subidos a plataforma",
-          "error"
-        );
-      }
-      let facha = false;
-      if (this.hoja !== null) {
-        if (this.hoja.type === "application/pdf") {
-          this.carga = true;
-          await REGISTRO_ARCHIVO_ESTUDIANTE(
-            estudiante.programa,
-            estudiante.documento,
-            this.hoja,
-            `hoja_de_vida_${estudiante.documento}`
-          );
-          facha = true;
-        } else {
-          await Swal.fire(
-            "El documento hoja de vida errado",
-            "Solo seleccionar archivos PDF",
-            "error"
-          );
-        }
-      } else {
-        facha = true;
-      }
-      if (facha) {
-        this.carga = true;
-        await REGISTRO_ESTUDIANTE_PENDIENTE(estudiante.programa, estudiante);
-        await REGISTRO_DATOS_ESTUDIANTE_PENDIENTE(
-          estudiante.programa,
-          datos,
-          estudiante.documento
-        );
-        await Swal.fire(
-          "Registro exitoso",
-          "Sus datos serán validados en los próximos días",
-          "success"
-        );
-        this.carga = false;
-        await router.push("/about");
-      }
-    },
     async listadoProgramas() {
       await LISTAR_PROGRAMAS().then(
         (resultado) => (this.programas = Object.values(resultado.data))
@@ -691,3 +394,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

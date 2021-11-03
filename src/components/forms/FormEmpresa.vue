@@ -1,13 +1,19 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <v-card-title>Formulario empresa</v-card-title>
+      <v-card-text>
+        <h2>Formulario empresa</h2>
+        <small> Para empresas que deseen formalizar un convenio. </small>
+      </v-card-text>
       <FormExpressEmpresa />
-      <v-card-subtitle>
-        Si necesita consultar más información antes de subir sus datos e
-        información envíanos un email, haga clic, en el icono rosa de la derecha
-        de arriba.
-      </v-card-subtitle>
+      <v-card-text>
+        Haga clic en el icono
+        <v-chip color="pink" text-color="white">
+          <v-icon>mdi-email-edit-outline</v-icon>
+        </v-chip>
+        para obtener más información de las prácticas o si tienes alguna duda o
+        inquietud para que la resolvamos por ti.
+      </v-card-text>
       <v-card-text>
         <v-form autocomplete="off" :disabled="carga">
           <validation-provider
@@ -126,6 +132,25 @@
               counter
             />
           </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Programas académicos"
+            rules="required"
+          >
+            <v-combobox
+              multiple
+              v-model="programasSeleccionados"
+              :items="programas"
+              item-text="nombre"
+              :error-messages="errors"
+              label="Programa académico de interés"
+              hide-selected
+              small-chips
+              dense
+              outlined
+            >
+            </v-combobox>
+          </validation-provider>
           <v-alert dense color="secondary" dark>
             Tenga preparado los siguientes archivos solicitados en formato PDF.
           </v-alert>
@@ -163,7 +188,7 @@
           >
             <v-file-input
               accept="application/pdf"
-              label="Documento del representante"
+              label="Documento de identidad del representante"
               v-model="archivoDocumento"
               append-icon="mdi-pdf-box"
               :error-messages="errors"
@@ -203,12 +228,17 @@
             <v-checkbox v-model="checkbox">
               <template v-slot:label>
                 <div>
-                  Aceptar nuestras políticas y condiciones sobre el tratamiento
-                  de datos, Estamos comprometidos con la protección de los
-                  mismos para consultarlos cuando sea requerido
+                  Acepta las políticas y condiciones sobre el tratamiento de
+                  datos
+                  <br />
+                  <small>
+                    **Estamos comprometidos con la protección de los mismos para
+                    consultarlos cuando sea requerido**
+                  </small>
                 </div>
               </template>
             </v-checkbox>
+            <DocumentoPoliticas />
           </v-container>
         </template>
       </v-card-text>
@@ -246,11 +276,14 @@
 
 <script>
 import FormExpressEmpresa from "@/components/forms/FormExpressEmpresa";
+import DocumentoPoliticas from "@/components/forms/DocumentoPoliticas";
 import {
-  EMPRESA_YA_REGISTRADA,
-  REGISTRO_ARCHIVO_EMPRESA,
   REGISTRO_DATOS_EMPRESA,
+  EMPRESA_PENDIENTE_YA_REGISTRADA,
+  REGISTRO_ARCHIVO_EMPRESA,
+  EMPRESA_APROBADA_YA_REGISTRADA,
 } from "@/services/recursos/empresaRS";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 import Swal from "sweetalert2";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
@@ -260,7 +293,6 @@ import {
   ValidationProvider,
 } from "vee-validate";
 import router from "@/router";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
 
 setInteractionMode("eager");
 
@@ -296,6 +328,7 @@ export default {
     ValidationObserver,
     ValidationProvider,
     FormExpressEmpresa,
+    DocumentoPoliticas,
   },
   data: () => ({
     nit: "",
@@ -320,9 +353,17 @@ export default {
     dialog: false,
     checkbox: false,
     programas: [],
+    programasSeleccionados: null,
   }),
   methods: {
     async registrar() {
+      if (this.archivoCarta.type !== "application/pdf") {
+        return Swal.fire(
+          "La carta de intención errada",
+          "Solo seleccionar archivos PDF",
+          "error"
+        );
+      }
       if (this.archivoDocumento.type !== "application/pdf") {
         return Swal.fire(
           "El documento del representante errado",
@@ -344,6 +385,23 @@ export default {
           "error"
         );
       }
+      if (this.programasSeleccionados) {
+        let invalido = false;
+        const invalidos = [];
+        this.programasSeleccionados.forEach((programa) => {
+          if (!programa.id) {
+            invalido = true;
+            invalidos.push(programa);
+          }
+        });
+        if (invalido) {
+          return Swal.fire(
+            "Programas academicos incorrectos",
+            "Vuelva a seleccionar los programas academicos, no digite el nombre completo",
+            "error"
+          );
+        }
+      }
       const datos = {
         nit: this.nit,
         nombre: this.nombre,
@@ -354,37 +412,36 @@ export default {
         departamento: this.departamento,
         ciudad: this.ciudad,
         direccion: this.direccion,
+        programas: this.programasSeleccionados,
       };
       let pass = false;
-      for (const programa of this.programas) {
-        await EMPRESA_YA_REGISTRADA(programa.id, datos.nit).then(
-          (resultado) => {
-            if (resultado.data) {
-              return (pass = true);
-            }
-          }
-        );
-      }
+      await EMPRESA_PENDIENTE_YA_REGISTRADA(datos.nit).then((resultado) => {
+        if (resultado.data) {
+          return (pass = true);
+        }
+      });
+
+      await EMPRESA_APROBADA_YA_REGISTRADA(datos.nit).then((resultado) => {
+        if (resultado.data) {
+          return (pass = true);
+        }
+      });
 
       if (!pass) {
         this.carga = true;
-        await this.programas.forEach((programa) => {
-          REGISTRO_DATOS_EMPRESA(programa.id, datos);
-        });
+        await REGISTRO_DATOS_EMPRESA(datos);
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
           this.archivoDocumento,
           "documento_" + datos.nit
-        )
-          .then((result) => console.log(result))
-          .catch((error) =>
-            Swal.fire(
-              "Error al subir el documento del representante",
-              `${error},`,
-              "error"
-            )
-          );
+        ).catch((error) =>
+          Swal.fire(
+            "Error al subir el documento del representante",
+            `${error},`,
+            "error"
+          )
+        );
 
         await REGISTRO_ARCHIVO_EMPRESA(
           datos.nit,
@@ -417,6 +474,7 @@ export default {
             "error"
           )
         );
+
         this.carga = false;
         await Swal.fire(
           "Registro exitoso",
