@@ -121,6 +121,122 @@
               @fecha="fechaNaci = $event"
             />
           </v-row>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Genero"
+            rules="required"
+          >
+            <v-select
+              v-model="genero"
+              label="Género"
+              :items="['Masculino', 'Femenino', 'Otro']"
+              prepend-icon="mdi-gender-male-female"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Eps"
+            rules="required|min:3|max:60"
+          >
+            <v-text-field
+              v-model="eps"
+              label="EPS"
+              prepend-icon="mdi-hospital-building"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="País"
+            rules="required|min:3|max:30"
+          >
+            <v-text-field
+              v-model="pais"
+              label="País"
+              prepend-icon="mdi-earth"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Departamento"
+            rules="required|min:3|max:30"
+          >
+            <v-text-field
+              v-model="departamento"
+              label="Departamento/Estado/Provincia"
+              prepend-icon="mdi-sign-real-estate"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Ciudad"
+            rules="required|min:3|max:30"
+          >
+            <v-text-field
+              v-model="ciudad"
+              label="Ciudad"
+              prepend-icon="mdi-city"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Dirección"
+            rules="required|min:5|max:50"
+          >
+            <v-text-field
+              v-model="direccion"
+              label="Dirección"
+              prepend-icon="mdi-home"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Correo"
+            rules="required|email"
+          >
+            <v-text-field
+              v-model="correo"
+              label="Correo electrónico"
+              prepend-icon="mdi-email"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Télefono"
+            rules="required|min:5|max:20"
+          >
+            <v-text-field
+              v-model="telefono"
+              label="Télefono o Celular"
+              prepend-icon="mdi-phone"
+              type="number"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="Expectativas"
+            rules="required|min:20|max:500"
+          >
+            <v-textarea
+              v-model="expectativas"
+              label="Expectativas de trabajo"
+              prepend-icon="mdi-order-bool-ascending-variant"
+              :error-messages="errors"
+              counter
+            />
+          </validation-provider>
         </v-form>
       </v-card-text>
 
@@ -237,6 +353,15 @@ export default {
     documento: "",
     fechaExp: null,
     fechaNaci: null,
+    genero: "",
+    eps: "",
+    pais: "",
+    departamento: "",
+    ciudad: "",
+    direccion: "",
+    correo: "",
+    telefono: null,
+    expectativas: "",
   }),
   methods: {
     async listadoProgramas() {
