@@ -1,6 +1,6 @@
 import { INSTACIA } from "@/services/axios";
 
-const API_KEY = "AIzaSyDO8hVE9rxb9oP38kTH4qRhqxUcHNtAi3w";
+const API_KEY = "AIzaSyA_ZD2E_MljH_mKuX78Z0IUpw5PRfF4Z24";
 const URL_SING_IN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 const URL_SING_IN_TOKEN = `https://securetoken.googleapis.com/v1/token?key=${API_KEY}`;
 const URL_SING_UP = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
