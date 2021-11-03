@@ -1,13 +1,19 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
-      <v-card-title>Formulario empresa</v-card-title>
+      <v-card-text>
+        <h2>Formulario empresa</h2>
+        <small> Para empresas que deseen formalizar un convenio. </small>
+      </v-card-text>
       <FormExpressEmpresa />
-      <v-card-subtitle>
-        Si necesita consultar más información antes de subir sus datos e
-        información envíanos un email, haga clic, en el icono rosa de la derecha
-        de arriba.
-      </v-card-subtitle>
+      <v-card-text>
+        Haga clic en el icono
+        <v-chip color="pink" text-color="white">
+          <v-icon>mdi-email-edit-outline</v-icon>
+        </v-chip>
+        para obtener más información de las prácticas o si tienes alguna duda o
+        inquietud para que la resolvamos por ti.
+      </v-card-text>
       <v-card-text>
         <v-form autocomplete="off" :disabled="carga">
           <validation-provider
