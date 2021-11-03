@@ -6,14 +6,14 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/registro",
-    name: "Registro",
-    component: () => import("../views/Registro.vue"),
-  },
-  {
     path: "/",
     name: "InicioSesion",
     component: () => import("../views/InicioSesion.vue"),
+  },
+  {
+    path: "/registro",
+    name: "Registro",
+    component: () => import("../views/Registro.vue"),
   },
   {
     path: "/dashboard",
@@ -22,15 +22,15 @@ const routes: Array<RouteConfig> = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
-  },
-  {
     path: "/usuario",
     name: "Usuario",
     component: () => import("../views/Usuario.vue"),
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("../views/About.vue"),
   },
 ];
 
