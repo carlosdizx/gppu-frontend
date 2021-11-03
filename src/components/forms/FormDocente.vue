@@ -111,6 +111,16 @@
               multiple
             />
           </validation-provider>
+          <v-row>
+            <Calendario
+              texto="Fecha de expedición"
+              @fecha="fechaExp = $event"
+            />
+            <Calendario
+              texto="Fecha de nacimiento"
+              @fecha="fechaNaci = $event"
+            />
+          </v-row>
         </v-form>
       </v-card-text>
 
@@ -164,6 +174,7 @@
 </template>
 
 <script>
+import Calendario from "../general/Calendario.vue";
 import DocumentoPoliticas from "./DocumentoPoliticas";
 import Swal from "sweetalert2";
 import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
@@ -210,6 +221,7 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
+    Calendario,
     DocumentoPoliticas,
   },
   data: () => ({
@@ -223,6 +235,8 @@ export default {
     apellidos: "",
     tipoDoc: "",
     documento: "",
+    fechaExp: null,
+    fechaNaci: null,
   }),
   methods: {
     async listadoProgramas() {
