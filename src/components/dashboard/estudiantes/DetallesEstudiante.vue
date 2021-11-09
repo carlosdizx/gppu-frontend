@@ -108,8 +108,8 @@
             disabled
           />
           <v-text-field
-            label="Experiencia en ingeniería"
-            :value="datos.datos.exp_ingenieria"
+            label="Experiencia en el programa académico"
+            :value="datos.datos.exp_programa"
             disabled
           />
           <v-textarea

@@ -70,7 +70,7 @@
                   v-model="tipoDoc"
                   label="Tipo de documento"
                   :items="[
-                    'Cedula de ciudadania',
+                    'Cédula de ciudadania',
                     'Tarjeta de identidad',
                     'Otro',
                   ]"
@@ -337,7 +337,7 @@
             rules="required"
           >
             <v-select
-              v-model="exp_ingenieria"
+              v-model="exp_programa"
               label="¿Experiencia en el programa académico?"
               :items="['Si', 'No']"
               :error-messages="errors"
@@ -533,36 +533,42 @@ export default {
     opcinesCargo: OPCIONES_CAMPO,
     programas: [],
     programa: null,
-    nombres: "",
-    apellidos: "",
-    tipoDoc: "",
-    documento: "",
-    fechaExp: null,
-    fechaNaci: null,
-    genero: "",
-    eps: "",
-    pais: "",
-    departamento: "",
-    ciudad: "",
-    direccion: "",
-    zona: "",
-    correo: "",
-    telefono: null,
-    promedio: null,
-    semestre: "",
+    nombres: "Carlos Ernestos",
+    apellidos: "Díaz Basante",
+    tipoDoc: "Cédula de ciudadania",
+    documento: "108200001",
+    fechaExp: "2021-11-10",
+    fechaNaci: "2021-11-10",
+    genero: "Masculino",
+    eps: "ProInSalud",
+    pais: "Colombia",
+    departamento: "Nariño",
+    ciudad: "Pasto",
+    direccion: "Kra 35 # 18 - 06, Habitación. 203",
+    zona: "Urbana",
+    correo: "carlodiaz@umariana.edu.co",
+    telefono: 3163930876,
+    promedio: 4.5,
+    semestre: "Décimo",
     habilidades: [],
     habilidadeSeleccionadas: [],
-    modalidad: "",
-    tipoEmp: "",
-    expectativas: "",
-    experiencia: "",
-    exp_ingenieria: "",
-    competencias: "",
-    comp_fuerte: "",
-    aspectos_pro: "",
-    aspectos_per: "",
-    mejoras: "",
-    url: "",
+    modalidad: "No importa",
+    tipoEmp: "Privada",
+    expectativas:
+      "Soy muy bueno con el desarrollo de sotfware, me especializo en desarrollo web",
+    experiencia: "Si",
+    exp_programa: "Si",
+    competencias:
+      "Soy muy bueno con el desarrollo de sotfware, me especializo en desarrollo web",
+    comp_fuerte:
+      "Soy muy bueno con el desarrollo de sotfware, me especializo en desarrollo web",
+    aspectos_pro:
+      "Soy muy bueno con el desarrollo de sotfware, me especializo en desarrollo web",
+    aspectos_per:
+      "Soy muy bueno con el desarrollo de sotfware, me especializo en desarrollo web",
+    mejoras:
+      "Soy muy bueno con el desarrollo de sotfware, me especializo en desarrollo web",
+    url: "https://portafolio-carlos-diaz.netlify.app/",
     hoja: null,
     carga: false,
     checkbox: false,
@@ -604,7 +610,7 @@ export default {
         tipoEmp: this.tipoEmp,
         expectativas: this.expectativas,
         experiencia: this.experiencia,
-        exp_ingenieria: this.exp_ingenieria,
+        exp_programa: this.exp_programa,
         competencias: this.competencias,
         comp_fuerte: this.comp_fuerte,
         aspectos_pro: this.aspectos_pro,
