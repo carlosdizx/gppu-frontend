@@ -29,7 +29,7 @@ export default {
   methods: {
     async cargarEmpresas() {
       try {
-        await LISTAR_EMPRESAS_APROBADAS("lxWMzUUF0vZosLQtHyHvXNmztV52").then(
+        await LISTAR_EMPRESAS_APROBADAS("cDA0hgL9k6SQaTyHHS4PYuFmQeZ2").then(
           async (resultado) => {
             if (resultado.data) {
               this.filas = await Object.values(resultado.data);
