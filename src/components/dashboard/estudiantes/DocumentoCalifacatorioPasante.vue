@@ -20,7 +20,7 @@
           <v-text-field label="Nit" disabled v-model="empresa.nit" />
 
           <v-alert dense color="blue-grey" dark>
-            COMPETENCIA APTITUDINAL
+            COMPETENCIA APTITUDINAL Y ACTITUDINAL
           </v-alert>
           ¿Acata las normas y principios de la entidad?
           <v-slider
@@ -29,9 +29,6 @@
             max="5"
             v-model="valoracion1"
           />
-          <v-alert dense color="blue-grey" dark>
-            COMPETENCIA ACTITUDINAL
-          </v-alert>
           Es responsable en el cumplimiento de su horario de trabajo
           <v-slider
             thumb-color="success"
@@ -67,14 +64,7 @@
             max="5"
             v-model="valoracion6"
           />
-          <v-alert dense color="blue-grey" dark>COMPETENCIA TÉCNICA</v-alert>
-          <v-textarea
-            label="Favor listar y describir competencias técnicas en las cuales se ha desempeñado el practicante"
-            counter
-            v-model="competencias"
-          />
-          De acuerdo con los factores técnicos descritos anteriormente. ¿Cómo
-          considera usted que ha sido el desempeño del estudiante en éste corte?
+          ¿Cómo considera que ha sido el desempeño del estudiante?
           <v-slider
             thumb-color="success"
             thumb-label
@@ -82,19 +72,9 @@
             v-model="valoracion7"
           />
           <v-alert dense color="blue-grey" dark>EVALUACIÓN GENERAL</v-alert>
-          <v-textarea
-            label="¿Qué aspectos destaca del estudiante?"
-            counter
-            v-model="aspectos_pro"
-          />
-          <v-textarea
-            label="¿Qué aspectos son susceptibles de mejora por parte del estudiante?"
-            counter
-            v-model="aspectos_por"
-          />
           <v-radio-group
             v-model="radio"
-            label="¿Qué calificación usted le asigna al practicante?"
+            label="¿Qué calificación asigna al practicante?"
           >
             <v-radio :key="-1" label="Cancelado" value="Cancelado" />
             <v-radio :key="0" label="Reasignación" value="Reasignación" />
@@ -105,7 +85,12 @@
               :value="`${(n / 2).toFixed(2)}`"
             />
           </v-radio-group>
-          <v-textarea label="Comentario" counter v-model="comentario" />
+          <v-textarea
+            label="Comentario"
+            background-color="blue-grey lighten-4"
+            counter
+            v-model="comentario"
+          />
           <v-btn
             :disabled="!radio"
             label=""
@@ -141,16 +126,13 @@ export default {
   data: () => ({
     dialog: false,
     empresa: {},
-    valoracion1: null,
-    valoracion2: null,
-    valoracion3: null,
-    valoracion4: null,
-    valoracion5: null,
-    valoracion6: null,
-    valoracion7: null,
-    competencias: "",
-    aspectos_pro: "",
-    aspectos_por: "",
+    valoracion1: 0,
+    valoracion2: 0,
+    valoracion3: 0,
+    valoracion4: 0,
+    valoracion5: 0,
+    valoracion6: 0,
+    valoracion7: 0,
     comentario: "",
     radio: null,
   }),
@@ -206,9 +188,6 @@ export default {
             valoracion6: this.valoracion6,
             valoracion7: this.valoracion7,
             valoracionFinal: this.radio,
-            competencias: this.competencias,
-            aspectos_pro: this.aspectos_pro,
-            aspectos_por: this.aspectos_por,
             comentario: this.comentario,
           },
           empresa: {
