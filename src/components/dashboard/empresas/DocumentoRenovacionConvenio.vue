@@ -139,6 +139,23 @@ export default {
     },
     async renovar() {
       if (this.fechas.length === 2) {
+        if (this.datos.programas) {
+          let invalido = false;
+          const invalidos = [];
+          this.datos.programas.forEach((programa) => {
+            if (!programa.id) {
+              invalido = true;
+              invalidos.push(programa);
+            }
+          });
+          if (invalido) {
+            return Swal.fire(
+              "Programas academicos incorrectos",
+              "Vuelva a seleccionar los programas academicos, no digite el nombre completo",
+              "error"
+            );
+          }
+        }
         const fecha_inicio = moment(this.fechas[0]);
         const fecha_fin = moment(this.fechas[1]);
         const diferencia = fecha_fin.diff(fecha_inicio, "days");
