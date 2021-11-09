@@ -68,24 +68,9 @@
           <v-alert>
             Nota final: {{ datos.calificacion.valoracionFinal }}
           </v-alert>
-          <v-text-field
-            label=""
-            v-model="datos.calificacion.aspectos_pro"
-            disabled
-          />
-          <v-text-field
-            label=""
-            v-model="datos.calificacion.aspectos_por"
-            disabled
-          />
-          <v-text-field
+          <v-textarea
             label=""
             v-model="datos.calificacion.comentario"
-            disabled
-          />
-          <v-text-field
-            label=""
-            v-model="datos.calificacion.competencias"
             disabled
           />
         </v-form>

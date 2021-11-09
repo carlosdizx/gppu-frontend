@@ -10,7 +10,7 @@
     </template>
     <v-card>
       <v-card-text>
-        <v-form>
+        <v-form :disabled="carga">
           <v-alert dense color="blue-grey" dark>Datos estudiante</v-alert>
           <v-text-field label="Nombres" disabled v-model="datos.nombres" />
           <v-text-field label="Apellidos" disabled v-model="datos.apellidos" />
@@ -93,6 +93,7 @@
           />
           <v-btn
             :disabled="!radio"
+            :loading="carga"
             label=""
             @click="registrarEgresado"
             block
@@ -135,6 +136,7 @@ export default {
     valoracion7: 0,
     comentario: "",
     radio: null,
+    carga: false,
   }),
   props: {
     datos: Object,
@@ -157,6 +159,7 @@ export default {
     },
     async reasignarEstudiante() {
       if (this.radio === "Reasignación") {
+        this.carga = true;
         this.datos.estado = 2;
         const token = JSON.parse(localStorage.getItem("token"));
         await ACTUUALIZAR_ESTUDIANTE_PENDIENTE(token.localId, this.datos);
@@ -167,12 +170,15 @@ export default {
         this.empresa.pasantes = pasantes;
         await ASIGNAR_PASANTE_APROBADAS(token.localId, this.empresa);
         this.$emit("reasinado", true);
+        this.carga = false;
         return true;
       }
+      this.carga = false;
       return false;
     },
     async registrarEgresado() {
       if (!(await this.reasignarEstudiante())) {
+        this.carga = true;
         const datos = {
           documento: this.datos.documento,
           nombres: this.datos.nombres,
@@ -219,6 +225,7 @@ export default {
               );
               await this.cargarEmpresa();
               this.dialog = !this.dialog;
+              this.carga = false;
             }
           }
         );
