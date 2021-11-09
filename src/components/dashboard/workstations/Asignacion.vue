@@ -5,7 +5,7 @@
       <v-card-text>
         <v-row>
           <v-col cols="6">
-            <v-form>
+            <v-form :disabled="carga">
               <v-combobox
                 v-model="empresa"
                 :items="empresas"
@@ -96,6 +96,7 @@
         <v-btn
           block
           :disabled="!empresa || !estudiante"
+          :loading="carga"
           color="success"
           @click="registrarworkstation"
         >
@@ -126,9 +127,11 @@ export default {
     estudiantes: [],
     empresa: null,
     estudiante: null,
+    carga: false,
   }),
   methods: {
     async cargarEmpresas() {
+      this.empresas = [];
       try {
         const token = JSON.parse(localStorage.getItem("token"));
         await LISTAR_EMPRESAS_APROBADAS(token.localId).then((result) => {
@@ -147,6 +150,7 @@ export default {
       }
     },
     async cargarEstudiantes() {
+      this.estudiantes = [];
       try {
         const token = JSON.parse(localStorage.getItem("token"));
         await LISTAR_ESTUDIANTES(token.localId).then((resultado) => {
@@ -170,6 +174,7 @@ export default {
           "error"
         );
       }
+      this.carga = true;
       this.estudiante.estado = 3;
       const token = JSON.parse(localStorage.getItem("token"));
       await ESTUDIANTE_PASANTE(token.localId, this.estudiante);
@@ -187,6 +192,7 @@ export default {
       this.estudiantes = [];
       this.empresa = null;
       this.estudiante = null;
+      this.carga = false;
       await this.cargarEmpresas();
       await this.cargarEstudiantes();
       await Swal.fire({
