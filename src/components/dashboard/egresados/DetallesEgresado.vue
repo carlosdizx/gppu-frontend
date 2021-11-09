@@ -68,9 +68,18 @@
           <v-alert>
             Nota final: {{ datos.calificacion.valoracionFinal }}
           </v-alert>
+          <v-textarea v-model="datos.calificacion.comentario" disabled />
+          <v-alert dense color="blue-grey" dark>
+            Coordinador responsable
+          </v-alert>
           <v-textarea
-            label=""
-            v-model="datos.calificacion.comentario"
+            label="Nombres y apellidos"
+            v-model="datos.responsable.nombres"
+            disabled
+          />
+          <v-textarea
+            label="Documento"
+            v-model="datos.responsable.documento"
             disabled
           />
         </v-form>

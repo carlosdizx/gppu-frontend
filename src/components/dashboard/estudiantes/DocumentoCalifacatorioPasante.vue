@@ -121,6 +121,7 @@ import {
   ACTUUALIZAR_ESTUDIANTE_PENDIENTE,
   ELIMINAR_ESTUDIANTE,
 } from "../../../services/recursos/estudianteRS";
+import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
 
 export default {
   name: "DocumentoCalifacatorioPasante",
@@ -201,6 +202,12 @@ export default {
             nombre: this.empresa.nombre,
           },
         };
+        await OBTENER_DATOS_USUARIO().then((result) => {
+          datos.responsable = {
+            nombres: result.data.nombres + " " + result.data.apellidos,
+            documento: result.data.documento,
+          };
+        });
         const nombre =
           new Date().toLocaleDateString().replaceAll("/", "-") +
           "-" +
