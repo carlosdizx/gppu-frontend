@@ -3,7 +3,11 @@
     <v-app>
       <v-card class="mx-auto my-auto">
         <v-card-title class="mx-auto my-auto">
-          <v-img src="@/assets/GPPU.png" max-width="250" max-height="250" />
+          <v-img
+            src="@/assets/GCEU_sin_fondo.png"
+            max-width="250"
+            max-height="250"
+          />
         </v-card-title>
         <v-card-text>
           <v-form @submit.prevent="iniciarSesion">
