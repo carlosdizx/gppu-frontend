@@ -21,7 +21,7 @@
     <v-card-text class="white--text pt-0">
       La Universidad Mariana o Unimar es una universidad privada católica
       colombiana ubicada en San Juan de Pasto. Cuenta con cinco facultades que
-      ofrecen un total de 20 programas de pregrado.
+      ofrecen un total de 21 programas de pregrado.
     </v-card-text>
 
     <v-divider></v-divider>

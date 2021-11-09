@@ -40,7 +40,11 @@
           <v-text-field label="Celular o télefono" v-model="datos.telefono" />
           <v-row>
             <v-col cols="12" class="text-center">
-              <v-btn :href="datos.url" target="_blank">
+              <v-btn
+                :disabled="datos.url === ''"
+                :href="datos.url"
+                target="_blank"
+              >
                 Portafolio digital <v-icon>mdi-briefcase</v-icon>
               </v-btn>
             </v-col>
