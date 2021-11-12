@@ -67,7 +67,7 @@
                   v-model="tipoDoc"
                   label="Tipo de documento"
                   :items="[
-                    'Cedula de ciudadania',
+                    'Cédula de ciudadania',
                     'Tarjeta de identidad',
                     'Otro',
                   ]"
@@ -270,6 +270,7 @@
               class="white--text"
               color="success darken-2"
               block
+              @click="registrar"
             >
               Registrar
             </v-btn>
@@ -347,21 +348,21 @@ export default {
     programa: null,
     habilidades: [],
     habilidadeSeleccionadas: [],
-    nombres: "",
-    apellidos: "",
-    tipoDoc: "",
-    documento: "",
+    nombres: "Ricardo",
+    apellidos: "Cujar",
+    tipoDoc: "Cédula de ciudadania",
+    documento: "56414565641",
     fechaExp: null,
     fechaNaci: null,
-    genero: "",
-    eps: "",
-    pais: "",
-    departamento: "",
-    ciudad: "",
-    direccion: "",
-    correo: "",
-    telefono: null,
-    expectativas: "",
+    genero: "Masculino",
+    eps: "Emmssanar",
+    pais: "Colombia",
+    departamento: "Nariño",
+    ciudad: "Pasto",
+    direccion: "Kra 50 - 20",
+    correo: "ricardo@umariana.edu.co",
+    telefono: 354456554465,
+    expectativas: "ghbkmgyhbnujgmyhbjnugyhbmnujgnyhbujhgnggyhgygyhu",
   }),
   methods: {
     async listadoProgramas() {
@@ -387,6 +388,26 @@ export default {
       } else {
         this.habilidades = [];
       }
+    },
+    async registrar() {
+      if (!this.programa.id) {
+        return Swal.fire(
+          "Programa academico incorrecto",
+          "Vuelva a seleccionar el programa academico, no digite el nombre completo",
+          "error"
+        );
+      }
+      if (this.fechaNaci === null || this.fechaExp === null) {
+        return await Swal.fire(
+          "Complete todos los campos",
+          "Fecha de nacimiento y fecha de expedicion de documento de identidad son necesarios",
+          "error"
+        );
+      }
+      this.carga = true;
+      setTimeout(() => {
+        this.carga = false;
+      }, 2000);
     },
   },
   async mounted() {

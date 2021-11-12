@@ -582,6 +582,15 @@ export default {
           "error"
         );
       }
+      if (this.programa) {
+        if (!this.programa.id) {
+          return Swal.fire(
+            "Programa academico incorrecto",
+            "Vuelva a seleccionar el programa academico, no digite el nombre completo",
+            "error"
+          );
+        }
+      }
       const estudiante = {
         nombres: this.nombres,
         programa: this.programa.id,
