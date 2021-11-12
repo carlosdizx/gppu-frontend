@@ -407,6 +407,11 @@ export default {
       this.carga = true;
       setTimeout(() => {
         this.carga = false;
+        Swal.fire(
+          "Registro exitoso",
+          "Su registro se ha realizado con exito y paso a un proceso de validación",
+          "success"
+        );
       }, 2000);
     },
   },
