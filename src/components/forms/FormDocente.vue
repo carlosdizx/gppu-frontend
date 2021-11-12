@@ -303,6 +303,11 @@ import {
   ValidationObserver,
   ValidationProvider,
 } from "vee-validate";
+import {
+  DOCENTE_YA_REGISTRADO,
+  REGISTRO_DOCENTE_PENDIENTE,
+} from "@/services/recursos/docentes";
+import router from "@/router";
 
 setInteractionMode("eager");
 
@@ -404,15 +409,41 @@ export default {
           "error"
         );
       }
-      this.carga = true;
-      setTimeout(() => {
-        this.carga = false;
-        Swal.fire(
-          "Registro exitoso",
-          "Su registro se ha realizado con exito y paso a un proceso de validación",
-          "success"
+      const docente = {
+        programa: this.programa.id,
+        nombres: this.nombre,
+        apellidos: this.nombre,
+        tipoDoc: this.tipoDoc,
+        documento: this.documento,
+        habilidades: this.habilidadeSeleccionadas,
+        fechaExp: this.fechaExp,
+        fechaNaci: this.fechaNaci,
+        genero: this.genero,
+        eps: this.eps,
+        pais: this.pais,
+        departamento: this.departamento,
+        ciudad: this.ciudad,
+        direccion: this.direccion,
+        correo: this.correo,
+        telefono: this.telefono,
+        expectativas: this.expectativas,
+      };
+      if (await DOCENTE_YA_REGISTRADO(docente.programa, docente.documento)) {
+        return await Swal.fire(
+          "Docente ya registrado",
+          "Sus datos ya fueron subidos a la plataforma",
+          "error"
         );
-      }, 2000);
+      }
+      this.carga = true;
+      await REGISTRO_DOCENTE_PENDIENTE(docente.programa, docente);
+      await Swal.fire(
+        "Registro exitoso",
+        "Sus datos serán validados en los próximos días",
+        "success"
+      );
+      this.carga = false;
+      await router.push("/about");
     },
   },
   async mounted() {

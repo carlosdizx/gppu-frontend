@@ -592,8 +592,8 @@ export default {
         }
       }
       const estudiante = {
-        nombres: this.nombres,
         programa: this.programa.id,
+        nombres: this.nombres,
         apellidos: this.apellidos,
         tipoDoc: this.tipoDoc,
         documento: this.documento,
@@ -634,7 +634,7 @@ export default {
       ) {
         return await Swal.fire(
           "Estudiante ya registrado",
-          "Sus datos ya fueron subidos a plataforma",
+          "Sus datos ya fueron subidos a la plataforma",
           "error"
         );
       }
