@@ -294,7 +294,7 @@
 import Calendario from "../general/Calendario.vue";
 import DocumentoPoliticas from "./DocumentoPoliticas";
 import Swal from "sweetalert2";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programa";
 import { OBTENER_HABILIDADES } from "@/services/auth";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {

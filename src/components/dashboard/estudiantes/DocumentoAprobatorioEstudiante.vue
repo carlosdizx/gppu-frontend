@@ -146,7 +146,7 @@ import {
   APROBAR_ESTUDIANTE,
   ACTUUALIZAR_ESTUDIANTE_PENDIENTE,
   LISTAR_ARCHIVO_ESTUDIANTE,
-} from "../../../services/recursos/estudianteRS";
+} from "../../../services/recursos/estudiante";
 import Swal from "sweetalert2";
 
 export default {

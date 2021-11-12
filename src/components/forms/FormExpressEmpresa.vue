@@ -121,7 +121,7 @@
 
 <script>
 import DocumentoPoliticas from "./DocumentoPoliticas";
-import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresaRS";
+import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresa";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -131,7 +131,7 @@ import {
 } from "vee-validate";
 import Swal from "sweetalert2";
 import router from "@/router";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programa";
 
 setInteractionMode("eager");
 

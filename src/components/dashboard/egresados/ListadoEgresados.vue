@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { LISTAR_EGRESADOS } from "../../../services/recursos/egresadosRS";
+import { LISTAR_EGRESADOS } from "../../../services/recursos/egresados";
 import DetallesEgresado from "./DetallesEgresado";
 export default {
   name: "ListadoEgresados",

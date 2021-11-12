@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresa";
 import moment from "moment";
 import PasantesPorEmpresa from "../empresas/ListadoPasantesEmpresa";
 import ListadoConveniosEmpresa from "../empresas/ListadoConveniosEmpresa";

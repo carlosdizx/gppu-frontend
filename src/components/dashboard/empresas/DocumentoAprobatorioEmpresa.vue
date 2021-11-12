@@ -307,11 +307,11 @@ import {
   ELIMINAR_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
   REGISTRO_ARCHIVO_EMPRESA,
-} from "../../../services/recursos/empresaRS";
+} from "../../../services/recursos/empresa";
 import Swal from "sweetalert2";
 import shortid from "shortid";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
-import { LISTAR_PROGRAMAS } from "../../../services/recursos/programaRS";
+import { LISTAR_PROGRAMAS } from "../../../services/recursos/programa";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { LISTAR_ARCHIVO_CONVENIO_EMPRESA } from "../../../services/recursos/empresaRS";
+import { LISTAR_ARCHIVO_CONVENIO_EMPRESA } from "../../../services/recursos/empresa";
 
 export default {
   name: "ListadoConveniosEmpresa",

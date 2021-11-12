@@ -111,11 +111,11 @@
 import {
   ASIGNAR_PASANTE_APROBADAS,
   LISTAR_EMPRESAS_APROBADAS,
-} from "../../../services/recursos/empresaRS";
+} from "../../../services/recursos/empresa";
 import {
   ESTUDIANTE_PASANTE,
   LISTAR_ESTUDIANTES,
-} from "../../../services/recursos/estudianteRS";
+} from "../../../services/recursos/estudiante";
 
 import moment from "moment";
 import Swal from "sweetalert2";

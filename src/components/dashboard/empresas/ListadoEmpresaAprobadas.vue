@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresaRS";
+import { LISTAR_EMPRESAS_APROBADAS } from "../../../services/recursos/empresa";
 import DocumentosEmpresa from "./DocumentosEmpresa";
 import ListadoConveniosEmpresa from "./ListadoConveniosEmpresa";
 import DocumentoRenovacionConvenio from "./DocumentoRenovacionConvenio";

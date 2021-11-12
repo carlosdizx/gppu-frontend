@@ -31,7 +31,7 @@ import Vue from "vue";
 import {
   ELIMINAR_ESTUDIANTE,
   LISTAR_ESTUDIANTES,
-} from "../../../services/recursos/estudianteRS";
+} from "../../../services/recursos/estudiante";
 export default Vue.extend({
   name: "ListadoEstudiantesPendientes",
   components: { DocumentoAprobatorioEstudiante },

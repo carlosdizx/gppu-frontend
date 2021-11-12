@@ -114,13 +114,13 @@
 import {
   ASIGNAR_PASANTE_APROBADAS,
   LISTAR_EMPRESAS_APROBADAS,
-} from "../../../services/recursos/empresaRS";
-import { REGISTRO_EGRESADO } from "../../../services/recursos/egresadosRS";
+} from "../../../services/recursos/empresa";
+import { REGISTRO_EGRESADO } from "../../../services/recursos/egresados";
 import Swal from "sweetalert2";
 import {
   ACTUUALIZAR_ESTUDIANTE_PENDIENTE,
   ELIMINAR_ESTUDIANTE,
-} from "../../../services/recursos/estudianteRS";
+} from "../../../services/recursos/estudiante";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
 
 export default {

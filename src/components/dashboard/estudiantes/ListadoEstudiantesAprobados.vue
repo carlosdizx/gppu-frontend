@@ -17,7 +17,7 @@
 
 <script>
 import DetallesEstudiante from "./DetallesEstudiante";
-import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudianteRS";
+import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudiante";
 
 export default {
   name: "ListadoEstudiantesAprobados",

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { LISTAR_EMPRESAS_APROBADAS } from "../../services/recursos/empresaRS";
+import { LISTAR_EMPRESAS_APROBADAS } from "../../services/recursos/empresa";
 export default {
   name: "EmpresasConConvenio",
   data: () => ({

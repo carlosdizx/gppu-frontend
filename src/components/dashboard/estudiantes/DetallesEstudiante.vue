@@ -148,7 +148,7 @@
 
 <script>
 import { jsPDF } from "jspdf";
-import { LISTAR_ARCHIVO_ESTUDIANTE } from "../../../services/recursos/estudianteRS";
+import { LISTAR_ARCHIVO_ESTUDIANTE } from "../../../services/recursos/estudiante";
 
 export default {
   name: "DetallesEstudiante",

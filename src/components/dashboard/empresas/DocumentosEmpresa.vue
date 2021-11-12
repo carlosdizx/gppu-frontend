@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { LISTAR_ARCHIVOS_EMPRESA } from "../../../services/recursos/empresaRS";
+import { LISTAR_ARCHIVOS_EMPRESA } from "../../../services/recursos/empresa";
 
 export default {
   name: "DocumentosEmpresa",

@@ -75,12 +75,12 @@ import {
   ACTUALIZAR_CONVENIO_EMPRESA,
   APROBAR_EMPRESA,
   REGISTRAR_ARCHIVO_CONVENIO,
-} from "../../../services/recursos/empresaRS";
+} from "../../../services/recursos/empresa";
 import CalendarioRango from "../../general/CalendarioRango";
 import Swal from "sweetalert2";
 import moment from "moment";
 import { OBTENER_DATOS_USUARIO } from "../../../services/auth";
-import { LISTAR_PROGRAMAS } from "../../../services/recursos/programaRS";
+import { LISTAR_PROGRAMAS } from "../../../services/recursos/programa";
 import { digits, email, max, min, required } from "vee-validate/dist/rules";
 import {
   extend,

@@ -19,7 +19,7 @@
 <script>
 import DetallesEstudiante from "./DetallesEstudiante";
 import DocumentoCalifacatorioPasante from "./DocumentoCalifacatorioPasante";
-import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudianteRS";
+import { LISTAR_ESTUDIANTES } from "../../../services/recursos/estudiante";
 
 export default {
   name: "ListadoPasantesEmpresa",

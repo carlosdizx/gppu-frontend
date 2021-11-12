@@ -486,9 +486,9 @@ import {
   REGISTRO_ARCHIVO_ESTUDIANTE,
   REGISTRO_DATOS_ESTUDIANTE_PENDIENTE,
   REGISTRO_ESTUDIANTE_PENDIENTE,
-} from "@/services/recursos/estudianteRS";
+} from "@/services/recursos/estudiante";
 import Swal from "sweetalert2";
-import { LISTAR_PROGRAMAS } from "@/services/recursos/programaRS";
+import { LISTAR_PROGRAMAS } from "@/services/recursos/programa";
 import { OBTENER_HABILIDADES } from "@/services/auth";
 import router from "@/router";
 
