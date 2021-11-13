@@ -23,7 +23,7 @@ export default {
   name: "ToolbarRegistro",
   components: { Toolbar, FormEmpresa, FormEstudiante, FormDocente },
   data: () => ({
-    tabs: ["mdi-office-building-marker-outline", "mdi-school", "mdi-teach"],
+    tabs: ["mdi-office-building-marker-outline", "mdi-school"],
     indice: 1,
   }),
   methods: {},
