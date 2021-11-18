@@ -45,11 +45,12 @@
             </validation-provider>
           </v-form>
           <v-btn
+            :loading="carga"
             @click="iniciarSesion"
             block
             color="info"
             type="submit"
-            :disabled="invalid"
+            :disabled="invalid || carga"
           >
             Iniciar sesión
           </v-btn>
@@ -127,6 +128,7 @@ export default {
     mostrarPassword: false,
     email: "",
     password: "",
+    carga: false,
   }),
   computed: {},
   methods: {
@@ -136,7 +138,9 @@ export default {
         email: this.email,
         password: this.password,
       };
+      this.carga = true;
       await this.loguearUsuario(usuario);
+      this.carga = false;
     },
   },
   async mounted() {
