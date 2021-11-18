@@ -11,6 +11,11 @@ export default new Vuex.Store({
   state: {
     token: null,
     error: null,
+    state: {
+      color: localStorage.getItem("color")
+        ? localStorage.getItem("color")
+        : "indigo",
+    },
   },
   mutations: {
     asignarToken(state, payload) {
