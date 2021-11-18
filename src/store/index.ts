@@ -21,6 +21,9 @@ export default new Vuex.Store({
     asignarError(state, payload) {
       state.error = payload;
     },
+    actualizarColor(state, payload) {
+      state.color = payload;
+    },
   },
   actions: {
     registrarError: async ({ commit }, error: any) => {
@@ -70,6 +73,10 @@ export default new Vuex.Store({
     },
     removeUserToken({ commit }) {
       commit("asignarToken", null);
+    },
+    cambarColor: async ({ commit }, color: string) => {
+      localStorage.setItem("color", color);
+      commit("actualizarColor", color);
     },
   },
   modules: {},
