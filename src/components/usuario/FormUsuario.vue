@@ -5,7 +5,7 @@
         <v-card-title>{{ rol }}</v-card-title>
         <v-card-text>
           <v-form autocomplete="off">
-            <v-alert dense dark>{{ programa }}</v-alert>
+            <v-alert dense :color="color" dark>{{ programa }}</v-alert>
             <v-text-field label="Nombres" v-model="nombres" />
             <v-text-field label="Apellidos" v-model="apellidos" />
             <v-text-field label="Documento" v-model="documento" />
@@ -39,7 +39,7 @@ import {
   RISGISTAR_DATOS_USUARIO,
 } from "../../services/auth";
 import Swal from "sweetalert2";
-
+import { mapState } from "vuex";
 export default {
   name: "FormUsuario",
   data: () => ({
@@ -53,6 +53,9 @@ export default {
     habilidades: [],
     mostrarHabilidades: false,
   }),
+  computed: {
+    ...mapState(["color"]),
+  },
   methods: {
     async registrar() {
       const usuario = {
