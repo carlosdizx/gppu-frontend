@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark color="cyan darken-4">
+  <v-app-bar app dark :color="color">
     <v-app-bar-nav-icon @click="changeState"></v-app-bar-nav-icon>
     <v-toolbar-title>GCEU - Universidad Mariana</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -15,10 +15,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "ToolbarNav",
   props: ["nav"],
+  computed: {
+    ...mapState(["color"]),
+  },
   methods: {
     ...mapActions(["removeUserToken"]),
     changeState() {
