@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import { LOGUEAR_USUARIO, LOGUEAR_USUARIO_TOKEN } from "@/services/auth";
 import Swal from "sweetalert2";
 import { CONTIENE_ERROR } from "@/services/validaciones";
-import { REGISTRO_DATOS_EMPRESA } from "@/services/recursos/empresa";
 import router from "@/router";
 Vue.use(Vuex);
 
@@ -11,11 +10,9 @@ export default new Vuex.Store({
   state: {
     token: null,
     error: null,
-    state: {
-      color: localStorage.getItem("color")
-        ? localStorage.getItem("color")
-        : "indigo",
-    },
+    color: localStorage.getItem("color")
+      ? localStorage.getItem("color")
+      : "indigo",
   },
   mutations: {
     asignarToken(state, payload) {

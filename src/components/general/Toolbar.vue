@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar dark color="cyan darken-4" flat>
+    <v-toolbar dark :color="color" flat>
       <router-link v-if="back" to="/" v-slot="{ navigate }" custom>
         <v-btn icon role="link" @click="navigate">
           <v-icon>mdi-arrow-left-bold</v-icon>
@@ -14,7 +14,7 @@
         </v-btn>
       </router-link>
     </v-toolbar>
-    <v-tabs background-color="cyan darken-4" center-active dark>
+    <v-tabs :background-color="color" center-active dark>
       <v-tab v-for="(tab, i) in tabs" :key="i" @click="cambiarIndex(i + 1)">
         <v-icon>{{ tab }}</v-icon>
       </v-tab>
@@ -23,11 +23,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Toolbar",
   data: () => ({
     indice: 1,
   }),
+  computed: {
+    ...mapState(["color"]),
+  },
   props: {
     titulo: String,
     icono: String,
