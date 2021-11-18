@@ -1,9 +1,10 @@
 <template>
   <v-card
     flat
+    :color="color"
     dark
     tile
-    class="cyan darken-4 lighten-1 white--text text-center"
+    class="lighten-1 white--text text-center"
   >
     <v-card-text>
       <v-btn
@@ -36,6 +37,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Footer",
   data: () => ({
@@ -55,6 +57,9 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapState(["color"]),
+  },
 };
 </script>
 

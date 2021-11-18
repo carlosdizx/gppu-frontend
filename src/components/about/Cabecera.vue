@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="cyan darken-4" dark prominent>
+    <v-card :color="color" dark prominent>
       <v-card-text>
         <h1>Información GCEU</h1>
         <br />
@@ -20,8 +20,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Cabecera",
+  computed: {
+    ...mapState(["color"]),
+  },
 };
 </script>
 
