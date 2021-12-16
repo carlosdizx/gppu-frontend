@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <Login />
+    <div>
+      <Login />
+    </div>
   </v-app>
 </template>
 
@@ -14,3 +16,10 @@ export default Vue.extend({
   methods: {},
 });
 </script>
+<style scoped>
+div {
+  background-image: url("../../src/assets/BANNER.jpg");
+  height: 100%;
+  object-fit: fill;
+}
+</style>
