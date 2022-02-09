@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" max-width="600px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="pink"
@@ -16,24 +16,50 @@
         </v-btn>
       </template>
       <v-card>
-        <v-card-title>
-          <span class="text-h5">Formulario express para empresas</span>
-        </v-card-title>
         <v-card-text>
+          <h1>Formulario express para empresas</h1>
+          <br />
+          <v-form autocomplete="off">
+            <hr />
+            <h2>Datos de la Universidad Mariana</h2>
+            <hr />
+          </v-form>
           <v-container>
+            <v-row>
+              <v-col>
+                <v-chip>
+                  <v-icon>mdi-phone</v-icon>
+                  (057) + 7244460 - Cel. 3127306850
+                </v-chip>
+              </v-col>
+              <v-col>
+                <v-chip>
+                  <v-icon>mdi-email</v-icon>
+                  informacion@umariana.edu.co
+                </v-chip>
+              </v-col>
+              <v-col>
+                <v-chip>
+                  <v-icon>mdi-map-marker</v-icon>
+                  Calle 18 No. 34-104 Pasto (N)
+                </v-chip>
+              </v-col>
+            </v-row>
+            <br />
+            <hr />
+            <h2>Sí quieres que te contactemos completa el formulario</h2>
+            <hr />
             <v-form autocomplete="off">
               <v-text-field
                 v-model="nit"
                 label="NIT"
                 prepend-icon="mdi-domain"
-                :error-messages="errors"
                 counter
               />
               <v-text-field
                 v-model="nombre"
                 label="Nombre"
                 prepend-icon="mdi-domain"
-                :error-messages="errors"
                 counter
               />
               <v-text-field
@@ -41,7 +67,6 @@
                 label="Teléfono  o celular"
                 prepend-icon="mdi-phone"
                 type="number"
-                :error-messages="errors"
                 counter
               />
               <v-text-field
@@ -49,7 +74,6 @@
                 label="Correo electrónico"
                 prepend-icon="mdi-email"
                 type="email"
-                :error-messages="errors"
                 counter
               />
             </v-form>
