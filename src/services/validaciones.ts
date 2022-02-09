@@ -43,6 +43,13 @@ export const CONTIENE_ERROR = async (result: any) => {
         "warning"
       );
       await store.dispatch("registrarError", "Sesión expirada");
+    } else if (result.error.message === "USER_DISABLED") {
+      await Swal.fire(
+        "Cuenta bloqueada",
+        "Su cuenta esta desactivada",
+        "warning"
+      );
+      await store.dispatch("registrarError", "Sesión expirada");
     }
   } else {
     await store.dispatch("registrarError", null);
