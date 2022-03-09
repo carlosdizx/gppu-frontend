@@ -17,11 +17,11 @@
       </template>
       <v-card>
         <v-card-text>
-          <h1>Formulario express para empresas</h1>
+          <h1 class="text-center py-5">Formulario express para empresas</h1>
           <br />
           <v-form autocomplete="off">
             <hr />
-            <h2>Datos de la Universidad Mariana</h2>
+            <h2>Datos - {{ entidad }}</h2>
             <hr />
           </v-form>
           <v-container>
@@ -122,6 +122,7 @@ import DocumentoPoliticas from "./DocumentoPoliticas";
 import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresa";
 import Swal from "sweetalert2";
 import router from "@/router";
+import { ENTIDAD_EDUCATIVA } from "@/utilites/Definicion";
 
 export default {
   name: "FormExpressEmpresa",
@@ -130,6 +131,7 @@ export default {
   },
   data: () => ({
     dialog: false,
+    entidad: "",
     nit: "",
     nombre: "",
     telefono: null,
@@ -165,6 +167,9 @@ export default {
       );
       await router.push("/about");
     },
+  },
+  created() {
+    this.entidad = ENTIDAD_EDUCATIVA;
   },
 };
 </script>

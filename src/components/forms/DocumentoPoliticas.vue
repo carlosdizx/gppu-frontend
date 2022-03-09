@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="800">
+  <v-dialog v-model="dialog" max-width="800">
     <v-btn color="red darken-4" dark @click="dialog = !dialog">
       <v-icon>mdi-close</v-icon>
     </v-btn>
@@ -10,53 +10,34 @@
     </template>
     <v-card>
       <v-card-text>
+        <h1 class="py-5 text-center">{{ entidad }}</h1>
+        <br />
         <h1>Políticas de tratamiento de la información y de datos</h1>
         <br />
-        <br />
-        <h2>1. Responsables del tratamiento de los datos</h2>
+        <h2>1. Responsables del tratamiento de los datos.</h2>
         <v-divider />
-        <h3>{{ universidad }}</h3>
-        NIT: 800092198-5 <br />
-        Dirección: Calle 18 No. 34-104 Pasto (N) <br />
-        Correo electrónico: informacion@umariana.edu.co <br />
-        Teléfono: (057) + 7244460 - Cel. 3127306850 <br />
+        <div v-for="(responsable, index) of responsables" :key="index">
+          <h3>{{ responsable.nombre }}</h3>
+          <p>Nit: {{ responsable.nit }}</p>
+          <p>Dirección: {{ responsable.direccion }}</p>
+          <p>Correo electrónico: {{ responsable.correo }}</p>
+          <p>
+            Teléfono: {{ responsable.telefono }} - Cel.
+            {{ responsable.celular }}
+          </p>
+          <v-divider />
+        </div>
+        <h2>2. Política general de tratamiento de protección de datos.</h2>
         <v-divider />
-        <h3>CUEEN</h3>
-        NIT: 800092198-5 <br />
-        Dirección: Sede VIPRI – Cr. 33 No. 5 - 121 Las Acacias, Bloque 5 Oficina
-        201 <br />
-        Correo electrónico: cueenarino_2011@hotmail.com <br />
-        Teléfono: Cel. 3103890788 <br />
+        <p v-html="tratamiento"></p>
         <v-divider />
-        <br /><br />
-        <h2>2. Tratamiento y finalidad</h2>
+        <h2>3. Ámbito de aplicación</h2>
         <v-divider />
-        El tratamiento a la información que realizará la entidad
-        {{ universidad }} con el aval de CUEEN, será: <br /><br />
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        <p v-html="ambito"></p>
         <v-divider />
-        <br /><br />
-        <h2>3. Derechos del titular</h2>
+        <h2>4. Definiciones</h2>
         <v-divider />
-        Como titular de la información tiene derecho a:
-        <br /><br />
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        <p v-html="definiciones"></p>
       </v-card-text>
     </v-card>
     <v-btn color="red darken-4" dark @click="dialog = !dialog">
@@ -66,12 +47,31 @@
 </template>
 
 <script>
+import {
+  AMBITO,
+  DEFINICIONES,
+  ENTIDAD_EDUCATIVA,
+  RESPONSABLES,
+  TRATATMIENTO,
+} from "@/utilites/Definicion";
+
 export default {
   name: "DocumentoPoliticas",
   data: () => ({
     dialog: false,
-    universidad: "Universidad Mariana",
+    entidad: "",
+    responsables: [],
+    tratamiento: "",
+    ambito: "",
+    definiciones: "",
   }),
+  created() {
+    this.entidad = ENTIDAD_EDUCATIVA;
+    this.responsables = RESPONSABLES;
+    this.tratamiento = TRATATMIENTO;
+    this.ambito = AMBITO;
+    this.definiciones = DEFINICIONES;
+  },
 };
 </script>
 

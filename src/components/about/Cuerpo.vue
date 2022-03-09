@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Soy empresa y deseo registrarme</v-card-title>
+    <v-card-text><h2>Soy empresa y deseo registrarme</h2></v-card-text>
     <div class="d-flex flex-column justify-space-between align-center">
       <v-img>
         <iframe
@@ -13,7 +13,7 @@
         />
       </v-img>
     </div>
-    <v-card-title>Soy estudiante y deseo registrarme</v-card-title>
+    <v-card-text><h2>Soy estudiante y deseo registrarme</h2></v-card-text>
     <div class="d-flex flex-column justify-space-between align-center">
       <v-img>
         <iframe
