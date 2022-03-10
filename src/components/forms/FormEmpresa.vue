@@ -2,8 +2,7 @@
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
       <v-card-text>
-        <h2>Formulario empresa</h2>
-        <small> Para empresas que deseen formalizar un convenio. </small>
+        <h1 class="my-5 text-center">Formulario empresas</h1>
       </v-card-text>
       <FormExpressEmpresa />
       <v-card-text>

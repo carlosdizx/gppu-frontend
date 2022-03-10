@@ -1,5 +1,12 @@
 export const ENTIDAD_EDUCATIVA = "Universidad Mariana";
 
+export const ENTIDAD_DATOS = {
+  telefono: "(057) + 7244460",
+  celular: "3127306850",
+  correo: "informacion@umariana.edu.co",
+  direccion: "Calle 18 No. 34-104 Pasto (N)",
+};
+
 export const RESPONSABLES = [
   {
     nombre: "Universidad Mariana",

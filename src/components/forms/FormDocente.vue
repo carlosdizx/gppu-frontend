@@ -2,10 +2,7 @@
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
       <v-card-text>
-        <h2>Formulario docente</h2>
-        <small>
-          Para docentes que desean realizar movilidad o práctica en el exterior
-        </small>
+        <h1 class="my-5 text-center">Formulario docentes</h1>
       </v-card-text>
       <v-card-subtitle>
         Complete los datos que le sean requeridos

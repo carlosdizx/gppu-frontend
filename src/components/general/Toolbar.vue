@@ -6,13 +6,13 @@
           <v-icon>mdi-arrow-left-bold</v-icon>
         </v-btn>
       </router-link>
-      <v-toolbar-title>{{ titulo }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <router-link :to="url" v-slot="{ navigate }" custom>
         <v-btn role="link" @click="navigate" icon>
           <v-icon>{{ icono }}</v-icon>
         </v-btn>
       </router-link>
+      <SelectorColor />
     </v-toolbar>
     <v-tabs :background-color="color" center-active dark>
       <v-tab v-for="(tab, i) in tabs" :key="i" @click="cambiarIndex(i + 1)">
@@ -23,9 +23,11 @@
 </template>
 
 <script>
+import SelectorColor from "@/components/general/SelectorColor";
 import { mapState } from "vuex";
 export default {
   name: "Toolbar",
+  components: { SelectorColor },
   data: () => ({
     indice: 1,
   }),

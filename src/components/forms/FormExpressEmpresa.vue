@@ -17,8 +17,9 @@
       </template>
       <v-card>
         <v-card-text>
-          <h1 class="text-center py-5">Formulario express para empresas</h1>
-          <br />
+          <v-card-text>
+            <h1 class="my-5 text-center">Formulario express para empresas</h1>
+          </v-card-text>
           <v-form autocomplete="off">
             <hr />
             <h2>Datos - {{ entidad }}</h2>
@@ -26,22 +27,22 @@
           </v-form>
           <v-container>
             <v-row>
-              <v-col>
-                <v-chip>
+              <v-col cols="8">
+                <v-chip :color="color" dark>
                   <v-icon>mdi-phone</v-icon>
-                  (057) + 7244460 - Cel. 3127306850
+                  {{ datos.telefono }} - Cel. {{ datos.celular }}
                 </v-chip>
               </v-col>
-              <v-col>
-                <v-chip>
+              <v-col cols="8">
+                <v-chip :color="color" dark>
                   <v-icon>mdi-email</v-icon>
-                  informacion@umariana.edu.co
+                  {{ datos.correo }}
                 </v-chip>
               </v-col>
-              <v-col>
-                <v-chip>
+              <v-col cols="8">
+                <v-chip :color="color" dark>
                   <v-icon>mdi-map-marker</v-icon>
-                  Calle 18 No. 34-104 Pasto (N)
+                  {{ datos.direccion }}
                 </v-chip>
               </v-col>
             </v-row>
@@ -122,7 +123,8 @@ import DocumentoPoliticas from "./DocumentoPoliticas";
 import { REGISTRO_DATOS_EXPRESS_EMPRESA } from "@/services/recursos/empresa";
 import Swal from "sweetalert2";
 import router from "@/router";
-import { ENTIDAD_EDUCATIVA } from "@/utilites/Definicion";
+import { ENTIDAD_DATOS, ENTIDAD_EDUCATIVA } from "@/utilites/Definicion";
+import { mapState } from "vuex";
 
 export default {
   name: "FormExpressEmpresa",
@@ -132,6 +134,7 @@ export default {
   data: () => ({
     dialog: false,
     entidad: "",
+    datos: "",
     nit: "",
     nombre: "",
     telefono: null,
@@ -168,8 +171,12 @@ export default {
       await router.push("/about");
     },
   },
+  computed: {
+    ...mapState(["color"]),
+  },
   created() {
     this.entidad = ENTIDAD_EDUCATIVA;
+    this.datos = ENTIDAD_DATOS;
   },
 };
 </script>

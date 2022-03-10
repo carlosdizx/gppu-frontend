@@ -2,8 +2,7 @@
   <validation-observer ref="observer" v-slot="{ invalid }">
     <v-card max-width="800" class="mx-auto my-auto">
       <v-card-text>
-        <h2>Formulario estudiante</h2>
-        <small> Para estudiantes de la Universidad Mariana </small>
+        <h1 class="my-5 text-center">Formulario estudiantes</h1>
       </v-card-text>
       <v-card-subtitle>
         Complete los datos que le sean requeridos
