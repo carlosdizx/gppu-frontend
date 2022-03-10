@@ -1,11 +1,5 @@
 <template>
-  <v-card
-    flat
-    :color="color"
-    dark
-    tile
-    class="lighten-1 white--text text-center"
-  >
+  <v-card flat :color="color" dark tile class="white--text text-center">
     <v-card-text>
       <v-btn
         v-for="item in items"
