@@ -1,7 +1,9 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-text><h2>Bienvenido, a la plataforma GCEU</h2></v-card-text>
+      <v-card-text
+        ><h2>Bienvenido, a la plataforma {{ proyecto }}</h2></v-card-text
+      >
       <v-alert>
         En la parte superior izquierda de la pantalla encontrará un icono
         <v-icon>mdi-view-sequential</v-icon> con la cual podrá navegar sobre las
@@ -45,10 +47,12 @@
 
 <script>
 import { OBTENER_DATOS_USUARIO } from "../../services/auth";
+import { NOMBRE_PROYECTO } from "@/utilites/Definicion";
 
 export default {
   name: "Welcome",
   data: () => ({
+    proyecto: "",
     rol: "",
     programa: "",
   }),
@@ -66,6 +70,7 @@ export default {
     },
   },
   async mounted() {
+    this.proyecto = NOMBRE_PROYECTO;
     await this.cargarInfoUsuario();
   },
 };

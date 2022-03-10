@@ -1,3 +1,5 @@
+export const NOMBRE_PROYECTO = "GCEU";
+
 export const ENTIDAD_EDUCATIVA = "Universidad Mariana";
 
 export const ENTIDAD_DATOS = {

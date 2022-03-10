@@ -1,16 +1,25 @@
 <template>
   <v-navigation-drawer v-model="nav" relative app>
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title>{{ cargo }}</v-list-item-title>
-        <v-list-item-subtitle>
-          {{ nombres + " " + apellidos }}
-        </v-list-item-subtitle>
-        <v-list-item-action-text>{{ programa }}</v-list-item-action-text>
-      </v-list-item-content>
-    </v-list-item>
-
-    <v-divider></v-divider>
+    <v-card class="elevation-2 pd-4">
+      <h1 class="text-center mt-2">
+        <router-link to="usuario" v-slot="{ navigate }" custom>
+          <v-btn dark icon @click="navigate">
+            <v-avatar :color="color" justify="center">
+              <v-icon> mdi-account-circle </v-icon>
+            </v-avatar>
+          </v-btn>
+        </router-link>
+      </h1>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ cargo }}</v-list-item-title>
+          <v-list-item-subtitle>
+            {{ nombres + " " + apellidos }}
+          </v-list-item-subtitle>
+          <v-list-item-action-text>{{ programa }}</v-list-item-action-text>
+        </v-list-item-content>
+      </v-list-item>
+    </v-card>
 
     <v-list nav dense>
       <div v-if="rol === 2">
@@ -96,6 +105,7 @@
 
 <script>
 import { OBTENER_DATOS_USUARIO } from "../../services/auth";
+import { mapState } from "vuex";
 
 export default {
   name: "NavDrawer",
@@ -108,6 +118,9 @@ export default {
     cargo: "",
     rol: 0,
   }),
+  computed: {
+    ...mapState(["color"]),
+  },
   methods: {
     changeElement(idItem) {
       this.$emit("changeDrawer", idItem);
