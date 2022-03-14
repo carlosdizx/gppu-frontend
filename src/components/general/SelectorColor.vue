@@ -1,8 +1,7 @@
 <template>
   <v-menu offset-y>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="blue-grey" dark v-bind="attrs" v-on="on">
-        <span class="mr-2">Color principal</span>
+      <v-btn icon v-bind="attrs" v-on="on">
         <v-icon>mdi-palette</v-icon>
       </v-btn>
     </template>
