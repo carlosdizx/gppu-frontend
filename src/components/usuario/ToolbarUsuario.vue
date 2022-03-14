@@ -1,5 +1,5 @@
 <template>
-  <v-card :color="color">
+  <v-card :color="color" dark>
     <v-card-text>
       <router-link to="dashboard" v-slot="{ navigate }" custom>
         <v-btn icon @click="navigate" dark>
@@ -9,19 +9,17 @@
       <v-alert dense :color="color" dark>
         <h1>Información del usuario</h1>
       </v-alert>
-      <SelectorColor />
     </v-card-text>
   </v-card>
 </template>
 
 <script lang="ts">
-import SelectorColor from "@/components/general/SelectorColor.vue";
+import Vue from "vue";
 import { mapState } from "vuex";
-export default {
+export default Vue.extend({
   name: "ToolbarUsuario",
-  components: { SelectorColor },
   computed: {
     ...mapState(["color"]),
   },
-};
+});
 </script>
