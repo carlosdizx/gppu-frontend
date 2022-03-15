@@ -24,3 +24,5 @@ pnpm-debug.log*
 /.firebase/
 
 package-lock.json
+# Local Netlify folder
+.netlify

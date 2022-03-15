@@ -5,7 +5,6 @@
         <h1>Información GCEU</h1>
         <br />
         <SelectorColor />
-        <br />
         <router-link to="/" v-slot="{ navigate }" custom>
           <v-btn @click="navigate" icon dark>
             <v-icon>mdi-login</v-icon>
